@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gd774.effic.mapper.UserMapper">
+  <resultMap type="com.gd774.effic.dto.UserDto" id="UserMap">
+    <!-- <id      property="eid"          column="EMP_ID"/> -->
+	<result  property="eid"          column="EMP_ID"/>
+	<result  property="permCode"     column="PERM_CODE"/>
+	<result  property="name"         column="NAME"/>
+    <result  property="email"        column="EMAIL"/>
+	<result  property="phone"        column="PHONE"/>
+  </resultMap>
+
+  <select id="getUserByIdAndPw"
+		  resultMap="UserMap">
+	SELECT EMP_ID, NAME, EMAIL, PERM_CODE FROM USER_T
+	<where>
+	  <if test="eid!=null">EMP_ID = #{eid}</if>
+      <if test="pw!=null">AND PASSWORD = #{pw}</if>
+	</where>
+  </select>
+
+</mapper>

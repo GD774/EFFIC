@@ -52,5 +52,10 @@ public class UserController {
 	public void leave(HttpServletRequest request, HttpServletResponse response) {
 		//
 	}
+	
+	@GetMapping(value = "calendar")
+  public String calendartemp(HttpServletRequest request, HttpServletResponse response) {
+    return "calendar/calendar";
+  }
 
 }

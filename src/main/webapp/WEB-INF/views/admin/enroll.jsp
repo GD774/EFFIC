@@ -122,7 +122,7 @@
                 />
               </svg>
 
-              어플 설정
+              Dashboard
 
               <svg
                 class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
@@ -153,7 +153,7 @@
                     class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                     href="index.html"
                     :class="page === 'ecommerce' && '!text-white'"
-                    >설정 1
+                    >eCommerce
                   </a>
                 </li>
               </ul>
@@ -161,6 +161,236 @@
             <!-- Dropdown Menu End -->
           </li>
           <!-- Menu Item Dashboard -->
+
+          <!-- Menu Item Calendar -->
+          <li>
+            <a
+              class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+              href="#"
+              @click="selected = (selected === 'Calendar' ? '':'Calendar')"
+              :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Calendar') && (page === 'calendar') }"
+            >
+              <svg
+                class="fill-current"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.7499 2.9812H14.2874V2.36245C14.2874 2.02495 14.0062 1.71558 13.6405 1.71558C13.2749 1.71558 12.9937 1.99683 12.9937 2.36245V2.9812H4.97803V2.36245C4.97803 2.02495 4.69678 1.71558 4.33115 1.71558C3.96553 1.71558 3.68428 1.99683 3.68428 2.36245V2.9812H2.2499C1.29365 2.9812 0.478027 3.7687 0.478027 4.75308V14.5406C0.478027 15.4968 1.26553 16.3125 2.2499 16.3125H15.7499C16.7062 16.3125 17.5218 15.525 17.5218 14.5406V4.72495C17.5218 3.7687 16.7062 2.9812 15.7499 2.9812ZM1.77178 8.21245H4.1624V10.9968H1.77178V8.21245ZM5.42803 8.21245H8.38115V10.9968H5.42803V8.21245ZM8.38115 12.2625V15.0187H5.42803V12.2625H8.38115ZM9.64678 12.2625H12.5999V15.0187H9.64678V12.2625ZM9.64678 10.9968V8.21245H12.5999V10.9968H9.64678ZM13.8374 8.21245H16.228V10.9968H13.8374V8.21245ZM2.2499 4.24683H3.7124V4.83745C3.7124 5.17495 3.99365 5.48433 4.35928 5.48433C4.7249 5.48433 5.00615 5.20308 5.00615 4.83745V4.24683H13.0499V4.83745C13.0499 5.17495 13.3312 5.48433 13.6968 5.48433C14.0624 5.48433 14.3437 5.20308 14.3437 4.83745V4.24683H15.7499C16.0312 4.24683 16.2562 4.47183 16.2562 4.75308V6.94683H1.77178V4.75308C1.77178 4.47183 1.96865 4.24683 2.2499 4.24683ZM1.77178 14.5125V12.2343H4.1624V14.9906H2.2499C1.96865 15.0187 1.77178 14.7937 1.77178 14.5125ZM15.7499 15.0187H13.8374V12.2625H16.228V14.5406C16.2562 14.7937 16.0312 15.0187 15.7499 15.0187Z"
+                  fill=""
+                />
+              </svg>
+
+              일정
+			  <svg
+                class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                :class="{ 'rotate-180': (selected === 'Calendar') }"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                  fill=""
+                />
+              </svg>
+            </a>
+			<div
+              class="translate transform overflow-hidden"
+              :class="(selected === 'Calendar') ? 'block' :'hidden'"
+            >
+              <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
+                <li>
+                  <a
+                    class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                    href="form-elements.html"
+                    :class="page === 'formElements' && '!text-white'"
+                    >일정 하위 1</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                    href="form-layout.html"
+                    :class="page === 'formLayout' && '!text-white'"
+                    >일정 하위 2</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <!-- Menu Item Calendar -->
+
+		  <!-- Menu Item Tables -->
+          <li>
+            <a
+              class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+              href="#"
+              @click="selected = (selected === 'Tables' ? '':'Tables')"
+              :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Tables') && (page === 'tables') }"
+            >
+              <svg
+                class="fill-current"
+                width="18"
+                height="19"
+                viewBox="0 0 18 19"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_130_9756)">
+                  <path
+                    d="M15.7501 0.55835H2.2501C1.29385 0.55835 0.506348 1.34585 0.506348 2.3021V15.8021C0.506348 16.7584 1.29385 17.574 2.27822 17.574H15.7782C16.7345 17.574 17.5501 16.7865 17.5501 15.8021V2.3021C17.522 1.34585 16.7063 0.55835 15.7501 0.55835ZM6.69385 10.599V6.4646H11.3063V10.5709H6.69385V10.599ZM11.3063 11.8646V16.3083H6.69385V11.8646H11.3063ZM1.77197 6.4646H5.45635V10.5709H1.77197V6.4646ZM12.572 6.4646H16.2563V10.5709H12.572V6.4646ZM2.2501 1.82397H15.7501C16.0313 1.82397 16.2563 2.04897 16.2563 2.33022V5.2271H1.77197V2.3021C1.77197 2.02085 1.96885 1.82397 2.2501 1.82397ZM1.77197 15.8021V11.8646H5.45635V16.3083H2.2501C1.96885 16.3083 1.77197 16.0834 1.77197 15.8021ZM15.7501 16.3083H12.572V11.8646H16.2563V15.8021C16.2563 16.0834 16.0313 16.3083 15.7501 16.3083Z"
+                    fill=""
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_130_9756">
+                    <rect
+                      width="18"
+                      height="18"
+                      fill="white"
+                      transform="translate(0 0.052124)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+
+              예약
+			  <svg
+                class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                :class="{ 'rotate-180': (selected === 'Tables') }"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                  fill=""
+                />
+              </svg>
+            </a>
+			<div
+              class="translate transform overflow-hidden"
+              :class="(selected === 'Tables') ? 'block' :'hidden'"
+            >
+              <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
+                <li>
+                  <a
+                    class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                    href="form-elements.html"
+                    :class="page === 'formElements' && '!text-white'"
+                    >예약 하위 1</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                    href="form-layout.html"
+                    :class="page === 'formLayout' && '!text-white'"
+                    >예약 하위 2</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <!-- Menu Item Tables -->
+
+          <!-- Menu Item Forms -->
+          <li>
+            <a
+              class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+              href="#"
+              @click.prevent="selected = (selected === 'Forms' ? '':'Forms')"
+              :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Forms') || (page === 'formElements' || page === 'formLayout') }"
+            >
+              <svg
+                class="fill-current"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.43425 7.5093H2.278C2.44675 7.5093 2.55925 7.3968 2.58737 7.31243L2.98112 6.32805H5.90612L6.27175 7.31243C6.328 7.48118 6.46862 7.5093 6.58112 7.5093H7.453C7.76237 7.48118 7.87487 7.25618 7.76237 7.03118L5.428 1.4343C5.37175 1.26555 5.3155 1.23743 5.14675 1.23743H3.88112C3.76862 1.23743 3.59987 1.29368 3.57175 1.4343L1.153 7.08743C1.0405 7.2843 1.20925 7.5093 1.43425 7.5093ZM4.47175 2.98118L5.3155 5.17493H3.59987L4.47175 2.98118Z"
+                  fill=""
+                />
+                <path
+                  d="M10.1249 2.5031H16.8749C17.2124 2.5031 17.5218 2.22185 17.5218 1.85623C17.5218 1.4906 17.2405 1.20935 16.8749 1.20935H10.1249C9.7874 1.20935 9.47803 1.4906 9.47803 1.85623C9.47803 2.22185 9.75928 2.5031 10.1249 2.5031Z"
+                  fill=""
+                />
+                <path
+                  d="M16.8749 6.21558H10.1249C9.7874 6.21558 9.47803 6.49683 9.47803 6.86245C9.47803 7.22808 9.75928 7.50933 10.1249 7.50933H16.8749C17.2124 7.50933 17.5218 7.22808 17.5218 6.86245C17.5218 6.49683 17.2124 6.21558 16.8749 6.21558Z"
+                  fill=""
+                />
+                <path
+                  d="M16.875 11.1656H1.77187C1.43438 11.1656 1.125 11.4469 1.125 11.8125C1.125 12.1781 1.40625 12.4594 1.77187 12.4594H16.875C17.2125 12.4594 17.5219 12.1781 17.5219 11.8125C17.5219 11.4469 17.2125 11.1656 16.875 11.1656Z"
+                  fill=""
+                />
+                <path
+                  d="M16.875 16.1156H1.77187C1.43438 16.1156 1.125 16.3969 1.125 16.7625C1.125 17.1281 1.40625 17.4094 1.77187 17.4094H16.875C17.2125 17.4094 17.5219 17.1281 17.5219 16.7625C17.5219 16.3969 17.2125 16.1156 16.875 16.1156Z"
+                  fill="white"
+                />
+              </svg>
+
+              전자결재
+
+              <svg
+                class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
+                :class="{ 'rotate-180': (selected === 'Forms') }"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                  fill=""
+                />
+              </svg>
+            </a>
+
+            <!-- Dropdown Menu Start -->
+            <div
+              class="translate transform overflow-hidden"
+              :class="(selected === 'Forms') ? 'block' :'hidden'"
+            >
+              <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
+                <li>
+                  <a
+                    class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                    href="form-elements.html"
+                    :class="page === 'formElements' && '!text-white'"
+                    >전자결재 하위 1</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+                    href="form-layout.html"
+                    :class="page === 'formLayout' && '!text-white'"
+                    >전자결재 하위 2</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- Dropdown Menu End -->
+          </li>
+          <!-- Menu Item Forms -->
 
 		  <!-- Menu Item Ui Elements -->
           <li>
@@ -204,7 +434,7 @@
                 </defs>
               </svg>
 
-              조직 설정
+              쪽지
 
               <svg
                 class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
@@ -235,7 +465,7 @@
                     class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                     href="alerts.html"
                     :class="page === 'alerts' && '!text-white'"
-                    >부서 편집</a
+                    >쪽지 하위 1</a
                   >
                 </li>
 
@@ -244,7 +474,7 @@
                     class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                     href="buttons.html"
                     :class="page === 'buttons' && '!text-white'"
-                    >직위 편집</a
+                    >쪽지 하위 2</a
                   >
                 </li>
               </ul>
@@ -386,7 +616,7 @@
                 </defs>
               </svg>
 
-              접속 관리
+              로그인
 
               <svg
                 class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
@@ -417,7 +647,7 @@
                     class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                     href="signin.html"
                     :class="page === 'signin' && '!text-white'"
-                    >기능 1</a
+                    >로그인</a
                   >
                 </li>
                 <li>
@@ -425,7 +655,7 @@
                     class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                     href="signup.html"
                     :class="page === 'signup' && '!text-white'"
-                    >기능 2</a
+                    >로그아웃</a
                   >
                 </li>
               </ul>
@@ -453,111 +683,10 @@
         <!-- ===== Main Content Start ===== -->
         <main>
 
-		  <div
-              class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
-            >
-              <div class="flex flex-wrap items-center">
-                <div
-                  class="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2"
-                >
-                  <div class="w-full p-4 sm:p-12.5 xl:p-17.5">
-                    <h2
-                      class="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2"
-                    >
-                      사원 등록
-                    </h2>
-
-                    <form action="${contextPath}/humanresource/enroll" method="POST">
-                      <div class="mb-4">
-                        <label
-                          class="mb-2.5 block font-medium text-black dark:text-white"
-                          >사원번호</label
-                        >
-                        <div class="relative">
-                          <input
-							id="eid"
-                            type="text"
-							name="eid"
-                            placeholder="사원번호"
-                            class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                          />
-
-                          <span class="absolute right-4 top-4">
-                            <svg
-                              class="fill-current"
-                              width="22"
-                              height="22"
-                              viewBox="0 0 22 22"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g opacity="0.5">
-                                <path
-                                  d="M11.0008 9.52185C13.5445 9.52185 15.607 7.5281 15.607 5.0531C15.607 2.5781 13.5445 0.584351 11.0008 0.584351C8.45703 0.584351 6.39453 2.5781 6.39453 5.0531C6.39453 7.5281 8.45703 9.52185 11.0008 9.52185ZM11.0008 2.1656C12.6852 2.1656 14.0602 3.47185 14.0602 5.08748C14.0602 6.7031 12.6852 8.00935 11.0008 8.00935C9.31641 8.00935 7.94141 6.7031 7.94141 5.08748C7.94141 3.47185 9.31641 2.1656 11.0008 2.1656Z"
-                                  fill=""
-                                />
-                                <path
-                                  d="M13.2352 11.0687H8.76641C5.08828 11.0687 2.09766 14.0937 2.09766 17.7719V20.625C2.09766 21.0375 2.44141 21.4156 2.88828 21.4156C3.33516 21.4156 3.67891 21.0719 3.67891 20.625V17.7719C3.67891 14.9531 5.98203 12.6156 8.83516 12.6156H13.2695C16.0883 12.6156 18.4258 14.9187 18.4258 17.7719V20.625C18.4258 21.0375 18.7695 21.4156 19.2164 21.4156C19.6633 21.4156 20.007 21.0719 20.007 20.625V17.7719C19.9039 14.0937 16.9133 11.0687 13.2352 11.0687Z"
-                                  fill=""
-                                />
-                              </g>
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-
-                      <div class="mb-4">
-                        <label
-                          class="mb-2.5 block font-medium text-black dark:text-white"
-                          >비밀번호</label
-                        >
-                        <div class="relative">
-                          <input
-							id="pw"
-                            type="password"
-							name="pw"
-                            placeholder="비밀번호"
-                            class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                          />
-
-                          <span class="absolute right-4 top-4">
-                            <svg
-                              class="fill-current"
-                              width="22"
-                              height="22"
-                              viewBox="0 0 22 22"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g opacity="0.5">
-                                <path
-                                  d="M16.1547 6.80626V5.91251C16.1547 3.16251 14.0922 0.825009 11.4797 0.618759C10.0359 0.481259 8.59219 0.996884 7.52656 1.95938C6.46094 2.92188 5.84219 4.29688 5.84219 5.70626V6.80626C3.84844 7.18438 2.33594 8.93751 2.33594 11.0688V17.2906C2.33594 19.5594 4.19219 21.3813 6.42656 21.3813H15.5016C17.7703 21.3813 19.6266 19.525 19.6266 17.2563V11C19.6609 8.93751 18.1484 7.21876 16.1547 6.80626ZM8.55781 3.09376C9.31406 2.40626 10.3109 2.06251 11.3422 2.16563C13.1641 2.33751 14.6078 3.98751 14.6078 5.91251V6.70313H7.38906V5.67188C7.38906 4.70938 7.80156 3.78126 8.55781 3.09376ZM18.1141 17.2906C18.1141 18.7 16.9453 19.8688 15.5359 19.8688H6.46094C5.05156 19.8688 3.91719 18.7344 3.91719 17.325V11.0688C3.91719 9.52189 5.15469 8.28438 6.70156 8.28438H15.2953C16.8422 8.28438 18.1141 9.52188 18.1141 11V17.2906Z"
-                                  fill=""
-                                />
-                                <path
-                                  d="M10.9977 11.8594C10.5852 11.8594 10.207 12.2031 10.207 12.65V16.2594C10.207 16.6719 10.5508 17.05 10.9977 17.05C11.4102 17.05 11.7883 16.7063 11.7883 16.2594V12.6156C11.7883 12.2031 11.4102 11.8594 10.9977 11.8594Z"
-                                  fill=""
-                                />
-                              </g>
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-
-                      <div class="mb-5">
-                        <input
-                          type="submit"
-                          value="Create account"
-                          class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90"
-                        />
-                      </div>
-
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- ====== Forms Section End -->
+		  유저 이름: ${user.name} <br>
+		  유저 이메일: ${user.email} <br>
+		  유저 휴대전화: ${user.phone} <br>
+		  등등 유저 정보를 가지고 여기서 구현
 
         </main>
         <!-- ===== Main Content End ===== -->

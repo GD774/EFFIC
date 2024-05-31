@@ -6,22 +6,22 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
 <jsp:include page="../layout/opener.jsp"/>
+<jsp:include page="../layout/sidebar.jsp"/>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+<!-- ===== Content Area Start ===== -->
+<div
+  class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden"
+  >
 
-<link href="${contextPath}/css/dashboard.css" rel="stylesheet">
+  <!-- ===== Header End ===== -->
 
-<div class="container-fluid">
-  <div class="row">
+  <!-- ===== Main Content Start ===== -->
+  <main>
 
-	<jsp:include page="../layout/sidebar.jsp"/>
+	유저 사번: ${user.eid}
 
-    <main class="col ms-sm-auto px-md-4 overflow-auto">
-
-    </main>
-  </div>
+  </main>
+  <!-- ===== Main Content End ===== -->
 </div>
-
-<script src="${contextPath}/js/dashboard.js"></script>
 
 <jsp:include page="../layout/closer.jsp"/>

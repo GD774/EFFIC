@@ -5,8 +5,11 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
-  <div class="closer-wrap">
-  </div>
+</div>
 
-</body>
+<div class="closer-wrap">
+</div>
+
+    <!-- ===== Page Wrapper End ===== -->
+  <script defer src="${contextPath}/js/globalbundle.js"></script></body>
 </html>

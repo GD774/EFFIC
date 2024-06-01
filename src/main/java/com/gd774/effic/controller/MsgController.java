@@ -35,7 +35,7 @@ public class MsgController {
 	
 	@GetMapping(value="/bin.page")
 	public String goBin() {
-		return "msg/inboxDetail";
+		return "msg/bin";
 	}
 	
 	

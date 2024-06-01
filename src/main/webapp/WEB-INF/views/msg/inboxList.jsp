@@ -37,6 +37,7 @@
               <h2 class="text-title-md2 font-bold text-black dark:text-white">
                 받은 메세지
               </h2>
+              
 
               <nav>
                 <ol class="flex items-center gap-2">
@@ -47,13 +48,14 @@
                 </ol>
               </nav>
             </div>
+            <hr style="border-color: #BDBDBD; border-width: 1px; margin-top: 1rem;">
             
-            <div id=button-wrapper>
+            <div id="button-wrapper" class="py-3">
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 </svg>삭제
+                 삭제
              </button>
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 </svg>보관
+                 보관
               </button>
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                       전체선택
@@ -130,6 +132,8 @@
     </div>
   </div>
 </div>
+
+
 
   </div>
   

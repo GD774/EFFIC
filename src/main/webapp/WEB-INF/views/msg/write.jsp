@@ -78,10 +78,10 @@
                       <div class="flex justify-between">
                       <input type="file" class="w-1/2 cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary">
                       <div class="flex">
-                      <button class="mr-5 flex justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                      <button class="mr-5 flex justify-center rounded bg-[#637381] p-3 font-medium text-gray hover:bg-opacity-90">
                         나에게 쓰기
                       </button>
-                      <button type="submit" id="sbm-btn" class="flex justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                      <button type="submit" id="sbm-btn" class="flex justify-center rounded bg-[#212B36] p-3 font-medium text-gray hover:bg-opacity-90">
                         보내기
                       </button>
                       </div>

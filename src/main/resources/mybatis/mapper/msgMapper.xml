@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gd774.effic.mapper.MsgMapper">
+  <resultMap type="com.gd774.effic.dto.MsgDto" id="MsgMap">
+	<result  property="msgId"          column="MSG_ID"/>
+	<result  property="empId"     column="EMP_ID"/>
+	<result  property="title"         column="TITLE"/>
+    <result  property="contents"        column="CONTENTS"/>
+	<result  property="sendDt"        column="SEND_DT"/>
+	<result  property="state"        column="STATE"/>
+	<result  property="isDelete"        column="IS_DELETE"/>
+	<result  property="chkImpt"        column="CHK_IMPT"/>
+  </resultMap>
+
+
+</mapper>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      2 Step Verification | TailAdmin - Tailwind CSS Admin Dashboard Template
+    </title>
+  <link rel="icon" href="favicon.ico"><link href="style.css" rel="stylesheet"></head>
+
+  <body
+    x-data="{ page: 'twoStepVerification', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
+    x-init="
+            darkMode = JSON.parse(localStorage.getItem('darkMode'));
+            $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+    :class="{'dark text-bodydark bg-boxdark-2': darkMode === true}"
+  >
+    <!-- ===== Preloader Start ===== -->
+    <div
+  x-show="loaded"
+  x-init="window.addEventListener('DOMContentLoaded', () => {setTimeout(() => loaded = false, 500)})"
+  class="fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white dark:bg-black"
+>
+  <div
+    class="h-16 w-16 animate-spin rounded-full border-4 border-solid border-primary border-t-transparent"
+  ></div>
+</div>
+
+    <!-- ===== Preloader End ===== -->
+
+    <!-- ===== 2 Step Verification Section Start ===== -->
+    <section class="overflow-hidden px-4 sm:px-8">
+      <div
+        class="flex h-screen flex-col items-center justify-center overflow-hidden"
+      >
+        <div class="no-scrollbar overflow-y-auto py-20">
+          <div class="mx-auto w-full max-w-[480px]">
+            <div class="text-center">
+              <a href="index.html" class="mx-auto mb-10 inline-flex">
+                <img
+                  src="src/images/logo/logo-dark.svg"
+                  alt="logo"
+                  class="dark:hidden"
+                />
+                <img
+                  src="src/images/logo/logo.svg"
+                  alt="logo"
+                  class="hidden dark:block"
+                />
+              </a>
+
+              <div
+                class="rounded-xl bg-white p-4 shadow-14 dark:bg-boxdark lg:p-7.5 xl:p-12.5"
+              >
+                <h1
+                  class="mb-2.5 text-3xl font-black leading-[48px] text-black dark:text-white"
+                >
+                  Verify Your Account
+                </h1>
+
+                <p class="mb-7.5 font-medium">
+                  Enter the 4 digit code sent to the registered email id.
+                </p>
+
+                <form>
+                  <div class="flex items-center gap-4.5">
+                    <input
+                      type="text"
+                      class="w-full rounded-md border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+
+                    <input
+                      type="text"
+                      class="w-full rounded-md border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+
+                    <input
+                      type="text"
+                      class="w-full rounded-md border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+
+                    <input
+                      type="text"
+                      class="w-full rounded-md border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+
+                  <p
+                    class="mb-5 mt-4 text-left font-medium text-black dark:text-white"
+                  >
+                    Did not receive a code?
+                    <button class="text-primary">Resend</button>
+                  </p>
+
+                  <button
+                    class="flex w-full justify-center rounded-md bg-primary p-[13px] font-bold text-gray hover:bg-opacity-90"
+                  >
+                    Verify
+                  </button>
+
+                  <span class="mt-5 block text-red">
+                    Don’t share the verification code with anyone!
+                  </span>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ===== 2 Step Verification Section End ===== -->
+  <script defer src="bundle.js"></script></body>
+</html>

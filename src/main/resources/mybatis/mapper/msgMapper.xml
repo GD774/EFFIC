@@ -16,4 +16,52 @@
   </resultMap>
 
 
+<insert id="insertMsg"
+        parameterType="MsgDto">
+  <selectKey order="BEFORE" keyProperty="msgId" resultType="int">
+	SELECT MSG_SEQ.NEXTVAL
+	  FROM DUAL
+  </selectKey>
+INSERT INTO MSG_T(
+     MSG_ID
+   , EMP_ID
+   , TITLE
+   , CONTENTS
+   , SEND_DT
+   , STATE
+   , IS_DELETE
+   , CHK_IMPT
+ ) VALUES (
+     #{msgId}
+   , #{empId}  
+   , #{title}  
+   , #{contents}
+   , SYSDATE
+   , 0
+   , 0
+   , 0  
+ ) 
+</insert>
+
+<insert id="insertRecp"
+        parameterType="RecpDto">
+INSERT INTO RECP_T(
+     RECP_ID
+   , MSG_ID
+   , EMP_ID
+   , STATE
+   , CHK_IMPT
+ ) VALUES (
+     RECP_SEQ.NEXTVAL
+   , #{msgId}  
+   , #{empId}
+   , 0
+   , 0  
+ ) 
+</insert>
+
+  
+  
+
+
 </mapper>

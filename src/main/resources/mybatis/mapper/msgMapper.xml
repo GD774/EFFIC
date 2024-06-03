@@ -59,9 +59,19 @@ INSERT INTO RECP_T(
    , 0  
  ) 
 </insert>
-
   
-  
+<select id="getMsgCount">
+SELECT COUNT(MSG_ID)
+FROM MSG_T
+</select>
 
+<select id="getListMsg"
+        parameterType="Map"
+        resultMap="MsgMap">
+SELECT M.MSG_ID, R.EMP_ID, M.TITLE, M.SEND_DT, M.STATE, M.CHK_IMPT   
+FROM RECP_T R INNER JOIN MSG_T M
+ON R.MSG_ID = M.MSG_ID
+WHERE M.EMP_ID = #{empId}
+</select> 
 
 </mapper>

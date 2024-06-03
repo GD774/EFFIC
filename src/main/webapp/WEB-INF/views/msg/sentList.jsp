@@ -10,9 +10,7 @@
 
 <style>
 
-#team-btn {
-  margin-left: 70%;
-}
+
 
 #paging {
    padding-left: 40%;
@@ -51,20 +49,23 @@
             
             <hr style="border-color: #BDBDBD; border-width: 1px; margin-top: 1rem;">
             
-            <div id="button-wrapper" class="py-3">
+            <div id="button-wrapper" class="flex justify-between py-3">
+            <div>
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  삭제
              </button>
             <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  보관
               </button>
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80" id="select-all">
                       전체선택
             </button>
-            
+            </div>
+            <div>
            <button id="team-btn" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                       팀메세지
            </button>
+           </div>
           </div>       
           
 
@@ -101,36 +102,8 @@
       <!-- table header end -->
 
       <!-- table body start -->
-      <div class="bg-white dark:bg-boxdark">
-        <!-- table row item -->
-        <div class="grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11"
-        style="grid-template-columns: 50px 50px repeat(9, 1fr);"
-        id="message-list">
-          
-          <div class="col-span-1" style="width:5px;">
-           <input type="checkbox" class="chk">
-          </div>
-
-          <div class="col-span-1" style="width:5px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M11.1034 3.81714C11.4703 3.07397 12.53 3.07397 12.8968 3.81714L14.8577 7.7896C15.0032 8.08445 15.2844 8.28891 15.6098 8.33646L19.9964 8.97763C20.8163 9.09747 21.1431 10.1053 20.5495 10.6835L17.3769 13.7735C17.1411 14.0033 17.0334 14.3344 17.0891 14.6589L17.8376 19.0231C17.9777 19.8401 17.1201 20.4631 16.3865 20.0773L12.4656 18.0153C12.1742 17.8621 11.8261 17.8621 11.5347 18.0153L7.61377 20.0773C6.88014 20.4631 6.02259 19.8401 6.16271 19.0231L6.91122 14.6589C6.96689 14.3344 6.85922 14.0033 6.62335 13.7735L3.45082 10.6835C2.85722 10.1053 3.18401 9.09747 4.00392 8.97763L8.39051 8.33646C8.71586 8.28891 8.99704 8.08445 9.14258 7.7896L11.1034 3.81714Z" fill="#FFD02C"></path>
-            </svg>
-          </div>
-
-          <div class="col-span-2">
-            <p class="text-[#637381] dark:text-bodydark"> 수신자 </p>
-          </div>
-
-          <div class="col-span-5">
-            <p class="text-[#637381] dark:text-bodydark">제목</p>
-          </div>
-          
-         <div class="col-span-2">
-            <p class="text-[#637381] dark:text-bodydark">날짜</p>
-          </div>
-     
-        </div>
-      </div>
+      <div class="bg-white dark:bg-boxdark" id="message-list">
+      
       <!-- table body end -->
     </div>
   </div>
@@ -183,5 +156,58 @@
   </main>
   <!-- ===== Main Content End ===== -->
 </div>
+
+<script>
+
+document.getElementById('select-all').addEventListener('click', function(evt) {
+	  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+	  let allChecked = true;
+
+	  checkboxes.forEach((checkbox) => {
+	    if (!checkbox.checked) {
+	      allChecked = false;
+	    }
+	  });
+
+	  checkboxes.forEach((checkbox) => {
+	    if (allChecked) {
+	      checkbox.checked = false;
+	    } else {
+	      checkbox.checked = true;
+	    }
+	  });
+	});
+
+
+const fnGetMsgList = () => {
+	
+
+       $.ajax({
+		  // 요청
+		  type: 'GET',
+		  url: '${contextPath}/msg/getSentList.do',                // ?page=' + page, 여기 이렇게 박아도 좋지만, url 과 파라미터를 분리할 수 있다면 분리하는 게 좋음. 분리 어떻게 하죠? 바로 아래 data에 적어주면 된다.
+		  // 응답
+		  dataType: 'json',
+		  success: (resData) => {
+				 $.each(resData.msgList, (i, msg) => {
+		    	let str=  '<div data-msg-id="'+ msg.msgId +'" class="grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
+		    	str +=  '<div class="col-span-1" style="width:5px;"><input type="checkbox" class="chk"></div>';
+		    	str += '<div class="col-span-1"  style="width:5px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.1034 3.81714C11.4703 3.07397 12.53 3.07397 12.8968 3.81714L14.8577 7.7896C15.0032 8.08445 15.2844 8.28891 15.6098 8.33646L19.9964 8.97763C20.8163 9.09747 21.1431 10.1053 20.5495 10.6835L17.3769 13.7735C17.1411 14.0033 17.0334 14.3344 17.0891 14.6589L17.8376 19.0231C17.9777 19.8401 17.1201 20.4631 16.3865 20.0773L12.4656 18.0153C12.1742 17.8621 11.8261 17.8621 11.5347 18.0153L7.61377 20.0773C6.88014 20.4631 6.02259 19.8401 6.16271 19.0231L6.91122 14.6589C6.96689 14.3344 6.85922 14.0033 6.62335 13.7735L3.45082 10.6835C2.85722 10.1053 3.18401 9.09747 4.00392 8.97763L8.39051 8.33646C8.71586 8.28891 8.99704 8.08445 9.14258 7.7896L11.1034 3.81714Z" fill="#FFD02C"></path></svg></div>';
+		    	str += '<div class="col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ msg.empId +' </p></div>';
+		    	str += ' <div class="col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
+		    	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ msg.sendDt +'</p></div>';
+		    	str += '</div>';
+		    	$('#message-list').append(str);
+		    })
+		  },
+		  error: (jqXHR) => {
+			  alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+		  }
+		})
+		};
+	
+	
+fnGetMsgList();	
+</script>
 
 <jsp:include page="../layout/closer.jsp"/>

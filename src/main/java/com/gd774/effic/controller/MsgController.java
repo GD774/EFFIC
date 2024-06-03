@@ -1,5 +1,8 @@
 package com.gd774.effic.controller;
 
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd774.effic.service.MsgService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping(value="/msg")
@@ -54,6 +58,14 @@ public class MsgController {
 		
 		return "msg/sentList";
 	}
+	
+	@GetMapping(value="/getSentList.do", produces="application/json")
+	public ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request) {
+
+		
+		return msgService.getSentList(request);
+	}
+	
 	
 	
 }

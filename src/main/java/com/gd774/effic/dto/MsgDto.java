@@ -1,5 +1,7 @@
 package com.gd774.effic.dto;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,10 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class UserDto {
-	private String empId, pw, name, email, phone;
-	private int permCode;
-	// private DepDto dep;
-	// private Posdep pos
-	// private ResDto res;
+public class MsgDto {
+    String empId, title, contents;
+    Date sendDt;
+    int msgId, state, isDelete,chkImpt;
 }

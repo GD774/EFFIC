@@ -4,9 +4,11 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -56,14 +58,19 @@ public class MsgController {
 	public String insertMessage(MultipartHttpServletRequest multipartRequest, RedirectAttributes redirectAttributes) {
 		redirectAttributes.addFlashAttribute("inserted", msgService.msgInsert(multipartRequest));
 		
-		return "msg/sentList";
+		return "redirect:sentList.page";
 	}
 	
 	@GetMapping(value="/getSentList.do", produces="application/json")
 	public ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request) {
 
-		
 		return msgService.getSentList(request);
+	}
+	
+	@GetMapping(value="/getSentDetail.do")
+	public String detail(@RequestParam int msgId, Model model) {
+		model.addAttribute("msg", msgService.getMsgDetail(msgId));
+		return "msg/sentDetail";
 	}
 	
 	

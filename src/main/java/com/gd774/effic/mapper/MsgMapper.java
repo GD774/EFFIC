@@ -14,4 +14,5 @@ public interface MsgMapper {
 	 int insertRecp(RecpDto recp);
 	 List<MsgDto> getListMsg(Map<String, Object>map);
 	 int getMsgCount();
+	 MsgDto getMsgDetail(int msgId);
 }

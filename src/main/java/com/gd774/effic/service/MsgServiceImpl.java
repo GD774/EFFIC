@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gd774.effic.dto.MsgDto;
@@ -43,22 +44,22 @@ public class MsgServiceImpl implements MsgService {
 		
 		System.out.println(multipartRequest.getSession().getAttribute("user"));
 		
-		String empId = user.getEmpId();
+		String sender = user.getEmpId();
 		
 		MsgDto msg = MsgDto.builder()
 				       .title(title)
 				       .contents(contents)
-				       .empId(empId)
+				       .sender(sender)
 				       .build();
 		
 		int insertMsgCount = msgMapper.insertMsg(msg);
 		
 		//RECP에 삽입
-		String recipient =multipartRequest.getParameter("recp");
+		String recipient = multipartRequest.getParameter("recp");
 		
 		RecpDto recp = RecpDto.builder()
 	    		          .msgId(msg.getMsgId())
-				          .empId(recipient)
+				          .recipient(recipient)
 				          .build();
 		
 		int inserRecpCount = msgMapper.insertRecp(recp);
@@ -72,13 +73,17 @@ public class MsgServiceImpl implements MsgService {
        
 		// 페이징처리 안하고 우선 ajax 작동하는지 부터 확인함
 		UserDto user = (UserDto)request.getSession().getAttribute("user");
-		String empId = user.getEmpId();
-		System.out.println(empId);
-		 Map<String, Object> map = Map.of("empId", empId);
+		String sender = user.getEmpId();
+		 Map<String, Object> map = Map.of("sender", sender);
 		 
 		return new ResponseEntity<>(Map.of("msgList", msgMapper.getListMsg(map)), HttpStatus.OK);
 	}
-
+    
+	 @Override
+	public MsgDto getMsgDetail(int msgId) {
+ 
+		 return msgMapper.getMsgDetail(msgId);
+	}
 }
 
 

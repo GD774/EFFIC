@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class RecpDto {
-    String empId;
+    String recipient;
     Date readDt;
     int recpId, msgId, state, chkImpt;
 }

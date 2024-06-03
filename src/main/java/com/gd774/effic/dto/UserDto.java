@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class UserDto {
-	private String eid, pw, name, email, phone;
+	private String empId, pw, name, email, phone;
 	private int permCode;
 	// private DepDto dep;
 	// private Posdep pos

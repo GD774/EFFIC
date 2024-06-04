@@ -1,6 +1,7 @@
 package com.gd774.effic.service;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -14,6 +15,7 @@ import com.gd774.effic.dto.MsgDto;
 import com.gd774.effic.dto.RecpDto;
 import com.gd774.effic.dto.UserDto;
 import com.gd774.effic.mapper.MsgMapper;
+import com.gd774.effic.util.MsgPaging;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -22,13 +24,16 @@ import jakarta.servlet.http.HttpServletRequest;
 public class MsgServiceImpl implements MsgService {
  
 	private final MsgMapper msgMapper;
+	private final MsgPaging msgPaging;
 	
-	
-	
-	public MsgServiceImpl(MsgMapper msgMapper) {
+	public MsgServiceImpl(MsgMapper msgMapper, MsgPaging msgPaging) {
 		super();
 		this.msgMapper = msgMapper;
+        this.msgPaging = msgPaging;
 	}
+		
+	
+
 
 
 
@@ -70,13 +75,25 @@ public class MsgServiceImpl implements MsgService {
 	
 	@Override
 	public ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request) {
-       
+		// 페이징 처리.
+	    int total = msgMapper.getMsgCount();
+	    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+	    int page = Integer.parseInt(opt.orElse("1"));
+	    msgPaging.setPaging(total, display, page);
+	    
+		
 		// 페이징처리 안하고 우선 ajax 작동하는지 부터 확인함
 		UserDto user = (UserDto)request.getSession().getAttribute("user");
 		String sender = user.getEmpId();
-		 Map<String, Object> map = Map.of("sender", sender);
-		 
-		return new ResponseEntity<>(Map.of("msgList", msgMapper.getListMsg(map)), HttpStatus.OK);
+		Map<String, Object> map = Map.of("sender", sender,"begin", msgPaging.getBegin() 
+                , "end", msgPaging.getEnd());
+		
+		System.out.println(msgPaging.getBegin());
+		System.out.println(msgPaging.getEnd());
+		
+		return new ResponseEntity<>(Map.of("msgList", msgMapper.getListMsg(map), "total", total
+                , "paging", msgPaging.getAsyncPaging()), HttpStatus.OK);
 	}
     
 	 @Override

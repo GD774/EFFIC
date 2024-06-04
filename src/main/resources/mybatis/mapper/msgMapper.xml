@@ -69,11 +69,13 @@ FROM MSG_T
 <select id="getListMsg"
         parameterType="Map"
         resultMap="MsgMap">
-SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT   
-FROM MSG_T M JOIN RECP_T R
-ON M.MSG_ID = R.MSG_ID
-WHERE M.SENDER = #{sender} AND M.STATE=0
-ORDER BY M.SEND_DT ASC
+SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT
+FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
+            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT
+         FROM MSG_T M JOIN RECP_T R
+           ON M.MSG_ID = R.MSG_ID
+        WHERE M.SENDER = #{sender} AND M.STATE=0)
+WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
 <select id="getMsgDetail"

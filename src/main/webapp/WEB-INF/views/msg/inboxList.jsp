@@ -53,11 +53,11 @@
             <hr style="border-color: #BDBDBD; border-width: 1px; margin-top: 1rem;">
             
             <div id="button-wrapper" class="py-3">
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 삭제
+                       <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+                 <img src="/msgIcons/bin.svg" />삭제
              </button>
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 보관
+            <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+                 <img src="/msgIcons/starlight.svg" />보관
               </button>
             <button class="ml-4 mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                       전체선택

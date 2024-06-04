@@ -10,10 +10,6 @@
 
 <style>
 
-#team-btn {
-  margin-left: 60%;
-}
-
 #paging {
    padding-left: 40%;
 }
@@ -52,22 +48,25 @@
             </div>
             <hr style="border-color: #BDBDBD; border-width: 1px; margin-top: 1rem;">
             
-            <div id="button-wrapper" class="py-3">
+            <div id="button-wrapper" class="flex justify-between py-3">
+            <div>
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  삭제
              </button>
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  보관
               </button>
-            <button class="ml-4 mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                      전체선택
+            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80" id="select-all">
+                 전체선택
             </button>
-            <span class="ml-4"> 0건/미열람 </span>
-           <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80"
-                   id="team-btn">
+           <span class="ml-4">  0건/미열람 </span>
+            </div>
+            <div>
+           <button id="team-btn" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                       팀메세지
-                    </button>
-          </div>       
+           </button>
+           </div>
+          </div>      
           
 
 			 <!-- ====== Table Section Start -->

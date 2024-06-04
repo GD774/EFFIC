@@ -78,29 +78,31 @@ document.addEventListener("DOMContentLoaded", function() {
   var options = {
 		  
     series: [44, 55, 13, 33],
-    labels: ['Apple', 'Mango', 'Orange', 'Watermelon']
-				  
-
+    chart: {
+        width: 380,
+        type: 'pie',
+    },
+    labels: ['1호점', '2호점', '3호점', '4호점']
   };
 
-  var chart = new ApexCharts(document.querySelector("#Pie"), options);
-  chart.render();
+  var pie = new ApexCharts(document.querySelector("#pie"), options);
+  pie.render();
 });
 </script>
 
 
 <jsp:include page="../layout/sidebar.jsp"/>
 
-  <div id='bonsa'>본사 연매출
+  <div id='bonsa'>본사 예상연매출
 	<div id='chart'></div>
   </div>
 
-  <div id='empty'>주요지점 공실률
-	<div id='Pie'></div>  
+ 	<div id='empty'>본사 예상 공실률
+		<div id='pie'></div>  
   </div>
 
 <div id='branch-list'>
-<a href='${contextPath}/results/results-state'>지점별 통계 보기></a>
+<a href='${contextPath}/results/results-state'>지점별 예상실적 기입></a>
 	<table>
 		<tr>
 			<th>지점 이름</th>

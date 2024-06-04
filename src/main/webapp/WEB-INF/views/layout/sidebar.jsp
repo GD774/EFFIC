@@ -430,7 +430,7 @@
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="${contextPath}/results"
+					href="${contextPath}/results/results-main"
 					:class="page === 'formElements' && '!text-white'"
 					>지점 실적</a
 								  >

@@ -15,11 +15,17 @@ div#branch-list {
 }
 table {
 	border: solid 1px gray;
+	padding-top: 10px	;
 	display: table-cell;
 }
 td#state{
 	font-weight: bold;
 	
+}
+
+td{
+	padding-top: 10px;
+
 }
 div#branch-add {
 

@@ -612,7 +612,7 @@
         <!-- ===== Main Content Start ===== -->
         <main>
 
-		  유저 사번: ${user.eid}
+		  유저 사번: ${user.empId}
 
         </main>
         <!-- ===== Main Content End ===== -->

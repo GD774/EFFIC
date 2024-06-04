@@ -88,7 +88,7 @@
           <li>
 			<a
               class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-              href="calendar.html"
+              href="${contextPath}/calendar"
               @click="selected = (selected === 'Calendar' ? '':'Calendar')"
               :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Calendar') && (page === 'Calendar') }"
               >
@@ -404,7 +404,7 @@
 				</defs>
               </svg>
 
-              통계
+              실적
 			  <svg
 				class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
 				:class="{ 'rotate-180': (selected === 'Chart') }"
@@ -430,17 +430,17 @@
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-elements.html"
+					href="${contextPath}/results"
 					:class="page === 'formElements' && '!text-white'"
-					>통계 하위 1</a
+					>지점 실적</a
 								  >
 				</li>
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-layout.html"
+					href="${contextPath}/expt_results/expt-main"
 					:class="page === 'formLayout' && '!text-white'"
-					>통계 하위 2</a
+					>예상 실적</a
 								  >
 				</li>
               </ul>

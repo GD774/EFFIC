@@ -15,7 +15,7 @@
 	margin-top: 20px;
   margin-left: 150px;
 	
-	width: 1300px;
+	width: 1000px;
 }
 
 
@@ -74,9 +74,9 @@
 	<h1 id="calendarhead"
 			style="font-size: 50px; font-weight: bold; color: rgb(65,105,225); margin-bottom: 20px;">일정</h1>
 	
-		<div>
+		
 		    <div id='calendar'></div>
-		</div>
+	
 	</div>
 	
 

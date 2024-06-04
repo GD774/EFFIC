@@ -22,3 +22,7 @@ create table user_t (
   sign_img blob     null,
   sign_stamp blob     null
 );
+
+
+INSERT INTO USER_T VALUES(1, '1', '0FFE1ABD1A08215353C233D6E009613E95EEC4253832A761AF28FF37AC5A150C', 1, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL);
+commit

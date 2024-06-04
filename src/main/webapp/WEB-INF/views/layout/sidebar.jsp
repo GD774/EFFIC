@@ -88,7 +88,7 @@
           <li>
 			<a
               class="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-              href="calendar.html"
+              href="${contextPath}/calendar"
               @click="selected = (selected === 'Calendar' ? '':'Calendar')"
               :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Calendar') && (page === 'Calendar') }"
               >
@@ -535,7 +535,7 @@
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-elements.html"
+					href="${contextPath}/results/results-main"
 					:class="page === 'formElements' && '!text-white'"
 					>지점 실적</a
 								  >
@@ -543,7 +543,7 @@
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-layout.html"
+					href="${contextPath}/expt_results/expt-main"
 					:class="page === 'formLayout' && '!text-white'"
 					>예상 실적</a
 								  >

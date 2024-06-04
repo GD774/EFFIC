@@ -20,14 +20,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	public int enroll(HttpServletRequest request) {
-		String eid = request.getParameter("eid");
+		String empId = request.getParameter("empId");
 		String pw = BasicSecurity.getHash(request.getParameter("pw"), BasicSecurity.SHA256);
 		// String name = request.getParameter("name");
 		// String email = request.getParameter("email");
 		// String phone = request.getParameter("phone");
 
 		UserDto user = UserDto.builder()
-			.eid(eid)
+			.empId(empId)
 			.pw(pw)
 			// .name(name)
 			// .email(email)

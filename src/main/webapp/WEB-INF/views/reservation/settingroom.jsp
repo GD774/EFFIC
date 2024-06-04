@@ -4,104 +4,96 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template</title>
-    <link rel="icon" href="${contextPath}/css/favicon.ico">
-    <link href="${contextPath}/css/globalstyle.css" rel="stylesheet">
-    <!-- Tailwind CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  	 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  </head>
-  <body>
-    <div class="flex min-h-screen">
-     <div>
-      <jsp:include page="../layout/sidebar.jsp" />
-     </div>
-    <!-- Survey Form -->
-        <div
-		   class="flex-1 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<jsp:include page="../layout/opener.jsp"/>
+<jsp:include page="../layout/sidebar.jsp" />  
+  
+<body>
+<main class="flex-1 p-4 overflow-y-auto max-h-screen">
+    <div class="mx-auto max-w-screen-lg lg:p-10 lg:p-12">
+<!-- Survey Form -->
+<div
+   class="flex-1 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+>
+  <div
+    class="border-b border-stroke py-4 dark:border-strokedark"
+  >
+    <h3 class="font-medium text-black dark:text-white">
+      회의실 등록
+    </h3>
+  </div>
+  <form action="#">
+    <div class="p-6.5">
+      <div class="mb-5">
+        <label
+          class="mb-3 block text-sm font-medium text-black dark:text-white"
         >
-          <div
-            class="border-b border-stroke px-6.5 py-4 dark:border-strokedark"
-          >
-            <h3 class="font-medium text-black dark:text-white">
-              회의실 등록
-            </h3>
+          회의실 이름
+        </label>
+        <input
+          type="text"
+          placeholder="신규로 등록할 회의실을 입력하세요."
+          class="w-1/2 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+        />
+      </div>
+
+	  <div class="mb-5.5" x-data="{ isChecked: '' }">
+        <label
+          class="mb-4.5 block text-sm font-medium text-black dark:text-white"
+        >
+          회의실 상태
+        </label>
+
+        <div class="flex flex-col gap-2.5">
+          <div>
+            <label
+              class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
+            >
+              <input
+                class="sr-only"
+                type="radio"
+                @change="isChecked = 'Yes'"
+              />
+              <span
+                class="flex h-5 w-5 items-center justify-center rounded-full border"
+                :class="isChecked === 'Yes' ? 'border-primary': 'border-body'"
+              >
+                <span
+                  :class="isChecked === 'Yes' ? 'flex': 'hidden'"
+                  class="h-2.5 w-2.5 rounded-full bg-primary"
+                ></span>
+              </span>
+              사용가능
+            </label>
           </div>
-          <form action="#">
-            <div class="p-6.5">
-              <div class="mb-5">
-                <label
-                  class="mb-3 block text-sm font-medium text-black dark:text-white"
-                >
-                  회의실 이름
-                </label>
-                <input
-                  type="text"
-                  placeholder="신규로 등록할 회의실을 입력하세요."
-                  class="w-1/2 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                />
-              </div>
 
-			  <div class="mb-5.5" x-data="{ isChecked: '' }">
-                <label
-                  class="mb-4.5 block text-sm font-medium text-black dark:text-white"
-                >
-                  회의실 상태
-                </label>
-
-                <div class="flex flex-col gap-2.5">
-                  <div>
-                    <label
-                      class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
-                    >
-                      <input
-                        class="sr-only"
-                        type="radio"
-                        @change="isChecked = 'Yes'"
-                      />
-                      <span
-                        class="flex h-5 w-5 items-center justify-center rounded-full border"
-                        :class="isChecked === 'Yes' ? 'border-primary': 'border-body'"
-                      >
-                        <span
-                          :class="isChecked === 'Yes' ? 'flex': 'hidden'"
-                          class="h-2.5 w-2.5 rounded-full bg-primary"
-                        ></span>
-                      </span>
-                      사용가능
-                    </label>
-                  </div>
-
-                  <div>
-                    <label
-                      class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
-                    >
-                      <input
-                        class="sr-only"
-                        type="radio"
-                        @change="isChecked = 'No'"
-                      />
-                      <span
-                        class="flex h-5 w-5 items-center justify-center rounded-full border"
-                        :class="isChecked === 'No' ? 'border-primary': 'border-body'"
-                      >
-                        <span
-                          :class="isChecked === 'No' ? 'flex': 'hidden'"
-                          class="h-2.5 w-2.5 rounded-full bg-primary"
-                        ></span>
-                      </span>
-                      사용불가
-                    </label>
-                  </div>
-                 
-                </div>
-              </div>
+          <div>
+            <label
+              class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
+            >
+              <input
+                class="sr-only"
+                type="radio"
+                @change="isChecked = 'No'"
+              />
+              <span
+                class="flex h-5 w-5 items-center justify-center rounded-full border"
+                :class="isChecked === 'No' ? 'border-primary': 'border-body'"
+              >
+                <span
+                  :class="isChecked === 'No' ? 'flex': 'hidden'"
+                  class="h-2.5 w-2.5 rounded-full bg-primary"
+                ></span>
+              </span>
+              사용불가
+            </label>
+          </div>
+         
+        </div>
+      </div>
 
 	  <div class="mb-5">
 	    <label
@@ -359,4 +351,5 @@
   </div>
 </main>
 <!-- ===== Main Content End ===== -->
-
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<jsp:include page="../layout/closer.jsp"/>

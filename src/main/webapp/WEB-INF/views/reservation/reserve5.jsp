@@ -15,14 +15,14 @@
         <!-- Breadcrumb Start -->
         <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 class="text-title-md2 font-bold text-black dark:text-white">
-            1층 소회의실
+            컨퍼런스 룸
           </h2>
           <nav>
             <ol class="flex items-center gap-2">
               <li>
                 <a class="font-medium" href="roomstatus">회의실 예약 현황 /</a>
               </li>
-              <li class="text-primary">1층 소회의실</li>
+              <li class="text-primary">컨퍼런스 룸</li>
             </ol>
           </nav>
         </div>

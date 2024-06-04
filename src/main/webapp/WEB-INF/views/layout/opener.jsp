@@ -5,7 +5,7 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 <!DOCTYPE html>
-<html>
+<html ${param.htmlParam}>
 <head>
 
 <meta charset="UTF-8">
@@ -24,6 +24,13 @@
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
 
+<c:choose>
+  <c:when test="${param.tailwind}">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  </c:when>
+</c:choose>
+
 <!-- include moment.js -->
 <script src="${contextPath}/resources/moment/moment-with-locales.min.js"></script>
 
@@ -39,14 +46,15 @@
 <link href="${contextPath}/css/globalstyle.css" rel="stylesheet">
 
 </head>
- <body
+<c:choose>
+  <c:when test="${empty param.notTailadminBody}">
+<body
     x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
     x-init="
          darkMode = JSON.parse(localStorage.getItem('darkMode'));
          $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
     :class="{'dark text-bodydark bg-boxdark-2': darkMode === true}"
   >
-
     <!-- ===== Preloader Start ===== -->
     <div
   x-show="loaded"
@@ -60,7 +68,8 @@
 
     <!-- ===== Preloader End ===== -->
 
-
-
     <!-- ===== Page Wrapper Start ===== -->
     <div class="flex h-screen overflow-hidden">
+
+  </c:when>
+</c:choose>

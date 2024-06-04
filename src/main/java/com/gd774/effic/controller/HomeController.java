@@ -31,4 +31,9 @@ public class HomeController {
 	public void callHelp() {
 		//
 	}
+
+	@GetMapping(value = "test")
+	public String test() {
+		return "user/main";
+	}
 }

@@ -19,10 +19,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean signin(HttpServletRequest request) {
-		String eid = request.getParameter("eid");
+		String empId = request.getParameter("empId");
 		String pw = BasicSecurity.getHash(request.getParameter("pw"), BasicSecurity.SHA256);
 
-		UserDto user = userMapper.getUserByIdAndPw(eid, pw);
+		UserDto user = userMapper.getUserByIdAndPw(empId, pw);
 
 		if (user != null)
 			try {

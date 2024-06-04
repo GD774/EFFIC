@@ -5,16 +5,14 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
-
-
-
 <jsp:include page="../layout/opener.jsp"/>
 
 <style>
 .calendarbox {
 	margin-top: 20px;
   margin-left: 150px;
-	width: 1000px;
+	width: 750px;
+	
 }
 
 
@@ -80,7 +78,8 @@
                 $('#openRange').attr('공개범위: ' + $('#openRange'));
                 
                 $('#dateModal').modal('show');
-            }
+            },
+            
         });
 
         calendar.render();

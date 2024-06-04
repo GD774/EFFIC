@@ -27,7 +27,7 @@ border: 1px solid gray;
 }
 
 div#branch-list {
-	margin-top: 50px;
+	margin-top: 25px;
 	margin-left: 50px;
 	width: 500px;
 	height: 200px;

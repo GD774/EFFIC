@@ -361,7 +361,7 @@
             <a
               class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
               href="#"
-              @click="selected = (selected === 'Messages' ? '':'Messages')"
+@click="selected = (selected === 'Messages' ? '':'Messages')"
               :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Messages') && (page === 'Messages') }"
             >
               <svg
@@ -376,6 +376,7 @@
                   d="M15.7499 2.75208H2.2499C1.29365 2.75208 0.478027 3.53957 0.478027 4.52395V13.6364C0.478027 14.5927 1.26553 15.4083 2.2499 15.4083H15.7499C16.7062 15.4083 17.5218 14.6208 17.5218 13.6364V4.49583C17.5218 3.53958 16.7062 2.75208 15.7499 2.75208ZM15.7499 4.0177C15.778 4.0177 15.8062 4.0177 15.8343 4.0177L8.9999 8.4052L2.16553 4.0177C2.19365 4.0177 2.22178 4.0177 2.2499 4.0177H15.7499ZM15.7499 14.0865H2.2499C1.96865 14.0865 1.74365 13.8615 1.74365 13.5802V5.2552L8.3249 9.47395C8.52178 9.61457 8.74678 9.67083 8.97178 9.67083C9.19678 9.67083 9.42178 9.61457 9.61865 9.47395L16.1999 5.2552V13.6083C16.2562 13.8896 16.0312 14.0865 15.7499 14.0865Z"
                   fill=""
                 />
+
               </svg>
 
               메세지
@@ -411,7 +412,7 @@
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="alerts.html"
+					href="${contextPath}/msg/write.page"
 					:class="page === 'alerts' && '!text-white'"
 					>메세지 쓰기</a
 								  >
@@ -420,43 +421,50 @@
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="buttons.html"
+					href="${contextPath}/msg/toMe.page"
 					:class="page === 'buttons' && '!text-white'"
 					>내게 쓴 메세지</a
+
 								  >
 				</li>
+				
+				
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="buttons.html"
+					href="${contextPath}/msg/inboxList.page"
 					:class="page === 'buttons' && '!text-white'"
-					>받은 메세지</a
-								  >
+					>받은 메세지</a>
 				</li>
+				
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="buttons.html"
+					href="${contextPath}/msg/sentList.page"
 					:class="page === 'buttons' && '!text-white'"
 					>보낸 메세지</a
 								  >
 				</li>
+				
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="buttons.html"
+					href="${contextPath}/msg/impList.page"
 					:class="page === 'buttons' && '!text-white'"
 					>중요 메세지</a
 								  >
 				</li>
+				
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="buttons.html"
+					href="${contextPath}/msg/bin.page"
 					:class="page === 'buttons' && '!text-white'"
 					>휴지통</a
 								  >
 				</li>
+				
+				
               </ul>
 			</div>
 			<!-- Dropdown Menu End -->

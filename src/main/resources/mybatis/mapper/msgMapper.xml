@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gd774.effic.mapper.MsgMapper">
+  <resultMap type="com.gd774.effic.dto.MsgDto" id="MsgMap">
+	<result  property="msgId"          column="MSG_ID"/>
+	<result  property="sender"     column="SENDER"/>
+	<result  property="title"         column="TITLE"/>
+    <result  property="contents"        column="CONTENTS"/>
+	<result  property="sendDt"        column="SEND_DT"/>
+	<result  property="state"        column="STATE"/>
+	<result  property="isDelete"        column="IS_DELETE"/>
+	<result  property="chkImpt"        column="CHK_IMPT"/>
+
+  </resultMap>
+
+
+<insert id="insertMsg"
+        parameterType="MsgDto">
+  <selectKey order="BEFORE" keyProperty="msgId" resultType="int">
+	SELECT MSG_SEQ.NEXTVAL
+	  FROM DUAL
+  </selectKey>
+INSERT INTO MSG_T(
+     MSG_ID
+   , SENDER
+   , TITLE
+   , CONTENTS
+   , SEND_DT
+   , STATE
+   , IS_DELETE
+   , CHK_IMPT
+ ) VALUES (
+     #{msgId}
+   , #{sender}  
+   , #{title}  
+   , #{contents}
+   , SYSDATE
+   , 0
+   , 0
+   , 0  
+ ) 
+</insert>
+
+<insert id="insertRecp"
+        parameterType="RecpDto">
+INSERT INTO RECP_T(
+     RECP_ID
+   , MSG_ID
+   , RECIPIENT
+   , STATE
+   , CHK_IMPT
+ ) VALUES (
+     RECP_SEQ.NEXTVAL
+   , #{msgId}  
+   , #{recipient}
+   , 0
+   , 0  
+ ) 
+</insert>
+  
+<select id="getMsgCount">
+SELECT COUNT(MSG_ID)
+FROM MSG_T
+</select>
+
+<select id="getListMsg"
+        parameterType="Map"
+        resultMap="MsgMap">
+SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT
+FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
+            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT
+         FROM MSG_T M JOIN RECP_T R
+           ON M.MSG_ID = R.MSG_ID
+        WHERE M.SENDER = #{sender} AND M.STATE=0)
+WHERE RN BETWEEN #{begin} AND #{end}
+</select>
+
+<select id="getMsgDetail"
+        parameterType="MsgDto">
+SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT, A.ORIGINAL_NAME   
+FROM MSG_T M JOIN RECP_T R
+              ON R.MSG_ID = M.MSG_ID
+              LEFT JOIN MSG_ATTACH_T A
+              ON M.MSG_ID = A.MSG_ID 
+WHERE M.MSG_ID = #{msgId}     
+        
+
+</select> 
+
+</mapper>

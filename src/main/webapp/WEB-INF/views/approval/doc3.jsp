@@ -7,6 +7,7 @@
 
 <jsp:include page="../layout/opener.jsp"/>
 <jsp:include page="../layout/sidebar.jsp" />
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 
 
 <style>
@@ -58,6 +59,9 @@
         <a href="#" class="items-center justify-center rounded-md bg-primary px-7 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-5">
             결재정보
         </a>
+    </span>
+    <span>
+    	<i class="fi fi-rr-light-emergency-on"></i>
     </span>
 
     <table style="border: 0px solid rgb(0, 0, 0); width: 800px; font-family: malgun gothic,dotum,arial,tahoma; margin-top: 1px; border-collapse: collapse;">

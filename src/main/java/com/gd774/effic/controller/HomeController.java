@@ -20,7 +20,7 @@ public class HomeController {
 //		if (session.getAttribute("user") != null)
 //			return "user/main";
 //		return "redirect:/signin";
-		return "approval/main";
+		return "approval/doc3";
 	}
 
 	@GetMapping(value = "signin")

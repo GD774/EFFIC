@@ -6,6 +6,7 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
 
@@ -202,7 +203,7 @@
                                                 <p class="text-[#637381] dark:text-bodydark">보고서</p>
                                             </div>
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">중요</p>
+                                            	<i class="fi fi-rr-light-emergency-on"></i>
                                             </div>
                                             <div class="col-span-3">
                                                 <p class="text-[#637381] dark:text-bodydark">프로젝트 보고 ${i}</p>

@@ -51,7 +51,7 @@ public class MsgController {
 	
 	@GetMapping(value="/bin.page")
 	public String goBin() {
-		return "msg/sentDetail";
+		return "msg/bin";
 	}
 	
 	@PostMapping(value="/write.do")

@@ -187,7 +187,7 @@
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-layout.html"
+					href="../reservation/reservemanage"
 					:class="page === 'reservemanage' && '!text-white'"
 					>회의실 관리</a
 					 >
@@ -195,7 +195,7 @@
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-layout.html"
+					href="../reservation/facilitymanage"
 					:class="page === 'facilitymanage' && '!text-white'"
 					>물품 관리</a
 					>

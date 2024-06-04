@@ -173,7 +173,7 @@
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
 					href="form-elements.html"
 					:class="page === 'formElements' && '!text-white'"
-					>예약 하위 1</a
+					>회의실</a
 								  >
 				</li>
 				<li>
@@ -181,7 +181,23 @@
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
 					href="form-layout.html"
 					:class="page === 'formLayout' && '!text-white'"
-					>예약 하위 2</a
+					>공용물품</a
+								  >
+				</li>
+				<li>
+                  <a
+					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+					href="form-layout.html"
+					:class="page === 'formLayout' && '!text-white'"
+					>회의실 관리</a
+								  >
+				</li>
+				<li>
+                  <a
+					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+					href="form-layout.html"
+					:class="page === 'formLayout' && '!text-white'"
+					>물품 관리</a
 								  >
 				</li>
               </ul>
@@ -189,13 +205,13 @@
           </li>
           <!-- Menu Item Tables -->
 
-          <!-- Menu Item Forms -->
+          <!-- Menu Item Approv -->
           <li>
 			<a
               class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
               href="#"
-              @click.prevent="selected = (selected === 'Forms' ? '':'Forms')"
-              :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Forms') || (page === 'formElements' || page === 'formLayout') }"
+              @click.prevent="selected = ((selected === 'Approv' || selected === 'byIndv' || selected === 'byDep') ? '':'Approv')"
+              :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Approv') || (page === 'formElements' || page === 'formLayout') }"
               >
               <svg
 				class="fill-current"
@@ -231,7 +247,7 @@
 
               <svg
 				class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-				:class="{ 'rotate-180': (selected === 'Forms') }"
+				:class="{ 'rotate-180': (selected === 'Approv') }"
 				width="20"
 				height="20"
 				viewBox="0 0 20 20"
@@ -250,208 +266,127 @@
 			<!-- Dropdown Menu Start -->
 			<div
               class="translate transform overflow-hidden"
-              :class="(selected === 'Forms') ? 'block' :'hidden'">
+              :class="(selected === 'Approv' || selected === 'byIndv' || selected === 'byDep') ? 'block' :'hidden'"
+              >
               <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-elements.html"
-					:class="page === 'formElements' && '!text-white'">
-                  	메인
-              	  </a>
+					href="${contextPath}/approv/main"
+					:class="page === 'formElements' && '!text-white'"
+					>메인</a
+						   >
 				</li>
-				
-		          <li>
-					<a
-		              class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-		              href="#"
-		              @click.prevent="subselected = (subselected === 'User' ? '':'User')"
-		              :class="{ 'bg-graydark dark:bg-meta-4': (subselected === 'User') || (page === 'formElements' || page === 'formLayout') }"
-		              >
-		              <svg
-						class="fill-current"
-						width="18"
-						height="18"
-						viewBox="0 0 18 18"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
-						>
-		              </svg>
+				<li>
+                  <a
+					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+					href="#"
+					@click="selected = (selected === 'byIndv' ? 'Approv':'byIndv')"
+					:class="page === 'formLayout' && '!text-white'"
+					>개인</a
+						   >
 
-		              개인
-
-		              <svg
-						class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-						:class="{ 'rotate-180': (subselected === 'User') }"
-						width="20"
-						height="20"
-						viewBox="0 0 20 20"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
-						>
-						<path
-		                  fill-rule="evenodd"
-		                  clip-rule="evenodd"
-		                  d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-		                  fill=""
-		                  />
-		              </svg>
-					</a>
-					
-					<div
-		              class="translate transform overflow-hidden"
-		              :class="(subselected === 'User') ? 'block' :'hidden'">
-		              <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
-						<li>
-		                  <a
-							class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-							href="form-elements.html"
-							:class="page === 'formElements' && '!text-white'">
-		                  	기안문서함
-		              	  </a>
-						</li>
-						<li>
-		                  <a
-							class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-							href="form-elements.html"
-							:class="page === 'formElements' && '!text-white'">
-		                  	임시저장함
-		              	  </a>
-						</li>
-						<li>
-		                  <a
-							class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-							href="form-elements.html"
-							:class="page === 'formElements' && '!text-white'">
-		                  	참조문서함
-		              	  </a>
-						</li>
-						<li>
-		                  <a
-							class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-							href="form-elements.html"
-							:class="page === 'formElements' && '!text-white'">
-		                  	결재문서함
-		              	  </a>
-						</li>
-					  </ul>
-				    </div>
-					
-					
-					
-					
-			          <li>
-						<a
-			              class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-			              href="#"
-			              @click.prevent="subselected = (subselected === 'Deps' ? '':'Deps')"
-			              :class="{ 'bg-graydark dark:bg-meta-4': (subselected === 'Deps') || (page === 'formElements' || page === 'formLayout') }"
-			              >
-			              <svg
-							class="fill-current"
-							width="18"
-							height="18"
-							viewBox="0 0 18 18"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-							>
-			              </svg>
-
-			              부서
-			              <svg
-							class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-							:class="{ 'rotate-180': (subselected === 'Deps') }"
-							width="20"
-							height="20"
-							viewBox="0 0 20 20"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-							>
-							<path
-			                  fill-rule="evenodd"
-			                  clip-rule="evenodd"
-			                  d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
-			                  fill=""
-			                  />
-			              </svg>
-						</a>
-						
-						<div
-			              class="translate transform overflow-hidden"
-			              :class="(subselected === 'Deps') ? 'block' :'hidden'">
-			              <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
-							<li>
-			                  <a
-								class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-								href="form-elements.html"
-								:class="page === 'formElements' && '!text-white'">
-			                  	기안완료함
-			              	  </a>
-							</li>
-							<li>
-			                  <a
-								class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-								href="form-elements.html"
-								:class="page === 'formElements' && '!text-white'">
-			                  	부서참조함
-			              	  </a>
-							</li>
-						  </ul>
-					    </div>
-					
+				  <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6"
+					  :class="(selected === 'byIndv') ? 'block' :'hidden';">
+					<li>
+					  <a
+						class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+						href="${contextPath}/approv/ready"
+						:class="page === 'formElements' && '!text-white'"
+						>기안문서함</a
+							   >
+					</li>
+					<li>
+					  <a
+						class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+						href="${contextPath}/approv/temp"
+						:class="page === 'formElements' && '!text-white'"
+						>임시저장함</a
+							   >
+					</li>
+					<li>
+					  <a
+						class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+						href="${contextPath}/approv/ref"
+						:class="page === 'formElements' && '!text-white'"
+						>참조문서함</a
+							   >
+					</li>
+					<li>
+					  <a
+						class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+						href="${contextPath}/approv/approv"
+						:class="page === 'formElements' && '!text-white'"
+						>결재문서함</a
+							   >
+					</li>
+				  </ul>
+				</li>
+				<li>
+                  <a
+					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+					href="#"
+					@click="selected = (selected === 'byDep' ? 'Approv':'byDep')"
+					:class="page === 'formLayout' && '!text-white'"
+					>부서</a
+						   >
+				  <ul class="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6"
+					  :class="(selected === 'byDep') ? 'block' :'hidden';">
+					<li>
+					  <a
+						class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+						href="${contextPath}/approv/ready"
+						:class="page === 'formElements' && '!text-white'"
+						>기안완료함</a
+							   >
+					</li>
+					<li>
+					  <a
+						class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+						href="${contextPath}/approv/temp"
+						:class="page === 'formElements' && '!text-white'"
+						>참조문서함</a
+							   >
+					</li>
+				  </ul>
+				</li>
               </ul>
 			</div>
 			<!-- Dropdown Menu End -->
           </li>
-          <!-- Menu Item Forms -->
+          <!-- Menu Item Approv -->
 
-		  <!-- Menu Item Ui Elements -->
+		  <!-- Menu Item Messages -->
           <li>
-			<a
+            <a
               class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
               href="#"
-              @click.prevent="selected = (selected === 'UiElements' ? '':'UiElements')"
-              :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'UiElements') || (page === 'alerts' || page === 'buttons') }"
-              >
+              @click="selected = (selected === 'Messages' ? '':'Messages')"
+              :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Messages') && (page === 'Messages') }"
+            >
               <svg
-				class="fill-current"
-				width="18"
-				height="19"
-				viewBox="0 0 18 19"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-				>
-				<g clip-path="url(#clip0_130_9807)">
-                  <path
-					d="M15.7501 0.55835H2.2501C1.29385 0.55835 0.506348 1.34585 0.506348 2.3021V7.53335C0.506348 8.4896 1.29385 9.2771 2.2501 9.2771H15.7501C16.7063 9.2771 17.4938 8.4896 17.4938 7.53335V2.3021C17.4938 1.34585 16.7063 0.55835 15.7501 0.55835ZM16.2563 7.53335C16.2563 7.8146 16.0313 8.0396 15.7501 8.0396H2.2501C1.96885 8.0396 1.74385 7.8146 1.74385 7.53335V2.3021C1.74385 2.02085 1.96885 1.79585 2.2501 1.79585H15.7501C16.0313 1.79585 16.2563 2.02085 16.2563 2.3021V7.53335Z"
-					fill=""
-					/>
-                  <path
-					d="M6.13135 10.9646H2.2501C1.29385 10.9646 0.506348 11.7521 0.506348 12.7083V15.8021C0.506348 16.7583 1.29385 17.5458 2.2501 17.5458H6.13135C7.0876 17.5458 7.8751 16.7583 7.8751 15.8021V12.7083C7.90322 11.7521 7.11572 10.9646 6.13135 10.9646ZM6.6376 15.8021C6.6376 16.0833 6.4126 16.3083 6.13135 16.3083H2.2501C1.96885 16.3083 1.74385 16.0833 1.74385 15.8021V12.7083C1.74385 12.4271 1.96885 12.2021 2.2501 12.2021H6.13135C6.4126 12.2021 6.6376 12.4271 6.6376 12.7083V15.8021Z"
-					fill=""
-					/>
-                  <path
-					d="M15.75 10.9646H11.8688C10.9125 10.9646 10.125 11.7521 10.125 12.7083V15.8021C10.125 16.7583 10.9125 17.5458 11.8688 17.5458H15.75C16.7063 17.5458 17.4938 16.7583 17.4938 15.8021V12.7083C17.4938 11.7521 16.7063 10.9646 15.75 10.9646ZM16.2562 15.8021C16.2562 16.0833 16.0312 16.3083 15.75 16.3083H11.8688C11.5875 16.3083 11.3625 16.0833 11.3625 15.8021V12.7083C11.3625 12.4271 11.5875 12.2021 11.8688 12.2021H15.75C16.0312 12.2021 16.2562 12.4271 16.2562 12.7083V15.8021Z"
-					fill=""
-					/>
-				</g>
-				<defs>
-                  <clipPath id="clip0_130_9807">
-					<rect
-                      width="18"
-                      height="18"
-                      fill="white"
-                      transform="translate(0 0.052124)"
-                      />
-                  </clipPath>
-				</defs>
+                class="fill-current"
+                width="18"
+                height="19"
+                viewBox="0 0 18 19"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.7499 2.75208H2.2499C1.29365 2.75208 0.478027 3.53957 0.478027 4.52395V13.6364C0.478027 14.5927 1.26553 15.4083 2.2499 15.4083H15.7499C16.7062 15.4083 17.5218 14.6208 17.5218 13.6364V4.49583C17.5218 3.53958 16.7062 2.75208 15.7499 2.75208ZM15.7499 4.0177C15.778 4.0177 15.8062 4.0177 15.8343 4.0177L8.9999 8.4052L2.16553 4.0177C2.19365 4.0177 2.22178 4.0177 2.2499 4.0177H15.7499ZM15.7499 14.0865H2.2499C1.96865 14.0865 1.74365 13.8615 1.74365 13.5802V5.2552L8.3249 9.47395C8.52178 9.61457 8.74678 9.67083 8.97178 9.67083C9.19678 9.67083 9.42178 9.61457 9.61865 9.47395L16.1999 5.2552V13.6083C16.2562 13.8896 16.0312 14.0865 15.7499 14.0865Z"
+                  fill=""
+                />
               </svg>
 
-              쪽지
+              메세지
 
-              <svg
+              <span
+                class="absolute right-14 top-1/2 -translate-y-1/2 rounded bg-primary px-2.5 py-1 text-xs font-medium text-white"
+                >5</span
+					>
+			  <svg
 				class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
-				:class="{ 'rotate-180': (selected === 'UiElements') }"
+				:class="{ 'rotate-180': (selected === 'Chart') }"
 				width="20"
 				height="20"
 				viewBox="0 0 20 20"
@@ -465,12 +400,12 @@
                   fill=""
                   />
               </svg>
-			</a>
+            </a>
 
 			<!-- Dropdown Menu Start -->
 			<div
               class="translate transform overflow-hidden"
-              :class="(selected === 'UiElements') ? 'block' :'hidden'"
+              :class="(selected === 'Messages') ? 'block' :'hidden'"
               >
               <ul class="mb-3 mt-4 flex flex-col gap-2 pl-6">
 				<li>
@@ -478,7 +413,7 @@
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
 					href="alerts.html"
 					:class="page === 'alerts' && '!text-white'"
-					>쪽지 하위 1</a
+					>메세지 쓰기</a
 								  >
 				</li>
 
@@ -487,14 +422,46 @@
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
 					href="buttons.html"
 					:class="page === 'buttons' && '!text-white'"
-					>쪽지 하위 2</a
+					>내게 쓴 메세지</a
+								  >
+				</li>
+				<li>
+                  <a
+					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+					href="buttons.html"
+					:class="page === 'buttons' && '!text-white'"
+					>받은 메세지</a
+								  >
+				</li>
+				<li>
+                  <a
+					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+					href="buttons.html"
+					:class="page === 'buttons' && '!text-white'"
+					>보낸 메세지</a
+								  >
+				</li>
+				<li>
+                  <a
+					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+					href="buttons.html"
+					:class="page === 'buttons' && '!text-white'"
+					>중요 메세지</a
+								  >
+				</li>
+				<li>
+                  <a
+					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
+					href="buttons.html"
+					:class="page === 'buttons' && '!text-white'"
+					>휴지통</a
 								  >
 				</li>
               </ul>
 			</div>
 			<!-- Dropdown Menu End -->
           </li>
-          <!-- Menu Item Ui Elements -->
+          <!-- Menu Item Messages -->
 
 		  <!-- Menu Item Chart -->
           <li>
@@ -534,7 +501,7 @@
 				</defs>
               </svg>
 
-              통계
+              실적
 			  <svg
 				class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
 				:class="{ 'rotate-180': (selected === 'Chart') }"
@@ -562,7 +529,7 @@
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
 					href="form-elements.html"
 					:class="page === 'formElements' && '!text-white'"
-					>통계 하위 1</a
+					>지점 실적</a
 								  >
 				</li>
 				<li>
@@ -570,7 +537,7 @@
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
 					href="form-layout.html"
 					:class="page === 'formLayout' && '!text-white'"
-					>통계 하위 2</a
+					>예상 실적</a
 								  >
 				</li>
               </ul>

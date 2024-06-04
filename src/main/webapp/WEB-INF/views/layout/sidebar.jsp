@@ -171,34 +171,34 @@
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-elements.html"
-					:class="page === 'formElements' && '!text-white'"
-					>회의실</a
-								  >
+					href="../reservation/roomstatus"
+					:class="page === 'roomstatus' && '!text-white'"
+					>회의실 예약</a
+					>
 				</li>
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-layout.html"
-					:class="page === 'formLayout' && '!text-white'"
-					>공용물품</a
-								  >
+					href="../reservation/facilitystatus"
+					:class="page === 'facilitystatus' && '!text-white'"
+					>공용물품 대여</a
+					>
 				</li>
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-layout.html"
-					:class="page === 'formLayout' && '!text-white'"
+					href="../reservation/reservemanage"
+					:class="page === 'reservemanage' && '!text-white'"
 					>회의실 관리</a
-								  >
+					 >
 				</li>
 				<li>
                   <a
 					class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-					href="form-layout.html"
-					:class="page === 'formLayout' && '!text-white'"
+					href="../reservation/facilitymanage"
+					:class="page === 'facilitymanage' && '!text-white'"
 					>물품 관리</a
-								  >
+					>
 				</li>
               </ul>
 			</div>

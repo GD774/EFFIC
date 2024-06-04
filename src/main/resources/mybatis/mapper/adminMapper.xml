@@ -5,8 +5,8 @@
 
 <mapper namespace="com.gd774.effic.mapper.AdminMapper">
   <resultMap type="com.gd774.effic.dto.UserDto" id="UserMap">
-    <!-- <id      property="empId"          column="EMP_ID"/> -->
-	<result  property="empId"          column="EMP_ID"/>
+    <!-- <id      property="eid"          column="EMP_ID"/> -->
+	<result  property="eid"          column="EMP_ID"/>
 	<result  property="permCode"     column="PERM_CODE"/>
 	<result  property="name"         column="NAME"/>
     <result  property="email"        column="EMAIL"/>
@@ -20,7 +20,7 @@
 
   <insert id="insertUser"
 		  parameterType="com.gd774.effic.dto.UserDto">
-	<!-- insert into user_t(id, emp_id, password, name, email, phone) values(user_seq.nextval, #{user.empId}, #{user.pw}, #{user.name}, #{user.email}, #{user.phone}) -->
-	insert into user_t(id, emp_id, password) values(user_seq.nextval, #{empId}, #{pw})
+	<!-- insert into user_t(id, emp_id, password, name, email, phone) values(user_seq.nextval, #{user.eid}, #{user.pw}, #{user.name}, #{user.email}, #{user.phone}) -->
+	insert into user_t(id, emp_id, password) values(user_seq.nextval, #{eid}, #{pw})
   </insert>
 </mapper>

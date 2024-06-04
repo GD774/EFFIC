@@ -5,8 +5,8 @@
 
 <mapper namespace="com.gd774.effic.mapper.UserMapper">
   <resultMap type="com.gd774.effic.dto.UserDto" id="UserMap">
-    <!-- <id      property="empId"          column="EMP_ID"/> -->
-	<result  property="empId"          column="EMP_ID"/>
+    <!-- <id      property="eid"          column="EMP_ID"/> -->
+	<result  property="eid"          column="EMP_ID"/>
 	<result  property="permCode"     column="PERM_CODE"/>
 	<result  property="name"         column="NAME"/>
     <result  property="email"        column="EMAIL"/>
@@ -17,7 +17,7 @@
 		  resultMap="UserMap">
 	SELECT EMP_ID, NAME, EMAIL, PERM_CODE FROM USER_T
 	<where>
-	  <if test="empId!=null">EMP_ID = #{empId}</if>
+	  <if test="eid!=null">EMP_ID = #{eid}</if>
       <if test="pw!=null">AND PASSWORD = #{pw}</if>
 	</where>
   </select>

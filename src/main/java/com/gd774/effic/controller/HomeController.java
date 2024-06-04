@@ -12,13 +12,15 @@ import jakarta.servlet.http.HttpSession;
 
 @RequestMapping(value = "/")
 @Controller
+
 public class HomeController {
 	@GetMapping(value = "")
 	public String main(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		if (session.getAttribute("user") != null)
-			return "user/main";
-		return "redirect:/signin";
+//		HttpSession session = request.getSession();
+//		if (session.getAttribute("user") != null)
+//			return "user/main";
+//		return "redirect:/signin";
+		return "approval/main";
 	}
 
 	@GetMapping(value = "signin")

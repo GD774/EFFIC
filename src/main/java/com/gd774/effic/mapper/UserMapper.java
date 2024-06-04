@@ -9,5 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
  * UserMapper
  */
 public interface UserMapper {
-	public UserDto getUserByIdAndPw(String empId, String pw);
+	public UserDto getUserByIdAndPw(String eid, String pw);
 }

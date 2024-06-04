@@ -54,7 +54,7 @@
                             수신자
                           </label>
                           <div style="width: 700px;">
-                          <input type="text" name="recp" placeholder="Enter your first name" class="ml-50 w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
+                          <input type="text" name="recp" placeholder="수신자를 선택하세요" class="ml-50 w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
                           </div>
                        
                          </div>
@@ -66,7 +66,7 @@
                     <label class="mr-3 mb-3 block text-sm font-medium text-black dark:text-white w-14">
                             제목
                     </label>
-					<input type="text" name="title" placeholder="Enter your first name" class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
+					<input type="text" name="title" placeholder="제목을 입력하세요" class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
 					 </div>                      
                       
 

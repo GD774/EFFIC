@@ -279,9 +279,12 @@ public class MsgServiceImpl implements MsgService {
 	}
 	 
 	 @Override
-	public MsgDto getInboxDetail(int msgId) {
-		// TODO Auto-generated method stub
-		return null;
+	public MsgDto getInboxDetail(int msgId, HttpServletRequest request) {
+		 
+		UserDto user = (UserDto)request.getSession().getAttribute("user");
+	    String recipient = user.getEmpId();
+		Map<String, Object> map = Map.of("msgId", msgId, "recipient", recipient);
+		return msgMapper.getRcpDetail(map);
 	}
 
 }

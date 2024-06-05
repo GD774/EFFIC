@@ -30,7 +30,7 @@ public interface MsgService {
 	
 	//받은메세지함
 	ResponseEntity<Map<String, Object>> getInboxList(HttpServletRequest request);
-	MsgDto getInboxDetail(int msgId);
+	MsgDto getInboxDetail(int msgId, HttpServletRequest request);
 	
 	
 	

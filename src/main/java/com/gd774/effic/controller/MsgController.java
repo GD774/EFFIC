@@ -99,5 +99,15 @@ public class MsgController {
 		return msgService.getInboxList(request);
 	}
 	
+	@GetMapping(value="/getInboxDetail.do")
+	public String getInboxDetail(@RequestParam int msgId, Model model, HttpServletRequest request) {
+        model.addAttribute("rcp", msgService.getInboxDetail(msgId, request));
+        model.addAttribute("attachList", msgService.getAttachDetail(msgId));
+        
+        return "msg/inboxDetail";
+	}
+	
+	
+	
 	
 }

@@ -147,15 +147,22 @@ WHERE RECIPIENT = #{recipient}
 <select id="getListRcp"
         parameterType="Map"
         resultMap="MsgMap">
-SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
+SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, READ_DT
 FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
-            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT, M.SENDER
+            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT, M.SENDER, R.READ_DT
          FROM MSG_T M JOIN RECP_T R
            ON M.MSG_ID = R.MSG_ID
         WHERE R.RECIPIENT = #{recipient} AND M.STATE=0)
 WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
+<select id="getRcpDetail"
+        parameterType="Map">
+SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT, M.SENDER 
+FROM MSG_T M JOIN RECP_T R
+              ON R.MSG_ID = M.MSG_ID
+WHERE M.MSG_ID = #{msgId} AND R.RECIPIENT = #{recipient}   
+</select>
  
 
 </mapper>

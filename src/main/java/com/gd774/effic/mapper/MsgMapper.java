@@ -30,5 +30,5 @@ public interface MsgMapper {
 	 //받은 메세지함
 	 List<MsgDto> getListRcp(Map<String, Object>map);
 	 int getRcpCount(String recipient);
-	 MsgDto getRcpDetail(int msgId);
+	 MsgDto getRcpDetail(Map<String, Object> map);
 }

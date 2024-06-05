@@ -49,8 +49,9 @@
             <hr style="border-color: #BDBDBD; border-width: 1px; margin-top: 1rem;">
             
 
+
        <div id="button-wrapper" class="flex justify-between py-3">
-            <div>
+
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  삭제
              </button>

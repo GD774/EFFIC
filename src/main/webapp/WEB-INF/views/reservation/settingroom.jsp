@@ -243,7 +243,7 @@
 		      x-model="isChecked"
 		      @click="isChecked = !isChecked"
 		    />
-		    <span
+		    <span>
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
                 :class="isChecked ? 'border-primary': 'border-body'"

@@ -13,6 +13,8 @@
 
 
 div#bonsa {
+	font-weight: bold;
+	color: #2f67c2;
   font-size: 25px;
 	width:450px; 
 	height: 500px;
@@ -22,6 +24,8 @@ div#bonsa {
 }
 
 div#empty {
+	font-weight: bold;
+	color: #2f67c2;
 	font-size: 25px;
 	width:450px; 
 	height: 500px;
@@ -115,15 +119,15 @@ document.addEventListener("DOMContentLoaded", function() {
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   var options = {
-    series: [44, 55, 13, 33]
-   , chart: {
+		  
+    series: [44, 55, 13, 33],
+    chart: {
         width: 450,
         height: 450,
         type: 'pie',
-    }
-  ,labels: ['6월', '7월', '8월', '9월']
-    
-  };	
+    },
+    labels: ['2월', '3월', '4월', '5월']
+  };
 
   var pie = new ApexCharts(document.querySelector("#pie"), options);
   pie.render();
@@ -165,12 +169,12 @@ options = {
 
 <jsp:include page="../layout/sidebar.jsp"/>
 
-
-  <div id='bonsa'>본사 예측 평균 월매출
+  <div id='bonsa'>
+  								1호점 종합 평균 월매출
 	<div id='chart'></div>
   </div>
 
- 	<div id='empty'> 예측 공실률
+ 	<div id='empty'>1호점 최근 4달  평균 공실률
 		<div id='pie'></div>  
   </div>
 

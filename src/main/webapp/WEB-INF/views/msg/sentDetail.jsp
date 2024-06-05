@@ -116,6 +116,8 @@
   <!-- ===== Main Content End ===== -->
 </div>
 
+
+
 <script>
 
 const fnDownload = () => {
@@ -142,7 +144,8 @@ $(document).on('mouseover', '.attachId', (evt) => {
     $(evt.currentTarget).attr('title', total);
 	
   });
-  
+
+
   
 
 </script>

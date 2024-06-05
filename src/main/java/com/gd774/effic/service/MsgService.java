@@ -16,11 +16,22 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public interface MsgService {
 
+	//메세지 작성
 	int msgInsert(MultipartHttpServletRequest multipartRequest);
+	
+	//보낸메세지함
 	ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request);
-	MsgDto getMsgDetail(int msgId);
+	MsgDto getSentDetail(int msgId);
+	
+	//첨부파일
 	List<MsgAttachDto> getAttachDetail(int msgId);
 	ResponseEntity<Resource> download(HttpServletRequest request);
 	ResponseEntity<Resource> downloadAll(int msgId);
+	
+	//받은메세지함
+	ResponseEntity<Map<String, Object>> getInboxList(HttpServletRequest request);
+	MsgDto getInboxDetail(int msgId);
+	
+	
 	
 }

@@ -85,6 +85,8 @@ INSERT INTO RECP_T(
 <select id="getMsgCount">
 SELECT COUNT(MSG_ID)
 FROM MSG_T
+WHERE SENDER = #{sender}
+
 </select>
 
 <select id="getListMsg"
@@ -133,6 +135,26 @@ WHERE M.MSG_ID = #{msgId}
    FROM MSG_ATTACH_T
    WHERE MSG_ID = #{msgId}
   </select>
+
+
+<select id="getRcpCount">
+SELECT COUNT(RECP_ID)
+FROM RECP_T
+WHERE RECIPIENT = #{recipient}
+</select>
+
+
+<select id="getListRcp"
+        parameterType="Map"
+        resultMap="MsgMap">
+SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
+FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
+            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT, M.SENDER
+         FROM MSG_T M JOIN RECP_T R
+           ON M.MSG_ID = R.MSG_ID
+        WHERE R.RECIPIENT = #{recipient} AND M.STATE=0)
+WHERE RN BETWEEN #{begin} AND #{end}
+</select>
 
  
 

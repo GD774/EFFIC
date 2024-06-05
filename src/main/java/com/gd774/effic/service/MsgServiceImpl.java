@@ -86,13 +86,15 @@ public class MsgServiceImpl implements MsgService {
 		int inserRecpCount = msgMapper.insertRecp(recp);
 		
 		// 이거 나중에 수정. boolean으로 바꿔서 1&&list=recp 로 해야할까?
-		return 1;
+		return insertMsgCount;
 	}
 	
 	@Override
 	public ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request) {
-		// 페이징 처리.
-	    int total = msgMapper.getMsgCount();
+		// 페이징 처리
+		UserDto user = (UserDto)request.getSession().getAttribute("user");
+		String sender = user.getEmpId();
+	    int total = msgMapper.getMsgCount(sender);
 	    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 	    int page = Integer.parseInt(opt.orElse("1"));
@@ -100,8 +102,6 @@ public class MsgServiceImpl implements MsgService {
 	    
 		
 		// 페이징처리 안하고 우선 ajax 작동하는지 부터 확인함
-		UserDto user = (UserDto)request.getSession().getAttribute("user");
-		String sender = user.getEmpId();
 		Map<String, Object> map = Map.of("sender", sender,"begin", msgPaging.getBegin() 
                 , "end", msgPaging.getEnd());
 		
@@ -113,7 +113,7 @@ public class MsgServiceImpl implements MsgService {
 	}
     
 	 @Override
-	public MsgDto getMsgDetail(int msgId) {
+	public MsgDto getSentDetail(int msgId) {
 	       return msgMapper.getMsgDetail(msgId);
 	}
 	 
@@ -256,6 +256,32 @@ public class MsgServiceImpl implements MsgService {
 		     System.out.println("다운로드 서비스 돎");
 		     // 다운로드 진행
 		     return new ResponseEntity<Resource>(resource, responseHeader, HttpStatus.OK);
+	}
+	 
+	 @Override
+	public ResponseEntity<Map<String, Object>> getInboxList(HttpServletRequest request) {
+		
+		 UserDto user = (UserDto)request.getSession().getAttribute("user");
+			String recipient = user.getEmpId();
+		    int total = msgMapper.getRcpCount(recipient);
+		    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+			Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		    int page = Integer.parseInt(opt.orElse("1"));
+		    msgPaging.setPaging(total, display, page);
+		    
+
+			Map<String, Object> map = Map.of("recipient", recipient,"begin", msgPaging.getBegin() 
+	                , "end", msgPaging.getEnd());
+			
+			return new ResponseEntity<>(Map.of("recpList", msgMapper.getListRcp(map), "total", total
+	                , "paging", msgPaging.getAsyncPaging()), HttpStatus.OK);
+		
+	}
+	 
+	 @Override
+	public MsgDto getInboxDetail(int msgId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -59,7 +59,7 @@ public class MsgController {
 	}
 	
 	@PostMapping(value="/write.do")
-	public String insertMessage(MultipartHttpServletRequest multipartRequest, RedirectAttributes redirectAttributes) {
+	public String insertMsg(MultipartHttpServletRequest multipartRequest, RedirectAttributes redirectAttributes) {
 		redirectAttributes.addFlashAttribute("inserted", msgService.msgInsert(multipartRequest));
 		
 		return "redirect:sentList.page";
@@ -72,8 +72,8 @@ public class MsgController {
 	}
 	
 	@GetMapping(value="/getSentDetail.do")
-	public String detail(@RequestParam int msgId, Model model) {
-        model.addAttribute("msg", msgService.getMsgDetail(msgId));
+	public String getSentDetail(@RequestParam int msgId, Model model) {
+        model.addAttribute("msg", msgService.getSentDetail(msgId));
         model.addAttribute("attachList", msgService.getAttachDetail(msgId));
         
 		
@@ -92,6 +92,12 @@ public class MsgController {
 	    }
 	
 	   }
+	
+	@GetMapping(value="/getInboxList.do", produces="application/json")
+	public ResponseEntity<Map<String, Object>> getInboxList(HttpServletRequest request) {
+
+		return msgService.getInboxList(request);
+	}
 	
 	
 }

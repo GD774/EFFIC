@@ -42,9 +42,9 @@
                <nav>
                 <ol class="flex items-center gap-2">
                   <li>
-                    <a class="font-medium" href="index.html">현재 메세지개수 /</a>
+                    <a id="total" class="font-medium" > </a>
                   </li>
-                  <li class="font-medium text-primary">1000</li>
+                  <li class="font-medium text-primary">/ 1000</li>
                 </ol>
               </nav>
             </div>
@@ -110,14 +110,11 @@
     </div>
   </div>
 </div>
-
-
-
   </div>
   
   <div class="p-4 sm:p-6 xl:p-7.5" id="paging">
                   
-                </div>
+     </div>
 </div>
 
               <!-- ====== Table End -->
@@ -126,6 +123,8 @@
   </main>
   <!-- ===== Main Content End ===== -->
 </div>
+
+<input type="hidden" id="insertResult" value="${inserted}">
 
 <script>
 
@@ -175,6 +174,7 @@ const fnGetMsgList = () => {
 		    	str += '</div>';
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);
+				 $('#total').html(resData.total);
 		  },
 		  error: (jqXHR) => {
 			  alert(jqXHR.statusText + '(' + jqXHR.status + ')');
@@ -193,6 +193,15 @@ const fnPaging = (p)=>{
 	
 	
 fnGetMsgList();	
+
+const fnResponse = () => {
+	const insertResult = document.getElementById('insertResult').value;
+	if( insertResult === '1') {
+	    alert("메세지가 전송되었습니다");
+	}
+}
+
+fnResponse();
 </script>
 
 <jsp:include page="../layout/closer.jsp"/>

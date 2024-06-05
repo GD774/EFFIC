@@ -5,6 +5,7 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
+
 <jsp:include page="../layout/opener.jsp"/>
 <jsp:include page="../layout/sidebar.jsp"/>
 
@@ -53,20 +54,20 @@
                           <input type="text" value="${msg.recipient}"  class="w-2/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly>
                         </div>
 
-                      <div class="flex w-full xl:w-4/12 items-center">
-                          <label class="ml-2 mr-2 mb-3 block text-sm font-bold text-black dark:text-white">
+                      <div class="flex w-full xl:w-4/12 items-center"  data-set-attach-list="${attachList}">
+                          <label  class=" ml-2 mr-2 mb-3 block text-sm font-bold text-black dark:text-white">
                             첨부파일
                           </label>
                           
                          <c:choose>
 					    <c:when test="${empty attachList}">
-					        <input type="text" value="--" data-msg-id="${msg.msgId}" class="w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+					        <input type="text" value="--" data-msg-id="${msg.msgId}" title=""  class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
 					    </c:when>
 					    <c:when test="${attachList.size() eq 1}">
-					        <input type="text" value="${attachList[0].originalName}" data-msg-id="${msg.msgId}" class="w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+					        <input type="text" value="${attachList[0].originalName}"  title=""  data-msg-id="${msg.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
 					    </c:when>
 					    <c:when test="${attachList.size() gt 1}">
-					        <input type="text" value="${attachList[0].originalName} 외" data-msg-id="${msg.msgId}" class="w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+					        <input type="text"  title=""  value="${attachList[0].originalName} 외" data-msg-id="${msg.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
 					    </c:when>
 					   </c:choose> 
                         
@@ -80,7 +81,13 @@
                         </div>
                         
                       </div>
+                      
+                      <!--------------무슨짓을 해도 안돼서 input....데이터저장을 위한 hidden -->
+                      <c:forEach var="attach" items="${attachList}">
+                    <div class="attach-info" data-original-name="${attach.originalName}"></div>
+                     </c:forEach>
                     
+                   
                     
          
                        
@@ -111,8 +118,32 @@
 
 <script>
 
+const fnDownload = () => {
+	  $('.attachId').on('click', (evt) => {
+		  
+	    if(confirm('해당 첨부 파일을 다운로드 할까요?')) {
+	      location.href = '${contextPath}/msg/download.do?msgId=' + evt.currentTarget.dataset.msgId;
+	    }
+	  })
+	}
 
+fnDownload();
 
+var info = document.getElementsByClassName('attach-info');
+var total = ''; 
+for(var i = 1; i < info.length; i++) {
+   total += info[i].dataset.originalName;
+   total += '\n';       
+}
+
+$(document).on('mouseover', '.attachId', (evt) => {       
+
+    // 이벤트가 발생한 요소에 툴팁을 설정합니다.
+    $(evt.currentTarget).attr('title', total);
+	
+  });
+  
+  
 
 </script>
 

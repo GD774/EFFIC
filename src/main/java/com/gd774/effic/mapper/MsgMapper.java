@@ -18,4 +18,6 @@ public interface MsgMapper {
 	 MsgDto getMsgDetail(int msgId);
 	 int insertAttach(MsgAttachDto msgAttach);
 	 List<MsgAttachDto> getMsgAttach(int msgId);
+	 MsgAttachDto getMsgOneAttach(int msgId);
+	 int selectCountAttach(int msgId);
 }

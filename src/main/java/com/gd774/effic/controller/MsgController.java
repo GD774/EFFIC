@@ -1,7 +1,9 @@
 package com.gd774.effic.controller;
 
 import java.util.Map;
+import java.util.Optional;
 
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gd774.effic.mapper.MsgMapper;
 import com.gd774.effic.service.MsgService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class MsgController {
 	
 	private final MsgService msgService;
+	private final MsgMapper msgMapper;
 	
 	@GetMapping(value="/write.page")
 	public String goWrite() {
@@ -76,6 +80,18 @@ public class MsgController {
 		return "msg/sentDetail";
 	}
 	
+	@GetMapping(value="/download.do")
+	 public ResponseEntity<Resource> download(@RequestParam int msgId, HttpServletRequest request) {
+		
+	    int count = msgMapper.selectCountAttach(msgId);
+	    
+	    if(count >= 2) {
+	    	return msgService.downloadAll(msgId);
+	    } else {
+	    	return msgService.download(request);
+	    }
+	
+	   }
 	
 	
 }

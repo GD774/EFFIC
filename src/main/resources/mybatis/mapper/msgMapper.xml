@@ -61,6 +61,8 @@ INSERT INTO RECP_T(
  ) 
 </insert>
 
+
+
 <insert id="insertAttach"
         parameterType="MsgAttachDto">
  INSERT INTO MSG_ATTACH_T (
@@ -104,12 +106,30 @@ FROM MSG_T M JOIN RECP_T R
 WHERE M.MSG_ID = #{msgId}     
 </select>
 
+
+<!-- msgId에 따른 첨부파일들을 뽑아주는 쿼리 -->
   <select id="getMsgAttach"
           resultType="MsgAttachDto">
    SELECT  ATTACH_ID
     , UPLOAD_PATH
     , FILESYS_NAME
     , ORIGINAL_NAME
+   FROM MSG_ATTACH_T
+   WHERE MSG_ID = #{msgId}
+  </select>
+  
+    <select id="getMsgOneAttach"
+          resultType="MsgAttachDto">
+   SELECT  ATTACH_ID
+    , UPLOAD_PATH
+    , FILESYS_NAME
+    , ORIGINAL_NAME
+   FROM MSG_ATTACH_T
+   WHERE MSG_ID = #{msgId}
+  </select>
+  
+   <select id="selectCountAttach">
+   SELECT COUNT(ATTACH_ID)
    FROM MSG_ATTACH_T
    WHERE MSG_ID = #{msgId}
   </select>

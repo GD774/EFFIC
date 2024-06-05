@@ -97,15 +97,22 @@ FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN
 WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
-<select id="getMsgDetail"
-        parameterType="MsgDto">
-SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT, A.ORIGINAL_NAME   
+<select id="getMsgDetail">
+SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT  
 FROM MSG_T M JOIN RECP_T R
               ON R.MSG_ID = M.MSG_ID
-              LEFT JOIN MSG_ATTACH_T A
-              ON M.MSG_ID = A.MSG_ID 
 WHERE M.MSG_ID = #{msgId}     
 </select>
+
+  <select id="getMsgAttach"
+          resultType="MsgAttachDto">
+   SELECT  ATTACH_ID
+    , UPLOAD_PATH
+    , FILESYS_NAME
+    , ORIGINAL_NAME
+   FROM MSG_ATTACH_T
+   WHERE MSG_ID = #{msgId}
+  </select>
 
  
 

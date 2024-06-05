@@ -69,7 +69,10 @@ public class MsgController {
 	
 	@GetMapping(value="/getSentDetail.do")
 	public String detail(@RequestParam int msgId, Model model) {
-		model.addAttribute("msg", msgService.getMsgDetail(msgId));
+        model.addAttribute("msg", msgService.getMsgDetail(msgId));
+        model.addAttribute("attachList", msgService.getAttachDetail(msgId));
+        
+		
 		return "msg/sentDetail";
 	}
 	

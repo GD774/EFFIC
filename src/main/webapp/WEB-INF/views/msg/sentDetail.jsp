@@ -53,12 +53,24 @@
                           <input type="text" value="${msg.recipient}"  class="w-2/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly>
                         </div>
 
-                        <div class="flex w-full xl:w-4/12 items-center">
+                      <div class="flex w-full xl:w-4/12 items-center">
                           <label class="ml-2 mr-2 mb-3 block text-sm font-bold text-black dark:text-white">
                             첨부파일
                           </label>
-                          <input type="text" value="${empty msg.originalName ? '--' : msg.originalName}"   class="w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
-                        </div>
+                          
+                         <c:choose>
+					    <c:when test="${empty attachList}">
+					        <input type="text" value="--" data-msg-id="${msg.msgId}" class="w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+					    </c:when>
+					    <c:when test="${attachList.size() eq 1}">
+					        <input type="text" value="${attachList[0].originalName}" data-msg-id="${msg.msgId}" class="w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+					    </c:when>
+					    <c:when test="${attachList.size() gt 1}">
+					        <input type="text" value="${attachList[0].originalName} 외" data-msg-id="${msg.msgId}" class="w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+					    </c:when>
+					   </c:choose> 
+                        
+					</div>
                         
                           <div class="flex w-full xl:w-4/12 items-center">
                           <label class="mr-2 mb-3 block text-sm font-bold text-black dark:text-white">

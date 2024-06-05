@@ -1,5 +1,6 @@
 package com.gd774.effic.service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.gd774.effic.dto.MsgAttachDto;
 import com.gd774.effic.dto.MsgDto;
 import com.gd774.effic.dto.RecpDto;
 import com.gd774.effic.dto.UserDto;
@@ -104,9 +106,16 @@ public class MsgServiceImpl implements MsgService {
     
 	 @Override
 	public MsgDto getMsgDetail(int msgId) {
- 
-		 return msgMapper.getMsgDetail(msgId);
+	       return msgMapper.getMsgDetail(msgId);
 	}
+	 
+	 @Override
+	public List<MsgAttachDto> getAttachDetail(int msgId) {
+		   return msgMapper.getMsgAttach(msgId);
+			 
+	}
+	 
+
 }
 
 

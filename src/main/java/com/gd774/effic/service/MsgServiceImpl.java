@@ -15,6 +15,7 @@ import com.gd774.effic.dto.MsgDto;
 import com.gd774.effic.dto.RecpDto;
 import com.gd774.effic.dto.UserDto;
 import com.gd774.effic.mapper.MsgMapper;
+import com.gd774.effic.util.FileLoad;
 import com.gd774.effic.util.MsgPaging;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,11 +26,13 @@ public class MsgServiceImpl implements MsgService {
  
 	private final MsgMapper msgMapper;
 	private final MsgPaging msgPaging;
+	private final FileLoad fileLoad;
 	
-	public MsgServiceImpl(MsgMapper msgMapper, MsgPaging msgPaging) {
+	public MsgServiceImpl(MsgMapper msgMapper, MsgPaging msgPaging, FileLoad fileLoad) {
 		super();
 		this.msgMapper = msgMapper;
         this.msgPaging = msgPaging;
+        this.fileLoad = fileLoad;
 	}
 		
 	
@@ -59,6 +62,9 @@ public class MsgServiceImpl implements MsgService {
 		
 		int insertMsgCount = msgMapper.insertMsg(msg);
 		
+		//첨부파일이 있을경우 MSG_ATTACH_T에 삽입
+		fileLoad.doUpload(multipartRequest, msg);
+				
 		//RECP에 삽입
 		String recipient = multipartRequest.getParameter("recp");
 		

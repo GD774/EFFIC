@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gd774.effic.dto.MsgAttachDto;
 import com.gd774.effic.dto.MsgDto;
+import com.gd774.effic.mapper.MsgMapper;
 
 import lombok.Data;
 
@@ -17,12 +18,14 @@ import lombok.Data;
 public class FileLoad {
 
 	private final MyFileUtils myFileUtils;
+	private final MsgMapper msgMapper;
 	
-	public FileLoad(MyFileUtils myFileUtils) {
+	public FileLoad(MyFileUtils myFileUtils, MsgMapper msgMapper) {
 	   this.myFileUtils = myFileUtils;
+	   this.msgMapper = msgMapper;
 	}
 	
-	public boolean registerUpload(MultipartHttpServletRequest multipartRequest, MsgDto msg) {
+	public boolean doUpload(MultipartHttpServletRequest multipartRequest, MsgDto msg) {
 
 		//원래 이 앞에 게시글 등록하는 부분이 있다. 즉 아랫부분에서 파일이 없는경우 게시글만 등록하고 끝난다.
 		//내 생각엔 이 InsertMsg 메소드 뒷부분에 이 클래스를 슝 소환해서 쓰면 될듯. 그 msg(dto) 친구를 파라라미터로 받으면 되지 싶다!
@@ -63,14 +66,14 @@ public class FileLoad {
 	          
 	          
 	          // ATTACH_T 테이블에 추가하기
-	          MsgAttachDto attach = MsgAttachDto.builder()
+	          MsgAttachDto msgAttach = MsgAttachDto.builder()
 	                                .uploadPath(uploadPath)
 	                                .filesysName(filesystemName)
 	                                .originalName(originalFilename)
-	                             //   .msgNo(msg.getMsgNo())   key로 미리 시퀀스에서 뺀 그 친구 여기 필요하다. 따로 빼서 가져다놔야 함.
-	                              .build();
+	                                .msgId(msg.getMsgId()) 
+	                                .build();
 	          
-	         // insertAttachCount += msgMapper.insertAttach(attach);
+	          insertAttachCount += msgMapper.insertAttach(msgAttach);
 	          
 	        } catch (Exception e) {
 	          e.printStackTrace();
@@ -80,7 +83,7 @@ public class FileLoad {
 	      
 	    }  // for
 	    
-	    return false; //(insertUploadCount == 1) && (insertAttachCount == files.size());
+	    return true; //(insertUploadCount == 1) && (insertAttachCount == files.size());
 	    
 	  }
 	

@@ -60,6 +60,25 @@ INSERT INTO RECP_T(
    , 0  
  ) 
 </insert>
+
+<insert id="insertAttach"
+        parameterType="MsgAttachDto">
+ INSERT INTO MSG_ATTACH_T (
+      ATTACH_ID
+    , UPLOAD_PATH
+    , FILESYS_NAME
+    , ORIGINAL_NAME
+    , MSG_ID
+  ) VALUES (
+      MSG_ATTACH_SEQ.NEXTVAL
+    , #{uploadPath}
+    , #{filesysName}
+    , #{originalName}
+    , #{msgId}
+  )
+
+
+</insert>
   
 <select id="getMsgCount">
 SELECT COUNT(MSG_ID)
@@ -86,8 +105,8 @@ FROM MSG_T M JOIN RECP_T R
               LEFT JOIN MSG_ATTACH_T A
               ON M.MSG_ID = A.MSG_ID 
 WHERE M.MSG_ID = #{msgId}     
-        
+</select>
 
-</select> 
+ 
 
 </mapper>

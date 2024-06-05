@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd774.effic.dto.MsgAttachDto;
 import com.gd774.effic.dto.MsgDto;
 import com.gd774.effic.dto.RecpDto;
 
@@ -15,4 +16,5 @@ public interface MsgMapper {
 	 List<MsgDto> getListMsg(Map<String, Object>map);
 	 int getMsgCount();
 	 MsgDto getMsgDetail(int msgId);
+	 int insertAttach(MsgAttachDto msgAttach);
 }

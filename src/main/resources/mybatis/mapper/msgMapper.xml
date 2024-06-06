@@ -163,6 +163,12 @@ FROM MSG_T M JOIN RECP_T R
               ON R.MSG_ID = M.MSG_ID
 WHERE M.MSG_ID = #{msgId} AND R.RECIPIENT = #{recipient}   
 </select>
+
+<update id="updateReadDt">
+UPDATE RECP_T 
+   SET READ_DT=CURRENT_DATE
+ WHERE MSG_ID=#{msgId} AND RECIPIENT=#{recipient} AND READ_DT IS NULL
+</update>
  
 
 </mapper>

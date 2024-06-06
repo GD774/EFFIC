@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MsgDto {
     String sender, title, contents, recipient, originalName;
-    Date sendDt;
+    String sendDt;
     int msgId, state, isDelete, chkImpt;
 }

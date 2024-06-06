@@ -31,4 +31,5 @@ public interface MsgMapper {
 	 List<MsgDto> getListRcp(Map<String, Object>map);
 	 int getRcpCount(String recipient);
 	 MsgDto getRcpDetail(Map<String, Object> map);
+	 int updateReadDt(Map<String, Object> map);
 }

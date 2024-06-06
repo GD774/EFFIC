@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RecpDto {
     String recipient;
-    Date readDt;
+    String readDt;
     int recpId, msgId, state, chkImpt;
 }

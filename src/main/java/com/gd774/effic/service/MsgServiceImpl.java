@@ -284,6 +284,7 @@ public class MsgServiceImpl implements MsgService {
 		UserDto user = (UserDto)request.getSession().getAttribute("user");
 	    String recipient = user.getEmpId();
 		Map<String, Object> map = Map.of("msgId", msgId, "recipient", recipient);
+		msgMapper.updateReadDt(map);
 		return msgMapper.getRcpDetail(map);
 	}
 

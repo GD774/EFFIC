@@ -170,7 +170,7 @@ const fnGetMsgList = () => {
 		    	str += '<div class="col-span-1"> <img src="/msgIcons/starlight.svg"/></div>';
 		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ msg.recipient +' </p></div>';
 		    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
-		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ msg.sendDt +'</p></div>';
+		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ msg.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);

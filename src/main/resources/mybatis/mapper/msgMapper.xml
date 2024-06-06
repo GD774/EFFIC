@@ -169,6 +169,15 @@ UPDATE RECP_T
    SET READ_DT=CURRENT_DATE
  WHERE MSG_ID=#{msgId} AND RECIPIENT=#{recipient} AND READ_DT IS NULL
 </update>
+
+<update id="updateSentChkImpt">
+UPDATE MSG_T 
+   SET CHK_IMPT = CASE 
+        WHEN CHK_IMPT = 1 THEN 0
+        ELSE 1
+    END
+ WHERE MSG_ID=#{msgId}
+</update>
  
 
 </mapper>

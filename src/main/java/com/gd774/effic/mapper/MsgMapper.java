@@ -32,4 +32,7 @@ public interface MsgMapper {
 	 int getRcpCount(String recipient);
 	 MsgDto getRcpDetail(Map<String, Object> map);
 	 int updateReadDt(Map<String, Object> map);
+	 
+	 //중요 메세지 체크
+	 int updateSentChkImpt(int msgId);
 }

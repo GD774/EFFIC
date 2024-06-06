@@ -32,6 +32,9 @@ public interface MsgService {
 	ResponseEntity<Map<String, Object>> getInboxList(HttpServletRequest request);
 	MsgDto getInboxDetail(int msgId, HttpServletRequest request);
 	
+	//중요메세지 체크
+	int updateSentChkImpt(int msgId);
+	
 	
 	
 }

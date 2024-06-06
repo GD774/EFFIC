@@ -57,7 +57,7 @@
                  <img src="/msgIcons/bin.svg" />삭제
              </button>
             <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 <img src="/msgIcons/starlight.svg" />보관
+                 <img src="/msgIcons/star0.svg" />보관
               </button>
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80" id="select-all">
                  전체선택
@@ -158,16 +158,15 @@ const fnGetMsgList = () => {
 		  // 요청
 		  type: 'GET',
 		  url: '${contextPath}/msg/getSentList.do',               
-		  data : 'page=' + page,
+		  data : {page: page, dummy: Math.random()},
 		  // 응답
 		  dataType: 'json',
 		  success: (resData) => {
 			     $('#message-list').html('');
 				 $.each(resData.msgList, (i, msg) => {
 		    	let str=  '<div class="hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
-		    	str +=  '<div class="col-span-1"><input type="checkbox" class="chk"></div>';
-
-		    	str += '<div class="col-span-1"> <img src="/msgIcons/starlight.svg"/></div>';
+		    	str +=  '<div class="col-span-1" ><input type="checkbox" class="chk"></div>';
+		    	str += '<div class="star col-span-1" data-chk-impt="'+msg.chkImpt+'" data-msg-id="'+msg.msgId+'"><img data-msg-id="'+msg.msgId+'" data-chk-impt="'+msg.chkImpt+'" src="/msgIcons/star'+msg.chkImpt+'.svg"/></div>';
 		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ msg.recipient +' </p></div>';
 		    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
 		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ msg.sendDt.slice(0, -3) +'</p></div>';
@@ -190,9 +189,8 @@ const fnPaging = (p)=>{
     page = p;
     fnGetMsgList();
   }
-	
-	
-fnGetMsgList();	
+
+
 
 const fnResponse = () => {
 	const insertResult = document.getElementById('insertResult').value;
@@ -200,7 +198,43 @@ const fnResponse = () => {
 	    alert("메세지가 전송되었습니다");
 	}
 }
+	
+	
+//const fnCheckImpt = (evt) => {
+   // const star = $(evt.target).closest('.star'); // 클릭된 요소의 부모 중에서 가장 가까운 .star 요소 찾기
+    //if (star.data('chkImpt') == '0') {
+        //star.children('img').attr('src', '/msgIcons/star.svg');
+   // } else {
+        //star.children('img').attr('src', '/msgIcons/starlight.svg');
+   // }
+   // fnUpdateChkImpt(star); // 클릭된 요소의 데이터를 사용하여 업데이트 함수 호출
+//};
 
+const fnUpdateChkImpt = (evt) => {
+
+	console.log($(evt.target).data('msgId'));
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updateChkImpt.do',
+        data: {msgId: $(evt.target).data('msgId') }, // 클릭된 요소의 데이터 사용
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+            fnGetMsgList();
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+};
+
+$(document).on('click', '.star', (evt)=>{
+	fnUpdateChkImpt(evt)
+});
+
+
+fnGetMsgList();	
 fnResponse();
 </script>
 

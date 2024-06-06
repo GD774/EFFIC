@@ -287,6 +287,16 @@ public class MsgServiceImpl implements MsgService {
 		msgMapper.updateReadDt(map);
 		return msgMapper.getRcpDetail(map);
 	}
+	 
+	 @Override
+	public int updateSentChkImpt(int msgId) {
+         System.out.println("서비스돈다");
+
+         
+         return msgMapper.updateSentChkImpt(msgId);
+		 
+		 
+	}
 
 }
 

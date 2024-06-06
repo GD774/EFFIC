@@ -119,4 +119,32 @@
   <!-- ===== Main Content End ===== -->
 </div>
 
+<script>
+const fnDownload = () => {
+	  $('.attachId').on('click', (evt) => {
+		  
+	    if(confirm('해당 첨부 파일을 다운로드 할까요?')) {
+	      location.href = '${contextPath}/msg/download.do?msgId=' + evt.currentTarget.dataset.msgId;
+	    }
+	  })
+	}
+
+fnDownload();
+
+var info = document.getElementsByClassName('attach-info');
+var total = ''; 
+for(var i = 1; i < info.length; i++) {
+ total += info[i].dataset.originalName;
+ total += '\n';       
+}
+
+$(document).on('mouseover', '.attachId', (evt) => {       
+
+  // 이벤트가 발생한 요소에 툴팁을 설정합니다.
+  $(evt.currentTarget).attr('title', total);
+	
+});
+
+</script>
+
 <jsp:include page="../layout/closer.jsp"/>

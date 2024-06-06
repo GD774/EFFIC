@@ -36,4 +36,8 @@ public interface MsgMapper {
 	 //중요 메세지 체크
 	 int updateSentChkImpt(int msgId);
 	 int updateInboxChkImpt(int recpId);
+     
+	 //중요 메세지 리스트
+	 List<MsgDto> getImpList(Map<String, Object> map);
+
 }

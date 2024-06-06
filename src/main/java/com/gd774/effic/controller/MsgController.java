@@ -112,7 +112,6 @@ public class MsgController {
 	@ResponseBody
 	public int updateSentChkImpt(@RequestParam int msgId){
 		
-		System.out.println(msgId + "컨트롤러 돈다");
 		return msgService.updateSentChkImpt(msgId);
 		
 	}
@@ -122,9 +121,17 @@ public class MsgController {
 	@ResponseBody
 	public int updateInboxChkImpt(@RequestParam int recpId){
 		
-		System.out.println(recpId + "컨트롤러 돈다");
 		return msgService.updateInboxChkImpt(recpId);
 		
 	}
+	
+	@GetMapping(value="/getImpList.do", produces="application/json")
+	public ResponseEntity<Map<String, Object>> getImpList(HttpServletRequest request) {
+
+		return msgService.getImpList(request);
+	}
+	
+	
+	
 	
 }

@@ -13,7 +13,11 @@
 	<result  property="state"        column="STATE"/>
 	<result  property="isDelete"        column="IS_DELETE"/>
 	<result  property="chkImpt"        column="CHK_IMPT"/>
-
+	<result  property="originalName"        column="ORIGINAL_NAME"/>
+	<result  property="recpId"        column="RECP_ID"/>
+	<result  property="recipient"        column="RECIPIENT"/>
+	<result  property="sort"        column="SORT"/>
+	<result  property="readDt"        column="READ_DT"/>
   </resultMap>
 
 
@@ -158,10 +162,10 @@ WHERE RN BETWEEN #{begin} AND #{end}
 
 <select id="getRcpDetail"
         parameterType="Map">
-SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT, M.SENDER 
+SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT, M.SENDER, R.READ_DT
 FROM MSG_T M JOIN RECP_T R
               ON R.MSG_ID = M.MSG_ID
-WHERE M.MSG_ID = #{msgId} AND R.RECIPIENT = #{recipient}   
+WHERE M.MSG_ID = #{msgId} AND R.RECIPIENT = #{recipient} 
 </select>
 
 <update id="updateReadDt">
@@ -187,6 +191,27 @@ UPDATE RECP_T
     END
  WHERE RECP_ID=#{recpId}
 </update>
+
+<select id="getImpList"
+        parameterType="Map"
+        resultMap="MsgMap">
+
+SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
+  FROM (
+         SELECT ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
+  FROM (
+         SELECT CONCAT('R',R.RECP_ID)  AS SORT, M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
+           FROM MSG_T M JOIN RECP_T R
+             ON M.MSG_ID = R.MSG_ID
+          WHERE R.RECIPIENT = #{recipient} AND R.STATE=0 AND R.CHK_IMPT=1
+     UNION ALL
+         SELECT  CONCAT('M', M.MSG_ID) AS SORT, M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
+           FROM MSG_T M JOIN RECP_T R
+             ON M.MSG_ID = R.MSG_ID
+          WHERE M.SENDER = #{sender} AND M.STATE=0 AND M.CHK_IMPT=1))
+ WHERE RN BETWEEN #{begin} AND #{end}
+ 
+</select>
  
 
 </mapper>

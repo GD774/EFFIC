@@ -36,6 +36,9 @@ public interface MsgService {
 	int updateSentChkImpt(int msgId);
 	int updateInboxChkImpt(int recpId);
 	
+	//중요메세지 목록
+	ResponseEntity<Map<String, Object>> getImpList(HttpServletRequest request);
+	
 	
 	
 }

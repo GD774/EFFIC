@@ -108,15 +108,23 @@ public class MsgController {
         return "msg/inboxDetail";
 	}
 	
-	@PostMapping(value="/updateChkImpt.do", produces="application/json")
+	@PostMapping(value="/updateSentChkImpt.do", produces="application/json")
 	@ResponseBody
-	public int updateChkImpt(@RequestParam int msgId){
+	public int updateSentChkImpt(@RequestParam int msgId){
 		
 		System.out.println(msgId + "컨트롤러 돈다");
 		return msgService.updateSentChkImpt(msgId);
 		
 	}
 	
-	
+
+	@PostMapping(value="/updateInboxChkImpt.do", produces="application/json")
+	@ResponseBody
+	public int updateInboxChkImpt(@RequestParam int recpId){
+		
+		System.out.println(recpId + "컨트롤러 돈다");
+		return msgService.updateInboxChkImpt(recpId);
+		
+	}
 	
 }

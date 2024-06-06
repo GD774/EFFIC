@@ -33,7 +33,7 @@
             <!-- Breadcrumb Start -->
             <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <h2 class="text-title-md2 font-bold text-black dark:text-white">
-                받은 메세지
+                받은 메세지 
               </h2>
               
 
@@ -56,7 +56,7 @@
                  <img src="/msgIcons/bin.svg" />삭제
              </button>
             <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 <img src="/msgIcons/starlight.svg" />보관
+                 <img src="/msgIcons/star0.svg" />보관
               </button>
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80" id="select-all">
                  전체선택
@@ -164,11 +164,12 @@ const fnGetRecpList = () => {
 				 $.each(resData.recpList, (i, recp) => {
 		    	let str=  '<div class="hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
 		    	str +=  '<div class="col-span-1"><input type="checkbox" class="chk"></div>';
-		    	str += '<div class="col-span-1"> <img src="/msgIcons/starlight.svg"/></div>';
+		    	str += '<div class="star col-span-1" data-chk-impt="'+recp.chkImpt+'" data-recp-id="'+recp.recpId+'"><img data-recp-id="'+recp.recpId+'" data-chk-impt="'+recp.chkImpt+'" src="/msgIcons/star'+recp.chkImpt+'.svg"/></div>';
 		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ recp.sender +' </p></div>';
 		    	str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'</p></div>';
 		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ recp.sendDt +'</p></div>';
 		    	str += '</div>';
+		    	console.log(recp);
 		    	$('#message-list').append(str);
 		    	$('#total').html(resData.total);
 		    }),  $('#paging').html(resData.paging);
@@ -182,6 +183,31 @@ const fnGetRecpList = () => {
 $(document).on('click', '.msg-detail', function(evt){
 	location.href = '${contextPath}/msg/getInboxDetail.do?msgId=' + $(this).data('msgId');
 });
+
+const fnUpdateChkImpt = (evt) => {
+
+	console.log($(evt.target).data('recpId'));
+	
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updateInboxChkImpt.do',
+        data: {recpId: $(evt.target).data('recpId') }, 
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+        	fnGetRecpList();
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+};
+
+$(document).on('click', '.star', (evt)=>{
+	fnUpdateChkImpt(evt)
+});
+
 
 fnGetRecpList();
 </script>

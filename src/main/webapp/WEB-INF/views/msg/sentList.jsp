@@ -158,7 +158,7 @@ const fnGetMsgList = () => {
 		  // 요청
 		  type: 'GET',
 		  url: '${contextPath}/msg/getSentList.do',               
-		  data : {page: page, dummy: Math.random()},
+		  data : 'page=' + page,
 		  // 응답
 		  dataType: 'json',
 		  success: (resData) => {
@@ -216,7 +216,7 @@ const fnUpdateChkImpt = (evt) => {
     $.ajax({
         // 요청
         type: 'POST',
-        url: '${contextPath}/msg/updateChkImpt.do',
+        url: '${contextPath}/msg/updateSentChkImpt.do',
         data: {msgId: $(evt.target).data('msgId') }, // 클릭된 요소의 데이터 사용
         // 응답
         dataType: 'json',

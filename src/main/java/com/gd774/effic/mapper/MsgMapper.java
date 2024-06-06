@@ -35,4 +35,5 @@ public interface MsgMapper {
 	 
 	 //중요 메세지 체크
 	 int updateSentChkImpt(int msgId);
+	 int updateInboxChkImpt(int recpId);
 }

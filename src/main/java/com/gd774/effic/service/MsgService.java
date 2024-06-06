@@ -34,6 +34,7 @@ public interface MsgService {
 	
 	//중요메세지 체크
 	int updateSentChkImpt(int msgId);
+	int updateInboxChkImpt(int recpId);
 	
 	
 	

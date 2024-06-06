@@ -91,6 +91,7 @@ public class MsgServiceImpl implements MsgService {
 	
 	@Override
 	public ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request) {
+		
 		// 페이징 처리
 		UserDto user = (UserDto)request.getSession().getAttribute("user");
 		String sender = user.getEmpId();
@@ -128,6 +129,7 @@ public class MsgServiceImpl implements MsgService {
 	 */
 	@Override
 	public ResponseEntity<Resource> download(HttpServletRequest request) {
+		
 		 // 첨부 파일 정보를 DB 에서 가져오기
 		    int msgId = Integer.parseInt(request.getParameter("msgId"));
 		    MsgAttachDto attach = msgMapper.getMsgOneAttach(msgId);
@@ -290,12 +292,14 @@ public class MsgServiceImpl implements MsgService {
 	 
 	 @Override
 	public int updateSentChkImpt(int msgId) {
-         System.out.println("서비스돈다");
-
-         
+		 
          return msgMapper.updateSentChkImpt(msgId);
-		 
-		 
+	}
+	 
+	 @Override
+	public int updateInboxChkImpt(int recpId) {
+		
+		return msgMapper.updateInboxChkImpt(recpId);
 	}
 
 }

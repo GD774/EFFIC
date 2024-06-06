@@ -147,9 +147,9 @@ WHERE RECIPIENT = #{recipient}
 <select id="getListRcp"
         parameterType="Map"
         resultMap="MsgMap">
-SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, READ_DT
+SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, READ_DT, RECP_ID
 FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
-            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT, M.SENDER, R.READ_DT
+            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, R.CHK_IMPT, M.SENDER, R.READ_DT, R.RECP_ID
          FROM MSG_T M JOIN RECP_T R
            ON M.MSG_ID = R.MSG_ID
         WHERE R.RECIPIENT = #{recipient} AND M.STATE=0)
@@ -177,6 +177,15 @@ UPDATE MSG_T
         ELSE 1
     END
  WHERE MSG_ID=#{msgId}
+</update>
+
+<update id="updateInboxChkImpt">
+UPDATE RECP_T 
+   SET CHK_IMPT = CASE 
+        WHEN CHK_IMPT = 1 THEN 0
+        ELSE 1
+    END
+ WHERE RECP_ID=#{recpId}
 </update>
  
 

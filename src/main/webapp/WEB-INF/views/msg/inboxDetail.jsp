@@ -50,7 +50,7 @@
                           <label class="mr-2 mb-3 block text-sm font-bold text-black dark:text-white">
                             발신자
                           </label>
-                          <input type="text" value="${rcp.sender}"  class="w-2/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly>
+                          <input type="text" value="${rcp.name}"  class="w-2/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly>
                         </div>
 
                       <div class="flex w-full xl:w-4/12 items-center"  data-set-attach-list="${attachList}">

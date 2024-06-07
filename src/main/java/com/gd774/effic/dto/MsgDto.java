@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MsgDto {
     String sender, title, contents, sendDt;
-    String sort, recipient, originalName, readDt;
+    String sort, recipient, originalName, readDt, name, rname, sname;
     int msgId, state, isDelete, chkImpt, recpId;
 }

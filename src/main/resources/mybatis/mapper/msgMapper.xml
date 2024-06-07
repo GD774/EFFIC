@@ -18,6 +18,8 @@
 	<result  property="recipient"        column="RECIPIENT"/>
 	<result  property="sort"        column="SORT"/>
 	<result  property="readDt"        column="READ_DT"/>
+	<result  property="sname"        column="SNAME"/>
+	<result  property="rname"        column="RNAME"/>
   </resultMap>
 
 
@@ -96,19 +98,21 @@ WHERE SENDER = #{sender}
 <select id="getListMsg"
         parameterType="Map"
         resultMap="MsgMap">
-SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT
+SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, NAME
 FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
-            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT
-         FROM MSG_T M JOIN RECP_T R
-           ON M.MSG_ID = R.MSG_ID
+            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT, U.NAME
+         FROM MSG_T M 
+         JOIN RECP_T R ON M.MSG_ID = R.MSG_ID
+         JOIN USER_T U ON U.EMP_ID = R.RECIPIENT
         WHERE M.SENDER = #{sender} AND M.STATE=0)
 WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
 <select id="getMsgDetail">
-SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT  
-FROM MSG_T M JOIN RECP_T R
-              ON R.MSG_ID = M.MSG_ID
+SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT, NAME
+FROM MSG_T M 
+JOIN RECP_T R ON R.MSG_ID = M.MSG_ID
+JOIN USER_T U ON U.EMP_ID = M.SENDER 
 WHERE M.MSG_ID = #{msgId}     
 </select>
 
@@ -151,20 +155,22 @@ WHERE RECIPIENT = #{recipient}
 <select id="getListRcp"
         parameterType="Map"
         resultMap="MsgMap">
-SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, READ_DT, RECP_ID
+SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, READ_DT, RECP_ID, NAME
 FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
-            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, R.CHK_IMPT, M.SENDER, R.READ_DT, R.RECP_ID
-         FROM MSG_T M JOIN RECP_T R
-           ON M.MSG_ID = R.MSG_ID
+            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, R.CHK_IMPT, M.SENDER, R.READ_DT, R.RECP_ID, U.NAME
+         FROM MSG_T M 
+         JOIN RECP_T R ON M.MSG_ID = R.MSG_ID
+         JOIN USER_T U ON U.EMP_ID = M.SENDER 
         WHERE R.RECIPIENT = #{recipient} AND M.STATE=0)
 WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
 <select id="getRcpDetail"
         parameterType="Map">
-SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT, M.SENDER, R.READ_DT
-FROM MSG_T M JOIN RECP_T R
-              ON R.MSG_ID = M.MSG_ID
+SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT, M.SENDER, R.READ_DT, U.NAME
+FROM MSG_T M 
+JOIN RECP_T R ON R.MSG_ID = M.MSG_ID
+JOIN USER_T U ON U.EMP_ID = R.RECIPIENT 
 WHERE M.MSG_ID = #{msgId} AND R.RECIPIENT = #{recipient} 
 </select>
 
@@ -212,7 +218,7 @@ SELECT COUNT(SORT)
                  M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
            FROM MSG_T M JOIN RECP_T R
              ON M.MSG_ID = R.MSG_ID
-          WHERE M.SENDER = #{sender} AND M.STATE=1 AND M.CHK_IMPT=1)        
+          WHERE M.SENDER = #{sender} AND M.STATE=0 AND M.CHK_IMPT=1)        
 </select>
 
 

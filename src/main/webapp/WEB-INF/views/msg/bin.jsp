@@ -137,9 +137,9 @@ const fnGetBinList = () => {
 		    	str +=  '<div class="col-span-1" ><input type="checkbox" class="chk"></div>';
 		    	
 		    	if(bin.sort.slice(0, 1) === 'R'){
-		    	str += '<div data-msg-id="'+bin.msgId+'" class="col-span-3"> <p class="text-[#637381] dark:text-bodydark"> '+ bin.sender +' </p></div>';}
+		    	str += '<div data-msg-id="'+bin.msgId+'" class="col-span-3"> <p class="text-[#637381] dark:text-bodydark"> '+ bin.sname +' </p></div>';}
 		    	else if(bin.sort.slice(0, 1) === 'M'){
-			    str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.recipient +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
+			    str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
 		    	
 		    	str += ' <div data-msg-id="'+bin.msgId+'" class="col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ bin.title +'</p></div>';
 		    	str += '<div data-msg-id="'+bin.msgId+'" class="col-span-1"><p class="text-[#637381] dark:text-bodydark">'+ bin.sendDt.slice(0, -3) +'</p></div>';

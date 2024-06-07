@@ -1,28 +1,22 @@
 package com.gd774.effic.service;
 
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-@Service
-public interface AppDocService {
+import com.gd774.effic.dto.approval.AppDocDto;
 
-	public class AppDocServiceImpl implements AppDocService {
+import jakarta.servlet.http.HttpServletRequest;
 
-//		private final AppDocMapper appdocMapper;
-//
-//		public AppDocServiceImpl(AppDocMapper approvalMapper) {
-//			this.AppDocMapper = approvalMapper;
-//		}
+public interface ApprovalService {
 	
-	}
+	int RegisterApproval(MultipartHttpServletRequest multipartRequest);
+
+		
+		
 }
 
-//	  int insertUpload(UploadDto upload);
-//	  int insertAttach(AttachDto attach);
-//	  int getUploadCount();
-//	  List<UploadDto> getUploadList(Map<String, Object> map);
-//	  UploadDto getUploadByNo(int uploadNo);
-//	  List<AttachDto> getAttachList(int uploadNo);
-//	  AttachDto getAttachByNo(int attachNo);
-//	  int updateDownloadCount(int attachNo);
-//	  int updateUpload(UploadDto upload);
-//	  int deleteAttach(int attachNo);
+

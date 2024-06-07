@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.gd774.effic.mapper.ApprovalMapper">
+	<resultMap type="com.gd774.effic.dto.AppDocDto" id="ApprovalMap">
+		<result type="docId" column="DOC_ID"/>
+		<result type="empId" column="EMP_ID"/>
+		<result type="title" column="TITLE"/>
+		<result type="contents" column="CONTENTS"/>
+		<result type="docTempCode" column="DOC_TEMP_CODE"/>
+		<result type="writeDt" column="WRITE_DT"/>
+		<result type="updateDt" column="UPDATE_DT"/>
+		<result type="depId" column="DEP_ID"/>
+		<result type="docState" column="DOC_STATE"/>
+		<result type="urgent" column="URGENT"/>
+    <association property="user" javaType="UserDto">
+     <id property="empId" column="EMP_ID"/>
+    </association>
+	</resultMap>
+</mapper>
+
+<insert id="registerApproval"
+		parameterType="AppDocDto">
+	<selectKey order="BEFORE" keyProperty="docId" resultType="int">
+		SELECT DOC_SEQ.NEXTVAL
+		  FROM DUAL
+	</selectKey>
+  INSERT INTO APP_DOC_T (
+      DOC_ID
+    , EMP_ID
+    , TITLE
+    , CONTENTS
+    , DOC_TEMP_CODE
+    , WRITE_DT
+    , DEP_ID
+    , DOC_STATE
+  ) VALUES (
+    , #{docId}
+    , #{empId}
+    , #{title}
+    , #{contents}
+    , #{docTempCode}   
+    , SYSDATE
+    ,#{depId}
+    , 0  
+</insert>
+
+
+</mapper>

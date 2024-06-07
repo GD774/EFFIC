@@ -13,7 +13,7 @@
 <style>
     .button-container {
         
-        margin-bottom: 10px; /* 버튼들 아래 여백 추가 */
+        
     }
 
     .button-container a {
@@ -41,8 +41,70 @@
 
 <div class="wrapper">
 <div class="mx-auto max-w-screen-2xl p-2 md:p-2 2xl:p-6">
-    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="mb-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-title-md2 font-bold text-black dark:text-white mt-4">문서 작성</h2>
+        <table>
+        <tr>
+        <td style="width: 799px; height: 153.75px; padding: 1.41pt; border-width: 2px 1px 2px 2px; border-style: solid; border-color: rgb(0, 0, 0);" valign="middle" colspan="11">
+    	<p style="font-family: &quot;맑은 고딕&quot;; font-size: 12pt; line-height: 150%; margin-top: 0px; margin-bottom: 0px;">
+    		<span unselectable="on" contenteditable="false" class="comp_wrap" data-wrapper="" style="font-family: &quot;맑은 고딕&quot;; font-size: 12pt;">
+        		<span class="sign_type1_inline" data-group-seq="0" data-group-name="결        재" data-group-max-count="2" data-group-type="type1" data-is-reception="">
+        			<span class="sign_tit_wrap">
+        				<span class="sign_tit">
+        					<strong>결        재</strong>
+    					</span>
+					</span>
+            		<span class="sign_member_wrap">
+            			<span class="sign_member">
+            				<span class="sign_rank_wrap">
+            					<span class="sign_rank" style="font-family: &quot;맑은 고딕&quot;; font-size: 9pt;">
+            						&nbsp;
+        						</span>
+    						</span>
+    						<span class="sign_wrap" style="font-family: &quot;맑은 고딕&quot;; font-size: 9pt;">
+    							&nbsp;
+							</span>
+							<span class="sign_date_wrap">
+								<span class="sign_date" style="font-family: &quot;맑은 고딕&quot;; font-size: 9pt;">
+									&nbsp;
+								</span>
+							</span>
+						</span>
+					</span>
+					<span class="sign_member_wrap">
+						<span class="sign_member">
+							<span class="sign_rank_wrap">
+								<span class="sign_rank" style="font-family: &quot;맑은 고딕&quot;; font-size: 9pt;">
+									&nbsp;
+								</span>
+							</span>
+						<span class="sign_wrap" style="font-family: &quot;맑은 고딕&quot;; font-size: 9pt;">
+							&nbsp;
+						</span>
+						<span class="sign_date_wrap">
+							<span class="sign_date" style="font-family: &quot;맑은 고딕&quot;; font-size: 9pt;">
+								&nbsp;
+							</span>
+						</span>
+					</span>
+				</span>
+			</span>
+
+        <span contenteditable="false" class="comp_active" style="display: none; font-family: &quot;맑은 고딕&quot;; font-size: 12pt;"> 
+			<span class="Active_dot1"></span>
+			<span class="Active_dot2"></span> 
+			<span class="Active_dot3"></span>
+			<span class="Active_dot4"></span> 
+		</span>
+		<span contenteditable="false" class="comp_hover" data-content-protect-cover="true" style="font-family: &quot;맑은 고딕&quot;; font-size: 12pt;"> 
+			<a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> 
+		</span>
+	</span>
+	<br>
+</p>
+</td>
+</tr>
+</table>
 </div>
 
 <div style="font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
@@ -76,6 +138,7 @@
                 <td style="background: white; padding: 0px !important; border: 0px currentColor; height: 60px; text-align: center; color: black; font-size: 25px; font-weight: bold; vertical-align: middle;" colspan="2" class="dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
                     법인카드 지출결의서
                 </td>
+
             </tr>
             <tr>
                 <td style="background: white; padding: 0px !important; border: currentColor; text-align: left; color: black; font-size: 12px; font-weight: normal; vertical-align: top;">

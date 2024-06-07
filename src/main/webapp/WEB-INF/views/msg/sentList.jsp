@@ -237,7 +237,7 @@ $(document).on('click', '.star', (evt)=>{
 
 
 
-// 체크된 체크박스의 값 가져오기
+// 체크한 거 삭제버튼 눌러서 휴지통으로 이동
 $('#btn-remove').click(function() {
     var checkValues = [];
     $("input[name='checkbox']:checked").each(function() {
@@ -248,11 +248,11 @@ $('#btn-remove').click(function() {
         // 요청
         type: 'POST',
         url: '${contextPath}/msg/updateSentToBin.do',
-        data: 'data=' + data,
+        data: {checkValues: checkValues},
         // 응답
         dataType: 'json',
         success: (resData) => { 
-            
+           fnGetMsgList();
         },
         error: (jqXHR) => {
             alert(jqXHR.statusText + '(' + jqXHR.status + ')');

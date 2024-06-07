@@ -212,6 +212,18 @@ SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
  WHERE RN BETWEEN #{begin} AND #{end}
  
 </select>
+
+<update id="updateSentTobBin">
+UPDATE MSG_T 
+   SET STATE = 1
+ WHERE MSG_ID=#{msgId}
+</update>
+
+<update id="updateInboxToBin">
+UPDATE RECP_T 
+   SET STATE = 1
+ WHERE RECP_ID=#{recpId}
+</update>
  
 
 </mapper>

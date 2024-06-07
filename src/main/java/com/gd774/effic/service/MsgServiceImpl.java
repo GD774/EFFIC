@@ -322,6 +322,22 @@ public class MsgServiceImpl implements MsgService {
 	                , "paging", msgPaging.getAsyncPaging()), HttpStatus.OK);
 	}
 
+	 @Override
+	 public int updateSentToBin(int msgId) {
+		 
+		 int UpdateCount = 0;
+		 
+		 
+		 return UpdateCount = msgMapper.updateSentTobBin(msgId);
+	 }
+	 
+	@Override
+	public int updateInboxToBin(int recpId) {
+		int UpdateCount = 0;
+		
+		return UpdateCount = msgMapper.updateInboxToBin(recpId);
+	}
+	
 }
 
 

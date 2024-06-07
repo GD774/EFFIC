@@ -157,11 +157,17 @@ public class MsgController {
 	
 	@PostMapping(value="/updateSentToBin.do", produces="application/json")
 	@ResponseBody
-	public int updateSentToBin(@RequestParam List<Integer> checkValues){
-		System.out.println(checkValues);
+	public int updateSentToBin(@RequestParam(value="checkValues[]") List<Integer> checkValues){
+		 
+		System.out.println("컨트롤러 돌고 있음");
+		int updateCount = 0;
+	
+		for(int check : checkValues) {
+			System.out.println(check);
+			updateCount += msgService.updateSentToBin(check);
+		}
 		
-		
-		return 1;
+		return updateCount;
 		
 	}
 

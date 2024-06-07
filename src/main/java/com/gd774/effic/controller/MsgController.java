@@ -131,6 +131,29 @@ public class MsgController {
 		return msgService.getImpList(request);
 	}
 	
+	@PostMapping(value="/updateImpChkImpt.do", produces="application/json")
+	@ResponseBody
+	public int updateImpChkImpt(@RequestParam String sort){
+		String msgSort = sort.substring(0, 1); 
+		System.out.println(msgSort);// 조아쓰 잘 나옴
+		int pk = Integer.parseInt(sort.substring(1));
+		System.out.println(pk);
+		
+		int updateCount = 0;
+		
+		if(msgSort.equals("M")) {
+			updateCount = msgService.updateSentChkImpt(pk);
+		} else if (msgSort.equals("R")) {
+			updateCount = msgService.updateInboxChkImpt(pk);
+		} else {
+		System.out.println("엥 그럴리가");
+	    }
+
+		return updateCount;
+		
+	}
+
+	
 	
 	
 	

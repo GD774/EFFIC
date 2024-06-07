@@ -47,7 +47,7 @@
                  삭제
              </button>
             <button class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 해제
+                 보관 해제
             </button>
             <button id="select-all" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                       전체선택
@@ -148,9 +148,9 @@ const fnGetImpList = () => {
 		  success: (resData) => {
 			     $('#message-list').html('');
 				 $.each(resData.impList, (i, imp) => {
-		    	let str=  '<div data-imp-sort="'+imp.sort+'" class="hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
+		    	let str=  '<div data-sort="'+imp.sort+'" class="hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
 		    	str +=  '<div class="col-span-1" ><input type="checkbox" class="chk"></div>';
-		    	str += '<div class="star col-span-1" data-chk-impt="'+imp.chkImpt+'" data-msg-id="'+imp.msgId+'"><img data-msg-id="'+imp.msgId+'" data-chk-impt="'+imp.chkImpt+'" src="/msgIcons/star'+imp.chkImpt+'.svg"/></div>';
+		    	str += '<div class="star col-span-1" data-chk-impt="'+imp.chkImpt+'" data-sort="'+imp.sort+'"><img data-sort="'+imp.sort+'" data-chk-impt="'+imp.chkImpt+'" src="/msgIcons/star'+imp.chkImpt+'.svg"/></div>';
 		    	
 		    	if(imp.sort.slice(0, 1) === 'R'){
 		    	str += '<div data-msg-id="'+imp.msgId+'" class="col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ imp.sender +' </p></div>';}
@@ -164,7 +164,6 @@ const fnGetImpList = () => {
 		    	str += '</div>';
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);
-				 
 		  },
 		  error: (jqXHR) => {
 			  alert(jqXHR.statusText + '(' + jqXHR.status + ')');
@@ -172,6 +171,32 @@ const fnGetImpList = () => {
 		})
 	};
 
+	const fnUpdateChkImpt = (evt) => {
+
+		console.log($(evt.target).data('sort'));
+	    $.ajax({
+	        // 요청
+	        type: 'POST',
+	        url: '${contextPath}/msg/updateImpChkImpt.do',
+	        data: {sort: $(evt.target).data('sort')}, 
+	        // 발신메시지인지 수신메시지인지 구분하기 위해 SORT를 사용. 빽단에서 맨 앞 문자를 추출해서 MSG 인지 RECP인지 판단한다
+	        // 응답
+	        dataType: 'json',
+	        success: (resData) => { 
+	            fnGetImpList();
+	        },
+	        error: (jqXHR) => {
+	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+	        }
+	    });
+	};
+
+	$(document).on('click', '.star', (evt)=>{
+		fnUpdateChkImpt(evt)
+	});	
+	
+	
+	
 fnGetImpList();
 </script>
 

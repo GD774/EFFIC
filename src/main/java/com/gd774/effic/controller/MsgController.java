@@ -1,5 +1,6 @@
 package com.gd774.effic.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -152,6 +153,18 @@ public class MsgController {
 		return updateCount;
 		
 	}
+	
+	
+	@PostMapping(value="/updateSentToBin.do", produces="application/json")
+	@ResponseBody
+	public int updateSentToBin(@RequestParam List<Integer> checkValues){
+		System.out.println(checkValues);
+		
+		
+		return 1;
+		
+	}
+
 
 	
 	

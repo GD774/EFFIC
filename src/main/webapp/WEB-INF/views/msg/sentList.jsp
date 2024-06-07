@@ -53,7 +53,7 @@
             
             <div id="button-wrapper" class="flex justify-between py-3">
             <div>
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-remove" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  <img src="/msgIcons/bin.svg"/>삭제
              </button>
             <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
@@ -165,7 +165,7 @@ const fnGetMsgList = () => {
 			     $('#message-list').html('');
 				 $.each(resData.msgList, (i, msg) => {
 		    	let str=  '<div class="hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
-		    	str +=  '<div class="col-span-1" ><input type="checkbox" class="chk"></div>';
+		    	str +=  '<div class="col-span-1" ><input type="checkbox" name="checkbox" class="chk" value="'+ msg.msgId +'"></div>';
 		    	str += '<div class="star col-span-1" data-chk-impt="'+msg.chkImpt+'" data-msg-id="'+msg.msgId+'"><img data-msg-id="'+msg.msgId+'" data-chk-impt="'+msg.chkImpt+'" src="/msgIcons/star'+msg.chkImpt+'.svg"/></div>';
 		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ msg.recipient +' </p></div>';
 		    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
@@ -232,6 +232,34 @@ const fnUpdateChkImpt = (evt) => {
 $(document).on('click', '.star', (evt)=>{
 	fnUpdateChkImpt(evt)
 });
+
+
+
+
+
+// 체크된 체크박스의 값 가져오기
+$('#btn-remove').click(function() {
+    var checkValues = [];
+    $("input[name='checkbox']:checked").each(function() {
+        checkValues.push(this.value);
+    });
+    var data = $.param({ checkValues: checkValues });
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updateSentToBin.do',
+        data: 'data=' + data,
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+            
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+});
+
 
 
 fnGetMsgList();	

@@ -56,7 +56,7 @@
             <button id="btn-remove" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  <img src="/msgIcons/bin.svg"/>삭제
              </button>
-            <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-star" class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  <img src="/msgIcons/star0.svg"/>보관
               </button>
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80" id="select-all">
@@ -230,7 +230,7 @@ const fnUpdateChkImpt = (evt) => {
 };
 
 $(document).on('click', '.star', (evt)=>{
-	fnUpdateChkImpt(evt)
+     fnUpdateChkImpt(evt)
 });
 
 
@@ -253,6 +253,31 @@ $('#btn-remove').click(function() {
         dataType: 'json',
         success: (resData) => { 
            fnGetMsgList();
+           alert('휴지통으로 이동되었습니다');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+});
+
+//체크한 거 삭제버튼 눌러서 휴지통으로 이동
+$('#btn-star').click(function() {
+    var checkValues = [];
+    $("input[name='checkbox']:checked").each(function() {
+        checkValues.push(this.value);
+    });
+    var data = $.param({ checkValues: checkValues });
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updatesSentChkImpt.do',
+        data: {checkValues: checkValues},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           fnGetMsgList();
+           alert('중요메세지로 설정되었습니다');
         },
         error: (jqXHR) => {
             alert(jqXHR.statusText + '(' + jqXHR.status + ')');

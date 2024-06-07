@@ -297,6 +297,12 @@ public class MsgServiceImpl implements MsgService {
 	}
 	 
 	 @Override
+	public int updateSentOnlyChkImpt(int msgId) {
+		 
+         return msgMapper.updateSentOnlyChkImpt(msgId);
+	}
+	 
+	 @Override
 	public int updateInboxChkImpt(int recpId) {
 		
 		return msgMapper.updateInboxChkImpt(recpId);

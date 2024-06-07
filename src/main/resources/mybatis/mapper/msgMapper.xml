@@ -183,6 +183,12 @@ UPDATE MSG_T
  WHERE MSG_ID=#{msgId}
 </update>
 
+<update id="updateSentOnlyChkImpt">
+UPDATE MSG_T 
+   SET CHK_IMPT = 1
+ WHERE MSG_ID=#{msgId}
+</update>
+
 <update id="updateInboxChkImpt">
 UPDATE RECP_T 
    SET CHK_IMPT = CASE 

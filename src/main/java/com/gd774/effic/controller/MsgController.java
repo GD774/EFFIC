@@ -109,11 +109,28 @@ public class MsgController {
         return "msg/inboxDetail";
 	}
 	
+	// 단일 별
 	@PostMapping(value="/updateSentChkImpt.do", produces="application/json")
 	@ResponseBody
 	public int updateSentChkImpt(@RequestParam int msgId){
 		
 		return msgService.updateSentChkImpt(msgId);
+		
+	}
+	
+	// 체크박스 별
+	@PostMapping(value="/updatesSentChkImpt.do", produces="application/json")
+	@ResponseBody
+	public int updatesSentChkImpt(@RequestParam(value="checkValues[]") List<Integer> checkValues){
+		 
+		int updateCount = 0;
+	
+		for(int check : checkValues) {
+			
+			updateCount += msgService.updateSentOnlyChkImpt(check);
+		}
+		
+		return updateCount;
 		
 	}
 	
@@ -170,9 +187,10 @@ public class MsgController {
 		return updateCount;
 		
 	}
-
-
 	
+
+
+
 	
 	
 	

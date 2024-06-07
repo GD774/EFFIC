@@ -189,6 +189,11 @@ public class MsgController {
 	}
 	
 
+	@GetMapping(value="/getBinList.do", produces="application/json")
+	public ResponseEntity<Map<String, Object>> getBinList(HttpServletRequest request) {
+
+		return msgService.getBinList(request);
+	}
 
 
 	

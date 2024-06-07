@@ -171,8 +171,8 @@ const fnGetRecpList = () => {
 		    	str += '</div>';
 		    	console.log(recp);
 		    	$('#message-list').append(str);
-		    	$('#total').html(resData.total);
 		    }),  $('#paging').html(resData.paging);
+				 $('#total').html(resData.total);
 		  },
 		  error: (jqXHR) => {
 			  alert(jqXHR.statusText + '(' + jqXHR.status + ')');

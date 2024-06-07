@@ -39,11 +39,17 @@ public interface MsgMapper {
 	 int updateSentOnlyChkImpt(int msgId);
      
 	 //중요 메세지 리스트
+     int getImpCount(Map<String, Object> map);
 	 List<MsgDto> getImpList(Map<String, Object> map);
 	 
 	 //휴지통 이동
 	 int updateSentTobBin(int msgId);
 	 int updateInboxToBin(int recpId);
+	 
+	 //휴지통 메세지 리스트
+	 int getBinCount(Map<String, Object> map);
+	 List<MsgDto> getBinList(Map<String, Object> map);
+	 
 	 
 
 }

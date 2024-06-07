@@ -56,7 +56,7 @@
                  <img src="/msgIcons/bin.svg" />삭제
              </button>
             <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 <img src="/msgIcons/starlight.svg" />보관
+                 <img src="/msgIcons/star0.svg" />보관
 
               </button>
             <button class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">

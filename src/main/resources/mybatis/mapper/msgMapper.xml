@@ -198,6 +198,24 @@ UPDATE RECP_T
  WHERE RECP_ID=#{recpId}
 </update>
 
+<select id="getImpCount"
+        parameterType="Map">
+SELECT COUNT(SORT)
+  FROM (
+         SELECT CONCAT('R',R.RECP_ID)  AS SORT, 
+                M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
+           FROM MSG_T M JOIN RECP_T R
+             ON M.MSG_ID = R.MSG_ID
+          WHERE R.RECIPIENT = #{recipient} AND R.STATE=1 AND R.CHK_IMPT=1
+     UNION ALL
+         SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
+                 M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
+           FROM MSG_T M JOIN RECP_T R
+             ON M.MSG_ID = R.MSG_ID
+          WHERE M.SENDER = #{sender} AND M.STATE=1 AND M.CHK_IMPT=1)        
+</select>
+
+
 <select id="getImpList"
         parameterType="Map"
         resultMap="MsgMap">
@@ -231,5 +249,47 @@ UPDATE RECP_T
  WHERE RECP_ID=#{recpId}
 </update>
  
+ <select id="getBinList"
+        parameterType="Map"
+        resultMap="MsgMap">
+
+SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
+  FROM (
+         SELECT ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, 
+                SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
+  FROM (
+         SELECT CONCAT('R',R.RECP_ID)  AS SORT, 
+                M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
+           FROM MSG_T M JOIN RECP_T R
+             ON M.MSG_ID = R.MSG_ID
+          WHERE R.RECIPIENT = #{recipient} AND R.STATE=1
+     UNION ALL
+         SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
+                 M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
+           FROM MSG_T M JOIN RECP_T R
+             ON M.MSG_ID = R.MSG_ID
+          WHERE M.SENDER =  #{sender} AND M.STATE=1))
+ WHERE RN BETWEEN #{begin} AND #{end}
+</select>
+
+<select id="getBinCount"
+        parameterType="Map">
+
+SELECT COUNT(SORT)
+  FROM (
+         SELECT CONCAT('R',R.RECP_ID)  AS SORT, 
+                M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
+           FROM MSG_T M JOIN RECP_T R
+             ON M.MSG_ID = R.MSG_ID
+          WHERE R.RECIPIENT = #{recipient} AND R.STATE=1
+     UNION ALL
+         SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
+                 M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
+           FROM MSG_T M JOIN RECP_T R
+             ON M.MSG_ID = R.MSG_ID
+          WHERE M.SENDER = #{sender} AND M.STATE=1)
+
+
+</select>
 
 </mapper>

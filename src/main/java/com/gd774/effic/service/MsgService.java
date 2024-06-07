@@ -42,6 +42,8 @@ public interface MsgService {
 	//휴지통이동
 	int updateSentToBin(int msgId);
 	int updateInboxToBin(int recpId);
+	//휴지통 목록
+	ResponseEntity<Map<String, Object>> getBinList(HttpServletRequest request);
 	
 	
 	

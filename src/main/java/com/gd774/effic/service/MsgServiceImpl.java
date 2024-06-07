@@ -314,7 +314,8 @@ public class MsgServiceImpl implements MsgService {
 		 UserDto user = (UserDto)request.getSession().getAttribute("user");
 			String recipient = user.getEmpId();
 			String sender = user.getEmpId();
-		    int total = msgMapper.getRcpCount(recipient);
+			Map<String, Object> getTotal = Map.of("recipient", recipient, "sender", sender);
+		    int total = msgMapper.getImpCount(getTotal);
 		    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
 			Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		    int page = Integer.parseInt(opt.orElse("1"));
@@ -343,6 +344,31 @@ public class MsgServiceImpl implements MsgService {
 		
 		return UpdateCount = msgMapper.updateInboxToBin(recpId);
 	}
+	
+	@Override
+	public ResponseEntity<Map<String, Object>> getBinList(HttpServletRequest request) {
+		
+		 UserDto user = (UserDto)request.getSession().getAttribute("user");
+			String recipient = user.getEmpId();
+			String sender = user.getEmpId();
+			
+			//데이터 몇백개 넣고 페이징 처리 확인 해봐야함. count 다른거 쓰는거 있었어서 수정. 이런거는 데이터 많이 들어가기 전에는 티안남...조심
+			Map<String, Object> getTotal = Map.of("recipient", recipient, "sender", sender);
+		    int total = msgMapper.getBinCount(getTotal);
+
+		    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+			Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		    int page = Integer.parseInt(opt.orElse("1"));
+		    msgPaging.setPaging(total, display, page);
+		    
+
+			Map<String, Object> map = Map.of("recipient", recipient, "sender", sender, "begin", msgPaging.getBegin() 
+	                , "end", msgPaging.getEnd());
+			
+			return new ResponseEntity<>(Map.of("binList", msgMapper.getBinList(map), "total", total
+	                , "paging", msgPaging.getAsyncPaging()), HttpStatus.OK);
+	}
+	
 	
 }
 

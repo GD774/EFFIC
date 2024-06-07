@@ -20,6 +20,7 @@ public interface MsgMapper {
 	 List<MsgDto> getListMsg(Map<String, Object>map);
 	 int getMsgCount(String sender);
 	 MsgDto getMsgDetail(int msgId);
+	 MsgDto recipientList(int msgId); 
 	 
 	 //첨부파일
 	 int insertAttach(MsgAttachDto msgAttach);
@@ -49,6 +50,7 @@ public interface MsgMapper {
 	 //휴지통 메세지 리스트
 	 int getBinCount(Map<String, Object> map);
 	 List<MsgDto> getBinList(Map<String, Object> map);
+	 
 	 
 	 
 

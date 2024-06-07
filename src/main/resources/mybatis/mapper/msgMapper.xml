@@ -220,22 +220,36 @@ SELECT COUNT(SORT)
         parameterType="Map"
         resultMap="MsgMap">
 
-SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
+SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME
   FROM (
-         SELECT ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
+         SELECT ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, 
+                SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, RNAME, SNAME
   FROM (
-         SELECT CONCAT('R',R.RECP_ID)  AS SORT, M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
-           FROM MSG_T M JOIN RECP_T R
+         SELECT CONCAT('R',R.RECP_ID)  AS SORT, 
+                M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
+           FROM MSG_T M 
+           JOIN RECP_T R
              ON M.MSG_ID = R.MSG_ID
-          WHERE R.RECIPIENT = #{recipient} AND R.STATE=0 AND R.CHK_IMPT=1
+           JOIN USER_T SU
+             ON SU.EMP_ID = M.SENDER
+           JOIN USER_T RU
+             ON RU.EMP_ID = R.RECIPIENT
+          WHERE R.RECIPIENT = #{recipient} AND M.STATE=0 AND M.CHK_IMPT=1
      UNION ALL
-         SELECT  CONCAT('M', M.MSG_ID) AS SORT, M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
-           FROM MSG_T M JOIN RECP_T R
+         SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
+                 M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
+           FROM MSG_T M 
+           JOIN RECP_T R
              ON M.MSG_ID = R.MSG_ID
-          WHERE M.SENDER = #{sender} AND M.STATE=0 AND M.CHK_IMPT=1))
+           JOIN USER_T SU
+             ON SU.EMP_ID = M.SENDER
+           JOIN USER_T RU
+             ON RU.EMP_ID = R.RECIPIENT
+          WHERE M.SENDER =  #{sender} AND M.STATE=0 AND M.CHK_IMPT=1))
  WHERE RN BETWEEN #{begin} AND #{end}
  
 </select>
+
 
 <update id="updateSentTobBin">
 UPDATE MSG_T 
@@ -253,21 +267,31 @@ UPDATE RECP_T
         parameterType="Map"
         resultMap="MsgMap">
 
-SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
+SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME
   FROM (
          SELECT ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, 
-                SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER
+                SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, RNAME, SNAME
   FROM (
          SELECT CONCAT('R',R.RECP_ID)  AS SORT, 
-                M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
-           FROM MSG_T M JOIN RECP_T R
+                M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
+           FROM MSG_T M 
+           JOIN RECP_T R
              ON M.MSG_ID = R.MSG_ID
+           JOIN USER_T SU
+             ON SU.EMP_ID = M.SENDER
+           JOIN USER_T RU
+             ON RU.EMP_ID = R.RECIPIENT
           WHERE R.RECIPIENT = #{recipient} AND R.STATE=1
      UNION ALL
          SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
-                 M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
-           FROM MSG_T M JOIN RECP_T R
+                 M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
+           FROM MSG_T M 
+           JOIN RECP_T R
              ON M.MSG_ID = R.MSG_ID
+           JOIN USER_T SU
+             ON SU.EMP_ID = M.SENDER
+           JOIN USER_T RU
+             ON RU.EMP_ID = R.RECIPIENT
           WHERE M.SENDER =  #{sender} AND M.STATE=1))
  WHERE RN BETWEEN #{begin} AND #{end}
 </select>
@@ -291,5 +315,16 @@ SELECT COUNT(SORT)
 
 
 </select>
+
+<select id="recipientList"
+        resultMap="MsgMap">
+SELECT U.NAME
+  FROM MSG_T M 
+  JOIN RECP_T R
+    ON M.MSG_ID = R.MSG_ID
+  JOIN USER_T U 
+    ON U.EMP_ID = R.RECIPIENT  
+ WHERE R.READ_DT IS NOT NULL AND M.MSG_ID=#{msgId}
+</select>   
 
 </mapper>

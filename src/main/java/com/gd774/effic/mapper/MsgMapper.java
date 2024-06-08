@@ -12,9 +12,15 @@ import com.gd774.effic.dto.RecpDto;
 @Mapper
 public interface MsgMapper {
 	
-	//메세지 작성
+	 //메세지 작성
 	 int insertMsg(MsgDto msg);
 	 int insertRecp(RecpDto recp);
+	 //나에게 작성
+	 int insertMe(MsgDto msg);
+	
+	 // 나에게 쓴 메세지함
+	 int getToMeCount(String empId);
+	 List<MsgDto> getToMeList(Map<String, Object>map);
 	 
 	 //보낸 메세지함
 	 List<MsgDto> getListMsg(Map<String, Object>map);

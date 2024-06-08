@@ -12,6 +12,7 @@
 	<result  property="sendDt"        column="SEND_DT"/>
 	<result  property="state"        column="STATE"/>
 	<result  property="isDelete"        column="IS_DELETE"/>
+	<result  property="isMe"        column="IS_Me"/>
 	<result  property="chkImpt"        column="CHK_IMPT"/>
 	<result  property="originalName"        column="ORIGINAL_NAME"/>
 	<result  property="recpId"        column="RECP_ID"/>
@@ -50,6 +51,35 @@ INSERT INTO MSG_T(
  ) 
 </insert>
 
+<insert id="insertMe"
+        parameterType="MsgDto">
+<selectKey order="BEFORE" keyProperty="msgId" resultType="int">
+	SELECT MSG_SEQ.NEXTVAL
+	  FROM DUAL
+  </selectKey>
+INSERT INTO MSG_T(
+     MSG_ID
+   , SENDER
+   , TITLE
+   , CONTENTS
+   , SEND_DT
+   , STATE
+   , IS_ME
+   , IS_DELETE
+   , CHK_IMPT
+ ) VALUES (
+     #{msgId}
+   , #{sender}  
+   , #{title}  
+   , #{contents}
+   , SYSDATE
+   , 0
+   , 1
+   , 0
+   , 0  
+ ) 
+</insert>
+
 <insert id="insertRecp"
         parameterType="RecpDto">
 INSERT INTO RECP_T(
@@ -57,11 +87,13 @@ INSERT INTO RECP_T(
    , MSG_ID
    , RECIPIENT
    , STATE
+   , IS_DELETE
    , CHK_IMPT
  ) VALUES (
      RECP_SEQ.NEXTVAL
    , #{msgId}  
    , #{recipient}
+   , 0
    , 0
    , 0  
  ) 
@@ -87,6 +119,27 @@ INSERT INTO RECP_T(
 
 
 </insert>
+
+<select id="getToMeCount">
+SELECT COUNT(MSG_ID)
+FROM MSG_T
+WHERE SENDER = #{sender} AND STATE=0 AND IS_ME=1
+
+</select>
+
+<select id="getToMeList"
+        resultMap="MsgMap">
+SELECT MSG_ID, TITLE, SEND_DT, CHK_IMPT, NAME
+FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
+            , M.MSG_ID, M.TITLE, M.SEND_DT, M.CHK_IMPT, U.NAME
+         FROM MSG_T M 
+         JOIN USER_T U ON U.EMP_ID = M.SENDER
+        WHERE M.SENDER = #{sender} AND M.STATE=0 AND M.IS_ME=1)
+WHERE RN BETWEEN #{begin} AND #{end}
+</select>  
+  
+  
+  
   
 <select id="getMsgCount">
 SELECT COUNT(MSG_ID)
@@ -226,7 +279,7 @@ SELECT COUNT(SORT)
         parameterType="Map"
         resultMap="MsgMap">
 
-SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME
+SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME, CHK_IMPT
   FROM (
          SELECT ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, 
                 SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, RNAME, SNAME
@@ -240,7 +293,7 @@ SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME
              ON SU.EMP_ID = M.SENDER
            JOIN USER_T RU
              ON RU.EMP_ID = R.RECIPIENT
-          WHERE R.RECIPIENT = #{recipient} AND M.STATE=0 AND M.CHK_IMPT=1
+          WHERE R.RECIPIENT = #{recipient} AND R.STATE=0 AND R.CHK_IMPT=1
      UNION ALL
          SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
                  M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
@@ -287,7 +340,7 @@ SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME
              ON SU.EMP_ID = M.SENDER
            JOIN USER_T RU
              ON RU.EMP_ID = R.RECIPIENT
-          WHERE R.RECIPIENT = #{recipient} AND R.STATE=1
+          WHERE R.RECIPIENT = #{recipient} AND R.STATE=1 AND R.IS_DELETE=0
      UNION ALL
          SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
                  M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
@@ -298,7 +351,7 @@ SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME
              ON SU.EMP_ID = M.SENDER
            JOIN USER_T RU
              ON RU.EMP_ID = R.RECIPIENT
-          WHERE M.SENDER =  #{sender} AND M.STATE=1))
+          WHERE M.SENDER =  #{sender} AND M.STATE=1 AND M.IS_DELETE=0))
  WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
@@ -311,13 +364,13 @@ SELECT COUNT(SORT)
                 M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
            FROM MSG_T M JOIN RECP_T R
              ON M.MSG_ID = R.MSG_ID
-          WHERE R.RECIPIENT = #{recipient} AND R.STATE=1
+          WHERE R.RECIPIENT = #{recipient} AND R.STATE=1 AND R.IS_DELETE=0
      UNION ALL
          SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
                  M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
            FROM MSG_T M JOIN RECP_T R
              ON M.MSG_ID = R.MSG_ID
-          WHERE M.SENDER = #{sender} AND M.STATE=1)
+          WHERE M.SENDER = #{sender} AND M.STATE=1 AND M.IS_DELETE=0)
 
 
 </select>

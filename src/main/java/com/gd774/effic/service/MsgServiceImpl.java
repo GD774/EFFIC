@@ -55,12 +55,8 @@ public class MsgServiceImpl implements MsgService {
 		
 		//MSG에 가장 먼저 삽입
 		String title = multipartRequest.getParameter("title");
-		System.out.println(title);
 		String contents = multipartRequest.getParameter("contents");
-		
 		UserDto user = (UserDto)multipartRequest.getSession().getAttribute("user");
-		
-		System.out.println(multipartRequest.getSession().getAttribute("user"));
 		
 		String sender = user.getEmpId();
 		
@@ -88,6 +84,46 @@ public class MsgServiceImpl implements MsgService {
 		// 이거 나중에 수정. boolean으로 바꿔서 1&&list=recp 로 해야할까?
 		return insertMsgCount;
 	}
+	
+	@Override
+	public int msgInsertMe(MultipartHttpServletRequest multipartRequest) {
+		
+		String title = multipartRequest.getParameter("title");
+		String contents = multipartRequest.getParameter("contents");
+		UserDto user = (UserDto)multipartRequest.getSession().getAttribute("user");
+		String sender = user.getEmpId();
+		
+		MsgDto msg = MsgDto.builder()
+				       .title(title)
+				       .contents(contents)
+				       .sender(sender)
+				       .build();
+		
+		int insertMsgCount = msgMapper.insertMe(msg);
+		fileLoad.doUpload(multipartRequest, msg); 
+		
+		return insertMsgCount;
+	}
+	
+	@Override
+	public ResponseEntity<Map<String, Object>> getToMeList(HttpServletRequest request) {
+		// 페이징 처리
+		UserDto user = (UserDto)request.getSession().getAttribute("user");
+		String sender = user.getEmpId();
+	    int total = msgMapper.getToMeCount(sender);
+	    int display = 10;		 
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+	    int page = Integer.parseInt(opt.orElse("1"));
+	    msgPaging.setPaging(total, display, page);
+	    
+		
+		Map<String, Object> map = Map.of("sender", sender, "begin", msgPaging.getBegin() 
+                , "end", msgPaging.getEnd());
+		
+		return new ResponseEntity<>(Map.of("msgList", msgMapper.getToMeList(map), "total", total
+                , "paging", msgPaging.getAsyncPaging()), HttpStatus.OK);
+	}
+	
 	
 	@Override
 	public ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request) {

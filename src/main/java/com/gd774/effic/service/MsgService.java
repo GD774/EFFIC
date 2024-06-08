@@ -18,6 +18,10 @@ public interface MsgService {
 
 	//메세지 작성
 	int msgInsert(MultipartHttpServletRequest multipartRequest);
+	int msgInsertMe(MultipartHttpServletRequest multipartRequest);
+	
+	//내게 쓴 메세지함
+	ResponseEntity<Map<String, Object>> getToMeList(HttpServletRequest request);
 	
 	//보낸메세지함
 	ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request);

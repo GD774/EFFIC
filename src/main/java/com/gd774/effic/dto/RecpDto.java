@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class RecpDto {
     String recipient;
     String readDt;
-    int recpId, msgId, state, chkImpt;
+    int recpId, msgId, state, chkImpt, isDelete;
 }

@@ -80,11 +80,11 @@
           <h5 class="font-medium text-[#637381] dark:text-bodydark"></h5>
         </div>
 
-        <div class="col-span-5">
+        <div class="col-span-4">
           <h5 class="font-medium text-[#637381] dark:text-bodydark">제목</h5>
         </div>
         
-        <div class="col-span-1">
+        <div class="col-span-2">
           <h5 class="font-medium text-[#637381] dark:text-bodydark">날짜</h5>
         </div>
       </div>
@@ -141,8 +141,8 @@ const fnGetBinList = () => {
 		    	else if(bin.sort.slice(0, 1) === 'M'){
 			    str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
 		    	
-		    	str += ' <div data-msg-id="'+bin.msgId+'" class="col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ bin.title +'</p></div>';
-		    	str += '<div data-msg-id="'+bin.msgId+'" class="col-span-1"><p class="text-[#637381] dark:text-bodydark">'+ bin.sendDt.slice(0, -3) +'</p></div>';
+		    	str += ' <div data-msg-id="'+bin.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ bin.title +'</p></div>';
+		    	str += '<div data-msg-id="'+bin.msgId+'" class="col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ bin.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gd774.effic.dto.UserDto;
 import com.gd774.effic.mapper.MsgMapper;
 import com.gd774.effic.service.MsgService;
 
@@ -62,7 +63,16 @@ public class MsgController {
 	
 	@PostMapping(value="/write.do")
 	public String insertMsg(MultipartHttpServletRequest multipartRequest, RedirectAttributes redirectAttributes) {
-		redirectAttributes.addFlashAttribute("inserted", msgService.msgInsert(multipartRequest));
+		
+        UserDto user = (UserDto)multipartRequest.getSession().getAttribute("user");
+        String sender = user.getEmpId();
+		String recipient = multipartRequest.getParameter("recp");
+		
+		if (sender.equals(recipient)) {
+			redirectAttributes.addFlashAttribute("inserted", msgService.msgInsertMe(multipartRequest));
+		} else {
+			redirectAttributes.addFlashAttribute("inserted", msgService.msgInsert(multipartRequest));
+		}
 		
 		return "redirect:sentList.page";
 	}
@@ -94,6 +104,14 @@ public class MsgController {
 	    }
 	
 	   }
+
+		
+	@GetMapping(value="/getToMeList.do", produces="application/json")
+	public ResponseEntity<Map<String, Object>> getToMeList(HttpServletRequest request) {
+
+		return msgService.getToMeList(request);
+	}
+			
 	
 	@GetMapping(value="/getInboxList.do", produces="application/json")
 	public ResponseEntity<Map<String, Object>> getInboxList(HttpServletRequest request) {

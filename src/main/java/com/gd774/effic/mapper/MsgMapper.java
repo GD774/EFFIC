@@ -44,6 +44,7 @@ public interface MsgMapper {
 	 int updateSentChkImpt(int msgId);
 	 int updateInboxChkImpt(int recpId);
 	 int updateSentOnlyChkImpt(int msgId);
+	 int updateInboxOnlyChkImpt(int recpId);
      
 	 //중요 메세지 리스트
      int getImpCount(Map<String, Object> map);

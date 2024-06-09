@@ -160,6 +160,7 @@ public class MsgController {
 		
 	}
 	
+	
 
 	@PostMapping(value="/updateInboxChkImpt.do", produces="application/json")
 	@ResponseBody
@@ -169,11 +170,49 @@ public class MsgController {
 		
 	}
 	
+	// 체크박스 별
+	@PostMapping(value="/updatesInboxChkImpt.do", produces="application/json")
+	@ResponseBody
+	public int updatesInboxChkImpt(@RequestParam(value="checkValues[]") List<Integer> checkValues){
+		 
+		int updateCount = 0;
+	
+		for(int check : checkValues) {
+			
+			updateCount += msgService.updateInboxOnlyChkImpt(check);
+		}
+		
+		return updateCount;
+		
+	}
+	
 	@GetMapping(value="/getImpList.do", produces="application/json")
 	public ResponseEntity<Map<String, Object>> getImpList(HttpServletRequest request) {
 
 		return msgService.getImpList(request);
 	}
+	
+	@GetMapping(value="/getImpDetail.do")
+	public String getImpDetail(@RequestParam String sort, HttpServletRequest request, Model model) {
+       
+		String msgSort = sort.substring(0, 1); 
+		int pk = Integer.parseInt(sort.substring(1));
+		
+		
+		if(msgSort.equals("M")) {
+			model.addAttribute("msg", msgService.getSentDetail(pk));
+	        model.addAttribute("attachList", msgService.getAttachDetail(pk));
+	        return "msg/sentDetail";
+		} else if (msgSort.equals("R")) {
+			model.addAttribute("rcp", msgService.getInboxDetail(pk, request));
+	        model.addAttribute("attachList", msgService.getAttachDetail(pk));
+	        return "msg/inboxDetail";
+		} 
+
+		   return null;
+	}
+
+	
 	
 	@PostMapping(value="/updateImpChkImpt.do", produces="application/json")
 	@ResponseBody
@@ -213,6 +252,22 @@ public class MsgController {
 		return updateCount;
 		
 	}
+	
+	@PostMapping(value="/updateInboxToBin.do", produces="application/json")
+	@ResponseBody
+	public int updateInobxToBin(@RequestParam(value="checkValues[]") List<Integer> checkValues){
+		 
+		System.out.println("컨트롤러 돌고 있음");
+		int updateCount = 0;
+	
+		for(int check : checkValues) {
+			System.out.println(check);
+			updateCount += msgService.updateInboxToBin(check);
+		}
+		
+		return updateCount;
+	}
+
 	
 
 	@GetMapping(value="/getBinList.do", produces="application/json")

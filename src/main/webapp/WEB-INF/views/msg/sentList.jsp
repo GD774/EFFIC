@@ -170,9 +170,9 @@ const fnGetMsgList = () => {
 		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ msg.name +' </p></div>';
 		    	
 		    	if(msg.hasAttach === true){
-			    	str += ' <div data-msg-id="'+msg.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
 			    	} else if(msg.hasAttach === false) {
-				    str += ' <div data-msg-id="'+msg.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
+				    str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
 			    	}
 		    	
 		    	
@@ -207,15 +207,6 @@ const fnResponse = () => {
 }
 	
 	
-//const fnCheckImpt = (evt) => {
-   // const star = $(evt.target).closest('.star'); // 클릭된 요소의 부모 중에서 가장 가까운 .star 요소 찾기
-    //if (star.data('chkImpt') == '0') {
-        //star.children('img').attr('src', '/msgIcons/star.svg');
-   // } else {
-        //star.children('img').attr('src', '/msgIcons/starlight.svg');
-   // }
-   // fnUpdateChkImpt(star); // 클릭된 요소의 데이터를 사용하여 업데이트 함수 호출
-//};
 
 const fnUpdateChkImpt = (evt) => {
 
@@ -268,7 +259,7 @@ $('#btn-remove').click(function() {
     });
 });
 
-//체크한 거 삭제버튼 눌러서 휴지통으로 이동
+//체크한 거 눌러서 중요메세지로 설정. 이경우 alert 뜸
 $('#btn-star').click(function() {
     var checkValues = [];
     $("input[name='checkbox']:checked").each(function() {

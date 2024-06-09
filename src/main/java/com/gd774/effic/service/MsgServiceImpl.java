@@ -345,6 +345,12 @@ public class MsgServiceImpl implements MsgService {
 	}
 	 
 	 @Override
+	public int updateInboxOnlyChkImpt(int recpId) {
+		
+		return msgMapper.updateInboxOnlyChkImpt(recpId);
+	}
+	 
+	 @Override
 	public ResponseEntity<Map<String, Object>> getImpList(HttpServletRequest request) {
 
 		 UserDto user = (UserDto)request.getSession().getAttribute("user");

@@ -226,7 +226,7 @@ FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN
          FROM MSG_T M 
          JOIN RECP_T R ON M.MSG_ID = R.MSG_ID
          JOIN USER_T U ON U.EMP_ID = M.SENDER 
-        WHERE R.RECIPIENT = #{recipient} AND M.STATE=0) MAIN
+        WHERE R.RECIPIENT = #{recipient} AND R.STATE=0) MAIN
 WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
@@ -266,6 +266,12 @@ UPDATE RECP_T
         WHEN CHK_IMPT = 1 THEN 0
         ELSE 1
     END
+ WHERE RECP_ID=#{recpId}
+</update>
+
+<update id="updateInboxOnlyChkImpt">
+UPDATE RECP_T 
+   SET CHK_IMPT = 1
  WHERE RECP_ID=#{recpId}
 </update>
 

@@ -160,12 +160,12 @@ const fnGetImpList = () => {
 		    	
 		    	
 		    	if(imp.hasAttach === true){
-			    	str += ' <div data-msg-id="'+imp.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	str += ' <div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
 			    	} else if(imp.hasAttach === false) {
-				    str += ' <div data-msg-id="'+imp.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'</p></div>';
+				    str += ' <div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'</p></div>';
 			    	}
 		    	
-		    	str += '<div data-msg-id="'+imp.msgId+'" class="col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ imp.sendDt.slice(0, -3) +'</p></div>';
+		    	str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ imp.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);
@@ -195,6 +195,10 @@ const fnGetImpList = () => {
 	        }
 	    });
 	};
+	
+	$(document).on('click', '.msg-detail', function(evt){
+		location.href = '${contextPath}/msg/getImpDetail.do?sort=' + $(this).data('sort');
+	});
 
 	$(document).on('click', '.star', (evt)=>{
 		fnUpdateChkImpt(evt)

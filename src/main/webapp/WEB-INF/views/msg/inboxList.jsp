@@ -56,10 +56,10 @@
 
  <div id="button-wrapper" class="flex justify-between py-3">
             <div>
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-remove" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  <img src="/msgIcons/bin.svg" />삭제
              </button>
-            <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-star" class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  <img src="/msgIcons/star0.svg" />보관
               </button>
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80" id="select-all">
@@ -167,15 +167,15 @@ const fnGetRecpList = () => {
 			     $('#message-list').html('');
 				 $.each(resData.recpList, (i, recp) => {
 		    	let str=  '<div class="'+recp.readDt +' hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
-		    	str +=  '<div class="col-span-1"><input type="checkbox" class="chk"></div>';
+		    	str +=  '<div class="col-span-1"><input type="checkbox" name="checkbox" class="chk" value="'+recp.recpId +'"></div>';
 		    	str += '<div class="star col-span-1" data-chk-impt="'+recp.chkImpt+'" data-recp-id="'+recp.recpId+'"><img data-recp-id="'+recp.recpId+'" data-chk-impt="'+recp.chkImpt+'" src="/msgIcons/star'+recp.chkImpt+'.svg"/></div>';
 		        str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ recp.name +' </p></div>';
 		    	
 		        
 		    	if(recp.hasAttach === true){
-			    	str += ' <div data-msg-id="'+recp.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
 			    	} else if(recp.hasAttach === false) {
-				    str += ' <div data-msg-id="'+recp.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'</p></div>';
+				    str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'</p></div>';
 			    	}		    	
 		    	
 		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ recp.sendDt +'</p></div>';
@@ -184,6 +184,8 @@ const fnGetRecpList = () => {
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);
 				 $('#total').html(resData.total);
+				 fnApplyBold();
+				 
 		  },
 		  error: (jqXHR) => {
 			  alert(jqXHR.statusText + '(' + jqXHR.status + ')');
@@ -208,6 +210,9 @@ const fnUpdateChkImpt = (evt) => {
         dataType: 'json',
         success: (resData) => { 
         	fnGetRecpList();
+        	
+
+
         },
         error: (jqXHR) => {
             alert(jqXHR.statusText + '(' + jqXHR.status + ')');
@@ -219,11 +224,64 @@ $(document).on('click', '.star', (evt)=>{
 	fnUpdateChkImpt(evt)
 });
 
-$(document).ready(() => {
-    const customFontElements = $('.null');
-    customFontElements.css('font-weight', 'bold');
+
+
+//체크한 거 삭제버튼 눌러서 휴지통으로 이동
+$('#btn-remove').click(function() {
+    var checkValues = [];
+    $("input[name='checkbox']:checked").each(function() {
+        checkValues.push(this.value);
+    });
+    var data = $.param({ checkValues: checkValues });
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updateInboxToBin.do',
+        data: {checkValues: checkValues},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           fnGetRecpList();
+           alert('휴지통으로 이동되었습니다');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
 });
 
+//체크한 거 눌러서 중요메세지로 설정. 이경우 alert 뜸
+$('#btn-star').click(function() {
+    var checkValues = [];
+    $("input[name='checkbox']:checked").each(function() {
+        checkValues.push(this.value);
+    });
+    var data = $.param({ checkValues: checkValues });
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updatesInboxChkImpt.do',
+        data: {checkValues: checkValues},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           fnGetRecpList();
+           alert('중요메세지로 설정되었습니다');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+});
+
+const fnApplyBold = () => {
+    const customFontElements = $('.null');
+    customFontElements.css('font-weight', 'bold');
+};
+
+$(document).ready(() => {
+	fnApplyBold();
+});
 
 
 fnGetRecpList();

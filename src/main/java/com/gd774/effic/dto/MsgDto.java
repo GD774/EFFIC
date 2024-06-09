@@ -13,4 +13,5 @@ public class MsgDto {
     String sender, title, contents, sendDt;
     String sort, recipient, originalName, readDt, name, rname, sname;
     int msgId, state, isDelete, isMe, chkImpt, recpId;
+    boolean hasAttach;
 }

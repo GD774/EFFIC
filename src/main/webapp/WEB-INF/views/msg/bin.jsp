@@ -141,7 +141,12 @@ const fnGetBinList = () => {
 		    	else if(bin.sort.slice(0, 1) === 'M'){
 			    str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
 		    	
-		    	str += ' <div data-msg-id="'+bin.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ bin.title +'</p></div>';
+		    	if(bin.hasAttach === true){
+		    	str += ' <div data-msg-id="'+bin.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ bin.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+		    	} else if(bin.hasAttach === false) {
+			    str += ' <div data-msg-id="'+bin.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ bin.title +'</p></div>';
+		    	}
+		    	
 		    	str += '<div data-msg-id="'+bin.msgId+'" class="col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ bin.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
 		    	$('#message-list').append(str);

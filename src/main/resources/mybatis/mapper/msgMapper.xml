@@ -325,34 +325,38 @@ UPDATE RECP_T
  <select id="getBinList"
         parameterType="Map"
         resultMap="MsgMap">
-
-SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME
-  FROM (
-         SELECT ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, 
-                SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, RNAME, SNAME
-  FROM (
-         SELECT CONCAT('R',R.RECP_ID)  AS SORT, 
-                M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
-           FROM MSG_T M 
-           JOIN RECP_T R
-             ON M.MSG_ID = R.MSG_ID
-           JOIN USER_T SU
-             ON SU.EMP_ID = M.SENDER
-           JOIN USER_T RU
-             ON RU.EMP_ID = R.RECIPIENT
-          WHERE R.RECIPIENT = #{recipient} AND R.STATE=1 AND R.IS_DELETE=0
-     UNION ALL
-         SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
-                 M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
-           FROM MSG_T M 
-           JOIN RECP_T R
-             ON M.MSG_ID = R.MSG_ID
-           JOIN USER_T SU
-             ON SU.EMP_ID = M.SENDER
-           JOIN USER_T RU
-             ON RU.EMP_ID = R.RECIPIENT
-          WHERE M.SENDER =  #{sender} AND M.STATE=1 AND M.IS_DELETE=0))
- WHERE RN BETWEEN #{begin} AND #{end}
+ SELECT RN, SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME,
+    CASE WHEN EXISTS ( SELECT ATTACH_ID
+                         FROM MSG_ATTACH_T A 
+                        WHERE MAIN.MSG_ID = A.MSG_ID) 
+              THEN 'Y' ELSE 'N' END AS HAS_ATTACH
+    FROM (
+           SELECT  ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, 
+            SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, RNAME, SNAME
+    FROM (
+           SELECT  CONCAT('R', R.RECP_ID) AS SORT, 
+            M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
+         FROM MSG_T M 
+         JOIN RECP_T R 
+           ON M.MSG_ID = R.MSG_ID
+         JOIN USER_T SU 
+           ON SU.EMP_ID = M.SENDER
+         JOIN USER_T RU 
+           ON RU.EMP_ID = R.RECIPIENT
+        WHERE 
+            R.RECIPIENT = #{recipient} AND R.STATE = 1 AND R.IS_DELETE=0
+        UNION ALL
+        SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
+            M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
+        FROM MSG_T M 
+        JOIN RECP_T R 
+          ON M.MSG_ID = R.MSG_ID
+        JOIN USER_T SU 
+          ON SU.EMP_ID = M.SENDER
+        JOIN USER_T RU 
+          ON RU.EMP_ID = R.RECIPIENT
+        WHERE M.SENDER = #{sender} AND M.STATE = 1 AND M.IS_DELETE=0)) MAIN
+  WHERE RN BETWEEN #{begin} AND #{end}        
 </select>
 
 <select id="getBinCount"

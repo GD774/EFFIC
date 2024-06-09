@@ -77,6 +77,14 @@ public class MsgController {
 		return "redirect:sentList.page";
 	}
 	
+	@PostMapping(value="/writeToMe.do")
+	public String insertToMeMsg(MultipartHttpServletRequest multipartRequest, RedirectAttributes redirectAttributes) {
+		
+	   redirectAttributes.addFlashAttribute("inserted", msgService.msgInsertMe(multipartRequest));
+		
+	   return "redirect:sentList.page";
+	}
+	
 	@GetMapping(value="/getSentList.do", produces="application/json")
 	public ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request) {
 

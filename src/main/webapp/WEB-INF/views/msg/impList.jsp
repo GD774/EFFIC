@@ -159,7 +159,12 @@ const fnGetImpList = () => {
 		    	
 		    	
 		    	
-		    	str += ' <div data-msg-id="'+imp.msgId+'" class="col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'</p></div>';
+		    	if(imp.hasAttach === true){
+			    	str += ' <div data-msg-id="'+imp.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	} else if(imp.hasAttach === false) {
+				    str += ' <div data-msg-id="'+imp.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'</p></div>';
+			    	}
+		    	
 		    	str += '<div data-msg-id="'+imp.msgId+'" class="col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ imp.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
 		    	$('#message-list').append(str);

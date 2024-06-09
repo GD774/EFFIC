@@ -129,12 +129,16 @@ WHERE SENDER = #{sender} AND STATE=0 AND IS_ME=1
 
 <select id="getToMeList"
         resultMap="MsgMap">
-SELECT MSG_ID, TITLE, SEND_DT, CHK_IMPT, NAME
+SELECT MSG_ID, TITLE, SEND_DT, CHK_IMPT, NAME,
+ CASE WHEN EXISTS ( SELECT ATTACH_ID 
+                      FROM MSG_ATTACH_T A
+                     WHERE MAIN.MSG_ID = A.MSG_ID) 
+              THEN 'Y' ELSE 'N' END AS HAS_ATTACH
 FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
             , M.MSG_ID, M.TITLE, M.SEND_DT, M.CHK_IMPT, U.NAME
          FROM MSG_T M 
          JOIN USER_T U ON U.EMP_ID = M.SENDER
-        WHERE M.SENDER = #{sender} AND M.STATE=0 AND M.IS_ME=1)
+        WHERE M.SENDER = #{sender} AND M.STATE=0 AND M.IS_ME=1) MAIN
 WHERE RN BETWEEN #{begin} AND #{end}
 </select>  
   
@@ -151,13 +155,17 @@ WHERE SENDER = #{sender}
 <select id="getListMsg"
         parameterType="Map"
         resultMap="MsgMap">
-SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, NAME
+SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, NAME,
+ CASE WHEN EXISTS ( SELECT ATTACH_ID 
+                      FROM MSG_ATTACH_T A
+                     WHERE MAIN.MSG_ID = A.MSG_ID) 
+              THEN 'Y' ELSE 'N' END AS HAS_ATTACH
 FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
             , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT, U.NAME
          FROM MSG_T M 
          JOIN RECP_T R ON M.MSG_ID = R.MSG_ID
          JOIN USER_T U ON U.EMP_ID = R.RECIPIENT
-        WHERE M.SENDER = #{sender} AND M.STATE=0)
+        WHERE M.SENDER = #{sender} AND M.STATE=0) MAIN
 WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
@@ -208,13 +216,17 @@ WHERE RECIPIENT = #{recipient}
 <select id="getListRcp"
         parameterType="Map"
         resultMap="MsgMap">
-SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, READ_DT, RECP_ID, NAME
+SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, READ_DT, RECP_ID, NAME,
+ CASE WHEN EXISTS ( SELECT ATTACH_ID 
+                      FROM MSG_ATTACH_T A
+                     WHERE MAIN.MSG_ID = A.MSG_ID) 
+              THEN 'Y' ELSE 'N' END AS HAS_ATTACH
 FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
             , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, R.CHK_IMPT, M.SENDER, R.READ_DT, R.RECP_ID, U.NAME
          FROM MSG_T M 
          JOIN RECP_T R ON M.MSG_ID = R.MSG_ID
          JOIN USER_T U ON U.EMP_ID = M.SENDER 
-        WHERE R.RECIPIENT = #{recipient} AND M.STATE=0)
+        WHERE R.RECIPIENT = #{recipient} AND M.STATE=0) MAIN
 WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
@@ -279,7 +291,11 @@ SELECT COUNT(SORT)
         parameterType="Map"
         resultMap="MsgMap">
 
-SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME, CHK_IMPT
+SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME, CHK_IMPT,
+   CASE WHEN EXISTS ( SELECT ATTACH_ID 
+                        FROM MSG_ATTACH_T A
+                       WHERE MAIN.MSG_ID = A.MSG_ID) 
+              THEN 'Y' ELSE 'N' END AS HAS_ATTACH
   FROM (
          SELECT ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, 
                 SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, RNAME, SNAME
@@ -304,7 +320,7 @@ SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME, CHK_IMPT
              ON SU.EMP_ID = M.SENDER
            JOIN USER_T RU
              ON RU.EMP_ID = R.RECIPIENT
-          WHERE M.SENDER =  #{sender} AND M.STATE=0 AND M.CHK_IMPT=1))
+          WHERE M.SENDER =  #{sender} AND M.STATE=0 AND M.CHK_IMPT=1)) MAIN
  WHERE RN BETWEEN #{begin} AND #{end}
  
 </select>

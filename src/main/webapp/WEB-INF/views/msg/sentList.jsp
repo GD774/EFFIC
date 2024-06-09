@@ -168,7 +168,14 @@ const fnGetMsgList = () => {
 		    	str +=  '<div class="col-span-1" ><input type="checkbox" name="checkbox" class="chk" value="'+ msg.msgId +'"></div>';
 		    	str += '<div class="star col-span-1" data-chk-impt="'+msg.chkImpt+'" data-msg-id="'+msg.msgId+'"><img data-msg-id="'+msg.msgId+'" data-chk-impt="'+msg.chkImpt+'" src="/msgIcons/star'+msg.chkImpt+'.svg"/></div>';
 		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ msg.name +' </p></div>';
-		    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
+		    	
+		    	if(msg.hasAttach === true){
+			    	str += ' <div data-msg-id="'+msg.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	} else if(msg.hasAttach === false) {
+				    str += ' <div data-msg-id="'+msg.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
+			    	}
+		    	
+		    	
 		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ msg.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
 		    	$('#message-list').append(str);

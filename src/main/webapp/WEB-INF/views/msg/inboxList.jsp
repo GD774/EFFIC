@@ -169,8 +169,15 @@ const fnGetRecpList = () => {
 		    	let str=  '<div class="'+recp.readDt +' hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
 		    	str +=  '<div class="col-span-1"><input type="checkbox" class="chk"></div>';
 		    	str += '<div class="star col-span-1" data-chk-impt="'+recp.chkImpt+'" data-recp-id="'+recp.recpId+'"><img data-recp-id="'+recp.recpId+'" data-chk-impt="'+recp.chkImpt+'" src="/msgIcons/star'+recp.chkImpt+'.svg"/></div>';
-		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ recp.name +' </p></div>';
-		    	str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'</p></div>';
+		        str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ recp.name +' </p></div>';
+		    	
+		        
+		    	if(recp.hasAttach === true){
+			    	str += ' <div data-msg-id="'+recp.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	} else if(recp.hasAttach === false) {
+				    str += ' <div data-msg-id="'+recp.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'</p></div>';
+			    	}		    	
+		    	
 		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ recp.sendDt +'</p></div>';
 		    	str += '</div>';
 		    	console.log(recp);

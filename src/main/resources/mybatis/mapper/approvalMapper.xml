@@ -5,21 +5,20 @@
   
 <mapper namespace="com.gd774.effic.mapper.ApprovalMapper">
 	<resultMap type="com.gd774.effic.dto.AppDocDto" id="ApprovalMap">
-		<result type="docId" column="DOC_ID"/>
-		<result type="empId" column="EMP_ID"/>
-		<result type="title" column="TITLE"/>
-		<result type="contents" column="CONTENTS"/>
-		<result type="docTempCode" column="DOC_TEMP_CODE"/>
-		<result type="writeDt" column="WRITE_DT"/>
-		<result type="updateDt" column="UPDATE_DT"/>
-		<result type="depId" column="DEP_ID"/>
-		<result type="docState" column="DOC_STATE"/>
-		<result type="urgent" column="URGENT"/>
+		<result property="docId" column="DOC_ID"/>
+		<result property="empId" column="EMP_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="contents" column="CONTENTS"/>
+		<result property="docTempCode" column="DOC_TEMP_CODE"/>
+		<result property="writeDt" column="WRITE_DT"/>
+		<result property="updateDt" column="UPDATE_DT"/>
+		<result property="depId" column="DEP_ID"/>
+		<result property="docState" column="DOC_STATE"/>
+		<result property="urgent" column="URGENT"/>
     <association property="user" javaType="UserDto">
      <id property="empId" column="EMP_ID"/>
     </association>
 	</resultMap>
-</mapper>
 
 <insert id="registerApproval"
 		parameterType="AppDocDto">

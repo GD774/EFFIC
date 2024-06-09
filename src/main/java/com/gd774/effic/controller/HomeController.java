@@ -21,6 +21,7 @@ public class HomeController {
 //			return "user/main";
 //		return "redirect:/signin";
 		return "user/main";
+
 	}
 
 	@GetMapping(value = "signin")

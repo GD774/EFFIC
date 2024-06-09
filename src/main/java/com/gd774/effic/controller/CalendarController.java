@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class CalendarController {
- private final CalendarService calendarService;
+ private  CalendarService calendarService;
  
  @RequestMapping("")
  public String calendarMain() {

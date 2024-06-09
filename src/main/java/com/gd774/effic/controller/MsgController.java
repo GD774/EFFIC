@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class MsgController {
 	
-	private final MsgService msgService;
+	private  MsgService msgService;
 	
 	@GetMapping(value="/write.page")
 	public String goWrite() {

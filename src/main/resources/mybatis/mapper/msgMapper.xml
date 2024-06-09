@@ -148,7 +148,7 @@ WHERE RN BETWEEN #{begin} AND #{end}
 <select id="getMsgCount">
 SELECT COUNT(MSG_ID)
 FROM MSG_T
-WHERE SENDER = #{sender}
+WHERE SENDER = #{sender} AND IS_ME=0 AND STATE=0
 
 </select>
 
@@ -165,7 +165,7 @@ FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN
          FROM MSG_T M 
          JOIN RECP_T R ON M.MSG_ID = R.MSG_ID
          JOIN USER_T U ON U.EMP_ID = R.RECIPIENT
-        WHERE M.SENDER = #{sender} AND M.STATE=0) MAIN
+        WHERE M.SENDER = #{sender} AND M.STATE=0 AND M.IS_ME=0) MAIN
 WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
@@ -209,7 +209,7 @@ WHERE M.MSG_ID = #{msgId}
 <select id="getRcpCount">
 SELECT COUNT(RECP_ID)
 FROM RECP_T
-WHERE RECIPIENT = #{recipient}
+WHERE RECIPIENT = #{recipient} AND STATE=0
 </select>
 
 

@@ -382,6 +382,18 @@ public class MsgServiceImpl implements MsgService {
 	}
 
 	 @Override
+	public int cancelInboxChkImp(int recpId) {
+		return msgMapper.cancelInboxImpList(recpId);
+	}
+	 
+	 @Override
+	public int cancelSentChkImp(int msgId) {
+		// TODO Auto-generated method stub
+		return msgMapper.cancelSentImpList(msgId);
+	}
+	 
+	 
+	 @Override
 	 public int updateSentToBin(int msgId) {
 		 
 		 int UpdateCount = 0;

@@ -247,13 +247,15 @@ public class MsgController {
 			updateCount = msgService.updateSentChkImpt(pk);
 		} else if (msgSort.equals("R")) {
 			updateCount = msgService.updateInboxChkImpt(pk);
-		} else {
-		System.out.println("엥 그럴리가");
+		} else if(msgSort.equals("P")){
+			updateCount = msgService.updateSentChkImpt(pk);
 	    }
 
 		return updateCount;
 		
 	}
+	
+	
 	
 	
 	@PostMapping(value="/updateSentToBin.do", produces="application/json")
@@ -294,7 +296,37 @@ public class MsgController {
 
 		return msgService.getBinList(request);
 	}
-
+	
+	@PostMapping(value="/cancelChkImpt.do", produces="application/json")
+	@ResponseBody
+	public int cancelImpChk(@RequestParam List<String> checkValues){
+		
+		int updateCount = 0;
+	
+		
+		for(String check : checkValues) {
+			
+			String msgSort = check.substring(0, 1); 
+			System.out.println(msgSort);// 조아쓰 잘 나옴
+			int pk = Integer.parseInt(check.substring(1));
+			System.out.println(pk);
+			if(msgSort.equals("M")) {
+				updateCount = msgService.cancelSentChkImp(pk);
+			} else if (msgSort.equals("R")) {
+				updateCount = msgService.cancelInboxChkImp(pk);
+			} else if(msgSort.equals("P")) {
+				updateCount = msgService.cancelSentChkImp(pk);
+			}
+	
+		}
+		
+		
+		
+		
+		return updateCount;
+		
+	}
+	
 
 	
 	

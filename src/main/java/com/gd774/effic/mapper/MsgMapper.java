@@ -48,10 +48,12 @@ public interface MsgMapper {
 	 int updateInboxChkImpt(int recpId);
 	 int updateSentOnlyChkImpt(int msgId);
 	 int updateInboxOnlyChkImpt(int recpId);
-     
 	 //중요 메세지 리스트
      int getImpCount(Map<String, Object> map);
 	 List<MsgDto> getImpList(Map<String, Object> map);
+	 // 전체선택으로 중요메세지리스트에서 해제
+	 int cancelInboxImpList(int recpId);
+	 int cancelSentImpList(int msgId);
 	 
 	 //휴지통 이동
 	 int updateSentTobBin(int msgId);

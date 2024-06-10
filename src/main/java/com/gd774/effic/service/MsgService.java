@@ -45,6 +45,9 @@ public interface MsgService {
 	int updateInboxOnlyChkImpt(int recpId);
 	//중요메세지 목록
 	ResponseEntity<Map<String, Object>> getImpList(HttpServletRequest request);
+	//전체선택으로 중요메세지 체크 해제
+	int cancelSentChkImp(int msgId);
+	int cancelInboxChkImp(int recpId);
 	
 	//휴지통이동
 	int updateSentToBin(int msgId);

@@ -433,6 +433,27 @@ SELECT U.NAME
   JOIN USER_T U 
     ON U.EMP_ID = R.RECIPIENT  
  WHERE R.READ_DT IS NOT NULL AND M.MSG_ID=#{msgId}
-</select>   
+</select>
+
+
+<update id="cancelSentImpList">
+UPDATE MSG_T 
+   SET CHK_IMPT = 0
+ WHERE MSG_ID=#{msgId}
+</update>
+
+<update id="cancelInboxImpList">
+UPDATE RECP_T 
+   SET CHK_IMPT = 0
+ WHERE RECP_ID=#{recpId}
+</update>
+
+
+
+
+
+
+
+   
 
 </mapper>

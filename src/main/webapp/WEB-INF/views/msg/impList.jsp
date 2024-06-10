@@ -46,8 +46,8 @@
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  삭제
              </button>
-            <button class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 보관 해제
+            <button id="btn-cancel" class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+                 보관해제
             </button>
             <button id="select-all" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                       전체선택
@@ -149,7 +149,7 @@ const fnGetImpList = () => {
 			     $('#message-list').html('');
 				 $.each(resData.impList, (i, imp) => {
 		    	let str=  '<div data-sort="'+imp.sort+'" class="hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
-		    	str +=  '<div class="col-span-1" ><input type="checkbox" class="chk"></div>';
+		    	str +=  '<div data-sort="'+imp.sort+'"class="col-span-1" ><input type="checkbox" name="checkbox" value="'+ imp.sort +'" class="chk"></div>';
 		    	str += '<div class="star col-span-1" data-chk-impt="'+imp.chkImpt+'" data-sort="'+imp.sort+'"><img data-sort="'+imp.sort+'" data-chk-impt="'+imp.chkImpt+'" src="/msgIcons/star'+imp.chkImpt+'.svg"/></div>';
 		    	
 		    	if(imp.sort.slice(0, 1) === 'R'){
@@ -206,6 +206,30 @@ const fnGetImpList = () => {
 		fnUpdateChkImpt(evt)
 	});	
 	
+	
+	//체크한 거 해제 눌러서 중요메세지에서 해제.
+	$('#btn-cancel').click(function() {
+	    var checkValues = [];
+	    $("input[name='checkbox']:checked").each(function() {
+	        checkValues.push(this.value);
+	        console.log(this.value);
+	    });
+	    var data = $.param({ checkValues: checkValues });
+	    $.ajax({
+	        // 요청
+	        type: 'POST',
+	        url: '${contextPath}/msg/cancelChkImpt.do',
+	        data: {checkValues: checkValues},
+	        // 응답
+	        dataType: 'json',
+	        success: (resData) => { 
+	        	fnGetImpList();
+	        },
+	        error: (jqXHR) => {
+	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+	        }
+	    });
+	});	
 	
 	
 fnGetImpList();

@@ -1,28 +1,107 @@
-drop sequence user_seq;
+DROP SEQUENCE USER_SEQ;
 
-create sequence user_seq nocache;
+CREATE SEQUENCE USER_SEQ NOCACHE;
 
-drop table user_t;
+DROP TABLE DEPARTMENT_T;
+DROP TABLE COMMON_CODE_M_T;
+DROP TABLE COMMON_CODE_T;
+DROP TABLE USER_T;
 
-create table user_t (
-  id       number   not null,
-  emp_id   varchar2(32) not null,
-  password varchar2(64) not null,
-  perm_code number  default 0 not null,
-  name     varchar2(32) null,
-  email    varchar2(64) null,
-  phone    varchar2(10) null,
-  user_img blob     null,
-  status   number   null,
-  dep_id   number   null,
-  pos_id   number   null,
-  res_id   number   null,
-  join_dt  date     null,
-  leave_dt date     null,
-  sign_img blob     null,
-  sign_stamp blob     null
+CREATE TABLE USER_T (
+  EMP_ID     VARCHAR2(20)      NOT NULL,
+  PASSWORD   VARCHAR2(100)     NOT NULL,
+  NAME       VARCHAR2(20)      NULL,
+  STATUS     NUMBER            NOT NULL,
+  PROFILE    VARCHAR2(100)     NULL,
+  GENDER_ID  NUMBER            NULL,
+  PHONE      VARCHAR2(20)      NULL,
+  EMAIL      VARCHAR2(20)      NULL,
+  DEP_ID     VARCHAR2(100)     NULL,
+  POS_ID     VARCHAR2(100)     NULL,
+  RES_ID     VARCHAR2(100)     NULL,
+  JOIN_DT    DATE              NULL,
+  LEAVE_DT   DATE              NULL,
+  SIGN_IMG   VARCHAR2(100)     NULL,
+  SIGN_STAMP VARCHAR2(100)     NULL
 );
 
+CREATE TABLE COMMON_CODE_M_T (
+  CODE_GUBUN        VARCHAR2(100)      NOT NULL,
+  CODE_GUBUN_NAME   VARCHAR2(100)      NULL
+);
 
-INSERT INTO USER_T VALUES(1, '1', '0FFE1ABD1A08215353C233D6E009613E95EEC4253832A761AF28FF37AC5A150C', 1, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL);
-commit
+CREATE TABLE COMMON_CODE_T (
+  CODE_GUBUN        VARCHAR2(100)      NOT NULL,
+  CODE_VAL          VARCHAR2(100)      NOT NULL,
+  CODE_NAME         VARCHAR2(100)      NULL
+);
+
+CREATE TABLE DEPARTMENT_T (
+  CODE       VARCHAR2(100)     NOT NULL,
+  NAME       VARCHAR2(100)     NULL,
+  PARENT     VARCHAR2(100)     NULL,
+  DEP_LEVEL      NUMBER            NULL
+);
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				

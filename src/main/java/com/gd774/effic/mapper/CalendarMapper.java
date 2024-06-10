@@ -8,10 +8,8 @@ import com.gd774.effic.dto.CalendarDto;
 
 @Mapper
 public interface CalendarMapper {
-  
-  List<CalendarDto> getAllEvents(int userId);
-  int createEvent(CalendarDto calendarDto);
-  int updateEvent(CalendarDto calendarDto);
-  int deleteEvent(int scheduleId);
-  
+    List<CalendarDto> selectAllSchedules();
+    int insertSchedule(CalendarDto calendarDto);
+    int updateSchedule(CalendarDto calendarDto);
+    int deleteSchedule(int scheduleId);
 }

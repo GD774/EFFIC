@@ -63,6 +63,10 @@ public interface MsgMapper {
 	 int getBinCount(Map<String, Object> map);
 	 List<MsgDto> getBinList(Map<String, Object> map);
 	 
+	 //휴지통에서 삭제
+	 int updateMsgRemove(int msgid);
+	 int updateRcpRemove(int recpId);
+	 
 	 
 	 
 

@@ -434,6 +434,20 @@ public class MsgServiceImpl implements MsgService {
 	}
 	
 	
+	@Override
+	public int updateMsgRemove(int msgid) {
+		
+		int updateCount = 0;
+		return updateCount = msgMapper.updateMsgRemove(msgid);
+	}
+	
+	@Override
+	public int updateRcpRemove(int recpId) {
+
+		int updateCount = 0;
+		return updateCount = msgMapper.updateRcpRemove(recpId);
+	}
+	
 }
 
 

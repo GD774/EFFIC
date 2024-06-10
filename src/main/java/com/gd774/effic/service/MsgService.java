@@ -54,6 +54,9 @@ public interface MsgService {
 	int updateInboxToBin(int recpId);
 	//휴지통 목록
 	ResponseEntity<Map<String, Object>> getBinList(HttpServletRequest request);
+	//휴지통에서 삭제(DELETE)
+	 int updateMsgRemove(int msgid);
+	 int updateRcpRemove(int recpId);
 	
 	
 	

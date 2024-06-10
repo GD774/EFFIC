@@ -50,7 +50,7 @@
             <hr style="border-color: #BDBDBD; border-width: 1px; margin-top: 1rem;">
             
             <div id="button-wrapper" class="py-3">
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-remove" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  삭제
              </button>
             <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
@@ -134,7 +134,8 @@ const fnGetBinList = () => {
 			     $('#message-list').html('');
 				 $.each(resData.binList, (i, bin) => {
 		    	let str=  '<div data-sort="'+bin.sort+'" class="hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
-		    	str +=  '<div class="col-span-1" ><input type="checkbox" class="chk"></div>';
+		    	str +=  '<div data-sort="'+bin.sort+'"class="col-span-1" ><input type="checkbox" name="checkbox" value="'+ bin.sort +'" class="chk"></div>';
+		    	
 		    	
 		    	if(bin.sort.slice(0, 1) === 'R'){
 		    	str += '<div data-msg-id="'+bin.msgId+'" class="col-span-3"> <p class="text-[#637381] dark:text-bodydark"> '+ bin.sname +' </p></div>';}
@@ -163,11 +164,33 @@ const fnGetBinList = () => {
 		})
 	};	
 	
+	//체크박스 선택 후 삭제버튼 눌러서 메세지 삭제
+	$('#btn-remove').click(function() {
+	    var checkValues = [];
+	    $("input[name='checkbox']:checked").each(function() {
+	        checkValues.push(this.value);
+	        console.log(this.value);
+	    });
+	    var data = $.param({ checkValues: checkValues });
+	    $.ajax({
+	        // 요청
+	        type: 'POST',
+	        url: '${contextPath}/msg/updateRemove.do',
+	        data: {checkValues: checkValues},
+	        // 응답
+	        dataType: 'json',
+	        success: (resData) => { 
+	        	fnGetBinList();
+	        },
+	        error: (jqXHR) => {
+	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+	        }
+	    });
+	});	
 	
 
 fnGetBinList();
 	
-
 
 </script>
 

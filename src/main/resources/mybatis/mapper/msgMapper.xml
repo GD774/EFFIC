@@ -459,7 +459,18 @@ UPDATE RECP_T
  WHERE RECP_ID=#{recpId}
 </update>
 
+<update id="updateMsgRemove">
+UPDATE MSG_T 
+   SET IS_DELETE = 1
+ WHERE MSG_ID=#{msgId}
+</update>
 
+
+<update id="updateRcpRemove">
+UPDATE RECP_T 
+   SET IS_DELETE = 1
+ WHERE RECP_ID=#{recpId}
+</update>
 
 
 

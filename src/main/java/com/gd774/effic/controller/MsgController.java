@@ -307,9 +307,7 @@ public class MsgController {
 		for(String check : checkValues) {
 			
 			String msgSort = check.substring(0, 1); 
-			System.out.println(msgSort);// 조아쓰 잘 나옴
 			int pk = Integer.parseInt(check.substring(1));
-			System.out.println(pk);
 			if(msgSort.equals("M")) {
 				updateCount = msgService.cancelSentChkImp(pk);
 			} else if (msgSort.equals("R")) {
@@ -319,8 +317,28 @@ public class MsgController {
 			}
 		}
 		
+		return updateCount;
 		
+	}
+	
+	@PostMapping(value="/updateRemove.do", produces="application/json")
+	@ResponseBody
+	public int updateMsgRemove(@RequestParam List<String> checkValues){
+
+		int updateCount = 0;
 		
+		for(String check : checkValues) {
+			
+			String msgSort = check.substring(0, 1); 
+			int pk = Integer.parseInt(check.substring(1));
+			if(msgSort.equals("M")) {
+				updateCount =  msgService.updateMsgRemove(pk);
+			} else if (msgSort.equals("R")) {
+				updateCount = msgService.updateRcpRemove(pk);
+			} else if(msgSort.equals("P")) {
+				updateCount =  msgService.updateMsgRemove(pk);
+			}
+		}
 		
 		return updateCount;
 		

@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.gd774.effic.mapper.ApprovalMapper">
-	<resultMap type="com.gd774.effic.dto.AppDocDto" id="ApprovalMap">
+	<resultMap type="com.gd774.effic.dto.approval.AppDocDto" id="ApprovalMap">
 		<result property="docId" column="DOC_ID"/>
 		<result property="empId" column="EMP_ID"/>
 		<result property="title" column="TITLE"/>

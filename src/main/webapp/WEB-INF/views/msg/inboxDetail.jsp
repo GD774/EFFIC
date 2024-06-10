@@ -31,10 +31,11 @@
             <!-- Breadcrumb End -->
              
            <div id="button-wrapper" class="py-3">
-           <button class="inline-flex rounded bg-[#637381] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+           <input type="hidden" id="recpId" name="recpId" value="${rcp.recpId}">
+           <button id="btn-remove" class="inline-flex rounded bg-[#637381] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
              삭제
            </button>
-           <button class="inline-flex rounded bg-[#3BA2B8] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+           <button id="btn-star"  class="inline-flex rounded bg-[#3BA2B8] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
              보관
            </button>
             </div>
@@ -60,7 +61,7 @@
                           
                          <c:choose>
 					    <c:when test="${empty attachList}">
-					        <input type="text" value="--" data-msg-id="${msg.msgId}" title=""  class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
+					        <input type="text" value="--" data-msg-id="${rcp.msgId}" title=""  class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
 					    </c:when>
 					    <c:when test="${attachList.size() eq 1}">
 					        <input type="text" value="${attachList[0].originalName}"  title=""  data-msg-id="${rcp.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
@@ -120,6 +121,9 @@
 </div>
 
 <script>
+
+var recpId = $('#recpId').val();
+
 const fnDownload = () => {
 	  $('.attachId').on('click', (evt) => {
 		  
@@ -144,6 +148,28 @@ $(document).on('mouseover', '.attachId', (evt) => {
   $(evt.currentTarget).attr('title', total);
 	
 });
+
+
+const fnStar = () => {
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/inboxDetailchkImp.do',
+        data: {recpId: recpId },
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           alert('중요메세지로 설정되었습니다');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    })
+};
+
+$('#btn-star').on('click', (evt) =>{
+	fnStar();
+})
 
 </script>
 

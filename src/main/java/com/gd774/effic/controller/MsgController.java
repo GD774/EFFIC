@@ -376,6 +376,44 @@ public class MsgController {
 	}
 	
 	
+	//상세보기 화면에서의 보관
+	@PostMapping(value="/sentDetailchkImp.do", produces="application/json")
+	@ResponseBody
+	public int sentDetailchkImp(int msgId){
+
+		
+		return msgService.updateSentOnlyChkImpt(msgId);
+		
+	}
+	
+	//상세보기 화면에서의 삭제
+	@PostMapping(value="/inboxDetailchkImp.do", produces="application/json")
+	@ResponseBody
+	public int inboxDetailchkImp(int recpId){
+
+		
+		return msgService.updateInboxOnlyChkImpt(recpId);
+		
+	}
+	
+	@PostMapping(value="/sentDetailToBin.do", produces="application/json")
+	@ResponseBody
+	public int sentDetailToBin(int msgId){
+
+		
+		return msgService.updateSentToBin(msgId);
+		
+	}
+	
+	@PostMapping(value="/inboxDetailToBin.do", produces="application/json")
+	@ResponseBody
+	public int inboxDetailToBin(int recpId){
+
+		
+		return msgService.updateInboxToBin(recpId);
+		
+	}
+	
 
 	
 	

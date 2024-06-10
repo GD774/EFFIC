@@ -32,10 +32,10 @@
             <!-- Breadcrumb End -->
              
            <div id="button-wrapper" class="py-3">
-           <button class="inline-flex rounded bg-[#637381] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+           <button id="btn-remove" class="inline-flex rounded bg-[#637381] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
              삭제
            </button>
-           <button class="inline-flex rounded bg-[#3BA2B8] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+           <button id="btn-star" class="inline-flex rounded bg-[#3BA2B8] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
              보관
            </button>
             </div>

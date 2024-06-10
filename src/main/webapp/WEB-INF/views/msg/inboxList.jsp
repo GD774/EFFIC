@@ -65,7 +65,7 @@
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80" id="select-all">
                  전체선택
             </button>
-           <span class="ml-4">  0건/미열람 </span>
+           <span id="no-read" class="ml-4">  0건/미열람 </span>
             </div>
             <div>
            <button id="team-btn" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
@@ -173,17 +173,18 @@ const fnGetRecpList = () => {
 		    	
 		        
 		    	if(recp.hasAttach === true){
-			    	str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
 			    	} else if(recp.hasAttach === false) {
-				    str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'</p></div>';
+				    str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'</p></div>';
 			    	}		    	
 		    	
-		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ recp.sendDt +'</p></div>';
+		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ recp.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
 		    	console.log(recp);
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);
 				 $('#total').html(resData.total);
+				 $('#no-read').html(resData.noRead +"건 / 미열람");
 				 fnApplyBold();
 				 
 		  },

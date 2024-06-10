@@ -144,9 +144,9 @@ const fnGetToMeList = () => {
 		    	
 		    	
 		    	if(msg.hasAttach === true){
-			    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
 			    	} else if(msg.hasAttach === false) {
-				    str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
+				    str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
 			    	}
 		    	
 		    	

@@ -317,12 +317,13 @@ public class MsgServiceImpl implements MsgService {
 		    int page = Integer.parseInt(opt.orElse("1"));
 		    msgPaging.setPaging(total, display, page);
 		    
+		    
 
 			Map<String, Object> map = Map.of("recipient", recipient,"begin", msgPaging.getBegin() 
 	                , "end", msgPaging.getEnd());
 			
 			return new ResponseEntity<>(Map.of("recpList", msgMapper.getListRcp(map), "total", total
-	                , "paging", msgPaging.getAsyncPaging()), HttpStatus.OK);
+	                , "paging", msgPaging.getAsyncPaging(),"noRead", msgMapper.countNoRead(recipient)), HttpStatus.OK);
 		
 	}
 	 

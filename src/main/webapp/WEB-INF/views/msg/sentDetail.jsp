@@ -84,8 +84,14 @@
                       
                       <!--------------무슨짓을 해도 안돼서 input....데이터저장을 위한 hidden -->
                       <c:forEach var="attach" items="${attachList}">
-                    <div class="attach-info" data-original-name="${attach.originalName}"></div>
+                    <input type="hidden" class="attach-info" data-original-name="${attach.originalName}"></input>
                      </c:forEach>
+                     
+                     <c:forEach var="index" items="${recipientList}">
+                    <input type="hidden" class="recp-info" data-recp-list="${index}"></input>
+                     </c:forEach>
+                     
+                   
                     
                    
                     
@@ -106,10 +112,10 @@
                       
                         <c:choose>
 					    <c:when test="${empty recipientList}">
-                      <input type="text" value="읽지 않음" class="w-1/4 cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary">
+                      <input type="text" value="읽지 않음" class="recplist w-1/4 cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary">
 					    </c:when>
 					    <c:when test="${recipientList.length() ge 1}">
-                      <input type="text" value="${recipientList.toString()}" class="w-1/4 cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary">
+                      <input type="text" value="${recipientList.toString()}" class="recplist w-1/4 cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary">
 					    </c:when>
 					   </c:choose> 
 					   
@@ -149,12 +155,23 @@ for(var i = 1; i < info.length; i++) {
 
 $(document).on('mouseover', '.attachId', (evt) => {       
 
-    // 이벤트가 발생한 요소에 툴팁을 설정합니다.
     $(evt.currentTarget).attr('title', total);
 	
   });
-  
 
+var list = document.getElementsByClassName('recp-info');
+var totalList = ''; 
+for(var i = 1; i < list.length; i++) {
+   totalList += list[i].dataset.recpList;
+   totalList += '\n';       
+}
+
+$(document).on('mouseover', '.recplist', (evt) => {       
+
+    $(evt.currentTarget).attr('title', totalList);
+	
+  });
+  
 
 
   

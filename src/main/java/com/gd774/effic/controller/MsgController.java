@@ -99,6 +99,7 @@ public class MsgController {
         
         // [] 가 없는게 더 보기 좋을 거 같아서 빼줬음.
         List<String> list = msgService.getRecipientList(msgId);
+        list.add("뭐를 하나 더 붙여봄");
         String petitList = list.toString().replace("[", "").replace("]", "");
         model.addAttribute("recipientList", petitList);
         

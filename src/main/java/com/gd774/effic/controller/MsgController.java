@@ -317,7 +317,6 @@ public class MsgController {
 			} else if(msgSort.equals("P")) {
 				updateCount = msgService.cancelSentChkImp(pk);
 			}
-	
 		}
 		
 		

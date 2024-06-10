@@ -148,10 +148,20 @@ public class MsgServiceImpl implements MsgService {
 		return new ResponseEntity<>(Map.of("msgList", msgMapper.getListMsg(map), "total", total
                 , "paging", msgPaging.getAsyncPaging()), HttpStatus.OK);
 	}
+	
+	@Override
+	public List<String> getRecipientList(int msgId) {
+		return msgMapper.getRecipientList(msgId);
+	}
     
 	 @Override
 	public MsgDto getSentDetail(int msgId) {
 	       return msgMapper.getMsgDetail(msgId);
+	}
+	 
+	@Override
+	public MsgDto getToMeDetail(int msgId) {
+		return msgMapper.getToMeDetail(msgId);
 	}
 	 
 	 @Override

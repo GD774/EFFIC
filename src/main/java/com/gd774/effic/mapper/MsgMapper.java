@@ -21,12 +21,14 @@ public interface MsgMapper {
 	 // 나에게 쓴 메세지함
 	 int getToMeCount(String empId);
 	 List<MsgDto> getToMeList(Map<String, Object>map);
+	 MsgDto getToMeDetail(int msgId);
 	 
 	 //보낸 메세지함
 	 List<MsgDto> getListMsg(Map<String, Object>map);
 	 int getMsgCount(String sender);
 	 MsgDto getMsgDetail(int msgId);
-	 MsgDto recipientList(int msgId); 
+	 MsgDto recipientList(int msgId);
+	 List<String> getRecipientList(int msgId); //수신자목록을 가져오는 맵퍼 
 	 
 	 //첨부파일
 	 int insertAttach(MsgAttachDto msgAttach);
@@ -39,6 +41,7 @@ public interface MsgMapper {
 	 int getRcpCount(String recipient);
 	 MsgDto getRcpDetail(Map<String, Object> map);
 	 int updateReadDt(Map<String, Object> map);
+	 
 	 
 	 //중요 메세지 체크
 	 int updateSentChkImpt(int msgId);

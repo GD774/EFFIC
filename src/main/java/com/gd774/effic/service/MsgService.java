@@ -22,10 +22,12 @@ public interface MsgService {
 	
 	//내게 쓴 메세지함
 	ResponseEntity<Map<String, Object>> getToMeList(HttpServletRequest request);
+	MsgDto getToMeDetail(int msgId);
 	
 	//보낸메세지함
 	ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request);
 	MsgDto getSentDetail(int msgId);
+	List<String> getRecipientList(int msgId);
 	
 	//첨부파일
 	List<MsgAttachDto> getAttachDetail(int msgId);

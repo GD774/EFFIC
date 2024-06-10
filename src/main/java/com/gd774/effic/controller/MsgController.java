@@ -95,9 +95,24 @@ public class MsgController {
 	public String getSentDetail(@RequestParam int msgId, Model model) {
         model.addAttribute("msg", msgService.getSentDetail(msgId));
         model.addAttribute("attachList", msgService.getAttachDetail(msgId));
+        //수신자 목록
+        
+        // [] 가 없는게 더 보기 좋을 거 같아서 빼줬음.
+        List<String> list = msgService.getRecipientList(msgId);
+        String petitList = list.toString().replace("[", "").replace("]", "");
+        model.addAttribute("recipientList", petitList);
         
 		
 		return "msg/sentDetail";
+	}
+	
+	@GetMapping(value="/getToMeDetail.do")
+	public String getToMeDetail(@RequestParam int msgId, Model model) {
+        model.addAttribute("msg",msgService.getToMeDetail(msgId));
+        model.addAttribute("attachList", msgService.getAttachDetail(msgId));
+        
+		
+		return "msg/toMeDetail";
 	}
 	
 	@GetMapping(value="/download.do")
@@ -207,9 +222,13 @@ public class MsgController {
 			model.addAttribute("rcp", msgService.getInboxDetail(pk, request));
 	        model.addAttribute("attachList", msgService.getAttachDetail(pk));
 	        return "msg/inboxDetail";
-		} 
+		} else if(msgSort.equals("P")) {
+			model.addAttribute("msg", msgService.getToMeDetail(pk));
+	        model.addAttribute("attachList", msgService.getAttachDetail(pk));
+	        return "msg/toMeDetail";
+		}
 
-		   return null;
+		return null;
 	}
 
 	

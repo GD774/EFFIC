@@ -177,6 +177,22 @@ JOIN USER_T U ON U.EMP_ID = M.SENDER
 WHERE M.MSG_ID = #{msgId}     
 </select>
 
+<select id="getRecipientList">
+SELECT U.NAME
+  FROM RECP_T R
+  JOIN MSG_T M
+    ON M.MSG_ID = R.MSG_ID
+  JOIN USER_T U
+    ON R.RECIPIENT = U.EMP_ID
+WHERE R.MSG_ID = #{msgId} AND READ_DT IS NOT NULL 
+</select>
+
+<select id="getToMeDetail">
+SELECT M.MSG_ID, M.TITLE, M.CONTENTS, M.SEND_DT, NAME
+FROM MSG_T M 
+JOIN USER_T U ON U.EMP_ID = M.SENDER 
+WHERE M.MSG_ID = #{msgId} AND M.IS_ME=1     
+</select>
 
 <!-- msgId에 따른 첨부파일들을 뽑아주는 쿼리 -->
   <select id="getMsgAttach"
@@ -326,7 +342,14 @@ SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME, CHK_IMPT,
              ON SU.EMP_ID = M.SENDER
            JOIN USER_T RU
              ON RU.EMP_ID = R.RECIPIENT
-          WHERE M.SENDER =  #{sender} AND M.STATE=0 AND M.CHK_IMPT=1)) MAIN
+          WHERE M.SENDER =  #{sender} AND M.STATE=0 AND M.CHK_IMPT=1
+     UNION ALL
+         SELECT CONCAT('P', M.MSG_ID) AS SORT,
+                   M.MSG_ID, M.SENDER AS RECIPIENT, SU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, M.SENDER AS RECIPIENT
+           FROM MSG_T M
+           JOIN USER_T SU
+             ON SU.EMP_ID = M.SENDER
+          WHERE M.SENDER =  #{sender} AND M.STATE=0 AND M.CHK_IMPT=1 AND M.IS_ME=1)) MAIN       
  WHERE RN BETWEEN #{begin} AND #{end}
  
 </select>

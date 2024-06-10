@@ -156,7 +156,9 @@ const fnGetImpList = () => {
 		    	str += '<div data-msg-id="'+imp.msgId+'" class="col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ imp.sname +' </p></div>';}
 		    	else if(imp.sort.slice(0, 1) === 'M'){
 			    str += '<div data-msg-id="'+imp.msgId+'" class="flex items-center col-span-2"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ imp.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
-		    	
+		    	else if(imp.sort.slice(0, 1) === 'P'){
+				str += '<div data-msg-id="'+imp.msgId+'" class="flex items-center col-span-2"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ imp.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';
+		    	}
 		    	
 		    	
 		    	if(imp.hasAttach === true){

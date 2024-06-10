@@ -55,7 +55,7 @@
             <button id="btn-remove" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  <img src="/msgIcons/bin.svg" />삭제
              </button>
-            <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-star" class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  <img src="/msgIcons/star0.svg" />보관
 
               </button>
@@ -144,9 +144,9 @@ const fnGetToMeList = () => {
 		    	
 		    	
 		    	if(msg.hasAttach === true){
-			    	str += ' <div data-msg-id="'+msg.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
 			    	} else if(msg.hasAttach === false) {
-				    str += ' <div data-msg-id="'+msg.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
+				    str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
 			    	}
 		    	
 		    	
@@ -161,6 +161,88 @@ const fnGetToMeList = () => {
 		  }
 		})
 		};
+		
+const fnPaging = (p)=>{
+    page = p;
+    fnGetToMeList();
+  }		
+		
+$(document).on('click', '.msg-detail', function(evt){
+	location.href = '${contextPath}/msg/getToMeDetail.do?msgId=' + $(this).data('msgId');
+});
+
+const fnUpdateChkImpt = (evt) => {
+
+	console.log($(evt.target).data('msgId'));
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updateSentChkImpt.do',
+        data: {msgId: $(evt.target).data('msgId') }, // 클릭된 요소의 데이터 사용
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+        	fnGetToMeList();
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+};
+
+$(document).on('click', '.star', (evt)=>{
+     fnUpdateChkImpt(evt)
+});
+
+//체크한 거 삭제버튼 눌러서 휴지통으로 이동
+$('#btn-remove').click(function() {
+    var checkValues = [];
+    $("input[name='checkbox']:checked").each(function() {
+        checkValues.push(this.value);
+    });
+    var data = $.param({ checkValues: checkValues });
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updateSentToBin.do',
+        data: {checkValues: checkValues},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+        	fnGetToMeList();
+           alert('휴지통으로 이동되었습니다');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+});
+
+//체크한 거 눌러서 중요메세지로 설정. 이경우 alert 뜸
+$('#btn-star').click(function() {
+    var checkValues = [];
+    $("input[name='checkbox']:checked").each(function() {
+        checkValues.push(this.value);
+    });
+    var data = $.param({ checkValues: checkValues });
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updatesSentChkImpt.do',
+        data: {checkValues: checkValues},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+        	fnGetToMeList();
+           alert('중요메세지로 설정되었습니다');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+});
+		
+		
 
 fnGetToMeList();
 </script>

@@ -105,6 +105,7 @@ public class MsgServiceImpl implements MsgService {
 		return insertMsgCount;
 	}
 	
+	@Transactional(readOnly=true)
 	@Override
 	public ResponseEntity<Map<String, Object>> getToMeList(HttpServletRequest request) {
 		// 페이징 처리
@@ -124,7 +125,7 @@ public class MsgServiceImpl implements MsgService {
                 , "paging", msgPaging.getAsyncPaging()), HttpStatus.OK);
 	}
 	
-	
+	@Transactional(readOnly=true)
 	@Override
 	public ResponseEntity<Map<String, Object>> getSentList(HttpServletRequest request) {
 		
@@ -149,30 +150,32 @@ public class MsgServiceImpl implements MsgService {
                 , "paging", msgPaging.getAsyncPaging()), HttpStatus.OK);
 	}
 	
+	@Transactional(readOnly=true)
 	@Override
 	public List<String> getRecipientList(int msgId) {
 		return msgMapper.getRecipientList(msgId);
 	}
-    
-	 @Override
+	
+	@Transactional(readOnly=true)
+	@Override
 	public MsgDto getSentDetail(int msgId) {
 	       return msgMapper.getMsgDetail(msgId);
 	}
 	 
+	@Transactional(readOnly=true)
 	@Override
 	public MsgDto getToMeDetail(int msgId) {
 		return msgMapper.getToMeDetail(msgId);
 	}
 	 
-	 @Override
+	@Transactional(readOnly=true)
+	@Override
 	public List<MsgAttachDto> getAttachDetail(int msgId) {
 		   return msgMapper.getMsgAttach(msgId);
 			 
 	}
 	 
-	 /**
-	 *
-	 */
+
 	@Override
 	public ResponseEntity<Resource> download(HttpServletRequest request) {
 		
@@ -306,7 +309,8 @@ public class MsgServiceImpl implements MsgService {
 		     return new ResponseEntity<Resource>(resource, responseHeader, HttpStatus.OK);
 	}
 	 
-	 @Override
+	@Transactional(readOnly=true)
+	@Override
 	public ResponseEntity<Map<String, Object>> getInboxList(HttpServletRequest request) {
 		
 		 UserDto user = (UserDto)request.getSession().getAttribute("user");
@@ -326,8 +330,9 @@ public class MsgServiceImpl implements MsgService {
 	                , "paging", msgPaging.getAsyncPaging(),"noRead", msgMapper.countNoRead(recipient)), HttpStatus.OK);
 		
 	}
-	 
-	 @Override
+	
+	@Transactional(readOnly=true)
+	@Override
 	public MsgDto getInboxDetail(int msgId, HttpServletRequest request) {
 		 
 		UserDto user = (UserDto)request.getSession().getAttribute("user");
@@ -361,6 +366,7 @@ public class MsgServiceImpl implements MsgService {
 		return msgMapper.updateInboxOnlyChkImpt(recpId);
 	}
 	 
+	 @Transactional(readOnly=true)
 	 @Override
 	public ResponseEntity<Map<String, Object>> getImpList(HttpServletRequest request) {
 
@@ -410,6 +416,7 @@ public class MsgServiceImpl implements MsgService {
 		return UpdateCount = msgMapper.updateInboxToBin(recpId);
 	}
 	
+	@Transactional(readOnly=true)
 	@Override
 	public ResponseEntity<Map<String, Object>> getBinList(HttpServletRequest request) {
 		
@@ -462,6 +469,18 @@ public class MsgServiceImpl implements MsgService {
 		int updateCount = 0;
 		
 		return updateCount = msgMapper.cancelSentBin(msgId);
+	}
+	
+
+	@Override
+	public int clearBin() {
+		
+		int updateCount = 0;
+		
+		updateCount =+ msgMapper.allRemoveMsg();
+		updateCount =+ msgMapper.allRemoveRecp();
+		
+		return updateCount;
 	}
 	
 }

@@ -53,7 +53,7 @@
             <button id="btn-remove" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  삭제
              </button>
-            <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-clear" class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  비우기
              </button>
             <button id="btn-cancel" class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
@@ -172,6 +172,7 @@ const fnGetBinList = () => {
 	        console.log(this.value);
 	    });
 	    var data = $.param({ checkValues: checkValues });
+
 	    $.ajax({
 	        // 요청
 	        type: 'POST',
@@ -185,7 +186,7 @@ const fnGetBinList = () => {
 	        error: (jqXHR) => {
 	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
 	        }
-	    });
+	    })
 	});
 	
 	//체크박스 선택 후 해제 버튼 눌러서 원래 보관함으로 돌아가기
@@ -211,6 +212,28 @@ const fnGetBinList = () => {
 	        }
 	    });
 	});	
+	
+//비우기 버튼을 눌러서 휴지통 비우기
+const fnClearBin = () => {
+	 $.ajax({
+	        // 요청
+	        type: 'POST',
+	        url: '${contextPath}/msg/clearBin.do',
+	        // 응답
+	        dataType: 'json',
+	        success: (resData) => { 
+	        	fnGetBinList();
+	        },
+	        error: (jqXHR) => {
+	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+	        }
+	    })
+    };
+    
+$('#btn-clear').on('click', () => {
+     fnClearBin();
+	
+})    
 	
 
 fnGetBinList();

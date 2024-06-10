@@ -257,7 +257,7 @@ WHERE M.MSG_ID = #{msgId} AND R.RECIPIENT = #{recipient}
 
 <update id="updateReadDt">
 UPDATE RECP_T 
-   SET READ_DT=CURRENT_DATE
+   SET READ_DT=SYSDATE
  WHERE MSG_ID=#{msgId} AND RECIPIENT=#{recipient} AND READ_DT IS NULL
 </update>
 
@@ -490,7 +490,14 @@ SELECT COUNT(RECP_ID)
  WHERE RECIPIENT=#{recipient} AND READ_DT IS NULL
 </select>
 
-
+<update id="allRemoveMsg">
+UPDATE MSG_T SET IS_DELETE = 1
+WHERE STATE=1
+</update>
+<update id="allRemoveRecp">
+UPDATE RECP_T SET IS_DELETE = 1
+WHERE STATE=1
+</update>
 
    
 

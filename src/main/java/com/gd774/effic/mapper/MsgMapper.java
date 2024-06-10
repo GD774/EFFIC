@@ -68,8 +68,9 @@ public interface MsgMapper {
 	 //휴지통에서 꺼내기
 	 int cancelInboxBin(int recpId);
 	 int cancelSentBin(int msgId);
-	 
-	 
+	 // 휴지통 비우기 
+	 int allRemoveMsg();
+	 int allRemoveRecp();
 	 
 	 
 	 

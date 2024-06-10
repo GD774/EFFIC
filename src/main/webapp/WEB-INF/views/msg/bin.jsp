@@ -56,7 +56,7 @@
             <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  비우기
              </button>
-            <button class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-cancel" class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  해제
             </button>
           </div>       
@@ -176,6 +176,30 @@ const fnGetBinList = () => {
 	        // 요청
 	        type: 'POST',
 	        url: '${contextPath}/msg/updateRemove.do',
+	        data: {checkValues: checkValues},
+	        // 응답
+	        dataType: 'json',
+	        success: (resData) => { 
+	        	fnGetBinList();
+	        },
+	        error: (jqXHR) => {
+	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+	        }
+	    });
+	});
+	
+	//체크박스 선택 후 해제 버튼 눌러서 원래 보관함으로 돌아가기
+	$('#btn-cancel').click(function() {
+	    var checkValues = [];
+	    $("input[name='checkbox']:checked").each(function() {
+	        checkValues.push(this.value);
+	        console.log(this.value);
+	    });
+	    var data = $.param({ checkValues: checkValues });
+	    $.ajax({
+	        // 요청
+	        type: 'POST',
+	        url: '${contextPath}/msg/cancelBin.do',
 	        data: {checkValues: checkValues},
 	        // 응답
 	        dataType: 'json',

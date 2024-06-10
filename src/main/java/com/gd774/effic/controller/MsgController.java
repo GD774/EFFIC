@@ -344,6 +344,31 @@ public class MsgController {
 		
 	}
 	
+	@PostMapping(value="/cancelBin.do", produces="application/json")
+	@ResponseBody
+	public int cancelBin(@RequestParam List<String> checkValues){
+
+		int updateCount = 0;
+		
+		for(String check : checkValues) {
+			
+			String msgSort = check.substring(0, 1); 
+			int pk = Integer.parseInt(check.substring(1));
+			if(msgSort.equals("M")) {
+				updateCount =  msgService.cancelSentBin(pk);
+			} else if (msgSort.equals("R")) {
+				updateCount = msgService.cancelInboxBin(pk);
+			} else if(msgSort.equals("P")) {
+				updateCount =  msgService.cancelSentBin(pk);
+			}
+		}
+		
+		return updateCount;
+		
+	}
+	
+	
+	
 
 	
 	

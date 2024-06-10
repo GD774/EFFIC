@@ -58,14 +58,17 @@ public interface MsgMapper {
 	 //휴지통 이동
 	 int updateSentTobBin(int msgId);
 	 int updateInboxToBin(int recpId);
-	 
 	 //휴지통 메세지 리스트
 	 int getBinCount(Map<String, Object> map);
 	 List<MsgDto> getBinList(Map<String, Object> map);
-	 
 	 //휴지통에서 삭제
 	 int updateMsgRemove(int msgid);
 	 int updateRcpRemove(int recpId);
+	 //휴지통에서 꺼내기
+	 int cancelInboxBin(int recpId);
+	 int cancelSentBin(int msgId);
+	 
+	 
 	 
 	 
 	 

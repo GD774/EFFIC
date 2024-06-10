@@ -57,6 +57,9 @@ public interface MsgService {
 	//휴지통에서 삭제(DELETE)
 	 int updateMsgRemove(int msgid);
 	 int updateRcpRemove(int recpId);
+	//휴지통에서 꺼내기
+	 int cancelInboxBin(int recpId);
+	 int cancelSentBin(int msgId);
 	
 	
 	

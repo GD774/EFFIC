@@ -472,6 +472,18 @@ UPDATE RECP_T
  WHERE RECP_ID=#{recpId}
 </update>
 
+<update id="cancelSentBin">
+UPDATE MSG_T
+   SET STATE = 0
+ WHERE MSG_ID=#{msgId}
+</update>
+
+<update id="cancelInboxBin">
+UPDATE RECP_T 
+   SET STATE = 0
+ WHERE RECP_ID=#{recpId}
+</update>
+
 
 
 

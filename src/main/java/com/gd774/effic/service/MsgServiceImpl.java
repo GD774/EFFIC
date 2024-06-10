@@ -448,6 +448,21 @@ public class MsgServiceImpl implements MsgService {
 		return updateCount = msgMapper.updateRcpRemove(recpId);
 	}
 	
+	@Override
+	public int cancelInboxBin(int recpId) {
+		
+		int updateCount = 0;
+		return updateCount = msgMapper.cancelInboxBin(recpId);
+	}
+	
+	@Override
+	public int cancelSentBin(int msgId) {
+
+		int updateCount = 0;
+		
+		return updateCount = msgMapper.cancelSentBin(msgId);
+	}
+	
 }
 
 

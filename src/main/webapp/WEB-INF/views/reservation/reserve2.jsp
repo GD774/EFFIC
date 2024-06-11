@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
 <jsp:include page="../layout/opener.jsp"/>
 <jsp:include page="../layout/sidebar.jsp" />
@@ -116,25 +117,32 @@
         <td class="text-sm w-15 ease text-center relative h-16 border border-stroke p-1 transition duration-500 dark:border-strokedark md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white">09:00</span>
         </td>
-        <td class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
       </tr>
@@ -143,25 +151,32 @@
         <td class="text-sm w-15 ease text-center relative h-16 border border-stroke p-1 transition duration-500 dark:border-strokedark md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white">10:00</span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
       </tr>
@@ -171,25 +186,32 @@
         <td class="text-sm w-15 ease text-center relative h-16 border border-stroke p-1 transition duration-500 dark:border-strokedark md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white">11:00</span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
       </tr>
@@ -199,25 +221,32 @@
         <td class="text-sm w-15 ease text-center relative h-16 border border-stroke p-1 transition duration-500 dark:border-strokedark md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white">12:00</span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
       </tr>
@@ -227,25 +256,32 @@
         <td class="text-sm w-15 ease text-center relative h-16 border border-stroke p-1 transition duration-500 dark:border-strokedark md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white">13:00</span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
       </tr>
@@ -255,25 +291,32 @@
         <td class="text-sm w-15 ease text-center relative h-16 border border-stroke p-1 transition duration-500 dark:border-strokedark md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white">14:00</span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
       </tr>
@@ -283,25 +326,32 @@
         <td class="text-sm w-15 ease text-center relative h-16 border border-stroke p-1 transition duration-500 dark:border-strokedark md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white">15:00</span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
       </tr>
@@ -311,25 +361,32 @@
         <td class="text-sm w-15 ease text-center relative h-16 border border-stroke p-1 transition duration-500 dark:border-strokedark md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white">16:00</span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
       </tr>
@@ -339,25 +396,32 @@
         <td class="text-sm w-15 ease text-center relative h-16 border border-stroke p-1 transition duration-500 dark:border-strokedark md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white">17:00</span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
       </tr>
@@ -367,25 +431,32 @@
         <td class="text-sm w-15 ease text-center relative h-16 border border-stroke p-1 transition duration-500 dark:border-strokedark md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white">18:00</span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
-        <td class="ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
+        <td data-modal-target="static-modal" data-modal-toggle="static-modal"
+        	class="w-40 ease relative h-16 cursor-pointer border border-stroke p-1 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-20 md:p-3 xl:h-24">
           <span class="font-medium text-black dark:text-white"></span>
         </td>
       </tr>
@@ -401,5 +472,163 @@
   </div>
  </div>
 <!-- ===== Main Content End ===== -->
+
+        <!--모달창 시작-->
+<!-- Main modal -->
+<div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    회의실 예약
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="static-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+<!-- 날짜/시간 선택 시작 -->
+<div class="flex items-center space-x-4 mt-5">
+    <h6 class="mb-0 text-sm">예약일시</h6>
+    <div
+        x-data
+        x-init="flatpickr($refs.startdatetimewidget, {wrap: true, enableTime: true, dateFormat: 'M j, Y h:i K', minuteIncrement: 30}); flatpickr($refs.enddatetimewidget, {wrap: true, enableTime: true, dateFormat: 'M j, Y h:i K', minuteIncrement: 30});"
+        class="flex items-center space-x-4"
+    >
+        <!-- 시작 날짜/시간 선택기 -->
+        <div x-ref="startdatetimewidget" class="flatpickr container">
+            <div class="flex items-center">
+                <input
+                    x-ref="startdatetime"
+                    type="text"
+                    id="startdatetime"
+                    data-input
+                    placeholder="Date/Time"
+                    class="block w-40 px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-l-md shadow-sm text-xs"
+                >
+                <a
+                    class="h-8.5 w-10 input-button cursor-pointer rounded-r-md bg-transparent border-gray-300 border-t border-b border-r"
+                    title="clear" data-clear
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-7 mt-2 ml-1" viewBox="0 0 20 20" fill="#c53030">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- 끝 날짜/시간 선택기 -->
+        <div x-ref="enddatetimewidget" class="flatpickr container">
+            <div class="flex items-center">
+                <input
+                    x-ref="enddatetime"
+                    type="text"
+                    id="enddatetime"
+                    data-input
+                    placeholder="Date/Time"
+                    class="block w-40 px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-l-md shadow-sm text-xs"
+                >
+                <a
+                    class="h-8.5 w-10 input-button cursor-pointer rounded-r-md bg-transparent border-gray-300 border-t border-b border-r"
+                    title="clear" data-clear
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-7 mt-2 ml-1" viewBox="0 0 20 20" fill="#c53030">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--날짜/시간 선택 끝-->
+<!--예약자입력칸-->
+    <div class="flex items-center mb-4">
+      <label
+        class="mb-3 block font-medium mr-8 text-sm"
+      >
+		예약자
+      </label>
+      <input
+        type="text"
+        placeholder="예약자명"
+        class="block w-40 px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-lg shadow-sm text-xs"
+      />
+    </div>
+<!--예약자입력끝-->
+<!--예약목적입력-->
+ <div class="flex items-center mb-4">
+      <label
+        class="mb-3 block font-medium mr-4 text-sm"
+      >
+		예약목적
+      </label>
+      <input
+        type="text"
+        placeholder="예약목적입력"
+        class="block w-80 px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-lg shadow-sm text-xs"
+      />
+    </div>
+<!--예약목적입력끝-->
+                </p>
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+<!--참석자 리스트-->
+ <div class="flex items-center mb-4">
+  <label
+    class="mb-3 block font-medium mr-8 text-sm"
+  >
+	참석자
+  </label>
+      <div class="flex items-center gap-2.5">
+    <input
+      type="text"
+      name="taskList"
+      id="taskList"
+      placeholder="참석자 리스트 입력"
+      class="block w-80 px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-lg shadow-sm text-xs"
+    />
+
+    <button
+      class="flex h-8.5 w-8.5 text-xl items-center justify-center rounded-sm border border-stroke bg-white p-4 hover:text-primary rounded-lg"
+    >
+      -
+        <path
+          d="M18.4375 10.7187H1.5625C1.1875 10.7187 0.84375 10.4062 0.84375 10C0.84375 9.625 1.15625 9.28125 1.5625 9.28125H18.4375C18.8125 9.28125 19.1562 9.59375 19.1562 10C19.1562 10.375 18.8125 10.7187 18.4375 10.7187Z"
+          fill=""
+        />
+      </svg>
+    </button>
+    <button
+      class="flex h-8.5 w-8.5 text-xl items-center justify-center rounded-sm border border-stroke bg-white p-4 hover:text-primary rounded-lg"
+    >
+      +
+    </button>
+  </div>
+</div>   
+<!--참석자 리스트 끝-->                
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
+                <button data-modal-hide="static-modal" type="button" class="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">예약</button>
+                <button data-modal-hide="static-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+	        <!--모달창 끝-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
 <jsp:include page="../layout/closer.jsp"/>
     

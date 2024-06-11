@@ -1,4 +1,4 @@
-package com.gd774.effic.dto.approval;
+package com.gd774.effic.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-
-public class DocDto {
-	private String itemName, itemStandard, remark;
-	private int itemQuan, itemCost, amount;
+public class AttendeeDto {
+  private RoomReserveDto reserveId;
+  private UserDto attendee;
 }
+

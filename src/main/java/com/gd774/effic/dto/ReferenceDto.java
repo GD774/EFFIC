@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReferenceDto {
 	private int docId;
-	private String refType, empId;
+	private String refType;//, empId;
 	private int deptId;
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gd774.effic.mapper.ReserveMapper">
+
+	<resultMap type="com.gd774.effic.dto.CategoryDto" id="CategoryMap">
+		<id			property="catCode"			column="CAT_CODE" />
+		<result		property="pcatCode"			column="PCAT_CODE" />
+		<result		property="catName"			column="CAT_NAME" />
+		<result		property="catType"			column="CAT_TYPE" />
+	</resultMap>
+ 	
+ 	<resultMap type="com.gd774.effic.dto.FacilityManageDto" id="FacilityManageMap">
+		<id			property="facilityId"			column="FACILITY_ID" />
+		<result		property="modelName"			column="MODEL_NAME" />
+  		<result		property="buyDt"				column="BUY_DT" />
+		<result		property="faciliyState"			column="FACILITY_STATE" />
+		<result		property="rentTerm"				column="RENT_TERM" />
+		<result		property="manageId"				column="MANAGE_ID"/>
+		<association property="category" javaType="CategoryDto">
+			<id			property="catCode"			column="CAT_CODE" />
+			<result		property="pcatCode"			column="PCAT_CODE" />
+			<result		property="catName"			column="CAT_NAME" />
+			<result		property="catType"			column="CAT_TYPE" />
+		</association>
+	</resultMap>
+ 
+ 	
+ 	<insert id="insertFacility"
+ 			parameterType="FacilityManageDto">
+	 	INSERT INTO FACILITY_MANAGE_T(
+		  FACILITY_ID
+	 	, MODEL_NAME
+	 	, BUY_DT
+	 	, FACILITY_STATE
+	 	, RENT_TERM
+	 	, CAT_CODE
+	 	) VALUES (
+	 	  FACILITY_MANAGE_SEQ.NEXTVAL
+	 	, #{modelName}
+	 	, #{buyDt}
+	 	, 0
+	 	, 0
+	 	, #{category.catCode}
+	 	)
+ 	</insert>
+ 
+ 	 <select id="getCatList"
+  		  resultMap="CategoryMap">
+    SELECT CAT_CODE, CAT_TYPE, CAT_NAME, PCAT_CODE
+      FROM CATEGORY_T
+	  </select>
+	  
+  	<select id="getMCategoryList"
+  		  resultMap="CategoryMap">
+   	 SELECT CAT_CODE, CAT_TYPE, CAT_NAME, PCAT_CODE
+      	FROM CATEGORY_T
+	 WHERE CAT_TYPE = 'M'
+  	</select>
+  	
+ 	<select id="getSCategoryList"
+  		  resultType="CategoryDto">
+   	 SELECT CAT_CODE, CAT_TYPE, CAT_NAME, PCAT_CODE
+      	FROM CATEGORY_T
+	 WHERE CAT_TYPE = 'S' and PCAT_CODE=#{value}
+  	</select>
+  
+ 	 <select id="getCatCount">
+		SELECT COUNT(*)
+	 	 FROM CATEGORY_T
+	 	WHERE CAT_TYPE = 'M' 
+  	</select>
+
+ 
+ 
+ 
+ 
+</mapper>

@@ -446,6 +446,7 @@ FROM (
     ) M
 ) MAIN       
 WHERE RN BETWEEN #{begin} AND #{end}
+ORDER BY SEND_DT DESC
  
 </select>
 
@@ -571,7 +572,8 @@ FROM (
     ) M
 ) MAIN       
 WHERE 
-    RN BETWEEN #{begin} AND #{end}    
+    RN BETWEEN #{begin} AND #{end}
+    ORDER BY SEND_DT DESC    
 </select>
 
 <select id="getBinCount"

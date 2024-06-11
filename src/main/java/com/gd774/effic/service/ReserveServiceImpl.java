@@ -37,21 +37,23 @@ public class ReserveServiceImpl implements ReserveService {
     String buyDt = request.getParameter("buyDt");
     int facilityState = Integer.parseInt(request.getParameter("facilityState"));
     int rentTerm = Integer.parseInt(request.getParameter("rentTerm"));
-    
-    try {
-      System.out.println("문제있나?"  + facilityState);
-      FacilityManageDto facilityMng = FacilityManageDto.builder()
-          .modelName(modelName)
-          .buyDt(buyDt)
-          .rentTerm(rentTerm)
-          .build();
-      System.out.println("잘 나옴?" + facilityMng);
-      return reserveMapper.insertFacility(facilityMng);
-        
-    } catch (Exception e) {
-        e.printStackTrace();
+    String catCode = request.getParameter("catCode");
+    System.out.println();
+//    try {
+//      System.out.println("문제있나?"  + facilityState);
+//      FacilityManageDto facilityMng = FacilityManageDto.builder()
+//          .modelName(modelName)
+//          .buyDt(buyDt)
+//          .rentTerm(rentTerm)
+//          .catCode(catCode)
+//          .build();
+//      System.out.println("잘 나옴?" + facilityMng);
+//      return reserveMapper.insertFacility(facilityMng);
+//        
+//    } catch (Exception e) {
+//        e.printStackTrace();
       return 0;
-    }
+//    }
   }
 
   @Override
@@ -76,13 +78,14 @@ public class ReserveServiceImpl implements ReserveService {
   public void loadCategoryList(Model model) {
   List<CategoryDto> mCatList = reserveMapper.getMCategoryList();
   Map<String, List<CategoryDto>> map = new HashMap<>();
-//  List<CategoryDto> sCatList = reserveMapper.getSCategoryList(null);
+  //List<CategoryDto> sCatList = reserveMapper.getSCategoryList(null);
   for(CategoryDto c : mCatList) {
       map.put(c.getCatCode(),reserveMapper.getSCategoryList(c.getCatCode()));
   }
   //model.addAttribute("mCatList1", mCatList.get(0).getCatName());
 
   model.addAttribute("mCatList", mCatList);
+ // model.addAttribute("sCatList", sCatList);
   model.addAttribute("map", map);
 
   //System.out.println(sCatList.get(3).getCatName());

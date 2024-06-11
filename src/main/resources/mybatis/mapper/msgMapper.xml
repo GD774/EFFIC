@@ -155,26 +155,54 @@ WHERE SENDER = #{sender} AND IS_ME=0 AND STATE=0
 <select id="getListMsg"
         parameterType="Map"
         resultMap="MsgMap">
-SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, NAME,
- CASE WHEN EXISTS ( SELECT ATTACH_ID 
-                      FROM MSG_ATTACH_T A
-                     WHERE MAIN.MSG_ID = A.MSG_ID) 
-              THEN 'Y' ELSE 'N' END AS HAS_ATTACH
-FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN 
-            , M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT, U.NAME
-         FROM MSG_T M 
-         JOIN RECP_T R ON M.MSG_ID = R.MSG_ID
+SELECT 
+    MSG_ID, 
+    NAME, 
+    TITLE, 
+    SEND_DT, 
+    CHK_IMPT, 
+    NAME, 
+    CASE 
+        WHEN EXISTS (
+            SELECT ATTACH_ID 
+            FROM MSG_ATTACH_T A
+            WHERE MAIN.MSG_ID = A.MSG_ID
+        ) THEN 'Y' 
+        ELSE 'N' 
+    END AS HAS_ATTACH
+FROM (
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY M.SEND_DT DESC) AS RN,
+        M.MSG_ID, 
+        M.TITLE, 
+        M.CONTENTS, 
+        M.SEND_DT, 
+        M.CHK_IMPT, 
+        (SELECT LISTAGG(U.NAME, ', ') WITHIN GROUP (ORDER BY U.NAME)
+         FROM RECP_T R
          JOIN USER_T U ON U.EMP_ID = R.RECIPIENT
-        WHERE M.SENDER = #{sender} AND M.STATE=0 AND M.IS_ME=0) MAIN
-WHERE RN BETWEEN #{begin} AND #{end}
+         WHERE R.MSG_ID = M.MSG_ID) AS NAME
+    FROM 
+        MSG_T M
+    WHERE 
+        M.SENDER = #{sender} AND M.STATE = 0 AND M.IS_ME = 0
+) MAIN
+WHERE 
+    RN BETWEEN #{begin} AND #{end}
 </select>
 
 <select id="getMsgDetail">
-SELECT M.MSG_ID, R.RECIPIENT, M.TITLE, M.CONTENTS, M.SEND_DT, NAME
-FROM MSG_T M 
-JOIN RECP_T R ON R.MSG_ID = M.MSG_ID
-JOIN USER_T U ON U.EMP_ID = R.RECIPIENT
-WHERE M.MSG_ID = #{msgId}     
+SELECT 
+    M.MSG_ID, 
+    M.TITLE, 
+    M.CONTENTS, 
+    M.SEND_DT, 
+    (SELECT LISTAGG(U.NAME, ', ') WITHIN GROUP (ORDER BY U.NAME)
+       FROM RECP_T R
+       JOIN USER_T U ON U.EMP_ID = R.RECIPIENT
+      WHERE R.MSG_ID = M.MSG_ID) AS NAME
+FROM MSG_T M
+WHERE M.MSG_ID = #{msgId}    
 </select>
 
 <select id="getRecipientList">
@@ -293,7 +321,7 @@ UPDATE RECP_T
 
 <select id="getImpCount"
         parameterType="Map">
-SELECT COUNT(SORT)
+SELECT COUNT(DISTINCT SORT) 
   FROM (
          SELECT CONCAT('R',R.RECP_ID)  AS SORT, 
                 M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
@@ -312,45 +340,112 @@ SELECT COUNT(SORT)
 <select id="getImpList"
         parameterType="Map"
         resultMap="MsgMap">
-
-SELECT SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME, CHK_IMPT,
-   CASE WHEN EXISTS ( SELECT ATTACH_ID 
-                        FROM MSG_ATTACH_T A
-                       WHERE MAIN.MSG_ID = A.MSG_ID) 
-              THEN 'Y' ELSE 'N' END AS HAS_ATTACH
-  FROM (
-         SELECT ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, 
-                SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, RNAME, SNAME
-  FROM (
-         SELECT CONCAT('R',R.RECP_ID)  AS SORT, 
-                M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
-           FROM MSG_T M 
-           JOIN RECP_T R
-             ON M.MSG_ID = R.MSG_ID
-           JOIN USER_T SU
-             ON SU.EMP_ID = M.SENDER
-           JOIN USER_T RU
-             ON RU.EMP_ID = R.RECIPIENT
-          WHERE R.RECIPIENT = #{recipient} AND R.STATE=0 AND R.CHK_IMPT=1
-     UNION ALL
-         SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
-                 M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
-           FROM MSG_T M 
-           JOIN RECP_T R
-             ON M.MSG_ID = R.MSG_ID
-           JOIN USER_T SU
-             ON SU.EMP_ID = M.SENDER
-           JOIN USER_T RU
-             ON RU.EMP_ID = R.RECIPIENT
-          WHERE M.SENDER =  #{sender} AND M.STATE=0 AND M.CHK_IMPT=1
-     UNION ALL
-         SELECT CONCAT('P', M.MSG_ID) AS SORT,
-                   M.MSG_ID, M.SENDER AS RECIPIENT, SU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, M.SENDER AS RECIPIENT
-           FROM MSG_T M
-           JOIN USER_T SU
-             ON SU.EMP_ID = M.SENDER
-          WHERE M.SENDER =  #{sender} AND M.STATE=0 AND M.CHK_IMPT=1 AND M.IS_ME=1)) MAIN       
- WHERE RN BETWEEN #{begin} AND #{end}
+SELECT DISTINCT
+    SORT, 
+    MSG_ID, 
+    RECIPIENTLIST AS RECIPIENT, 
+    TITLE, 
+    SEND_DT, 
+    SENDER, 
+    RNAME,  
+    SNAME, 
+    CHK_IMPT,
+    CASE 
+        WHEN EXISTS ( 
+            SELECT ATTACH_ID 
+            FROM MSG_ATTACH_T A
+            WHERE MAIN.MSG_ID = A.MSG_ID
+        ) THEN 'Y' 
+        ELSE 'N' 
+    END AS HAS_ATTACH
+FROM (
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY SEND_DT DESC) AS RN, 
+        SORT, 
+        MSG_ID, 
+        (SELECT LISTAGG(U.EMP_ID, ', ') WITHIN GROUP (ORDER BY U.EMP_ID)
+         FROM RECP_T R
+         JOIN USER_T U ON U.EMP_ID = R.RECIPIENT
+         WHERE R.MSG_ID = M.MSG_ID) AS RECIPIENTLIST,
+        TITLE, 
+        SEND_DT, 
+        CHK_IMPT, 
+        SENDER, 
+        (SELECT LISTAGG(U.NAME, ', ') WITHIN GROUP (ORDER BY U.NAME)
+         FROM RECP_T R
+         JOIN USER_T U ON U.EMP_ID = R.RECIPIENT
+         WHERE R.MSG_ID = M.MSG_ID) AS RNAME,
+        SNAME
+    FROM (
+        SELECT 
+            CONCAT('R', R.RECP_ID) AS SORT, 
+            M.MSG_ID, 
+            M.TITLE, 
+            M.SEND_DT, 
+            R.CHK_IMPT, 
+            M.SENDER, 
+            RU.NAME AS RNAME, 
+            SU.NAME AS SNAME
+        FROM 
+            MSG_T M 
+        JOIN 
+            RECP_T R ON M.MSG_ID = R.MSG_ID
+        JOIN 
+            USER_T SU ON SU.EMP_ID = M.SENDER
+        JOIN 
+            USER_T RU ON RU.EMP_ID = R.RECIPIENT
+        WHERE 
+            R.RECIPIENT = #{recipient}   
+            AND R.STATE = 0 
+            AND R.CHK_IMPT = 1
+        
+        UNION ALL
+        
+        SELECT  
+            CONCAT('M', M.MSG_ID) AS SORT, 
+            M.MSG_ID, 
+            M.TITLE, 
+            M.SEND_DT, 
+            M.CHK_IMPT, 
+            M.SENDER, 
+            RU.NAME AS RNAME, 
+            SU.NAME AS SNAME
+        FROM 
+            MSG_T M 
+        JOIN 
+            RECP_T R ON M.MSG_ID = R.MSG_ID
+        JOIN 
+            USER_T SU ON SU.EMP_ID = M.SENDER
+        JOIN 
+            USER_T RU ON RU.EMP_ID = R.RECIPIENT
+        WHERE 
+            M.SENDER = #{sender}  
+            AND M.STATE = 0 
+            AND M.CHK_IMPT = 1
+        
+        UNION ALL
+        
+        SELECT 
+            CONCAT('P', M.MSG_ID) AS SORT,
+            M.MSG_ID, 
+            M.TITLE, 
+            M.SEND_DT, 
+            M.CHK_IMPT, 
+            M.SENDER, 
+            SU.NAME AS RNAME, 
+            SU.NAME AS SNAME
+        FROM 
+            MSG_T M
+        JOIN 
+            USER_T SU ON SU.EMP_ID = M.SENDER
+        WHERE 
+            M.SENDER = #{sender} 
+            AND M.STATE = 0 
+            AND M.CHK_IMPT = 1 
+            AND M.IS_ME = 1
+    ) M
+) MAIN       
+WHERE RN BETWEEN #{begin} AND #{end}
  
 </select>
 
@@ -370,51 +465,119 @@ UPDATE RECP_T
  <select id="getBinList"
         parameterType="Map"
         resultMap="MsgMap">
- SELECT RN, SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, SENDER, RNAME, SNAME,
-    CASE WHEN EXISTS ( SELECT ATTACH_ID
-                         FROM MSG_ATTACH_T A 
-                        WHERE MAIN.MSG_ID = A.MSG_ID) 
-              THEN 'Y' ELSE 'N' END AS HAS_ATTACH
+SELECT DISTINCT
+    SORT, 
+    MSG_ID, 
+    RECIPIENTLIST AS RECIPIENT, 
+    TITLE, 
+    SEND_DT, 
+    SENDER, 
+    RNAME,
+    SNAME,
+    CASE 
+        WHEN EXISTS ( 
+            SELECT ATTACH_ID 
+            FROM MSG_ATTACH_T A 
+            WHERE MAIN.MSG_ID = A.MSG_ID
+        ) THEN 'Y' 
+        ELSE 'N' 
+    END AS HAS_ATTACH
+FROM (
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY SEND_DT DESC) AS RN, 
+        SORT, 
+        MSG_ID, 
+        (SELECT LISTAGG(U.EMP_ID, ', ') WITHIN GROUP (ORDER BY U.EMP_ID)
+         FROM RECP_T R
+         JOIN USER_T U ON U.EMP_ID = R.RECIPIENT
+         WHERE R.MSG_ID = M.MSG_ID) AS RECIPIENTLIST,
+        TITLE, 
+        SEND_DT, 
+        CHK_IMPT, 
+        SENDER, 
+        (SELECT LISTAGG(U.NAME, ', ') WITHIN GROUP (ORDER BY U.NAME)
+         FROM RECP_T R
+         JOIN USER_T U ON U.EMP_ID = R.RECIPIENT
+         WHERE R.MSG_ID = M.MSG_ID) AS RNAME,
+        SNAME
     FROM (
-           SELECT  ROW_NUMBER() OVER(ORDER BY SEND_DT DESC) AS RN, 
-            SORT, MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, RNAME, SNAME
-    FROM (
-           SELECT  CONCAT('R', R.RECP_ID) AS SORT, 
-            M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
-         FROM MSG_T M 
-         JOIN RECP_T R 
-           ON M.MSG_ID = R.MSG_ID
-         JOIN USER_T SU 
-           ON SU.EMP_ID = M.SENDER
-         JOIN USER_T RU 
-           ON RU.EMP_ID = R.RECIPIENT
+        SELECT 
+            CONCAT('R', R.RECP_ID) AS SORT, 
+            M.MSG_ID, 
+            M.TITLE, 
+            M.SEND_DT, 
+            R.CHK_IMPT, 
+            M.SENDER, 
+            RU.NAME AS RNAME, 
+            SU.NAME AS SNAME
+        FROM 
+            MSG_T M 
+        JOIN 
+            RECP_T R ON M.MSG_ID = R.MSG_ID
+        JOIN 
+            USER_T SU ON SU.EMP_ID = M.SENDER
+        JOIN 
+            USER_T RU ON RU.EMP_ID = R.RECIPIENT
         WHERE 
-            R.RECIPIENT = #{recipient} AND R.STATE = 1 AND R.IS_DELETE=0
+            R.RECIPIENT = #{recipient} 
+            AND R.STATE = 1 
+            AND R.IS_DELETE = 0
+        
         UNION ALL
-        SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
-            M.MSG_ID, R.RECIPIENT, RU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
-        FROM MSG_T M 
-        JOIN RECP_T R 
-          ON M.MSG_ID = R.MSG_ID
-        JOIN USER_T SU 
-          ON SU.EMP_ID = M.SENDER
-        JOIN USER_T RU 
-          ON RU.EMP_ID = R.RECIPIENT
-       WHERE M.SENDER = #{sender} AND M.STATE = 1 AND M.IS_DELETE=0 AND M.IS_ME = 0
-       UNION ALL
-      SELECT CONCAT('P', M.MSG_ID) AS SORT,
-                   M.MSG_ID, M.SENDER AS RECIPIENT, SU.NAME AS RNAME, SU.NAME AS SNAME, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, M.SENDER AS RECIPIENT
-       FROM MSG_T M
-       JOIN USER_T SU
-         ON SU.EMP_ID = M.SENDER
-      WHERE M.SENDER =  #{sender} AND M.STATE=1 AND M.IS_DELETE=0 AND M.IS_ME = 1)) MAIN       
-  WHERE RN BETWEEN #{begin} AND #{end}        
+        
+        SELECT  
+            CONCAT('M', M.MSG_ID) AS SORT, 
+            M.MSG_ID, 
+            M.TITLE, 
+            M.SEND_DT, 
+            M.CHK_IMPT, 
+            M.SENDER, 
+            RU.NAME AS RNAME, 
+            SU.NAME AS SNAME
+        FROM 
+            MSG_T M 
+        JOIN 
+            RECP_T R ON M.MSG_ID = R.MSG_ID
+        JOIN 
+            USER_T SU ON SU.EMP_ID = M.SENDER
+        JOIN 
+            USER_T RU ON RU.EMP_ID = R.RECIPIENT
+        WHERE 
+            M.SENDER = #{sender} 
+            AND M.STATE = 1 
+            AND M.IS_DELETE = 0 
+            AND M.IS_ME = 0
+        
+        UNION ALL
+        
+        SELECT 
+            CONCAT('P', M.MSG_ID) AS SORT,
+            M.MSG_ID, 
+            M.TITLE, 
+            M.SEND_DT, 
+            M.CHK_IMPT, 
+            M.SENDER, 
+            SU.NAME AS RNAME, 
+            SU.NAME AS SNAME
+        FROM 
+            MSG_T M
+        JOIN 
+            USER_T SU ON SU.EMP_ID = M.SENDER
+        WHERE 
+            M.SENDER = #{sender} 
+            AND M.STATE = 1 
+            AND M.IS_DELETE = 0 
+            AND M.IS_ME = 1
+    ) M
+) MAIN       
+WHERE 
+    RN BETWEEN #{begin} AND #{end}    
 </select>
 
 <select id="getBinCount"
         parameterType="Map">
 
-SELECT COUNT(SORT)
+SELECT COUNT(DISTINCT SORT)
   FROM (
          SELECT CONCAT('R',R.RECP_ID)  AS SORT
            FROM MSG_T M JOIN RECP_T R
@@ -426,12 +589,11 @@ SELECT COUNT(SORT)
              ON M.MSG_ID = R.MSG_ID
           WHERE M.SENDER = #{sender} AND M.STATE=1 AND M.IS_DELETE=0
      UNION ALL
-	    SELECT CONCAT('P', M.MSG_ID) AS SORT
-	     FROM MSG_T M
-	     JOIN USER_T SU
-	       ON SU.EMP_ID = M.SENDER
-	    WHERE M.SENDER =  #{sender} AND M.STATE=1 AND M.IS_DELETE=0 AND M.IS_ME = 1)
-
+        SELECT CONCAT('P', M.MSG_ID) AS SORT
+         FROM MSG_T M
+         JOIN USER_T SU
+           ON SU.EMP_ID = M.SENDER
+        WHERE M.SENDER =  #{sender} AND M.STATE=1 AND M.IS_DELETE=0 AND M.IS_ME = 1)
 
 </select>
 

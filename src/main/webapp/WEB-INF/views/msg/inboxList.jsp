@@ -211,9 +211,6 @@ const fnUpdateChkImpt = (evt) => {
         dataType: 'json',
         success: (resData) => { 
         	fnGetRecpList();
-        	
-
-
         },
         error: (jqXHR) => {
             alert(jqXHR.statusText + '(' + jqXHR.status + ')');

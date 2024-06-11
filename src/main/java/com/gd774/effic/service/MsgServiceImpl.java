@@ -72,14 +72,31 @@ public class MsgServiceImpl implements MsgService {
 		fileLoad.doUpload(multipartRequest, msg);
 				
 		//RECP에 삽입
-		String recipient = multipartRequest.getParameter("recp");
+		String recipientParam = multipartRequest.getParameter("recp");
 		
-		RecpDto recp = RecpDto.builder()
-	    		          .msgId(msg.getMsgId())
-				          .recipient(recipient)
-				          .build();
+		String[] recipients = null;
 		
-		int inserRecpCount = msgMapper.insertRecp(recp);
+		if (recipientParam != null && !recipientParam.isEmpty()) {
+		    recipients = recipientParam.replaceAll(" ", "").split(",");
+		}
+		System.out.println(recipients);
+		
+		int inserRecpCount = 0;
+		
+		for (String recipient : recipients) {
+			if (recipient != null && !recipient.isEmpty()) {
+			   System.out.println(recipient);
+			   
+				RecpDto recp = RecpDto.builder()
+						.msgId(msg.getMsgId())
+						.recipient(recipient)
+						.build();
+				
+				inserRecpCount += msgMapper.insertRecp(recp);
+			}
+		}
+		
+		
 		
 		// 이거 나중에 수정. boolean으로 바꿔서 1&&list=recp 로 해야할까?
 		return insertMsgCount;

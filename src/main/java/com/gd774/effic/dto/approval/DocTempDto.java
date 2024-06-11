@@ -1,4 +1,4 @@
-package com.gd774.effic.dto;
+package com.gd774.effic.dto.approval;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class ReferenceDto {
-	private int docId;
-	private String refType;//, empId;
-	private int deptId;
+
+public class DocTempDto {
+	private int docTempCode;
+	private String docTempName;
 }

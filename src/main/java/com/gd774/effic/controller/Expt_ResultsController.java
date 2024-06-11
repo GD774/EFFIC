@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class Expt_ResultsController {
- private final Expt_ResultsService expt_ResultsService;
+ private  Expt_ResultsService expt_ResultsService;
  
  @RequestMapping("")
  public String exptMain() {

@@ -16,11 +16,10 @@ import jakarta.servlet.http.HttpSession;
 public class HomeController {
 	@GetMapping(value = "")
 	public String main(HttpServletRequest request, HttpServletResponse response) {
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("user") != null)
-//			return "user/main";
-//		return "redirect:/signin";
-		return "user/main";
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") != null)
+			return "user/main";
+		return "redirect:/signin";
 	}
 
 	@GetMapping(value = "signin")

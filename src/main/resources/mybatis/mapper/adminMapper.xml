@@ -5,22 +5,24 @@
 
 <mapper namespace="com.gd774.effic.mapper.AdminMapper">
   <resultMap type="com.gd774.effic.dto.UserDto" id="UserMap">
-    <!-- <id      property="empId"          column="EMP_ID"/> -->
-	<result  property="empId"          column="EMP_ID"/>
-	<result  property="permCode"     column="PERM_CODE"/>
+	<result  property="empId"        column="EMP_ID"/>
+	<result  property="pw"           column="PASSWORD"/>
 	<result  property="name"         column="NAME"/>
-    <result  property="email"        column="EMAIL"/>
+	<result  property="gender"       column="GENDER"/>
 	<result  property="phone"        column="PHONE"/>
+	<result  property="email"        column="EMAIL"/>
+	<result  property="joinDt"       column="JOIN_DT"/>
+	<result  property="leaveDt"      column="LEAVE_DT"/>
   </resultMap>
 
   <select id="getUserList"
 		  resultMap="UserMap">
-	SELECT EMP_ID, NAME, EMAIL, PERM_CODE FROM USER_T
+	SELECT EMP_ID, NAME, PHONE, EMAIL, JOIN_DT, LEAVE_DT FROM USER_T
   </select>
 
   <insert id="insertUser"
 		  parameterType="com.gd774.effic.dto.UserDto">
 	<!-- insert into user_t(id, emp_id, password, name, email, phone) values(user_seq.nextval, #{user.empId}, #{user.pw}, #{user.name}, #{user.email}, #{user.phone}) -->
-	insert into user_t(id, emp_id, password) values(user_seq.nextval, #{empId}, #{pw})
+	insert into user_t(emp_id, password, status) values(#{empId}, #{pw}, 1)
   </insert>
 </mapper>

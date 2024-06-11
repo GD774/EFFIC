@@ -36,18 +36,27 @@
                 휴지통
               </h2>
               
+              
+                <nav>
+                <ol class="flex items-center gap-2">
+                  <li>
+                   <a id="total" class="font-medium" > </a>
+                  </li>
+                  <li class="font-medium text-primary"> / 500</li>
+                </ol>
+              </nav>
 
             </div>
             <hr style="border-color: #BDBDBD; border-width: 1px; margin-top: 1rem;">
             
             <div id="button-wrapper" class="py-3">
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-remove" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  삭제
              </button>
-            <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-clear" class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  비우기
              </button>
-            <button class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="btn-cancel" class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  해제
             </button>
           </div>       
@@ -67,44 +76,26 @@
           <h5 class="font-medium text-[#637381] dark:text-bodydark"></h5>
         </div>
 
-        <div class="col-span-2">
+        <div class="col-span-3">
           <h5 class="font-medium text-[#637381] dark:text-bodydark"></h5>
         </div>
 
-        <div class="col-span-6">
+        <div class="col-span-4">
           <h5 class="font-medium text-[#637381] dark:text-bodydark">제목</h5>
         </div>
         
-        <div class="col-span-1">
+        <div class="col-span-2">
           <h5 class="font-medium text-[#637381] dark:text-bodydark">날짜</h5>
         </div>
       </div>
       <!-- table header end -->
 
       <!-- table body start -->
-      <div class="bg-white dark:bg-boxdark">
-        <!-- table row item -->
-        <div class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11"
-        style="grid-template-columns: 50px 50px repeat(9, 1fr);">
-          <div class="col-span-1" style="width:5px;">
-           <input type="checkbox" class="chk">
-          </div>
+      <div class="bg-white dark:bg-boxdark" id="message-list">
+        
 
-          <div class="col-span-2">
-            <p class="text-[#637381] dark:text-bodydark"> </p>
-          </div>
 
-          <div class="col-span-6">
-            <p class="text-[#637381] dark:text-bodydark">제목</p>
-          </div>
-          
-         <div class="col-span-1">
-            <p class="text-[#637381] dark:text-bodydark">날짜</p>
-          </div>
-     
-        </div>
-      </div>
-      <!-- table body end -->
+      
     </div>
   </div>
 </div>
@@ -114,40 +105,8 @@
   </div>
   
   <div class="p-4 sm:p-6 xl:p-7.5" id="paging">
-                  <nav>
-                    <ul class="flex flex-wrap items-center">
-                      <li>
-                        <a class="flex h-8 w-8 items-center justify-center rounded hover:bg-primary hover:text-white" href="#">
-                          <svg class="fill-current" width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.17578 15.1156C7.00703 15.1156 6.83828 15.0593 6.72578 14.9187L0.369531 8.44995C0.116406 8.19683 0.116406 7.80308 0.369531 7.54995L6.72578 1.0812C6.97891 0.828076 7.37266 0.828076 7.62578 1.0812C7.87891 1.33433 7.87891 1.72808 7.62578 1.9812L1.71953 7.99995L7.65391 14.0187C7.90703 14.2718 7.90703 14.6656 7.65391 14.9187C7.48516 15.0312 7.34453 15.1156 7.17578 15.1156Z" fill=""></path>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="flex items-center justify-center rounded px-3 py-1.5 font-medium hover:bg-primary hover:text-white" href="#">1</a>
-                      </li>
-                      <li>
-                        <a class="flex items-center justify-center rounded px-3 py-1.5 font-medium hover:bg-primary hover:text-white" href="#">2</a>
-                      </li>
-                      <li>
-                        <a class="flex items-center justify-center rounded px-3 py-1.5 font-medium hover:bg-primary hover:text-white" href="#">3</a>
-                      </li>
-                      <li>
-                        <a class="flex items-center justify-center rounded px-3 py-1.5 font-medium hover:bg-primary hover:text-white" href="#">4</a>
-                      </li>
-                      <li>
-                        <a class="flex items-center justify-center rounded px-3 py-1.5 font-medium hover:bg-primary hover:text-white" href="#">5</a>
-                      </li>     
-                      <li>
-                        <a class="flex h-8 w-8 items-center justify-center rounded hover:bg-primary hover:text-white" href="#">
-                          <svg class="fill-current" width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.819531 15.1156C0.650781 15.1156 0.510156 15.0593 0.369531 14.9468C0.116406 14.6937 0.116406 14.3 0.369531 14.0468L6.27578 7.99995L0.369531 1.9812C0.116406 1.72808 0.116406 1.33433 0.369531 1.0812C0.622656 0.828076 1.01641 0.828076 1.26953 1.0812L7.62578 7.54995C7.87891 7.80308 7.87891 8.19683 7.62578 8.44995L1.26953 14.9187C1.15703 15.0312 0.988281 15.1156 0.819531 15.1156Z" fill=""></path>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
+                 
+                     </div>
 </div>
 
               <!-- ====== Table End -->
@@ -156,5 +115,130 @@
   </main>
   <!-- ===== Main Content End ===== -->
 </div>
+
+<script>
+
+var page = 1;
+var totalPage = 0;
+	
+const fnGetBinList = () => {
+	
+    $.ajax({
+		  // 요청
+		  type: 'GET',
+		  url: '${contextPath}/msg/getBinList.do',               
+		  data : 'page=' + page,
+		  // 응답
+		  dataType: 'json',
+		  success: (resData) => {
+			     $('#message-list').html('');
+				 $.each(resData.binList, (i, bin) => {
+		    	let str=  '<div data-sort="'+bin.sort+'" class="hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
+		    	str +=  '<div data-sort="'+bin.sort+'"class="col-span-1" ><input type="checkbox" name="checkbox" value="'+ bin.sort +'" class="chk"></div>';
+		    	
+		    	
+		    	if(bin.sort.slice(0, 1) === 'R'){
+		    	str += '<div data-msg-id="'+bin.msgId+'" class="col-span-3"> <p class="text-[#637381] dark:text-bodydark"> '+ bin.sname +' </p></div>';}
+		    	else if(bin.sort.slice(0, 1) === 'M'){
+			    str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
+		    	else if(bin.sort.slice(0, 1) === 'P'){
+				str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/me.svg"/></p></div>';
+			    }
+				 
+				 
+		    	if(bin.hasAttach === true){
+		    	str += ' <div data-msg-id="'+bin.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ bin.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+		    	} else if(bin.hasAttach === false) {
+			    str += ' <div data-msg-id="'+bin.msgId+'" class="col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ bin.title +'</p></div>';
+		    	}
+		    	
+		    	str += '<div data-msg-id="'+bin.msgId+'" class="col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ bin.sendDt.slice(0, -3) +'</p></div>';
+		    	str += '</div>';
+		    	$('#message-list').append(str);
+		    }),  $('#paging').html(resData.paging);
+				 $('#total').html(resData.total);
+		  },
+		  error: (jqXHR) => {
+			  alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+		  }
+		})
+	};	
+	
+	//체크박스 선택 후 삭제버튼 눌러서 메세지 삭제
+	$('#btn-remove').click(function() {
+	    var checkValues = [];
+	    $("input[name='checkbox']:checked").each(function() {
+	        checkValues.push(this.value);
+	        console.log(this.value);
+	    });
+	    var data = $.param({ checkValues: checkValues });
+
+	    $.ajax({
+	        // 요청
+	        type: 'POST',
+	        url: '${contextPath}/msg/updateRemove.do',
+	        data: {checkValues: checkValues},
+	        // 응답
+	        dataType: 'json',
+	        success: (resData) => { 
+	        	fnGetBinList();
+	        },
+	        error: (jqXHR) => {
+	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+	        }
+	    })
+	});
+	
+	//체크박스 선택 후 해제 버튼 눌러서 원래 보관함으로 돌아가기
+	$('#btn-cancel').click(function() {
+	    var checkValues = [];
+	    $("input[name='checkbox']:checked").each(function() {
+	        checkValues.push(this.value);
+	        console.log(this.value);
+	    });
+	    var data = $.param({ checkValues: checkValues });
+	    $.ajax({
+	        // 요청
+	        type: 'POST',
+	        url: '${contextPath}/msg/cancelBin.do',
+	        data: {checkValues: checkValues},
+	        // 응답
+	        dataType: 'json',
+	        success: (resData) => { 
+	        	fnGetBinList();
+	        },
+	        error: (jqXHR) => {
+	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+	        }
+	    });
+	});	
+	
+//비우기 버튼을 눌러서 휴지통 비우기
+const fnClearBin = () => {
+	 $.ajax({
+	        // 요청
+	        type: 'POST',
+	        url: '${contextPath}/msg/clearBin.do',
+	        // 응답
+	        dataType: 'json',
+	        success: (resData) => { 
+	        	fnGetBinList();
+	        },
+	        error: (jqXHR) => {
+	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+	        }
+	    })
+    };
+    
+$('#btn-clear').on('click', () => {
+     fnClearBin();
+	
+})    
+	
+
+fnGetBinList();
+	
+
+</script>
 
 <jsp:include page="../layout/closer.jsp"/>

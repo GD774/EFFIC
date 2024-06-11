@@ -3,38 +3,43 @@ package com.gd774.effic.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.gd774.effic.dto.CalendarDto;
+import com.gd774.effic.mapper.CalendarMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class CalendarServiceImpl implements CalendarService {
 
-  @Override
-  public List<CalendarDto> getAllEvents(HttpServletRequest request) {
- 
-    return null;
-  }
+    private final CalendarMapper calendarMapper;
 
-  @Override
-  public int createEvent(HttpServletRequest request) {
-   
-    return 0;
-  }
+    @Override
+    public List<CalendarDto> getAllEvents() {
+        return calendarMapper.selectAllSchedules();
+    }
 
-  @Override
-  public int updateEvent(HttpServletRequest request) {
-  
-    return 0;
-  }
+    @Override
+    public int createEvent(CalendarDto calendarDto) {
+        if (calendarDto.getTitle() == null || calendarDto.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("제목은 필수 입력 사항입니다.");
+        }
+        return calendarMapper.insertSchedule(calendarDto);
+    }
 
-  @Override
-  public int deleteEvent(HttpServletRequest request) {
-    
-    return 0;
-  }
+    @Override
+    public int updateEvent(CalendarDto calendarDto) {
+        if (calendarDto.getTitle() == null || calendarDto.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("제목은 필수 입력 사항입니다.");
+        }
+        return calendarMapper.updateSchedule(calendarDto);
+    }
 
+    @Override
+    public int deleteEvent(int scheduleId) {
+        return calendarMapper.deleteSchedule(scheduleId);
+    }
 }

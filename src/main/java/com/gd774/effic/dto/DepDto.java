@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class CommonCodeDto {
-	private String code, name, groupCode, groupName;
+public class DepDto {
+	private String code, name, parent;
+	private int level;
 }

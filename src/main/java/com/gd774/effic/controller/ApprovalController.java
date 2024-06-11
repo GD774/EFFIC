@@ -56,7 +56,12 @@ public class ApprovalController {
 	public String goDepRefList() {
 		return "approval/depRefList";
 	}
-
+	
+	// 
+	@GetMapping(value="/docTemp1.page")
+	public String goWrite() {
+		return "approval/docTemp1";
+	}
 
 
 						

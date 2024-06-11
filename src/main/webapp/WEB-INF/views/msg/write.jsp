@@ -54,7 +54,7 @@
                             수신자
                           </label>
                           <div style="width: 700px;">
-                          <input type="text" name="recp" placeholder="수신자를 선택하세요" class="ml-50 w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
+                          <input type="text" value="${sender}" name="recp" placeholder="수신자를 선택하세요" class="ml-50 w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
                           </div>
                        
                          </div>
@@ -95,6 +95,7 @@
           </div>
 
   </main>
+  
   <!-- ===== Main Content End ===== -->
 </div>
 

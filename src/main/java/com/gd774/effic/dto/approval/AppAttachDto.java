@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class AppAttachDto {
-	private int attachNo;
-	private String attachId, originalfilename, uploadPath;
-	private AppDocDto doc;
+	private int attachNo, docId;
+	private String attachId, filesystemName, originalfilename, uploadPath;
+	
+	
 }

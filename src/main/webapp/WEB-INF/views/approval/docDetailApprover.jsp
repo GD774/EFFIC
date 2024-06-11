@@ -124,17 +124,11 @@
 
 	<div style="font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
     <div class="button-container">
-    	<button id="approvalRequest" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
-            결재요청
+    	<button id="approveDoc" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+            결재승인
       </button>
-    	<button id="saveDraft" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
-            임시저장
-      </button>
-      <button id="cancelWriting" class="inline-flex rounded bg-[#DC3545] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
-            작성취소
-      </button>
-    	<button id="goAppLine" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
-            결재정보
+      <button id="reject" class="inline-flex rounded bg-[#DC3545] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+            반려하기
       </button>
     </div>
 	</div>
@@ -272,21 +266,6 @@
 						<input class="ipt_editor" type="text">
 					<br>
 				</p>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="6" style="border:none !important;" class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
-				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;"><br></p>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="6" class="viewModeHiddenPart td_button dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
-				<button id="plus" class="inline-flex rounded bg-[#637381] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90" type="button">
-        		 추가
-        </button>
-				<button id="minus" class="inline-flex rounded bg-[#637381] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90" type="button">
-        		 삭제
-        </button>
 			</td>
 		</tr>
 		<tr>

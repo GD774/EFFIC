@@ -2,49 +2,75 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-<mapper namespace="com.gd774.effic.mapper.ApprovalMapper">
-	<resultMap type="com.gd774.effic.dto.approval.AppDocDto" id="ApprovalMap">
-		<result property="docId" column="DOC_ID"/>
-		<result property="empId" column="EMP_ID"/>
-		<result property="title" column="TITLE"/>
-		<result property="contents" column="CONTENTS"/>
-		<result property="docTempCode" column="DOC_TEMP_CODE"/>
-		<result property="writeDt" column="WRITE_DT"/>
-		<result property="updateDt" column="UPDATE_DT"/>
-		<result property="depId" column="DEP_ID"/>
-		<result property="docState" column="DOC_STATE"/>
-		<result property="urgent" column="URGENT"/>
-    <association property="user" javaType="UserDto">
-     <id property="empId" column="EMP_ID"/>
-    </association>
-	</resultMap>
 
-<insert id="registerApproval"
-		parameterType="AppDocDto">
-	<selectKey order="BEFORE" keyProperty="docId" resultType="int">
-		SELECT DOC_SEQ.NEXTVAL
-		  FROM DUAL
-	</selectKey>
-  INSERT INTO APP_DOC_T (
-      DOC_ID
-    , EMP_ID
-    , TITLE
-    , CONTENTS
-    , DOC_TEMP_CODE
-    , WRITE_DT
-    , DEP_ID
-    , DOC_STATE
-  ) VALUES (
-    , #{docId}
-    , #{empId}
-    , #{title}
-    , #{contents}
-    , #{docTempCode}   
-    , SYSDATE
-    ,#{depId}
-    , 0  
-</insert>
+<mapper namespace="com.gd774.effic.mapper.ApprovalMapper">
+    
+    <!-- AppDocDto resultMap -->
+    <resultMap type="com.gd774.effic.dto.approval.AppDocDto" id="AppDocDtoMap">
+        <id property="docId" column="DOC_ID"/>
+        <result property="empId" column="EMP_ID"/>
+        <result property="title" column="TITLE"/>
+        <result property="contents" column="CONTENTS"/>
+        <result property="docTempCode" column="DOC_TEMP_CODE"/>
+        <result property="writeDt" column="WRITE_DT"/>
+        <result property="updateDt" column="UPDATE_DT"/>
+        <result property="depId" column="DEP_ID"/>
+        <result property="docState" column="DOC_STATE"/>
+        <result property="urgent" column="URGENT"/>
+        <association property="user" javaType="UserDto">
+            <id property="empId" column="EMP_ID"/>
+        </association>
+    </resultMap>
+    
+    <!-- DocDto resultMap -->
+    <resultMap type="com.gd774.effic.dto.approval.DocDto" id="DocDtoMap">
+        <id property="docId" column="DOC_ID"/>
+        <result property="itemName" column="ITEM_NAME"/>
+        <result property="itemStandard" column="ITEM_STANDARD"/>
+        <result property="itemQuan" column="ITEM_QUAN"/>
+        <result property="itemCost" column="ITEM_COST"/>
+        <result property="amount" column="AMOUNT"/>
+        <result property="remarks" column="REMARKS"/>
+        <association property="appDoc" javaType="AppDocDto">
+            <id property="docId" column="DOC_ID"/>
+        </association>
+    </resultMap>
+
+		<insert id="registerApproval" parameterType="AppDocDto">
+		    <selectKey order="BEFORE" keyProperty="docId" resultType="int">
+		        SELECT DOC_SEQ.NEXTVAL FROM DUAL
+		    </selectKey>
+		    INSERT INTO APP_DOC_T (
+		        DOC_ID, EMP_ID, TITLE, CONTENTS, DOC_TEMP_CODE,
+		        WRITE_DT, DEP_ID, DOC_STATE, URGENT
+		    ) VALUES (
+		        #{docId}, #{empId}, #{title}, #{contents}, #{docTempCode},
+		        SYSDATE, #{depId}, #{docState}, #{urgent}
+		    )
+		</insert>
+		
+		<!-- insertDoc insert -->
+		<insert id="insertDoc" parameterType="DocDto">
+		    INSERT INTO DOC_T (
+		        DOC_ID, ITEM_NAME, ITEM_STANDARD, ITEM_QUAN,
+		        ITEM_COST, AMOUNT, REMARKS
+		    ) VALUES (
+		        #{docId}, #{itemName}, #{itemStandard}, #{itemQuan},
+		        #{itemCost}, #{amount}, #{remarks}
+		    )
+		</insert>
+    
+    <!-- insertAttach insert -->
+    <insert id="insertAttach" parameterType="AppAttachDto">
+        INSERT INTO ATTACH_T (
+            ATTACH_NO, ATTACH_ID, ORIGINAL_FILENAME,
+            UPLOAD_PATH, FILESYSTEM_NAME, DOC_ID
+        ) VALUES (
+            ATTACH_SEQ.NEXTVAL, #{attachId}, #{originalFilename},
+            #{uploadPath}, #{filesystemName}, #{docId}
+        )
+    </insert>
+    
 
 
 </mapper>

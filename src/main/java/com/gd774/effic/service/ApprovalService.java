@@ -7,13 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.gd774.effic.dto.MsgDto;
 import com.gd774.effic.dto.approval.AppDocDto;
+import com.gd774.effic.dto.approval.DocDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface ApprovalService {
 	
-	int RegisterApproval(MultipartHttpServletRequest multipartRequest);
+	int registerApproval(MultipartHttpServletRequest multipartRequest);
+
 
 		
 		

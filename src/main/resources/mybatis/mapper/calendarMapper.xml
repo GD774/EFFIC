@@ -24,7 +24,7 @@
         SELECT * FROM calendar
     </select>
 
-    <insert id="insertSchedule">
+    <insert id="insertSchedule" parameterType="com.gd774.effic.dto.CalendarDto">
         INSERT INTO SCHEDULE_T (title, startDt, endDt, docState, contents, allDay)
         VALUES (#{title}, #{startDt}, #{endDt}, #{docState}, #{contents}, #{allDay})
     </insert>

@@ -66,7 +66,7 @@
                     <label class="mr-3 mb-3 block text-sm font-medium text-black dark:text-white w-14">
                             제목
                     </label>
-					<input type="text" name="title" placeholder="제목을 입력하세요" class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
+					<input type="text" id="title" name="title" placeholder="제목을 입력하세요" class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
 					 </div>                      
                       
 
@@ -81,7 +81,7 @@
                       <button type="button" id="btn-me" class="mr-5 flex justify-center rounded bg-[#637381] p-3 font-medium text-gray hover:bg-opacity-90">
                         나에게 쓰기
                       </button>
-                      <button type="submit" class="flex justify-center rounded bg-[#212B36] p-3 font-medium text-gray hover:bg-opacity-90">
+                      <button id="btn-submit" type="submit" class="flex justify-center rounded bg-[#212B36] p-3 font-medium text-gray hover:bg-opacity-90">
                         보내기
                       </button>
                       </div>
@@ -103,12 +103,32 @@
 
 
 $('#btn-me').on('click', (evt) => {
+	 if($('#title').val() === '') {
+	      alert('제목은 필수입니다.')
+	      evt.preventDefault();
+	      return; }
     evt.preventDefault(); 
     $('#frm').attr('action', '${contextPath}/msg/writeToMe.do');
     $('#frm').attr('method', 'POST');
     $('#frm').submit();
 });
 
+//제이쿼리 아닌 것도 써보기...
+const fnSubmitChk = () => {
+	  document.getElementById('btn-submit').addEventListener('click', (evt) => {
+	    if(document.getElementById('title').value === '') {
+	      alert('제목은 필수입니다.');
+	      evt.preventDefault();
+	      return;
+	    }
+	  });
+	}
+
+	
+	
+
+fnSubmitChk();
+fnClickChk();
 </script>
 
 <jsp:include page="../layout/closer.jsp"/>

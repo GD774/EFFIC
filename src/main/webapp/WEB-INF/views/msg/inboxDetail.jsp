@@ -105,7 +105,8 @@
                       <div class="flex justify-between">
                       <input type="text" value="${rcp.readDt} 읽음" class="w-1/4 px-5 py-3 cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary" readonly>
                         <div class="flex">
-                      <button class="flex justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                      <input type="hidden" id="sender" name="sender" value="${rcp.sender}">
+                      <button id="btn-response" class="flex justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
                         답장하기
                       </button>
                       </div>
@@ -123,6 +124,7 @@
 <script>
 
 var recpId = $('#recpId').val();
+var sender = $('#sender').val();
 
 const fnDownload = () => {
 	  $('.attachId').on('click', (evt) => {
@@ -171,6 +173,34 @@ $('#btn-star').on('click', (evt) =>{
 	fnStar();
 })
 
+const fnBin = () => {
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/inboxDetailToBin.do',
+        data: {recpId: recpId},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           alert('휴지통으로 이동되었습니다.');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    })
+};
+
+$('#btn-remove').on('click', (evt) =>{
+	fnBin();
+})
+
+const fnResponse = () => {
+	location.href = '${contextPath}/msg/write.page?sender='+ sender ;
+}
+
+$('#btn-response').on('click', (evt) =>{
+	fnResponse();
+})
 </script>
 
 <jsp:include page="../layout/closer.jsp"/>

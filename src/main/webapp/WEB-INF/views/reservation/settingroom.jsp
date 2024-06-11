@@ -9,9 +9,8 @@
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <jsp:include page="../layout/opener.jsp"/>
-<jsp:include page="../layout/sidebar.jsp" />  
-  
-<body>
+<jsp:include page="../layout/sidebar.jsp" />
+
 <main class="flex-1 p-4 overflow-y-auto max-h-screen">
     <div class="mx-auto max-w-screen-lg lg:p-10 lg:p-12">
 <!-- Survey Form -->
@@ -91,7 +90,7 @@
               사용불가
             </label>
           </div>
-         
+
         </div>
       </div>
 
@@ -122,8 +121,8 @@
 		</form>
 		<!--TimePicker End-->
 		 </div>
-		 
-		 
+
+
        <div class="mb-6">
         <label
           class="mb-4.5 block text-sm font-medium text-black dark:text-white"
@@ -166,12 +165,12 @@
 		      x-model="isChecked"
 		      @click="isChecked = !isChecked"
 		    />
-		    <span>
+
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
                 :class="isChecked ? 'border-primary': 'border-body'"
               >
-                <span
+                <span>
                   :class="isChecked ? 'flex': 'hidden'"
                   class="h-2.5 w-2.5 rounded-full bg-primary"
                 ></span>
@@ -192,7 +191,7 @@
 		      x-model="isChecked"
 		      @click="isChecked = !isChecked"
 		    />
-		    <span>
+
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
                 :class="isChecked ? 'border-primary': 'border-body'"
@@ -243,7 +242,7 @@
 		      x-model="isChecked"
 		      @click="isChecked = !isChecked"
 		    />
-		    <span>
+
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
                 :class="isChecked ? 'border-primary': 'border-body'"

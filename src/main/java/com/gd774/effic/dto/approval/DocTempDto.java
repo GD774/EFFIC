@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 
 public class DocTempDto {
 	private int docTempCode;
-	private String docTempName, contents;
+	private String docTempName;
 }

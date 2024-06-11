@@ -1,4 +1,4 @@
-package com.gd774.effic.dto.approval;
+package com.gd774.effic.dto;
 
 import com.gd774.effic.dto.UserDto;
 
@@ -11,11 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-
-public class ReferenceDto {
-	private String refType;
-	private AppDocDto doc;
-	private UserDto user;
-//	private DepDto dep;
-	
+public class AttendeeDto {
+  private RoomReserveDto reserveId;
+  private UserDto attendee;
 }

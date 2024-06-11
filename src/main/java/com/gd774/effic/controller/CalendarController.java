@@ -4,20 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.gd774.effic.dto.CalendarDto;
 import com.gd774.effic.service.CalendarService;
-
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/calendar")
@@ -25,7 +20,7 @@ public class CalendarController {
 
     private final CalendarService calendarService;
 
-    @Autowired
+    
     public CalendarController(CalendarService calendarService) {
         this.calendarService = calendarService;
     }

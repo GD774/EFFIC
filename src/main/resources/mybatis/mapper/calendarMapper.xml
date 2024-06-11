@@ -5,7 +5,7 @@
 
 <mapper namespace="com.gd774.effic.mapper.CalendarMapper">
 
-  <resultMap type="com.gd774.effic.dto.calendarDto" id="CalendarMap">
+  <resultMap type="com.gd774.effic.dto.CalendarDto" id="CalendarMap">
 	<result  property="scheduleId"        column="SCHEDULE_ID"/>
 	<result  property="startDt"          column="START_DT"/>
 	<result  property="endDt"    				column="END_DT"/>
@@ -20,11 +20,11 @@
 	</association>
   </resultMap>
 
-  <select id="selectAllSchedules" resultType="com.gd774.effic.dto.CalendarDto">
-        SELECT * FROM calendar
+  <select id="selectAllSchedules" resultType="CalendarMap">
+        SELECT * FROM CALENDAR_T
     </select>
 
-    <insert id="insertSchedule" parameterType="com.gd774.effic.dto.CalendarDto">
+    <insert id="insertSchedule" parameterType="CalendarDto">
         INSERT INTO SCHEDULE_T (title, startDt, endDt, docState, contents, allDay)
         VALUES (#{title}, #{startDt}, #{endDt}, #{docState}, #{contents}, #{allDay})
     </insert>

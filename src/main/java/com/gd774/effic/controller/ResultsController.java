@@ -24,4 +24,9 @@ public class ResultsController {
    return "results/results-state";
  }
   
+ @RequestMapping("/personal-results")
+ public String personalResults() {
+   return "results/personal-results";
+ }
+ 
 }

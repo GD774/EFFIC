@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public interface CalendarService {
-  List<CalendarDto> getAllEvents(HttpServletRequest request);
-  int createEvent(HttpServletRequest request);
-  int updateEvent(HttpServletRequest request);
-  int deleteEvent(HttpServletRequest request);
+  List<CalendarDto> getAllEvents();
+  int createEvent(CalendarDto calendarDto);
+  int updateEvent(CalendarDto calendarDto);
+  int deleteEvent(int scheduleId);
 }

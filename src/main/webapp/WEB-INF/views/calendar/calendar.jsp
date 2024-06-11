@@ -109,7 +109,7 @@
                 $('#datepicker').datepicker('setDate', info.date);
                 $('#datepicker2').datepicker('setDate', info.date);
                 $('#scheduleId').val('');
-                $('#title').val('title');
+                $('#title').val('');
                 $('#contents').val('');
                 $('#dateModal').modal('show');
                 $('#deleteScheduleForm').hide();
@@ -130,16 +130,25 @@
 
     $(document).ready(function() {
         $('#submitScheduleForm').click(function() {
+            var title = $('#title').val().trim();
+            if (!title) {
+                alert('제목은 필수 입력 사항입니다.');
+                return; // 제목이 없으면 요청 중지
+            }
+
             var formData = {
                 scheduleId: $('#scheduleId').val() || 0,
-                title: $('#title').val(),
+                title: title,
                 startDt: $('#datepicker').val(),
                 endDt: $('#datepicker2').val() || null,
                 docState: $('#openRange').val(),
                 contents: $('#contents').val(),
-                allDay: $('#all-day-checkbox').is(':checked')
+               allDay: $('#all-day-checkbox').is(':checked')
             };
 
+
+            console.log(formData); // 디버깅용: 전송되는 데이터 확인
+						console.log(JSON.stringify(formData))
             $.ajax({
                 type: 'POST',
                 url: '${contextPath}/calendar/create',
@@ -152,11 +161,12 @@
                 },
                 error: function(error) {
                     alert('일정 등록에 실패했습니다.');
+                    console.error(error); // 디버깅용: 오류 메시지 출력
                 }
             });
         });
 
-        $('#deleteScheduleForm').click(function() {
+    /*     $('#deleteScheduleForm').click(function() {
             var scheduleId = $('#scheduleId').val();
             if (scheduleId) {
                 $.ajax({
@@ -171,11 +181,12 @@
                     },
                     error: function(error) {
                         alert('일정 삭제에 실패했습니다.');
+                        console.error(error); // 디버깅용: 오류 메시지 출력
                     }
                 });
             }
-        });
-    });
+        }); */
+    }); 
 </script>
 
 <jsp:include page="../layout/closer.jsp"/>

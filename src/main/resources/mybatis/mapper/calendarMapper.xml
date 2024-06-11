@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gd774.effic.mapper.CalendarMapper">
+
+  <resultMap type="com.gd774.effic.dto.calendarDto" id="CalendarMap">
+	<result  property="scheduleId"        column="SCHEDULE_ID"/>
+	<result  property="startDt"          column="START_DT"/>
+	<result  property="endDt"    				column="END_DT"/>
+	<result  property="startHour"          column="START_HOUR"/>
+	<result  property="endHour"          column="END_HOUR"/>
+	<result  property="title"         column="TITLE"/>
+  <result  property="contents"        column="CONTENTS"/>
+	<result  property="docState"        column="DOC_STATE"/>
+	<association property="user" javaType="UserDto">
+		<result  property="empId"        column="EMP_ID"/>
+		<result  property="depId"        column="DEP_ID"/>
+	</association>
+  </resultMap>
+
+  <select id="selectAllSchedules" resultType="com.gd774.effic.dto.CalendarDto">
+        SELECT * FROM calendar
+    </select>
+
+    <insert id="insertSchedule" parameterType="com.gd774.effic.dto.CalendarDto">
+        INSERT INTO SCHEDULE_T (title, startDt, endDt, docState, contents, allDay)
+        VALUES (#{title}, #{startDt}, #{endDt}, #{docState}, #{contents}, #{allDay})
+    </insert>
+
+    <update id="updateSchedule">
+        UPDATE SCHEDULE_T
+        SET title = #{title}, startDt = #{startDt}, endDt = #{endDt}, docState = #{docState}, contents = #{contents}, allDay = #{allDay}
+        WHERE scheduleId = #{scheduleId}
+    </update>
+
+    <delete id="deleteSchedule">
+        DELETE FROM SCHEDULE_T WHERE scheduleId = #{scheduleId}
+    </delete>
+
+
+
+</mapper>

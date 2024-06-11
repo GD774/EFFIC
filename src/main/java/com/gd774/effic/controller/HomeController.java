@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RequestMapping(value = "/")
 @Controller
+
 public class HomeController {
 	@GetMapping(value = "")
 	public String main(HttpServletRequest request, HttpServletResponse response) {
@@ -19,6 +20,7 @@ public class HomeController {
 		if (session.getAttribute("user") != null)
 			return "user/main";
 		return "redirect:/signin";
+	
 	}
 
 	@GetMapping(value = "signin")

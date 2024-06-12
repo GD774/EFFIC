@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class UserDto {
-	private String empId, pw, name, gender, phone, email;
-	private int status;
+	private String empId, pw, name, depId, posId;
+	private int status, genderId;
 	private Date joinDt, leaveDt;
 }

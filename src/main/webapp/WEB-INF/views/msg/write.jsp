@@ -173,32 +173,136 @@ const fnSubmitChk = () => {
     { "id" : "S26", "parent" : "S2", "text" : "구로지점" , "icon" : "glyphicon glyphicon-picture"},
     { "id" : "S27", "parent" : "S2", "text" : "홍대지점" , "icon" : "glyphicon glyphicon-picture"},
     { "id" : "S28", "parent" : "S2", "text" : "전주지점" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "B21", "parent" : "S21", "text" : "송불곰" , "icon": "glyphicon glyphicon-user" },
-    { "id" : "B22", "parent" : "S22", "text" : "강사자" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "B23", "parent" : "S23", "text" : "송호랑", "icon": "glyphicon glyphicon-user" },
-    { "id" : "B24", "parent" : "S24", "text" : "이늑대" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "B25", "parent" : "S25", "text" : "감여우", "icon": "glyphicon glyphicon-user" },
-    { "id" : "B26", "parent" : "S26", "text" : "공수달" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "B27", "parent" : "S27", "text" : "황악어" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "B28", "parent" : "S28", "text" : "홍문어" , "icon": "glyphicon glyphicon-user"},
 	{ "id" : "S1",  "parent" : "R",  "text" : "본사", "icon" : "glyphicon glyphicon-home" },
     { "id" : "S11", "parent" : "S1", "text" : "홍보팀" , "icon" : "glyphicon glyphicon-picture"},
     { "id" : "S12", "parent" : "S1", "text" : "재무팀",   "icon" : "glyphicon glyphicon-picture"},
     { "id" : "S13", "parent" : "S1", "text" : "관리팀" ,"icon" : "glyphicon glyphicon-picture" },
-    { "id" : "S14", "parent" : "S1", "text" : "개발팀" ,"icon" : "glyphicon glyphicon-picture" },
-    { "id" : "H1", "parent" : "S11", "text" : "마동석" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H2", "parent" : "S11", "text" : "김뭐시기" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H3", "parent" : "S11", "text" : "이뭐시기" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H4", "parent" : "S12", "text" : "박뭐시기" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H5", "parent" : "S12", "text" : "정뭐시기" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H6", "parent" : "S12", "text" : "조뭐시기" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H7", "parent" : "S13", "text" : "순뭐시기" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H8", "parent" : "S13", "text" : "서뭐시기" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H9", "parent" : "S13", "text" : "강뭐시기" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H10", "parent" : "S14", "text" : "마뭐시기" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H11", "parent" : "S14", "text" : "최뭐시기" , "icon": "glyphicon glyphicon-user"},
-    { "id" : "H12", "parent" : "S14", "text" : "연뭐시기" , "icon": "glyphicon glyphicon-user"},
+
+    {
+        "id": "tester1",
+        "parent": "S11",
+        "text": "안성기",
+        "data": {
+            "value": "tester1"
+        }
+    },
+    {
+        "id": "tester2",
+        "parent": "S11",
+        "text": "신해철",
+        "data": {
+            "value": "tester2"
+        }
+    },
+    {
+        "id": "tester3",
+        "parent": "S11",
+        "text": "신혜선",
+        "data": {
+            "value": "tester3"
+        }
+    },
+    {
+        "id": "tester4",
+        "parent": "S11",
+        "text": "구혜선",
+        "data": {
+            "value": "tester4"
+        }
+    },
+    {
+        "id": "testser",
+        "parent": "S11",
+        "text": "박소담",
+        "data": {
+            "value": "testser"
+        }
+    },
+    {
+        "id": "tester6",
+        "parent": "S12",
+        "text": "조준영",
+        "data": {
+            "value": "tester6"
+        }
+    },
+    {
+        "id": "tester7",
+        "parent": "S12",
+        "text": "남민우",
+        "data": {
+            "value": "tester7"
+        }
+    },
+    {
+        "id": "tester8",
+        "parent": "S12",
+        "text": "박화평",
+        "data": {
+            "value": "tester8"
+        }
+    },
+    {
+        "id": "tester9",
+        "parent": "S12",
+        "text": "전지현",
+        "data": {
+            "value": "tester9"
+        }
+    },
+    {
+        "id": "tester10",
+        "parent": "S12",
+        "text": "김지은",
+        "data": {
+            "value": "tester10"
+        }
+    },
+    {
+        "id": "tester11",
+        "parent": "S13",
+        "text": "주윤발",
+        "data": {
+            "value": "tester11"
+        }
+    },
+    {
+        "id": "tester12",
+        "parent": "S13",
+        "text": "고길동",
+        "data": {
+            "value": "tester12"
+        }
+    },
+    {
+        "id": "tester13",
+        "parent": "S13",
+        "text": "나무늬",
+        "data": {
+            "value": "tester13"
+        }
+    },
+    {
+        "id": "tester14",
+        "parent": "S13",
+        "text": "양희은",
+        "data": {
+            "value": "tester14"
+        }
+    },
+    {
+        "id": "tester15",
+        "parent": "S13",
+        "text": "신성우",
+        "data": {
+            "value": "tester15"
+        }
+    }
 ]; 
+  
+  //{ "id" : "B21", "parent" : "S21", "text" : "송불곰" , "icon": "glyphicon glyphicon-user", "data": {
+  //      "value": "tester1"
+  //  } },
   
  $('#jstree').jstree({ 
 	  'core' : {
@@ -222,7 +326,7 @@ const fnSubmitChk = () => {
 $('#jstree').on("select_node.jstree", function (e, data) {
 
     if (data.node.children.length === 0) {
-        $('#here').val(data.node.text);
+        $('#here').val(data.node.data.value);
 
     }
 });

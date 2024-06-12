@@ -178,6 +178,8 @@ const fnGetImpList = () => {
 		})
 	};
 
+	
+  // 중요메세지 함에서 중요메시지 토글
 	const fnUpdateChkImpt = (evt) => {
 
 		console.log($(evt.target).data('sort'));
@@ -230,6 +232,30 @@ const fnGetImpList = () => {
 	        }
 	    });
 	});	
+	
+	// 체크한 거 삭제버튼 눌러서 휴지통으로 이동
+	$('#btn-remove').click(function() {
+	    var checkValues = [];
+	    $("input[name='checkbox']:checked").each(function() {
+	        checkValues.push(this.value);
+	    });
+	    var data = $.param({ checkValues: checkValues });
+	    $.ajax({
+	        // 요청
+	        type: 'POST',
+	        url: '${contextPath}/msg/updateImpToBin.do',
+	        data: {checkValues: checkValues},
+	        // 응답
+	        dataType: 'json',
+	        success: (resData) => { 
+	        	fnGetImpList();
+	           alert('휴지통으로 이동되었습니다');
+	        },
+	        error: (jqXHR) => {
+	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+	        }
+	    });
+	});
 	
 	
 fnGetImpList();

@@ -418,6 +418,30 @@ public class MsgController {
 		
 	}
 	
+	@PostMapping(value="/updateImpToBin.do", produces="application/json")
+	@ResponseBody
+	public int updateImpToBin(@RequestParam List<String> checkValues){
+		
+		int updateCount = 0;
+	
+		
+		for(String check : checkValues) {
+			
+			String msgSort = check.substring(0, 1); 
+			int pk = Integer.parseInt(check.substring(1));
+			if(msgSort.equals("M")) {
+				updateCount = msgService.updateSentToBin(pk);
+			} else if (msgSort.equals("R")) {
+				updateCount = msgService.updateInboxToBin(pk);
+			} else if(msgSort.equals("P")) {
+				updateCount = msgService.updateSentToBin(pk);
+			}
+		}
+		
+		return updateCount;
+		
+	}
+	
 
 	
 	

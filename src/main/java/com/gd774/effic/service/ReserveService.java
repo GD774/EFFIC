@@ -12,7 +12,7 @@ public interface ReserveService {
    
    int modifyFacility(HttpServletRequest request);
    int removeFacility(int facilityNo);
-   ResponseEntity<Map<String, Object>> getFacilityManageList(HttpServletRequest request);
+   ResponseEntity<Map<String, Object>> getFacilityList(HttpServletRequest request);
    void loadCategoryList(Model model);
    void subCategoryList(String name);
 }

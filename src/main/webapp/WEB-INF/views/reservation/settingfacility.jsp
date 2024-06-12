@@ -60,8 +60,6 @@
             </c:forEach>
                };
     
-
-	let slist;
     function selectBoxChange(sel) {
  		console.log(sel);
  	    console.log("----------------------------------")
@@ -90,7 +88,7 @@
 		}
 		$(document).ready(function() {
 		    $('#subCat').on('change', function() {
-		    	var slist = $(this);
+		    //	var slist = $(this);
 		    	console.log(slist);
 		    });
 		});

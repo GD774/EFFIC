@@ -13,6 +13,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class FacilityManageDto {
   private int facilityId, rentTerm, facilityState;
-  private String modelName, buyDt;
-  private CategoryDto catCode;
+  private String modelName, buyDt, catCode;
 }

@@ -81,22 +81,27 @@ public class ReserveController {
     //redirectAttributes.addFlashAttribute("insertResult", insertCount == 1 ? "자산 등록 완료" : "등록 실패");
     reserveService.loadCategoryList(model);
     return "/reservation/settingfacility";
-    //return "redirect:/reservation/facilitymanage";
   }
   
   @PostMapping(value = "registerFacility.do", produces ="application/json")
   public ResponseEntity<Map<String, Object>> registerFacility(HttpServletRequest request){
     System.out.println("일로가니?");
     int insertCount = reserveService.registerFacility(request);
-    try {
-      System.out.println("일로도가니?" + insertCount);
+    System.out.println("일로도가니?" + insertCount);
       System.out.println(insertCount);
-    } catch (Exception e) {
-      System.out.println("고통스럽네유");
-    }
-    return ResponseEntity.ok(Map.of("insertCount", reserveService.registerFacility(request)));
+    return ResponseEntity.ok(Map.of("insertCount", insertCount));
   }
   
+  @GetMapping(value = "/getFacilityList.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> getFacilityList(HttpServletRequest request) {
+    System.out.println("나오는지 확인");
+      return reserveService.getFacilityList(request);
+  }
+  
+  @GetMapping(value = "/tree")
+  public String getMethodName() {
+    return "/reservation/tree";
+  }
   
   
   

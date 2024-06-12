@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale.Category;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import com.gd774.effic.dto.CategoryDto;
 import com.gd774.effic.dto.FacilityManageDto;
 import com.gd774.effic.mapper.ReserveMapper;
+import com.gd774.effic.util.PageUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -21,39 +23,33 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ReserveServiceImpl implements ReserveService {
 
   private final ReserveMapper reserveMapper;
+  private final PageUtils pageUtils;
   
-  public ReserveServiceImpl(ReserveMapper reserveMapper) {
+  public ReserveServiceImpl(ReserveMapper reserveMapper, PageUtils pageUtils) {
     super();
     this.reserveMapper = reserveMapper;
+    this.pageUtils = pageUtils;
   }
 
   @Override
   public int registerFacility(HttpServletRequest request) {
-    System.out.println("facilityState:" + request.getParameter("facilityState"));
-    System.out.println(request.getParameter("rentTerm"));
-    System.out.println(request.getParameter("buyDt"));
-    System.out.println(request.getParameter("catCode"));
+    System.out.println("catCode:" + request.getParameter("catCode"));
     String modelName = request.getParameter("modelName");
     String buyDt = request.getParameter("buyDt");
     int facilityState = Integer.parseInt(request.getParameter("facilityState"));
     int rentTerm = Integer.parseInt(request.getParameter("rentTerm"));
     String catCode = request.getParameter("catCode");
-    System.out.println();
-//    try {
-//      System.out.println("문제있나?"  + facilityState);
-//      FacilityManageDto facilityMng = FacilityManageDto.builder()
-//          .modelName(modelName)
-//          .buyDt(buyDt)
-//          .rentTerm(rentTerm)
-//          .catCode(catCode)
-//          .build();
-//      System.out.println("잘 나옴?" + facilityMng);
-//      return reserveMapper.insertFacility(facilityMng);
-//        
-//    } catch (Exception e) {
-//        e.printStackTrace();
-      return 0;
-//    }
+
+    FacilityManageDto facilityMng = FacilityManageDto.builder()
+                                      .facilityState(facilityState)
+                                      .modelName(modelName)
+                                      .buyDt(buyDt)
+                                      .rentTerm(rentTerm)
+                                      .catCode(catCode)
+                                      .build();
+     
+    System.out.println("잘 나옴?" + facilityMng);
+    return reserveMapper.insertFacility(facilityMng);
   }
 
   @Override
@@ -69,9 +65,19 @@ public class ReserveServiceImpl implements ReserveService {
   }
 
   @Override
-  public ResponseEntity<Map<String, Object>> getFacilityManageList(HttpServletRequest request) {
-    // TODO Auto-generated method stub
-    return null;
+  public ResponseEntity<Map<String, Object>> getFacilityList(HttpServletRequest request) {
+    
+    int total = reserveMapper.getFacilityCount();
+    System.out.println(total);
+    int display = 10;
+    int page = Integer.parseInt(request.getParameter("page"));
+    pageUtils.setPaging(total, display, page);
+    Map<String, Object> map = Map.of("begin", pageUtils.getBegin()
+                                   , "end", pageUtils.getEnd());
+    
+    return new ResponseEntity<>(Map.of("getFacilityList", reserveMapper.getFacilityList(map)
+                                     , "totalPage", pageUtils.getTotalPage())
+                               , HttpStatus.OK);
   }
 
   @Override

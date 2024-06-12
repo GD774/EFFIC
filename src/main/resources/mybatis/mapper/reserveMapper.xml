@@ -18,7 +18,6 @@
   		<result		property="buyDt"				column="BUY_DT" />
 		<result		property="faciliyState"			column="FACILITY_STATE" />
 		<result		property="rentTerm"				column="RENT_TERM" />
-		<result		property="manageId"				column="MANAGE_ID"/>
 		<association property="category" javaType="CategoryDto">
 			<id			property="catCode"			column="CAT_CODE" />
 			<result		property="pcatCode"			column="PCAT_CODE" />
@@ -46,6 +45,12 @@
 	 	, #{category.catCode}
 	 	)
  	</insert>
+ 	
+ 	<select id="getFacilityCount"
+ 			resultType="int">
+ 		SELECT COUNT(*)
+ 		  FROM FACILITY_NANAGE_T
+ 	</select>
  
  	 <select id="getCatList"
   		  resultMap="CategoryMap">
@@ -73,7 +78,16 @@
 	 	WHERE CAT_TYPE = 'M' 
   	</select>
 
- 
+	<select id="getFacilityList"
+	        parameterType="Map"
+	        resultMap="FacilityManageMap">
+	    SELECT FACILITY_ID, MODEL_NAME, BUY_DT, FACILITY_STATE, RENT_TERM
+	      FROM (SELECT ROW_NUMBER() OVER(ORDER BY C.CAT_NAME ASC, BUY_DT DESC) AS RN
+	            	 , C.CAT_CODE, C.PCAT_CODE, C.CAT_NAME, C.CAT_TYPE
+	          	  FROM CATEGORY_T) 
+	     WHERE RN BETWEEN #{begin} AND #{END}
+	</select>
+	 
  
  
  

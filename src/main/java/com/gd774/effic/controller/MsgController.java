@@ -218,6 +218,9 @@ public class MsgController {
 		if(msgSort.equals("M")) {
 			model.addAttribute("msg", msgService.getSentDetail(pk));
 	        model.addAttribute("attachList", msgService.getAttachDetail(pk));
+	        List<String> list = msgService.getRecipientList(pk);
+	        String petitList = list.toString().replace("[", "").replace("]", "");
+	        model.addAttribute("recipientList", petitList);
 	        return "msg/sentDetail";
 		} else if (msgSort.equals("R")) {
 			model.addAttribute("rcp", msgService.getInboxDetail(pk, request));

@@ -14,7 +14,7 @@ public class MyFileUtils {
 
   // 현재 날짜
   public static final LocalDate TODAY = LocalDate.now();
-  
+
   // 업로드 경로 반환
   public String getUploadPath() {
     return UP_DIR+"upload" + DateTimeFormatter.ofPattern("/yyyy/MM/dd").format(TODAY);

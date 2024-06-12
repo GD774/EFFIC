@@ -21,7 +21,7 @@
   </resultMap>
 
   <select id="selectAllSchedules" resultType="com.gd774.effic.dto.CalendarDto">
-        SELECT TITLE, START_DT, END_DT, DOC_STATE, CONTENTS, EMP_ID, SCHEDULE_ID
+        SELECT *
         FROM SCHEDULE_T
     </select>
 

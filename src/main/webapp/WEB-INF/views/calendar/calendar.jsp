@@ -9,11 +9,10 @@
 .calendarbox { margin-top: 20px; margin-left: 150px; width: 1300px; }
 
 #closeToGroup {
-
  margin-left: 60px;
- 
-
 }
+
+
 
 </style>
 
@@ -149,23 +148,47 @@
             }
         });
     });
+    
+    function parseEvents(data) {
+        return data.map(event => ({
+            id: event.scheduleId,             // FullCalendar에서 사용할 이벤트 ID
+            title: event.title,               // 이벤트 제목
+            start: event.startDt,             // 이벤트 시작 날짜 및 시간
+            end: event.endDt,                 // 이벤트 종료 날짜 및 시간
+            allDay: event.allDay,             // 종일 여부
+            extendedProps: {                  // 추가 데이터
+                docState: event.docState,
+                contents: event.contents,
+                empId: event.empId,
+                depId: event.depId
+            }
+        }));
+        console.log('파싱되었습니다.')
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+        		height: 800 ,
             initialView: 'dayGridMonth',
-            events: function(fetchInfo, successCallback, failureCallback) {
+            events: 
+            	function(fetchInfo, successCallback, failureCallback) {
                 $.ajax({
                     url: '${contextPath}/calendar/events',
                     type: 'GET',
                     success: function(data) {
+                    	 var events = parseEvents(data);
+                    	 	console.log(events)
                         successCallback(data);
+                        console.log(data);
                     },
-                    error: function() {
-                        failureCallback();
+                    error: function(xhr, status, error) {
+                        alert('일정 조회에 실패했습니다.');
+                        console.log("Error details:", status, error, xhr.responseText);
                     }
                 });
             },
+           
             dateClick: function(info) {
                 $('#datepicker').datepicker('setDate', info.date);
                 $('#datepicker2').datepicker('setDate', info.date);
@@ -188,13 +211,14 @@
         });
         calendar.render();
     });
-
+    
+    
     $(document).ready(function() {
         $('#submitScheduleForm').click(function() {
             var title = $('#title').val().trim();
             if (!title) {
                 alert('제목은 필수 입력 사항입니다.');
-                return; // 제목이 없으면 요청 중지
+                return;
             }
 
             var formData = {
@@ -204,29 +228,31 @@
                 endDt: $('#datepicker2').val() || null,
                 docState: $('#openRange').val(),
                 contents: $('#contents').val(),
-               allDay: $('#all-day-checkbox').is(':checked')
+                allDay: $('#all-day-checkbox').is(':checked')
             };
 
-
-						console.log(JSON.stringify(formData))
             $.ajax({
                 type: 'POST',
                 url: '${contextPath}/calendar/create',
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function(response) {
-                    alert('일정이 등록되었습니다.');
-                    $('#dateModal').modal('hide');
-                    location.reload();
+                    if (response.status === "success") {
+                        alert('일정이 등록되었습니다.');
+                        $('#dateModal').modal('hide');
+                        location.reload();
+                    } else {
+                        alert('일정 등록에 실패했습니다. 사유: ' + response.message);
+                    }
                 },
-                error: function(error) {
-                    alert('일정 등록에 실패했습니다.' + response.message);
-                    console.error(error); // 디버깅용: 오류 메시지 출력
+                error: function(xhr, status, error) {
+                    alert('일정 등록에 실패했습니다.');
+                    console.error("Error details:", status, error, xhr.responseText);
                 }
             });
         });
 
-         $('#deleteScheduleForm').click(function() {
+        $('#deleteScheduleForm').click(function() {
             var scheduleId = $('#scheduleId').val();
             if (scheduleId) {
                 $.ajax({
@@ -235,22 +261,27 @@
                     contentType: 'application/json',
                     data: JSON.stringify({ scheduleId: scheduleId }),
                     success: function(response) {
-                        alert('일정이 삭제되었습니다.');
-                        $('#dateModal').modal('hide');
-                        location.reload();
+                        if (response.status === "success") {
+                            alert('일정이 삭제되었습니다.');
+                            $('#dateModal').modal('hide');
+                            location.reload();
+                        } else {
+                            alert('일정 삭제에 실패했습니다. 사유: ' + response.message);
+                        }
                     },
-                    error: function(error) {
+                    error: function(xhr, status, error) {
                         alert('일정 삭제에 실패했습니다.');
-                        console.error(error); // 디버깅용: 오류 메시지 출력
+                        console.error("Error details:", status, error, xhr.responseText);
                     }
                 });
             }
-        }); 
-    }); 
+        });
+    });
+
 </script>
 
 
-<script>
+<!-- <script>
 
  var data = [
  	{ "id" : "R", "parent" : "#", "text" : "EFFIC", "icon" : "glyphicon glyphicon-home" },
@@ -298,10 +329,10 @@ $('#jstree').jstree({
 	    'data' : data
 	  }
 	});
-	
+	 -->
 
 
-//다중선택 일단 적어둠
+<!-- //다중선택 일단 적어둠
 $("#jstree").jstree(true).get_selected("full", true);
 
 // Node 선택
@@ -310,10 +341,10 @@ $('#jstree').on("select_node.jstree", function (e, data) {
     if (data.node.children.length === 0) {
         $('#here').val(data.node.text);
     }
-});
+}); 
 
 </script>
-
+-->
 
 
 

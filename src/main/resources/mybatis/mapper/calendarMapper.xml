@@ -21,8 +21,9 @@
   </resultMap>
 
   <select id="selectAllSchedules" resultType="com.gd774.effic.dto.CalendarDto">
-    SELECT * FROM calendar
-  </select>
+        SELECT TITLE, START_DT, END_DT, DOC_STATE, CONTENTS, EMP_ID, SCHEDULE_ID
+        FROM SCHEDULE_T
+    </select>
 
   <insert id="insertSchedule" parameterType="com.gd774.effic.dto.CalendarDto">
     INSERT INTO SCHEDULE_T (TITLE, START_DT, END_DT, DOC_STATE, CONTENTS, EMP_ID, SCHEDULE_ID)

@@ -15,118 +15,15 @@
 <jsp:include page="../layout/opener.jsp"/>
 <jsp:include page="../layout/sidebar.jsp" />
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+<link href="${contextPath}/css/writeDoc.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
-<script defer src="${contextPath}/js/docTemp1.js"></script>
+<script defer src="${contextPath}/js/writeDoc.js"></script>
 
 
-<style>
-    .button-container {
-        display: inline-block; /* 가로로 나란히 배치 */
-        background-color: white;
-        text-decoration: none;
-        text-align: center;
-        font-size: 14px;
-        position: relative; 
-        height: 50px;
-        transition: background-color 0.3s ease;
-        margin-right: 10px; /* 버튼 간의 간격 조정 */
-    }
 
-    .button-container :hover {
-        font-weight: bold;
-    }
-    
-    .wrapper {
-        background-color: white;
-        overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤 표시 */
-        height: 800px; /* 화면 높이에 맞게 스크롤 영역 제한 */
-    }
-   
-   .approvalLine {
-     float: right;
-     margin-left: 20px;
-	    line-height: 150% !important;
-	    width: 220px !important;
-	    height: 20% !important;
-	    border-collapse: collapse !important;
-	    
-   }
-   
-   #urgent {
-    width: 40px; /* 원하는 크기로 조정하세요 */
-    height: 40px; /* 원하는 크기로 조정하세요 */
-    margin-right: 5px;
-    margin-bottom: 5px;
-    display: inline-block; /* 가로로 나란히 배치 */
-    display: none;
-    position: absolute;
-    right: -50px; /* 버튼 컨테이너의 오른쪽에서 10px 떨어진 위치 */
-    top: -7px;
-    
-   }
-   
-
-
-.approvalLine td {
-    font-size: 9pt !important;
-    width: 50px !important;
-    border: 1px solid black !important;
-    text-align: center;
-}
-
-.approvalLine td[rowspan="3"] {
-    text-align: center !important;
-    width: 10% !important;
-    border-bottom: 1px solid black !important;
-}
-
-.approvalLine tr:nth-child(3) td {
-    text-align: center !important;
-    height: 10px !important;
-    border-top: 1px solid black !important;
-}
-.approveds {
-    width: 35px; 
-    display: block;
-    margin: 0 auto;
-    margin-top: 10px;
-}
- #dynamic_table tbody tr td{
-     border: 1px solid black;
- }
-    table.fixed-size {
-        width: 100%;
-        table-layout: fixed;
-        border-collapse: collapse;
-    }
-
-    table.fixed-size td, table.fixed-size th {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        border: 1px solid black;
-    }
-
-    .ipt_editor {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .ipt_editor_currency {
-        text-align: right;
-    }
-    
-    #amount-label {
-        text-align: right !import;   
-    }
-    .amount-label {
-        text-align: right !import;   
-    }
-   
-</style>
 </head>
 
 <body>
@@ -186,7 +83,7 @@
 						기 안 자
 					</td>
 					<td class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
-							<span class="comp_item">${user.empId}</span>
+							<span class="comp_item">${user.name}</span>
 					</td>
 				</tr>
 				<tr>
@@ -267,17 +164,15 @@
 			</td>
 			<td colspan="3" class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;">
-						<input class="ipt_editor" type="text">
-					<br>
+						${user.depId}
 				</p>
 			</td>
 			<td class="subjectColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 				작 성 자
 			</td>
 			<td colspan="1" class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
-				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;">
-						<input class="ipt_editor" type="text">
-				<br>
+				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;">						
+					${user.name}
 			</p>
 		</td>
 	</tr>
@@ -373,27 +268,26 @@
 			<td colspan="1" style="text-align:center; font-weight:bold !important;" class="subjectColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 				합 계
 			</td>
-			<td class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
+			<td>
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;"><br></p>
 			</td>
-			<td class="detailColumn total_amount rightCol dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
+			<td class="total_amount">
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;"><br></p>
 			</td>
-			<td class="detailColumn total_price rightCol dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l" style="">
+			<td class="total_price">
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;"><br></p>
 			</td>
-			<td class="detailColumn total_cur rightCol dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l" style="">
+			<td class="total_cur">
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;"><br></p>
 			</td>
-			<td colspan="1" class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
-				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;"><br></p>
+			<td colspan="1"><br></p>
 			</td>
 		</tr>
 		<tr>
 			<td style="text-align:center; font-weight:bold !important;" class="subjectColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 				기 타
 			</td>
-			<td colspan="5" class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
+			<td colspan="5">
 			    <p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;">
 			        <span style="width: 100%;">
 			            <textarea class="txta_editor" style="width: 100%; height: 100px;"></textarea>
@@ -403,188 +297,11 @@
 		</tr>
 		<!-- 합계 행 End-->
 	</tbody>
-
-
-
-<style type="text/css">
-#divCustomWrapper { word-break: break-all;  font-family: malgun gothic, dotum, arial, tahoma; font-size: 9pt; width:800px !important; }
-#divCustomWrapper * { max-width: 800px !important; }
-#divCustomWrapper #titleSection,
-#divCustomWrapper #draftSection,
-#divCustomWrapper .detailSection { width:800px !important; clear:both; margin-top: 20px !important; vertical-align: middle; }
-#divCustomWrapper #titleSection { text-align: center; font-size: 25px; font-weight: bold; margin-bottom: 30px !important; margin-top: 20px !important; }
-#divCustomWrapper #draftSection { display: inline-block; }
-#divCustomWrapper .detailSection > * { margin-bottom: 10px; }
-#divCustomWrapper table { border-collapse: collapse; word-break:break-all; }
-#divCustomWrapper td.subjectColumn { border: 1px solid black !important; font-size: 9pt !important; height:22px; padding: 3px 1px 3px 1px;/*top right bottom left*/}
-#divCustomWrapper td.detailColumn { border: 1px solid black !important; font-size: 9pt !important; height:22px; padding: 3px 5px 3px 5px; vertical-align: middle;/*top right bottom left*/ }
-#divCustomWrapper td.detailColumn { text-align: left; }
-#divCustomWrapper td.subjectColumn { background: rgb(221, 221, 221); font-weight: bold; text-align: center; vertical-align: middle; }
-#divCustomWrapper td.detailColumn.centerCol { text-align: center; }
-#divCustomWrapper td.detailColumn.rightCol { text-align: right; }
-#divCustomWrapper td.detailColumn.editorCol { height: 300px; vertical-align: top;}
-#divCustomWrapper td.detailColumn.areaCol { height: 120px; vertical-align: top; }
-#divCustomWrapper div.partition .left { display: inline-block; clear: left; float: left; }
-#divCustomWrapper div.partition .right { display: inline-block; clear: right; float: right; }
-#divCustomWrapper div.inaRowRight { text-align: right; }
-#divCustomWrapper div.inaRowLeft { text-align: left; }
-#divCustomWrapper .td_button { word-break:break-all; padding: 3px; border: none; width: 800px; height: 22px; text-align: right; vertical-align: middle; }
-#divCustomWrapper .div_button { word-break:break-all; padding: 3px; border: none; margin-top:2px; margin-bottom:2px; height: 22px; vertical-align: middle;}
-#divCustomWrapper a.button { background: rgb(102, 102, 102); color: rgb(255, 255, 255); padding: 2px 5px; border-radius: 3px; margin-right: 0px; margin-left: 0px; font-size: 9pt !important; }
-p.titleP{font-weight: bold; font-size: 12px; margin: 15px 1px 5px 5px;/*top right bottom left*/}
-p.freeP{font-weight: normal; font-size: 12px; margin: 1px 1px 3px 5px;/*top right bottom left*/}
-</style>
 </table>
 </div>
 </form>
 </div>
 </div>
 </body>
-<script>
-
-
-
-$(document).ready(function() {
-    // 문서 상태가 2일 때 결재선 이미지를 보이도록 설정
-    var docStatus = 2; // 문서 상태 값 (예시로 2로 설정)
-
-    if (docStatus === 2) {
-        $(".approved").show(); // 결재선 이미지 보이기
-    } else {
-        $(".approved").hide(); // 결재선 이미지 숨기기
-    }
-});
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    // 추가 버튼 이벤트 처리
-    document.getElementById("plus").addEventListener("click", function() {
-        var table = document.getElementById("dynamic_table").getElementsByTagName('tbody')[0];
-        
-        // 현재 행 개수 확인
-        var rowCount = table.rows.length;
-
-        // 최대 행 개수 설정 (합계 행, 기타 행 포함하여 최대 10개)
-        var maxRows = 17;
-
-        if (rowCount < maxRows) { // 최대 행 개수보다 적은 경우에만 추가
-            var newRow = table.insertRow(table.rows.length - 2); // 합계 행과 기타 행 사이에 새로운 행 삽입
-
-            var cells = newRow.insertCell(0);
-            cells.innerHTML = '<input type="text" class="ipt_editor">'; // 품명 입력 필드
-
-            cells = newRow.insertCell(1);
-            cells.innerHTML = '<input type="text" class="ipt_editor">'; // 규격 입력 필드
-
-            cells = newRow.insertCell(2);
-            cells.innerHTML = '<input type="text" class="ipt_editor ipt_editor_currency amount-input">'; // 수량 입력 필드
-            cells.querySelector(".amount-input").addEventListener("input", calculateAmount); // 수량 입력 이벤트 리스너 추가
-
-            cells = newRow.insertCell(3);
-            cells.innerHTML = '<input type="text" class="ipt_editor ipt_editor_currency price-input">'; // 단가 입력 필드
-            cells.querySelector(".price-input").addEventListener("input", calculateAmount); // 단가 입력 이벤트 리스너 추가
-
-            cells = newRow.insertCell(4);
-            cells.innerHTML = '<span class="amount-label" style="text-align: right"></span>'; // 금액 표시 Span (오른쪽 정렬)
-            cells.style.textAlign = "right";
-
-
-            cells = newRow.insertCell(5);
-            cells.innerHTML = '<input type="text" class="ipt_editor">'; // 비고 입력 필드
-
-            // 추가 후 행 개수 다시 확인
-            rowCount = table.rows.length;
-            
-            // 삭제 버튼 활성화 여부 설정
-            toggleDeleteButton(rowCount);
-        }
-    });
-
-    // 삭제 버튼 이벤트 처리
-    document.getElementById("minus").addEventListener("click", function() {
-        var table = document.getElementById("dynamic_table").getElementsByTagName('tbody')[0];
-        if (table.rows.length > 8) { // 기본 행과 합계/기타 행을 제외한 경우에만 삭제 가능
-            table.deleteRow(table.rows.length - 3); // 합계 행과 기타 행 사이의 마지막 행을 삭제
-
-            // 삭제 후 행 개수 다시 확인
-            var rowCount = table.rows.length;
-            
-            // 삭제 후 삭제 버튼 활성화 여부 설정
-            toggleDeleteButton(rowCount);
-        }
-    });
-
-    // 금액을 계산하고 표시하는 함수
-    function calculateAmount() {
-        var row = this.closest("tr"); // 현재 입력 필드가 포함된 행 선택
-        var quantity = parseFloat(row.querySelector(".amount-input").value); // 수량
-        var unitPrice = parseFloat(row.querySelector(".price-input").value); // 단가
-        var amountLabel = row.querySelector(".amount-label"); // 금액 표시 Span
-
-        // 수량과 단가가 숫자로 변환 가능한지 확인
-        if (!isNaN(quantity) && !isNaN(unitPrice)) {
-            var amount = quantity * unitPrice; // 수량 * 단가 계산
-            amountLabel.textContent = amount.toLocaleString('en-US'); // 계산된 금액을 화면에 표시
-        } else {
-            amountLabel.textContent = ''; // 수량 혹은 단가가 입력되지 않았을 경우 금액을 비움
-        }
-    }
-
-    // 삭제 버튼 활성화 여부를 설정하는 함수
-    function toggleDeleteButton(rowCount) {
-        var minusButton = document.getElementById("minus");
-        if (rowCount > 5) { // 추가된 행이 있을 때 삭제 버튼 활성화
-            minusButton.disabled = false;
-        } else { // 추가된 행이 없을 때 삭제 버튼 비활성화
-            minusButton.disabled = true;
-        }
-    }
-});
-
-$(function() {
-    // 숫자만 입력하도록 제한하는 함수
-    function allowNumbersOnly(event) {
-        // 입력된 값에서 숫자와 소수점을 제외한 모든 문자를 제거
-        event.target.value = event.target.value.replace(/[^0-9.]/g, '');
-
-        // 소수점이 여러 개인 경우 첫 번째 소수점만 남기고 나머지는 제거
-        var decimalIndex = event.target.value.indexOf('.');
-        if (decimalIndex !== -1) {
-            event.target.value = event.target.value.slice(0, decimalIndex + 1) + event.target.value.slice(decimalIndex + 1).replace(/\./g, '');
-        }
-    }
-
-    // 수량과 단가 입력 필드에서 숫자만 입력하도록 제한
-    $("#quantity, #unit-price").on("input", function(event) {
-        allowNumbersOnly(event); // 숫자만 입력하도록 제한하는 함수 호출
-        calculateAmount(); // 계산 함수 호출
-    });
-
-    // 수량과 단가를 곱하여 금액을 계산하고 화면에 표시하는 함수
-    function calculateAmount() {
-        var quantity = parseFloat($("#quantity").val()); // 수량
-        var unitPrice = parseFloat($("#unit-price").val()); // 단가
-
-        // 수량과 단가가 숫자로 변환 가능한지 확인
-        if (!isNaN(quantity) && !isNaN(unitPrice)) {
-            var amount = quantity * unitPrice; // 수량 * 단가 계산
-            $("#amount-label").text(amount.toLocaleString('en-US')); // 계산된 금액을 화면에 표시
-        } else {
-            $("#amount-label").text(''); // 수량 혹은 단가가 입력되지 않았을 경우 금액을 비움
-        }
-    }
-});
-
-document.getElementById('emergency').addEventListener('change', function() {
-    var urgentImage = document.getElementById('urgent');
-    if (this.checked) {
-        urgentImage.style.display = 'inline'; // 체크되면 이미지 보이기
-    } else {
-        urgentImage.style.display = 'none'; // 체크 해제되면 이미지 숨기기
-    }
-});
-</script>
-
-
 
 <jsp:include page="../layout/closer.jsp"/>

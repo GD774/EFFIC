@@ -39,7 +39,7 @@ public class MsgServiceImpl implements MsgService {
 	private final MsgPaging msgPaging;
 	private final FileLoad fileLoad;
 	private final MyFileUtils myFileUtils;
-	
+
 	public MsgServiceImpl(MsgMapper msgMapper, MsgPaging msgPaging, FileLoad fileLoad, MyFileUtils myFileUtils) {
 		super();
 		this.msgMapper = msgMapper;

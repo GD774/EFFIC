@@ -27,10 +27,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class MsgController {
-	
+
 	private final MsgService msgService;
 	private final MsgMapper msgMapper;
-	
+
 	@GetMapping(value="/write.page")
 	public String goWrite(@RequestParam(defaultValue = "") String sender, Model model) {
 		model.addAttribute("sender", sender);

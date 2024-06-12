@@ -11,6 +11,8 @@ import com.gd774.effic.dto.MsgAttachDto;
 import com.gd774.effic.dto.MsgDto;
 import com.gd774.effic.mapper.MsgMapper;
 
+import com.gd774.effic.util.MyFileUtils;
+
 import lombok.Data;
 
 @Component

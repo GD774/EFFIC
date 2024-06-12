@@ -42,9 +42,9 @@
                <nav>
                 <ol class="flex items-center gap-2">
                   <li>
-                    <a class="font-medium" href="index.html">현재 메세지개수 /</a>
+                    <a id="total" class="font-medium" > </a>
                   </li>
-                  <li class="font-medium text-primary">1000</li>
+                  <li class="font-medium text-primary">/ 1000</li>
                 </ol>
               </nav>
             </div>
@@ -53,11 +53,11 @@
             
             <div id="button-wrapper" class="flex justify-between py-3">
             <div>
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 삭제
+            <button id="btn-remove" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+                 <img src="/msgIcons/bin.svg"/>삭제
              </button>
-            <button class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 보관
+            <button id="btn-star" class="mr-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+                 <img src="/msgIcons/star0.svg"/>보관
               </button>
             <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80" id="select-all">
                  전체선택
@@ -110,14 +110,11 @@
     </div>
   </div>
 </div>
-
-
-
   </div>
   
   <div class="p-4 sm:p-6 xl:p-7.5" id="paging">
                   
-                </div>
+     </div>
 </div>
 
               <!-- ====== Table End -->
@@ -126,6 +123,8 @@
   </main>
   <!-- ===== Main Content End ===== -->
 </div>
+
+<input type="hidden" id="insertResult" value="${inserted}">
 
 <script>
 
@@ -166,14 +165,23 @@ const fnGetMsgList = () => {
 			     $('#message-list').html('');
 				 $.each(resData.msgList, (i, msg) => {
 		    	let str=  '<div class="hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
-		    	str +=  '<div class="col-span-1"><input type="checkbox" class="chk"></div>';
-		    	str += '<div class="col-span-1"  style="width:5px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.1034 3.81714C11.4703 3.07397 12.53 3.07397 12.8968 3.81714L14.8577 7.7896C15.0032 8.08445 15.2844 8.28891 15.6098 8.33646L19.9964 8.97763C20.8163 9.09747 21.1431 10.1053 20.5495 10.6835L17.3769 13.7735C17.1411 14.0033 17.0334 14.3344 17.0891 14.6589L17.8376 19.0231C17.9777 19.8401 17.1201 20.4631 16.3865 20.0773L12.4656 18.0153C12.1742 17.8621 11.8261 17.8621 11.5347 18.0153L7.61377 20.0773C6.88014 20.4631 6.02259 19.8401 6.16271 19.0231L6.91122 14.6589C6.96689 14.3344 6.85922 14.0033 6.62335 13.7735L3.45082 10.6835C2.85722 10.1053 3.18401 9.09747 4.00392 8.97763L8.39051 8.33646C8.71586 8.28891 8.99704 8.08445 9.14258 7.7896L11.1034 3.81714Z" fill="#FFD02C"></path></svg></div>';
-		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ msg.recipient +' </p></div>';
-		    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
-		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ msg.sendDt +'</p></div>';
+		    	str +=  '<div class="col-span-1" ><input type="checkbox" name="checkbox" class="chk" value="'+ msg.msgId +'"></div>';
+		    	str += '<div class="star col-span-1" data-chk-impt="'+msg.chkImpt+'" data-msg-id="'+msg.msgId+'"><img data-msg-id="'+msg.msgId+'" data-chk-impt="'+msg.chkImpt+'" src="/msgIcons/star'+msg.chkImpt+'.svg"/></div>';
+		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ msg.name +' </p></div>';
+		    	
+		    	if(msg.hasAttach === true){
+			    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	} else if(msg.hasAttach === false) {
+				    str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'</p></div>';
+			    	}
+		    	
+		    	
+		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ msg.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);
+				 $('#total').html(resData.total);
+
 		  },
 		  error: (jqXHR) => {
 			  alert(jqXHR.statusText + '(' + jqXHR.status + ')');
@@ -189,9 +197,97 @@ const fnPaging = (p)=>{
     page = p;
     fnGetMsgList();
   }
+
+
+
+const fnResponse = () => {
+	const insertResult = document.getElementById('insertResult').value;
+	if( insertResult === '1') {
+	    alert("메세지가 전송되었습니다");
+	}
+}
 	
 	
+
+const fnUpdateChkImpt = (evt) => {
+
+	console.log($(evt.target).data('msgId'));
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updateSentChkImpt.do',
+        data: {msgId: $(evt.target).data('msgId') }, // 클릭된 요소의 데이터 사용
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+            fnGetMsgList();
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+};
+
+$(document).on('click', '.star', (evt)=>{
+     fnUpdateChkImpt(evt)
+});
+
+
+
+
+
+// 체크한 거 삭제버튼 눌러서 휴지통으로 이동
+$('#btn-remove').click(function() {
+    var checkValues = [];
+    $("input[name='checkbox']:checked").each(function() {
+        checkValues.push(this.value);
+    });
+    var data = $.param({ checkValues: checkValues });
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updateSentToBin.do',
+        data: {checkValues: checkValues},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           fnGetMsgList();
+           alert('휴지통으로 이동되었습니다');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+});
+
+//체크한 거 눌러서 중요메세지로 설정. 이경우 alert 뜸
+$('#btn-star').click(function() {
+    var checkValues = [];
+    $("input[name='checkbox']:checked").each(function() {
+        checkValues.push(this.value);
+    });
+    var data = $.param({ checkValues: checkValues });
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/updatesSentChkImpt.do',
+        data: {checkValues: checkValues},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           fnGetMsgList();
+           alert('중요메세지로 설정되었습니다');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    });
+});
+
+
+
 fnGetMsgList();	
+fnResponse();
 </script>
 
 <jsp:include page="../layout/closer.jsp"/>

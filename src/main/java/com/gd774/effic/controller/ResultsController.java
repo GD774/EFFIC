@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class ResultsController {
- private final ResultsService resultsService;
+ private  ResultsService resultsService;
  
  @RequestMapping("/results-main")
  public String ResultsMain() {

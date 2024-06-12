@@ -16,4 +16,6 @@ public class ApprovalDto {
 	private int appId;
 	private String appState, appDocId, reject, lineOrder;
 	private Date sumbitDt, appDt;
+	private AppDocDto doc;
+	// private DepDto dep;
 }

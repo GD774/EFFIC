@@ -39,7 +39,6 @@ public class CalendarController {
     public Map<String, Object> createEvent(@RequestBody CalendarDto calendarDto) {
         Map<String, Object> response = new HashMap<>();
         System.out.println("Received CalendarDto: " + calendarDto); // 디버깅용 로그
-        
         if (calendarDto.getTitle() == null || calendarDto.getTitle().trim().isEmpty()) {
             response.put("status", "error");
             response.put("message", "제목은 필수 입력 사항입니다.");

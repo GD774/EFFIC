@@ -8,16 +8,16 @@
 	<result  property="empId"        column="EMP_ID"/>
 	<result  property="pw"           column="PASSWORD"/>
 	<result  property="name"         column="NAME"/>
-	<result  property="gender"       column="GENDER"/>
-	<result  property="phone"        column="PHONE"/>
-	<result  property="email"        column="EMAIL"/>
+	<result  property="genderId"     column="GENDER_ID"/>
+	<result  property="depId"        column="DEP_ID"/>
+	<result  property="posId"        column="POS_ID"/>
 	<result  property="joinDt"       column="JOIN_DT"/>
 	<result  property="leaveDt"      column="LEAVE_DT"/>
   </resultMap>
 
   <select id="getUserList"
 		  resultMap="UserMap">
-	SELECT EMP_ID, NAME, PHONE, EMAIL, JOIN_DT, LEAVE_DT FROM USER_T
+	SELECT EMP_ID, NAME, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT FROM USER_T
   </select>
 
   <insert id="insertUser"

@@ -72,6 +72,9 @@ public interface MsgMapper {
 	 int allRemoveMsg();
 	 int allRemoveRecp();
 	 
+	 //팀메세지
+	 List<String> getTeamRegister(String depId);
+	 List<MsgDto> getTeamList(String depId);
 	 
 	 
 

@@ -12,6 +12,12 @@
  margin-left: 60px;
 }
 
+.btn-third {
+    color: #fff !important;
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+}
+
 
 
 </style>
@@ -128,6 +134,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="submitScheduleForm">등록</button>
+                <button type="button" class="btn btn-third" id="modifyScheduleForm" style="display: none;">수정</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                 <button type="button" class="btn btn-danger" id="deleteScheduleForm" style="display: none;">삭제</button>
             </div>
@@ -177,7 +184,7 @@
         		},
         		views: {
         		    timeGrid: {
-        		      dayMaxEventRows: 3 // adjust to 6 only for timeGridWeek/timeGridDay
+        		      dayMaxEventRows: 3 // 이벤트 날짜 겹치는 일정 최대 3개까지 등장
         		    }
         		  },
             height: 800,
@@ -206,6 +213,8 @@
                 $('#title').val('');
                 $('#contents').val('');
                 $('#dateModal').modal('show');
+                $('#submitScheduleForm').show();
+                $('#modifyScheduleForm').hide();
                 $('#deleteScheduleForm').hide();
             },
             eventClick: function(info) {
@@ -216,6 +225,8 @@
                 $('#contents').val(info.event.extendedProps.contents);
                 $('#openRange').val(info.event.extendedProps.docState);
                 $('#dateModal').modal('show');
+                $('#submitScheduleForm').hide();
+                $('#modifyScheduleForm').show();
                 $('#deleteScheduleForm').show();
             }
         });

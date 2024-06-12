@@ -148,39 +148,50 @@
             }
         });
     });
-    
+
     function parseEvents(data) {
         return data.map(event => ({
-            id: event.scheduleId,             // FullCalendar에서 사용할 이벤트 ID
-            title: event.title,               // 이벤트 제목
-            start: event.startDt,             // 이벤트 시작 날짜 및 시간
-            end: event.endDt,                 // 이벤트 종료 날짜 및 시간
-            allDay: event.allDay,             // 종일 여부
-            extendedProps: {                  // 추가 데이터
+            id: event.scheduleId,
+            title: event.title,
+            start: event.startDt,
+            end: event.endDt,
+            allDay: event.allDay || false,
+            extendedProps: {
                 docState: event.docState,
                 contents: event.contents,
                 empId: event.empId,
                 depId: event.depId
             }
         }));
-        console.log('파싱되었습니다.')
     }
 
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-        		height: 800 ,
+        	
+        		googleCalendarApiKey: 'AIzaSyAovOUlYT-fKpoVo18NKTy6aWJvBxKPpDQ',
+        		dayMaxEventRows: true,
+        		eventSources: {
+        			googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
+        			backgroundColor: 'red',
+        		},
+        		views: {
+        		    timeGrid: {
+        		      dayMaxEventRows: 3 // adjust to 6 only for timeGridWeek/timeGridDay
+        		    }
+        		  },
+            height: 800,
             initialView: 'dayGridMonth',
-            events: 
-            	function(fetchInfo, successCallback, failureCallback) {
+            
+            
+            events: function(fetchInfo, successCallback, failureCallback) {
                 $.ajax({
                     url: '${contextPath}/calendar/events',
                     type: 'GET',
                     success: function(data) {
-                    	 var events = parseEvents(data);
-                    	 	console.log(events)
-                        successCallback(data);
-                        console.log(data);
+                        var events = parseEvents(data);
+                        successCallback(events);
+                        console.log("Parsed events:", events);
                     },
                     error: function(xhr, status, error) {
                         alert('일정 조회에 실패했습니다.');
@@ -188,7 +199,6 @@
                     }
                 });
             },
-           
             dateClick: function(info) {
                 $('#datepicker').datepicker('setDate', info.date);
                 $('#datepicker2').datepicker('setDate', info.date);
@@ -211,8 +221,7 @@
         });
         calendar.render();
     });
-    
-    
+
     $(document).ready(function() {
         $('#submitScheduleForm').click(function() {
             var title = $('#title').val().trim();
@@ -277,8 +286,8 @@
             }
         });
     });
-
 </script>
+
 
 
 <!-- <script>

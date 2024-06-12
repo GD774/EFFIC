@@ -43,8 +43,8 @@
             <hr style="border-color: #BDBDBD; border-width: 1px; margin-top: 1rem;">
             
             <div id="button-wrapper" class="py-3">
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 삭제
+             <button id="btn-remove" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+                 <img src="/msgIcons/bin.svg" />삭제
              </button>
             <button id="btn-cancel" class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  보관해제

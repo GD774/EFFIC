@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DepDto {
 	private String code, name, parent;
-	private int level;
+	private int depLevel;
 }

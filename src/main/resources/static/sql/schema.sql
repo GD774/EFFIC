@@ -104,19 +104,10 @@ PASSWORD   VARCHAR2(100)     NOT NULL,
 NAME       VARCHAR2(20)      NULL,
 STATUS     NUMBER            NOT NULL,
 GENDER_ID  NUMBER            NULL,
-<<<<<<< HEAD
-DEP_ID     NUMBER            NULL,
-=======
 DEP_ID     VARCHAR2(100)     NULL,
->>>>>>> a0c4231d3447049259bbf69f7bb5055cf3629a3b
 POS_ID     VARCHAR2(100)     NULL,
 JOIN_DT    DATE              NULL,
-<<<<<<< HEAD
 LEAVE_DT   DATE              NULL
-
-=======
-LEAVE_DT   DATE              NULL,
->>>>>>> a0c4231d3447049259bbf69f7bb5055cf3629a3b
 );
 
 CREATE TABLE COMMON_CODE_M_T (

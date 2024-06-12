@@ -208,7 +208,6 @@
             };
 
 
-            console.log(formData); // 디버깅용: 전송되는 데이터 확인
 						console.log(JSON.stringify(formData))
             $.ajax({
                 type: 'POST',
@@ -227,7 +226,7 @@
             });
         });
 
-    /*     $('#deleteScheduleForm').click(function() {
+         $('#deleteScheduleForm').click(function() {
             var scheduleId = $('#scheduleId').val();
             if (scheduleId) {
                 $.ajax({
@@ -246,7 +245,7 @@
                     }
                 });
             }
-        }); */
+        }); 
     }); 
 </script>
 

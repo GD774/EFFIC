@@ -154,7 +154,7 @@
 													            
 													            if (selectedValue === 'option2') {
 													                // Replace with your actual context path and JSP file name
-													                window.location.href = '${contextPath}/approval/docTemp.page';
+													                window.location.href = '${contextPath}/approval/writeDoc.page';
 													            } else {
 													                alert('문서 양식을 선택해주세요.');
 													            }

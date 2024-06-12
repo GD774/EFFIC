@@ -62,15 +62,10 @@ public class ApprovalController {
         return "approval/depRefList";
     }
     
-    @GetMapping("/test.page")
-    public String goTest() {
-    	return "approval/test";
-    }
-    
 
-    @GetMapping("/docTemp1.page")
+    @GetMapping("/writeDoc.page")
     public String goWrite() {
-        return "approval/docTemp";
+        return "approval/writeDoc";
     }
 
     @PostMapping("/registerApproval")

@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class CategoryDto {
-	private int catIndex, catType;
-	private String catCode;
+  private String catCode, catType, pcatCode, catName;
 }

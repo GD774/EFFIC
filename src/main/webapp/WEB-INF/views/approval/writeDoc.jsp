@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -5,27 +6,31 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
+<%
+    long currentTimeMillis = System.currentTimeMillis();
+    Date currentDate = new Date(currentTimeMillis);
+    request.setAttribute("currentDate", currentDate);
+%>
+
 <jsp:include page="../layout/opener.jsp"/>
 <jsp:include page="../layout/sidebar.jsp" />
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
 <script defer src="${contextPath}/js/docTemp1.js"></script>
 
 
 <style>
-    .button-container a {
+    .button-container {
         display: inline-block; /* 가로로 나란히 배치 */
-        padding: 8px 12px; /* 버튼의 padding 조정 */
-        border: 1px solid #3182ce; /* 테두리 추가 */
-        border-radius: 4px; /* 버튼을 둥글게 */
-        background-color: #4f61e3;
-        color: white;
+        background-color: white;
         text-decoration: none;
         text-align: center;
         font-size: 14px;
-        
+        position: relative; 
+        height: 50px;
         transition: background-color 0.3s ease;
         margin-right: 10px; /* 버튼 간의 간격 조정 */
     }
@@ -51,11 +56,16 @@
    }
    
    #urgent {
-    width: 50px; /* 원하는 크기로 조정하세요 */
-    height: 48px; /* 원하는 크기로 조정하세요 */
+    width: 40px; /* 원하는 크기로 조정하세요 */
+    height: 40px; /* 원하는 크기로 조정하세요 */
     margin-right: 5px;
-    margin-bottom: 7px;
+    margin-bottom: 5px;
     display: inline-block; /* 가로로 나란히 배치 */
+    display: none;
+    position: absolute;
+    right: -50px; /* 버튼 컨테이너의 오른쪽에서 10px 떨어진 위치 */
+    top: -7px;
+    
    }
    
 
@@ -108,6 +118,13 @@
     .ipt_editor_currency {
         text-align: right;
     }
+    
+    #amount-label {
+        text-align: right !import;   
+    }
+    .amount-label {
+        text-align: right !import;   
+    }
    
 </style>
 </head>
@@ -136,6 +153,7 @@
     	<button id="goAppLine" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
             결재정보
       </button>
+    	<img id="urgent" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADU0lEQVR4nO3YT0zTUBwHcE4ePXjuZGzr/jIIGy0IItAuRk9wAE4kmxLjmWBMlA2Pmo2oBzzowat68k9MBlFR/mh0W0BF0IAxxotESPjTCqLCM284snbd62zfoyTuJd+E0Db5fejb3u9HSUlxFVdx/X9LCDAdAscmBJ5ZF3kWoLLKMeBrfRVIumgQp6icDJpMYMRiFic89OVdKV7k2LNqRefLlNepiIj/TcpFPyBa/HpjjVngmN9aAQLHgOGy0ryAQYoCb/12JzGAyDNBrcVnMuGxI9/C63J6gByAYy/oBcxUupCAhIseJgYQOPaGXsCc34MEvHRYZwgCmId6AV9qKpCAcdoyTxDATuoFzNdXIQHPLOY1YgCRY7/pBSw1+ZGAR6UHN4kUD9rd+wSe3dILgEm5bUjELGvbT+QMwFF8Jh98bjBoUgZMeRx12AGrTf56nIA0osqtCJgsp08T6X8KKixQAzY6A2CzuwWAcFs68Gf4O3hNfn/SmbudiPRFAs92qxX//fghsNnTCkBfh2LgNXhP9jOLR/xgSLaVUk7bXewAkWf71f7yqOKzEfI3kZR1qq+c1gQBAHMLBYBbRK34TDY6ecmznxivBPCCtnwmARhFAdJ7PrvQa2cAGLsPwPg9AAZ6pG+hu0Xy7EKDTwIYs5qXCQDYjyjAVm+7FAALTz3eDoRkXYP3Zj+72lwtAQybD/7EDhB4Zg0foE3y7EozIwEMmUwAa/HLR2sPqH0D5WwhuG0gAhavtoUO+3LngoqKMmwAIVDrVQPg/BDHKQpMV9pbsQFEnjlWyAGG62s0TlHgjddxHh+AY7sKOYW1HGQLCgfZ9mlsv4kT0FdQG7HTSvDpfQ4/2DDbrQSv2EokFFoJmKTL9gQbQOCY6wUD/iHv8zRz6dPYYZ3eU6OkPIsNvrztNPbREscoaehoKWIYJeVZatyl0RJgHCXlGUJsIWyjJe5RMjtPy8xIAJbRcqW5uo4U4DltQQLeeelTugECx7aTAiTz/Mt9Zzb22Pt1FX+iNxo42XvpRygSA0ak69zFX8FIP68ZEIxErxpVfCiTcOyKZkAoEr1jNCAYjt3W/gbCsVGjAaFIdEQHIDpnNCAYic3qAQiGA8JRQTOguIqruEr2/PoDvwomXOvJFOsAAAAASUVORK5CYII=">
     </div>
 	</div>
 	<form id="documentForm" action="submitDocument.jsp" method="post">
@@ -184,7 +202,7 @@
 						기 안 일
 					</td>
 					<td class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
-							<span class="comp_item" id="currentDate"></span>
+							<span class="comp_item" id="currentDate"><fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/></span>
 				</td>
 			</tr>
 			<tr>
@@ -215,8 +233,8 @@
      		</td>
     </tr>
     <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+        <td>${approval.submitDt}&nbsp;</td>
+        <td>${approval.appDt}&nbsp;</td>
     </tr>
 </table>
 
@@ -302,42 +320,49 @@
 			<td class="subjectColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 				단 가
 			</td>
-			<td class="subjectColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l" style="">
+			<td class="subjectColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 				금 액
 			</td>
 			<td colspan="1" class="subjectColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 				비 고
 			</td>
 		</tr>
+		<!-- 사용자가 입력하는 영역 -->
 		<tr class="copyRow">
+			<!-- 품명 -->
 			<td class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;">
 					<span style="width: 100%;">
 						<input class="ipt_editor" type="text">
 				</span><br></p>
 			</td>
+			<!-- 규격 -->
 			<td class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;">
 					<span style="width: 100%;">
 						<input class="ipt_editor" type="text">
 				</span><br></p>
 			</td>
+			<!-- 수량 -->
 			<td class="detailColumn amount rightCol dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l" style="">
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;">
 					<span style="width: 100%;">
-						<input class="ipt_editor ipt_editor_currency" type="text" style="width: 100%;">
+						<input class="ipt_editor ipt_editor_currency amount-input" id="quantity" type="text" style="width: 100%;">
 				</span><br></p>
 			</td>
+			<!-- 단가 -->
 			<td class="detailColumn price rightCol dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l" style="">
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px; text-align: right;">
 					<span style="width: 100%;">
-						<input class="ipt_editor ipt_editor_currency" type="text" style="width: 100%;">
+						<input class="ipt_editor ipt_editor_currency price-input" id="unit-price" type="text" style="width: 100%;">
 					</span><br></p>
 			</td>
-			<td class="detailColumn cur rightCol dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l" style="">
+			<!-- 금액 -->
+			<td id="amount-label" class="detailColumn cur rightCol dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l" class="amount-price" style="text-align: right;"> 
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px; text-align: right;"><br></p>
 			</td>
-			<td colspan="1" class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
+			<!-- 비고 -->
+			<td colspan="1" class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l" >
 				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;">
 					<span style="width: 100%;">
 						<input class="ipt_editor" type="text">
@@ -430,6 +455,7 @@ $(document).ready(function() {
     }
 });
 
+
 document.addEventListener("DOMContentLoaded", function() {
     // 추가 버튼 이벤트 처리
     document.getElementById("plus").addEventListener("click", function() {
@@ -445,40 +471,26 @@ document.addEventListener("DOMContentLoaded", function() {
             var newRow = table.insertRow(table.rows.length - 2); // 합계 행과 기타 행 사이에 새로운 행 삽입
 
             var cells = newRow.insertCell(0);
-            var inputElement = document.createElement("input");
-            inputElement.setAttribute("type", "text");
-            inputElement.setAttribute("class", "ipt_editor");
-            cells.appendChild(inputElement);
+            cells.innerHTML = '<input type="text" class="ipt_editor">'; // 품명 입력 필드
 
             cells = newRow.insertCell(1);
-            inputElement = document.createElement("input");
-            inputElement.setAttribute("type", "text");
-            inputElement.setAttribute("class", "ipt_editor");
-            cells.appendChild(inputElement);
+            cells.innerHTML = '<input type="text" class="ipt_editor">'; // 규격 입력 필드
 
             cells = newRow.insertCell(2);
-            inputElement = document.createElement("input");
-            inputElement.setAttribute("type", "text");
-            inputElement.setAttribute("class", "ipt_editor ipt_editor_currency");
-            cells.appendChild(inputElement);
+            cells.innerHTML = '<input type="text" class="ipt_editor ipt_editor_currency amount-input">'; // 수량 입력 필드
+            cells.querySelector(".amount-input").addEventListener("input", calculateAmount); // 수량 입력 이벤트 리스너 추가
 
             cells = newRow.insertCell(3);
-            inputElement = document.createElement("input");
-            inputElement.setAttribute("type", "text");
-            inputElement.setAttribute("class", "ipt_editor ipt_editor_currency");
-            cells.appendChild(inputElement);
+            cells.innerHTML = '<input type="text" class="ipt_editor ipt_editor_currency price-input">'; // 단가 입력 필드
+            cells.querySelector(".price-input").addEventListener("input", calculateAmount); // 단가 입력 이벤트 리스너 추가
 
             cells = newRow.insertCell(4);
-            inputElement = document.createElement("input");
-            inputElement.setAttribute("type", "text");
-            inputElement.setAttribute("class", "ipt_editor ipt_editor_currency");
-            cells.appendChild(inputElement);
+            cells.innerHTML = '<span class="amount-label" style="text-align: right"></span>'; // 금액 표시 Span (오른쪽 정렬)
+            cells.style.textAlign = "right";
+
 
             cells = newRow.insertCell(5);
-            inputElement = document.createElement("input");
-            inputElement.setAttribute("type", "text");
-            inputElement.setAttribute("class", "ipt_editor");
-            cells.appendChild(inputElement);
+            cells.innerHTML = '<input type="text" class="ipt_editor">'; // 비고 입력 필드
 
             // 추가 후 행 개수 다시 확인
             rowCount = table.rows.length;
@@ -502,6 +514,22 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    // 금액을 계산하고 표시하는 함수
+    function calculateAmount() {
+        var row = this.closest("tr"); // 현재 입력 필드가 포함된 행 선택
+        var quantity = parseFloat(row.querySelector(".amount-input").value); // 수량
+        var unitPrice = parseFloat(row.querySelector(".price-input").value); // 단가
+        var amountLabel = row.querySelector(".amount-label"); // 금액 표시 Span
+
+        // 수량과 단가가 숫자로 변환 가능한지 확인
+        if (!isNaN(quantity) && !isNaN(unitPrice)) {
+            var amount = quantity * unitPrice; // 수량 * 단가 계산
+            amountLabel.textContent = amount.toLocaleString('en-US'); // 계산된 금액을 화면에 표시
+        } else {
+            amountLabel.textContent = ''; // 수량 혹은 단가가 입력되지 않았을 경우 금액을 비움
+        }
+    }
+
     // 삭제 버튼 활성화 여부를 설정하는 함수
     function toggleDeleteButton(rowCount) {
         var minusButton = document.getElementById("minus");
@@ -510,6 +538,49 @@ document.addEventListener("DOMContentLoaded", function() {
         } else { // 추가된 행이 없을 때 삭제 버튼 비활성화
             minusButton.disabled = true;
         }
+    }
+});
+
+$(function() {
+    // 숫자만 입력하도록 제한하는 함수
+    function allowNumbersOnly(event) {
+        // 입력된 값에서 숫자와 소수점을 제외한 모든 문자를 제거
+        event.target.value = event.target.value.replace(/[^0-9.]/g, '');
+
+        // 소수점이 여러 개인 경우 첫 번째 소수점만 남기고 나머지는 제거
+        var decimalIndex = event.target.value.indexOf('.');
+        if (decimalIndex !== -1) {
+            event.target.value = event.target.value.slice(0, decimalIndex + 1) + event.target.value.slice(decimalIndex + 1).replace(/\./g, '');
+        }
+    }
+
+    // 수량과 단가 입력 필드에서 숫자만 입력하도록 제한
+    $("#quantity, #unit-price").on("input", function(event) {
+        allowNumbersOnly(event); // 숫자만 입력하도록 제한하는 함수 호출
+        calculateAmount(); // 계산 함수 호출
+    });
+
+    // 수량과 단가를 곱하여 금액을 계산하고 화면에 표시하는 함수
+    function calculateAmount() {
+        var quantity = parseFloat($("#quantity").val()); // 수량
+        var unitPrice = parseFloat($("#unit-price").val()); // 단가
+
+        // 수량과 단가가 숫자로 변환 가능한지 확인
+        if (!isNaN(quantity) && !isNaN(unitPrice)) {
+            var amount = quantity * unitPrice; // 수량 * 단가 계산
+            $("#amount-label").text(amount.toLocaleString('en-US')); // 계산된 금액을 화면에 표시
+        } else {
+            $("#amount-label").text(''); // 수량 혹은 단가가 입력되지 않았을 경우 금액을 비움
+        }
+    }
+});
+
+document.getElementById('emergency').addEventListener('change', function() {
+    var urgentImage = document.getElementById('urgent');
+    if (this.checked) {
+        urgentImage.style.display = 'inline'; // 체크되면 이미지 보이기
+    } else {
+        urgentImage.style.display = 'none'; // 체크 해제되면 이미지 숨기기
     }
 });
 </script>

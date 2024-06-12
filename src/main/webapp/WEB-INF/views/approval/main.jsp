@@ -55,7 +55,7 @@
 													            
 													            if (selectedValue === 'option2') {
 													                // Replace with your actual context path and JSP file name
-													                window.location.href = '${contextPath}/approval/docTemp1.page';
+													                window.location.href = '${contextPath}/approval/writeDoc.page';
 													            } else {
 													                alert('문서 양식을 선택해주세요.');
 													            }
@@ -114,8 +114,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                  </div>
 
 
 	<div class="col-span-12 rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">

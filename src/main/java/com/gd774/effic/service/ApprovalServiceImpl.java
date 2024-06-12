@@ -34,19 +34,19 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     @Override
     public int registerApproval(MultipartHttpServletRequest multipartRequest) {
-        // 기안 정보 파라미터에서 가져오기
+ 
         String title = multipartRequest.getParameter("title");
         String contents = multipartRequest.getParameter("contents");
         int docTempCode = Integer.parseInt(multipartRequest.getParameter("docTempCode"));
         int depId = Integer.parseInt(multipartRequest.getParameter("depId"));
         String urgent = multipartRequest.getParameter("urgent");
-        String docState = multipartRequest.getParameter("docState");  // 진행 상태
+        String docState = multipartRequest.getParameter("docState");  
 
-        // 세션에서 사용자 정보 가져오기
+
         UserDto user = (UserDto) multipartRequest.getSession().getAttribute("user");
         String empId = user.getEmpId();
 
-        // AppDocDto 객체 생성 및 기안 등록
+
         AppDocDto approval = AppDocDto.builder()
                 .empId(empId)
                 .title(title)
@@ -59,7 +59,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 
         approvalMapper.registerApproval(approval);
 
-        // 문서 템플릿 추가
+
         String itemName = multipartRequest.getParameter("itemName");
         String itemStandard = multipartRequest.getParameter("itemStandard");
         int itemQuan = Integer.parseInt(multipartRequest.getParameter("itemQuan"));
@@ -68,7 +68,7 @@ public class ApprovalServiceImpl implements ApprovalService {
         String remarks = multipartRequest.getParameter("remarks");
 
         DocDto docTemplate = DocDto.builder()
-                .docId(approval.getDocId()) // 등록된 기안의 docId를 사용
+                .docId(approval.getDocId()) 
                 .itemName(itemName)
                 .itemStandard(itemStandard)
                 .itemQuan(itemQuan)
@@ -117,9 +117,8 @@ public class ApprovalServiceImpl implements ApprovalService {
             }
         }
 
-        // 기안 및 첨부 파일 처리 결과 반환
+
         return 1;
     }
 
-    // 기타 서비스 메서드들...
 }

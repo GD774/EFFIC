@@ -153,7 +153,7 @@
 													            
 													            if (selectedValue === 'option2') {
 													                // Replace with your actual context path and JSP file name
-													                window.location.href = '${contextPath}/approval/docTemp.page';
+													                window.location.href = '${contextPath}/approval/writeDoc.page';
 													            } else {
 													                alert('문서 양식을 선택해주세요.');
 													            }
@@ -187,7 +187,7 @@
                                     <label for="options" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">문서양식 선택</label>
                                     <select id="options" class="block w-full p-2.5 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-primary dark:focus:border-primary">
                                         <option value="option1">문서양식을 선택하세요</option>
-                                        <option value="option2">지출결의서</option>
+                                        <option value="option2">구매신청서</option>
                                         <option value="option3">Option</option>
                                     </select>
                                 </div>
@@ -212,8 +212,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                  </div>
 
                 <!-- ====== Table Section Start ===== -->
                 <div class="flex flex-col gap-1">

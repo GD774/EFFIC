@@ -1,7 +1,5 @@
 package com.gd774.effic.dto;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class MsgDto {
-    String sender, title, contents, recipient, originalName;
-    Date sendDt;
-    int msgId, state, isDelete, chkImpt;
+    String sender, title, contents, sendDt;
+    String sort, recipient, originalName, readDt, name, rname, sname;
+    int msgId, state, isDelete, isMe, chkImpt, recpId;
+    boolean hasAttach;
 }

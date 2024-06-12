@@ -45,3 +45,5 @@
       <a href="${contextPath}/admin/enroll" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Visit Our Project Page 가 아니고 사원 임시 등록 페이지</a>
     </p>
   </div>
+
+<jsp:include page="../layout/closer.jsp"/>

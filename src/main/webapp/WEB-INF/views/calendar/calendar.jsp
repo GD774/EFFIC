@@ -220,7 +220,7 @@
                     location.reload();
                 },
                 error: function(error) {
-                    alert('일정 등록에 실패했습니다.');
+                    alert('일정 등록에 실패했습니다.' + response.message);
                     console.error(error); // 디버깅용: 오류 메시지 출력
                 }
             });

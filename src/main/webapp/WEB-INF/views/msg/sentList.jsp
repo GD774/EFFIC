@@ -125,6 +125,7 @@
 </div>
 
 <input type="hidden" id="insertResult" value="${inserted}">
+<input type="hidden" id="recipient" value="${recipient}">
 
 <script>
 
@@ -284,10 +285,16 @@ $('#btn-star').click(function() {
     });
 });
 
-
+var recipient = document.getElementById('recipient').value;
 
 fnGetMsgList();	
 fnResponse();
 </script>
+
+  <script type="text/javascript">
+  var recipient = document.getElementById('recipient').value;
+  </script>
+
+<script src="${contextPath}/js/message.js?dt=<%=System.currentTimeMillis()%>"></script>
 
 <jsp:include page="../layout/closer.jsp"/>

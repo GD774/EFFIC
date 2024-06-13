@@ -4,9 +4,6 @@
 let webSocket; // 페이지 바뀌면 변수 사라짐
 
 
-console.log(empId);
-
-
 
 //연결
 connect();
@@ -15,9 +12,7 @@ function connect() {
 	//이벤트핸들러 등록
 	webSocket.onopen = fOpen; 
 	webSocket.onmessage = fMessage; 
-	
 
-	
 }
 
 
@@ -37,7 +32,7 @@ function fMessage() {
 	countMark.value = event.data;
 }
 
-function fnWriteSend(recipient){
+function fnSendList(recipient){
 	webSocket.send(recipient);
 }
 
@@ -47,20 +42,11 @@ function disconnect() { //서버와 연결해제.
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const frm = document.getElementById('frm');
-    
-        frm.addEventListener('submit', (evt) => {
-        let recipient = document.getElementById('here').value;
-        evt.preventDefault(); // 기본 서브밋 동작을 막습니다.
-        frm.submit();
-       
-        setTimeout(() => {
-        fnWriteSend(recipient);
-            }, 2000);
-            
-        
-    });
+        if(recipient) {
+        fnSendList(recipient);
+	}
 });
+
 
    
 

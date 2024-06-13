@@ -50,6 +50,9 @@ public class NotifHandler extends TextWebSocketHandler {
 			webSocketSession.sendMessage(modifiedMessage);
 			System.out.println("웹소켓이 메세지 보냈음");
 			System.out.println(modifiedMessage);
+			}else {
+				System.out.println("반송사유");
+				System.out.println(user.getEmpId() +" 와 "+ recipient +" 가 다름" );
 			}
 		}
 		

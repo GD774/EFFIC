@@ -352,11 +352,11 @@ $('#jstree').on("select_node.jstree", function (e, data) {
 
 fnSubmitChk();
 
-var recipient = document.getElementById('here').value;
+
 
 
 
 </script>
-<script src="${contextPath}/js/message.js?dt=<%=System.currentTimeMillis()%>"></script>
+
 
 <jsp:include page="../layout/closer.jsp"/>

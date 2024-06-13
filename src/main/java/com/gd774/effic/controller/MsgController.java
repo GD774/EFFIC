@@ -75,6 +75,7 @@ public class MsgController {
 			redirectAttributes.addFlashAttribute("inserted", msgService.msgInsertMe(multipartRequest));
 		} else {
 			redirectAttributes.addFlashAttribute("inserted", msgService.msgInsert(multipartRequest));
+			redirectAttributes.addFlashAttribute("recipient", recipient);
 		}
 		
 		

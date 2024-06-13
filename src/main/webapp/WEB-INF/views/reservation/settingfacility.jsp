@@ -37,30 +37,58 @@
             	</c:forEach>
         	  </select>
        	
-        	  <select name="catCode" name="catCode" id="subCat" x-model="selectedCategory" @change="isOptionSelected = true" class="relative z-20 w-1/4 appearance-none rounded border border-stroke bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary">
-              	  <option id="subCat" value="${subCat.catCode}" class="subList" class="text-body">소분류</option>
+        	  <select name="catCode" id="subCat" x-model="selectedCategory" @change="isOptionSelected = true" class="relative z-20 w-1/4 appearance-none rounded border border-stroke bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary">
+              	  <option  class="subList" class="text-body">소분류</option>
                </select> 
     		</div>
 		  </div>
 <script>
-    let subcat = {<c:forEach var="c" items="${map}">${c.key}:[<c:forEach var="s" items="${c.value}">"${s.catName}",</c:forEach>],</c:forEach>};
-    let slist;
 
+    let subcat = {
+    		<c:forEach var="c" items="${map}">
+    			${c.key}:[
+    				<c:forEach var="s" items="${c.value}">
+    				"${s.catName}",</c:forEach>],
+    		</c:forEach>
+    			};
+
+    let subcatCode = {
+            <c:forEach var="c" items="${map}">
+               ${c.key}:[
+                  <c:forEach var="s" items="${c.value}">
+                  "${s.catCode}",</c:forEach>],
+            </c:forEach>
+               };
+    
     function selectBoxChange(sel) {
- 		console.log(sel);      
+ 		console.log(sel);
+ 	    console.log("----------------------------------")
+ 		console.log("----------------------------------")
+ 		console.log(subcat)
+ 		console.log(subcatCode)
+ 		console.log("----------------------------------")
+ 		console.log("----------------------------------")
+ 		
 		let slist = subcat[sel];
+ 	    let slistCode = subcatCode[sel];
+ 	    
         let subCat = document.querySelector("#subCat");
         subCat.innerHTML = "";
         subCat.options.length=0
-		for(let i=0;i<slist.length;i++){
+		
+        for(let i=0;i<slist.length;i++){
 			let option = document.createElement("option");
 			option.innerText = slist[i];
+			option.value = slistCode[i];
+			
 			subCat.append(option)	
+			console.log(slist[i])
+			console.log(slistCode[i])
 			
 		}
 		$(document).ready(function() {
 		    $('#subCat').on('change', function() {
-		    	var slist = $(this).val();
+		    //	var slist = $(this);
 		    	console.log(slist);
 		    });
 		});

@@ -77,24 +77,25 @@ public class ReserveController {
   
   @GetMapping(value = "/settingfacility")
   public String settingfacility(Model model) {
-    //int insertCount = reserveService.registerFacility(request);
-    //redirectAttributes.addFlashAttribute("insertResult", insertCount == 1 ? "자산 등록 완료" : "등록 실패");
     reserveService.loadCategoryList(model);
     return "/reservation/settingfacility";
-    //return "redirect:/reservation/facilitymanage";
   }
   
-  @PostMapping(value = "registerFacility.do", produces ="application/json")
-  public ResponseEntity<Map<String, Object>> registerFacility(HttpServletRequest request){
-    System.out.println("일로가니?");
+  @PostMapping(value = "/registerFacility.do")
+  public String registerFacility(HttpServletRequest request, RedirectAttributes redirectAttributes){
     int insertCount = reserveService.registerFacility(request);
-    try {
-      System.out.println("일로도가니?" + insertCount);
-      System.out.println(insertCount);
-    } catch (Exception e) {
-      System.out.println("고통스럽네유");
-    }
-    return ResponseEntity.ok(Map.of("insertCount", reserveService.registerFacility(request)));
+    redirectAttributes.addFlashAttribute("insertResult", insertCount == 1 ? "등록" : "실패");
+    return "redirect:/reservation/facilitymanage";
+  }
+  
+  @GetMapping(value = "/getFacilityList.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> getFacilityList(HttpServletRequest request) {
+      return reserveService.getFacilityList(request);
+  }
+  
+  @GetMapping(value = "/getFacReserveList.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> getFacReserveList(HttpServletRequest request) {
+      return reserveService.getFacReserveList(request);
   }
   
   

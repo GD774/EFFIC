@@ -52,8 +52,11 @@
           <div class="col-span-3">
            <h5 class="font-medium text-white">구입일</h5>
           </div>
-          <div class="col-span-1">
+          <div class="col-span-2">
             <h5 class="font-medium text-white">현재 상태</h5>
+          </div>
+          <div class="col-span-1">
+            <h5 class="font-medium text-white"></h5>
           </div>
       </div>
     <!-- table header end -->
@@ -61,29 +64,9 @@
      <div class="bg-white dark:bg-boxdark">
     <!-- table row item -->
       <div
+      	id = "facility-list"
         class="grid grid-cols-12 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11"
-      >
-        <div class="col-span-3">
-          <p class="text-[#637381] dark:text-bodydark"> </p>
-        </div>
-        <div class="col-span-2" id="facility-name">
-          <p class="text-[#637381] dark:text-bodydark">
-          </p>
-        </div>
-        <div class="col-span-2" id="facility-code">
-          <p class="text-[#637381] dark:text-bodydark">
-          </p>
-        </div>
-		<div class="col-span-3" id="buy-dt">
-	      <p class="text-[#637381] dark:text-bodydark"></p>
-		</div>
-		<div class="col-span-1" id="facility-state">
-          <p class="text-[#637381] dark:text-bodydark"></p>
-	    </div>          
-		<div class="col-span-1">
-            <button class="float-right text-primary">설정</button>
-          </div>
-        </div>        
+      >  
 </div>    
       <!-- table body end -->
 <!-- ====== Table Four End -->
@@ -93,45 +76,43 @@ var page = 1;
 var totalPage = 0;
 
 
-function fetchData(page) {
+const fnGetFacilityList = () => {
     $.ajax({
       // 요청
       type: 'GET',
-      url: '${contextPath}/reservation/getFacilityList.do', // 여기에 실제 API 엔드포인트를 넣어야 합니다.
-      data: { page: page },
+      url: '${contextPath}/reservation/getFacilityList.do', 
+      data: 'page=' + page,
       // 응답
       dataType: 'json',
       success: (resData) => {
-        // totalPage = resData.totalPage;
-        $.each(resData.facilityList, (i, facility) => {
-          let str = `
-            <div class="grid grid-cols-12 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
-              <div class="col-span-3">
-                <p class="text-[#637381] dark:text-bodydark">${facility.facilityCode}</p>
-              </div>
-              <div class="col-span-2" id="facility-name">
-                <p class="text-[#637381] dark:text-bodydark">${facility.facilityName}</p>
-              </div>
-              <div class="col-span-2" id="facility-code">
-                <p class="text-[#637381] dark:text-bodydark">${facility.modelName}</p>
-              </div>
-              <div class="col-span-3" id="buy-dt">
-                <p class="text-[#637381] dark:text-bodydark">${facility.buyDt}</p>
-              </div>
-              <div class="col-span-1" id="facility-state">
-                <p class="text-[#637381] dark:text-bodydark">${facility.facilityState}</p>
-              </div>
-              <div class="col-span-1">
-                <button class="float-right text-primary">설정</button>
-              </div>
-            </div>
-          `;
-          $('#table-body').append(str);
-        });
+      	totalPage = resData.totalPage;
+      	
+      	$.each(resData.getFacilityList, (i, facility) => {
+      		
+          	let StateDisplay;
+          	if(facility.facilityState === 0) {
+          		StateDisplay = '정상';
+          	} else if(facility.facilityState === 1) {
+          		StateDisplay = '수리';
+          	} else if(facility.facilityState === 2) {
+          		StateDisplay = '폐기';
+          	}
+          	let str = ' ';
+            	str += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.facilityId + '</p></div>';
+		      	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + facility.cat.catName + '</p></div>';
+            	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + facility.modelName + '</p></div>';
+            	str += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.buyDt + '</p></div>';
+                str += '<div class="col-span-1"><p class="text-[#637381] dark:text-bodydark">' + StateDisplay + '</p></div>';
+                str += '<div class="col-span-1"><button class="float-right text-primary">설정</button></div>'
+                str += '</div>';
+                $('#facility-list').append(str);
+             console.log(facility.modelName);
+          })
+
       },
       error: (jqXHR) => {
         alert(jqXHR.statusText + '(' + jqXHR.status + ')');
-      }
+      }   
     });
   }
 

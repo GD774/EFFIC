@@ -179,6 +179,13 @@ const fnGetImpList = () => {
 	};
 
 	
+	const fnPaging = (p)=>{
+	    page = p;
+	    fnGetImpList();
+	  }
+	
+	
+	
   // 중요메세지 함에서 중요메시지 토글
 	const fnUpdateChkImpt = (evt) => {
 

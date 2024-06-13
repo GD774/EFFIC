@@ -285,14 +285,15 @@ $('#btn-star').click(function() {
     });
 });
 
-var recipient = document.getElementById('recipient').value;
+//var recipient = document.getElementById('recipient').value;
 
 fnGetMsgList();	
 fnResponse();
 </script>
 
   <script type="text/javascript">
-  var recipient = document.getElementById('recipient').value;
+  var recipient = 0;
+  recipient = document.getElementById('recipient').value;
   </script>
 
 <script src="${contextPath}/js/message.js?dt=<%=System.currentTimeMillis()%>"></script>

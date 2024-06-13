@@ -686,6 +686,11 @@ FROM (SELECT ROW_NUMBER() OVER(ORDER BY M.SEND_DT DESC) AS RN
 WHERE RN BETWEEN #{begin} AND #{end}
 </select>
 
+<select id="getUnReadCount">
+SELECT COUNT(RECP_ID)
+FROM RECP_T
+WHERE RECIPENT=#{recipient} AND READ_DT IS NULL
+</select>
    
 
 </mapper>

@@ -59,7 +59,7 @@ public class MsgController {
 	
 	@GetMapping(value="/bin.page")
 	public String goBin() {
-		return "msg/bin";
+		return "msg/socket";
 	}
 	
 	@PostMapping(value="/write.do")

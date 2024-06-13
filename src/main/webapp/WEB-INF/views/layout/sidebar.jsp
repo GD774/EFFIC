@@ -351,7 +351,7 @@
               메세지
 
               <input type="text" id="message-count"
-                class="w-10 text-center absolute right-14 top-1/2 -translate-y-1/2 rounded bg-primary px-2.5 py-1 text-xs font-medium text-white"
+                class="w-10 text-center absolute right-14 top-1/2 -translate-y-1/2 rounded bg-primary px-2.5 py-1 text-xs font-medium text-white" readonly
                 />
 			  <svg
 				class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"

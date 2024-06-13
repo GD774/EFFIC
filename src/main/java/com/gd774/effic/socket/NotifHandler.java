@@ -37,7 +37,7 @@ public class NotifHandler extends TextWebSocketHandler {
 	    System.out.println(recipient); // 여기서 tester2 출력
 	    
 	    String count = msgService.getUnReadCount(recipient) + "";
-	    System.out.println(count);
+	    System.out.println(count); 
 
 	    TextMessage modifiedMessage = new TextMessage(count, true);
 		

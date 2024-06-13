@@ -77,6 +77,7 @@ public class MsgController {
 			redirectAttributes.addFlashAttribute("inserted", msgService.msgInsert(multipartRequest));
 		}
 		
+		
 		return "redirect:sentList.page";
 	}
 	

@@ -2,12 +2,10 @@
 //웹소켓을 위한 추가 부분
 
 let webSocket; // 페이지 바뀌면 변수 사라짐
-//var empId = "${user.empId}";
+
+
 console.log(empId);
-const c_chatWin = document.querySelector("#id_chatwin");
-const c_message = document.querySelector("#id_message");		
-const c_send = document.querySelector("#id_send");
-const c_exit = document.querySelector("#id_exit");
+
 
 
 //연결
@@ -17,40 +15,53 @@ function connect() {
 	//이벤트핸들러 등록
 	webSocket.onopen = fOpen; 
 	webSocket.onmessage = fMessage; 
+	
+
+	
 }
 
+
+
+
+
+
 //연결 시
-function fOpen(event) {
+function fOpen() {
 	webSocket.send(empId);
 } 
-function send(event) {  // 서버로 메세지 전송 send() 
+function send() {  // 서버로 메세지 전송 send() 
 	webSocket.send(empId);
 }
 function fMessage() {
 	console.log(event.data);
 	countMark.value = event.data;
 }
+
+function fnWriteSend(recipient){
+	webSocket.send(recipient);
+}
+
 function disconnect() { //서버와 연결해제.
 	webSocket.close();
 }
 
 
-
-
-// write.page의 작성 버튼들을 클릭할때 메세지 보냄
-   $(document).ready(function() {
-       $(document).on('click', '.socket', function() {
-       	send();
-       });
-   });
-
-
-
-c_send.addEventListener("click", ()=>{
-	send();
+document.addEventListener('DOMContentLoaded', () => {
+    const frm = document.getElementById('frm');
+    
+        frm.addEventListener('submit', (evt) => {
+        let recipient = document.getElementById('here').value;
+        evt.preventDefault(); // 기본 서브밋 동작을 막습니다.
+        frm.submit();
+       
+        setTimeout(() => {
+        fnWriteSend(recipient);
+            }, 2000);
+            
+        
+    });
 });
-// 연결 끊기
-c_exit.addEventListener("click", function () {
-	disconnect();
-});
+
+   
+
 

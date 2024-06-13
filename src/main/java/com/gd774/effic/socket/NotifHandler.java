@@ -9,6 +9,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.gd774.effic.dto.UserDto;
 import com.gd774.effic.service.MsgService;
 
 import lombok.AllArgsConstructor;
@@ -34,16 +35,22 @@ public class NotifHandler extends TextWebSocketHandler {
 		
 		String originalPayload = message.getPayload(); // 원본 메시지 페이로드 가져오기
 	    String recipient = originalPayload; 
-	    System.out.println(recipient); // 여기서 tester2 출력
+	    System.out.println("핸들러입니다. 지금 들어온 empID는" + recipient); // 여기서 tester2 출력
 	    
 	    String count = msgService.getUnReadCount(recipient) + "";
 	    System.out.println(count); 
 
-	    TextMessage modifiedMessage = new TextMessage(count, true);
+	    TextMessage modifiedMessage = new TextMessage(count);
 		
 		for (WebSocketSession webSocketSession : list) {
+			UserDto user = (UserDto) webSocketSession.getAttributes().get("user");
+			System.out.println("세션 유저" + user);
+			System.out.println("수신자" + recipient);
+			if(user.getEmpId().equals(recipient)) {
 			webSocketSession.sendMessage(modifiedMessage);
+			System.out.println("웹소켓이 메세지 보냈음");
 			System.out.println(modifiedMessage);
+			}
 		}
 		
 

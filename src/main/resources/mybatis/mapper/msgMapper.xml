@@ -689,7 +689,7 @@ WHERE RN BETWEEN #{begin} AND #{end}
 <select id="getUnReadCount">
 SELECT COUNT(RECP_ID)
 FROM RECP_T
-WHERE RECIPENT=#{recipient} AND READ_DT IS NULL
+WHERE RECIPIENT=#{recipient} AND READ_DT IS NULL
 </select>
    
 

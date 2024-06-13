@@ -16,7 +16,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -26,7 +25,6 @@ import com.gd774.effic.dto.MsgDto;
 import com.gd774.effic.dto.RecpDto;
 import com.gd774.effic.dto.UserDto;
 import com.gd774.effic.mapper.MsgMapper;
-import com.gd774.effic.socket.MyWebSocketHandler;
 import com.gd774.effic.util.FileLoad;
 import com.gd774.effic.util.MsgPaging;
 import com.gd774.effic.util.MyFileUtils;
@@ -41,17 +39,13 @@ public class MsgServiceImpl implements MsgService {
 	private final MsgPaging msgPaging;
 	private final FileLoad fileLoad;
 	private final MyFileUtils myFileUtils;
-	private final MyWebSocketHandler webSocketHandler;
-	private final SimpMessagingTemplate messagingTemplate;
 
-	public MsgServiceImpl(MsgMapper msgMapper, MsgPaging msgPaging, FileLoad fileLoad, MyFileUtils myFileUtils, MyWebSocketHandler webSocketHandler, SimpMessagingTemplate messagingTemplate) {
+	public MsgServiceImpl(MsgMapper msgMapper, MsgPaging msgPaging, FileLoad fileLoad, MyFileUtils myFileUtils) {
 		super();
 		this.msgMapper = msgMapper;
         this.msgPaging = msgPaging;
         this.fileLoad = fileLoad;
         this.myFileUtils = myFileUtils;
-        this.webSocketHandler = webSocketHandler;
-        this.messagingTemplate = messagingTemplate;
 	}
 		
 
@@ -101,9 +95,6 @@ public class MsgServiceImpl implements MsgService {
 				inserRecpCount += msgMapper.insertRecp(recp);
 				
 				int UnreadCount = msgMapper.getUnReadCount(recipient);
-						
-				// stomp 통해 수신자에게 알림 전송
-			    messagingTemplate.convertAndSend("/msg/write.do", UnreadCount);
 			}
 		}
 		

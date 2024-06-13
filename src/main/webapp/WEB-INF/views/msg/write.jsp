@@ -139,15 +139,28 @@ margin-left: 50%;
 <script>
 
 
+
+ //웹소켓 보내기
+   function sendMessage() {
+     console.log("sending message");
+     stompClient.send("/ws/message", {}, JSON.stringify({'messageContent': "뭐라도 가면 오늘 삼십배라도..."}));
+    };
+
+
+
+
 $('#btn-me').on('click', (evt) => {
 	 if($('#title').val() === '') {
 	      alert('제목은 필수입니다.')
 	      evt.preventDefault();
 	      return; }
+	 
     evt.preventDefault(); 
     $('#frm').attr('action', '${contextPath}/msg/writeToMe.do');
     $('#frm').attr('method', 'POST');
     $('#frm').submit();
+    sendMessage();
+    
 });
 
 //제이쿼리 아닌 것도 써보기...

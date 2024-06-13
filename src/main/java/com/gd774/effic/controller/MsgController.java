@@ -2,10 +2,11 @@ package com.gd774.effic.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +31,12 @@ public class MsgController {
 
 	private final MsgService msgService;
 	private final MsgMapper msgMapper;
+	
 
 	@GetMapping(value="/write.page")
 	public String goWrite(@RequestParam(defaultValue = "") String sender, Model model) {
 		model.addAttribute("sender", sender);
-		return "msg/write";
+		return "msg/myChat";
 	}
 	
 	@GetMapping(value="/toMe.page")
@@ -59,7 +61,7 @@ public class MsgController {
 	
 	@GetMapping(value="/bin.page")
 	public String goBin() {
-		return "msg/socket";
+		return "msg/bin";
 	}
 	
 	@PostMapping(value="/write.do")

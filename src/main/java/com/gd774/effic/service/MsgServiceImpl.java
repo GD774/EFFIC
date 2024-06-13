@@ -502,6 +502,12 @@ public class MsgServiceImpl implements MsgService {
 		return updateCount;
 	}
 	
+	@Override
+	public int getUnReadCount(String recipient) {
+        
+		return msgMapper.getUnReadCount(recipient);
+	}
+	
 }
 
 

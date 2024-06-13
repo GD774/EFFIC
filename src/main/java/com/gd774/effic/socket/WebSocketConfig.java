@@ -13,15 +13,15 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 public class WebSocketConfig implements WebSocketConfigurer {
    
    @Autowired
-   private final ChatHandler chatHandler;
+   private final NotifHandler chatHandler;
    
-   public WebSocketConfig(ChatHandler chatHandler) {
+   public WebSocketConfig(NotifHandler chatHandler) {
 	   this.chatHandler = chatHandler;
    }
    
    @Override
    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-      registry.addHandler(chatHandler, "/ws-chat").setAllowedOrigins("*")
+      registry.addHandler(chatHandler, "/msg").setAllowedOrigins("*")
       .addInterceptors(new HttpSessionHandshakeInterceptor());
    }
    

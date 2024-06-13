@@ -109,10 +109,10 @@ margin-left: 50%;
                       <div class="flex justify-between">
                       <input type="file" name="files" id="files" multiple class="w-1/2 cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary">
                       <div class="flex">
-                      <button type="button" id="btn-me" class="mr-5 flex justify-center rounded bg-[#637381] p-3 font-medium text-gray hover:bg-opacity-90">
+                      <button type="button" id="btn-me" class="socket mr-5 flex justify-center rounded bg-[#637381] p-3 font-medium text-gray hover:bg-opacity-90">
                         나에게 쓰기
                       </button>
-                      <button id="btn-submit" type="submit" class="flex justify-center rounded bg-[#212B36] p-3 font-medium text-gray hover:bg-opacity-90">
+                      <button id="btn-submit" type="submit" class="socket flex justify-center rounded bg-[#212B36] p-3 font-medium text-gray hover:bg-opacity-90">
                         보내기
                       </button>
                       </div>
@@ -121,6 +121,21 @@ margin-left: 50%;
                   </form>
                 </div>
               </div>
+
+
+
+
+	<div>
+		<div id="id_chatwin"></div>
+		<input type="hidden" id="id_message">
+		<input type="button" id="id_send"> 
+		<input type="button" id="id_exit">
+	</div>
+
+
+
+
+
 
             </div>
           </div>
@@ -137,16 +152,6 @@ margin-left: 50%;
 </script>
 
 <script>
-
-
-
- //웹소켓 보내기
-   function sendMessage() {
-     console.log("sending message");
-     stompClient.send("/ws/message", {}, JSON.stringify({'messageContent': "뭐라도 가면 오늘 삼십배라도..."}));
-    };
-
-
 
 
 $('#btn-me').on('click', (evt) => {
@@ -346,6 +351,7 @@ $('#jstree').on("select_node.jstree", function (e, data) {
 
 
 fnSubmitChk();
+
 
 </script>
 

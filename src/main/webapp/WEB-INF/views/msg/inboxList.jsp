@@ -182,7 +182,6 @@ const fnGetRecpList = () => {
 		    	
 		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ recp.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
-		    	console.log(recp);
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);
 				 $('#total').html(resData.total);

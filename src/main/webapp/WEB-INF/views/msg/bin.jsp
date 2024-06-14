@@ -185,6 +185,10 @@ const fnGetBinList = () => {
 	    }
 	    
 	    var data = $.param({ checkValues: checkValues });
+	    
+		if(!confirm('정말로 삭제하시겠습니까? 삭제된 메세지는 복원이 불가능할 수 있습니다.')){
+			return;
+		} 
 
 	    $.ajax({
 	        // 요청
@@ -234,6 +238,10 @@ const fnGetBinList = () => {
 	
 //비우기 버튼을 눌러서 휴지통 비우기
 const fnClearBin = () => {
+	if(!confirm('정말로 삭제하시겠습니까? 삭제된 메세지는 복원이 불가능할 수 있습니다.')){
+		return;
+	} 
+	
 	 $.ajax({
 	        // 요청
 	        type: 'POST',

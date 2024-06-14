@@ -25,7 +25,6 @@ public class NotifHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 
-        System.out.println("접속");
 		list.add(session);
 	}
 
@@ -34,26 +33,30 @@ public class NotifHandler extends TextWebSocketHandler {
 		//String uMsg = message.getPayload();
 		
 		String originalPayload = message.getPayload(); // 원본 메시지 페이로드 가져오기
-	    String recipient = originalPayload; 
-	    System.out.println("핸들러입니다. 지금 들어온 empID는" + recipient); // 여기서 tester2 출력
+	    String payload = originalPayload; 
 	    
-	    String count = msgService.getUnReadCount(recipient) + "";
-	    System.out.println(count); 
+	    String[] recipients = null;
+	    
+	    if (payload != null && !payload.isEmpty()) {
+		    recipients = payload.replaceAll(" ", "").split(",");
+		}
+	    
+	    
+	    for (String recipient : recipients) {
+	    	
+	    	
+	    	String count = msgService.getUnReadCount(recipient) + ""; 
+	    	
+	    	TextMessage modifiedMessage = new TextMessage(count);
+	    	
+	    	for (WebSocketSession webSocketSession : list) {
+	    		UserDto user = (UserDto) webSocketSession.getAttributes().get("user");
 
-	    TextMessage modifiedMessage = new TextMessage(count);
-		
-		for (WebSocketSession webSocketSession : list) {
-			UserDto user = (UserDto) webSocketSession.getAttributes().get("user");
-			System.out.println("세션 유저" + user);
-			System.out.println("수신자" + recipient);
-			if(user.getEmpId().equals(recipient)) {
-			webSocketSession.sendMessage(modifiedMessage);
-			System.out.println("웹소켓이 메세지 보냈음");
-			System.out.println(modifiedMessage);
-			}else {
-				System.out.println("반송사유");
-				System.out.println(user.getEmpId() +" 와 "+ recipient +" 가 다름" );
-			}
+	    		if(user.getEmpId().equals(recipient)) {
+	    			webSocketSession.sendMessage(modifiedMessage);
+
+	    		}
+	    }
 		}
 		
 
@@ -63,7 +66,6 @@ public class NotifHandler extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		System.out.println("누군가 떠남");
 		list.remove(session);
 	}
 }

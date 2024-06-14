@@ -79,7 +79,6 @@ public class MsgServiceImpl implements MsgService {
 		if (recipientParam != null && !recipientParam.isEmpty()) {
 		    recipients = recipientParam.replaceAll(" ", "").split(",");
 		}
-		System.out.println(recipients);
 		
 		int inserRecpCount = 0;
 		

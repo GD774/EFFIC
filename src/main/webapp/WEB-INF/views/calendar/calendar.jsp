@@ -251,8 +251,8 @@
                     empId: event.empId,
                     depId: event.depId
                 },
-                backgroundColor: event.docState == 1 ? 'blue' : event.docState == 2 ? 'orange' : '#2ef061',
-                borderColor: event.docState == 1 ? 'blue' : event.docState == 2 ? 'orange' : '#2ef061',
+                backgroundColor: event.docState == 1 ? '#2ef061' : event.docState == 2 ? 'orange' : 'blue',
+                borderColor: event.docState == 1 ? '#2ef061' : event.docState == 2 ? 'orange' : 'blue',
             };
         });
     }

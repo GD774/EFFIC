@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,6 +68,23 @@ public class CalendarController {
 
         return response;
     }
+    
+    @PostMapping("/update")
+    public ResponseEntity<Map<String, Object>> updateEvent(@RequestBody CalendarDto calendarDto) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            calendarService.updateEvent(calendarDto);
+            response.put("status", "success");
+            response.put("message", "Event updated successfully");
+        } catch (Exception e) {
+            response.put("status", "error");
+            response.put("message", "An error occurred: " + e.getMessage());
+        }
+        return ResponseEntity.ok(response);
+    }
+    
+    
+    
 
     @PostMapping("/delete")
     @ResponseBody

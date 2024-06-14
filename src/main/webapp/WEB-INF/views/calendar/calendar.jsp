@@ -102,6 +102,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="dateModalLabel">일정 등록</h5>
+                <h5 class="modal-title" id="dateModalLabel2">일정 상세보기</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -175,13 +176,15 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-        	
         		googleCalendarApiKey: 'AIzaSyAovOUlYT-fKpoVo18NKTy6aWJvBxKPpDQ',
+        		eventSources: [
+        			{
+        				  googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
+        				  color: 'white',   // an option!
+        				  textColor: 'red' // an option!
+        				}
+        		],
         		dayMaxEventRows: true,
-        		eventSources: {
-        			googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
-        			backgroundColor: 'red',
-        		},
         		views: {
         		    timeGrid: {
         		      dayMaxEventRows: 3 // 이벤트 날짜 겹치는 일정 최대 3개까지 등장
@@ -214,10 +217,14 @@
                 $('#contents').val('');
                 $('#dateModal').modal('show');
                 $('#submitScheduleForm').show();
+                $('#dateModalLabel2').hide();
                 $('#modifyScheduleForm').hide();
                 $('#deleteScheduleForm').hide();
             },
             eventClick: function(info) {
+               
+                $('#dateModalLabel2').show();
+                $('#dateModalLabel').hide();
                 $('#scheduleId').val(info.event.id);
                 $('#title').val(info.event.title);
                 $('#datepicker').datepicker('setDate', info.event.start);
@@ -271,6 +278,46 @@
                 }
             });
         });
+        
+        $('#modifyScheduleForm').click(function() {
+            var title = $('#title').val().trim();
+            if (!title) {
+                alert('제목은 필수 입력 사항입니다.');
+                return;
+            }
+
+            var formData = {
+                scheduleId: $('#scheduleId').val(),
+                title: title,
+                startDt: $('#datepicker').val(),
+                endDt: $('#datepicker2').val() || null,
+                docState: $('#openRange').val(),
+                contents: $('#contents').val(),
+                allDay: $('#all-day-checkbox').is(':checked')
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '${contextPath}/calendar/update',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    if (response.status === "success") {
+                        alert('일정이 수정되었습니다.');
+                        $('#dateModal').modal('hide');
+                        location.reload();
+                    } else {
+                        alert('일정 수정에 실패했습니다. 사유: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('일정 수정에 실패했습니다.');
+                    console.error("Error details:", status, error, xhr.responseText);
+                }
+            });
+        });
+        
+        
 
         $('#deleteScheduleForm').click(function() {
             var scheduleId = $('#scheduleId').val();

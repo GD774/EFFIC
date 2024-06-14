@@ -556,13 +556,13 @@ function btn-1() {
 			<td>광안리점</td>
 			<td id=state><font color="green">완료</td>
 			<td>
-				<a id="btn-modify" href="#" class="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-5" 
+				<a id="btn-modify" href="${contextPath}/expt_results/results-write" class="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-5" 
 						style="background-color: #7a8ff5">
 	    			수정
 	      </a>
 			</td>
 			<td><a style="text-decoration:none" 
-					href="#" class="material-symbols-outlined">open_in_new</a></td>
+					href="${contextPath}/expt_results/results-write" class="material-symbols-outlined">open_in_new</a></td>
 		</tr>
 		<tr>
 			<td>10</td>

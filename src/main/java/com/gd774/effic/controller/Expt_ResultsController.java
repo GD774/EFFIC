@@ -8,15 +8,20 @@ import com.gd774.effic.service.Expt_ResultsService;
 
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping(value="/expt_results/expt-main")
+@RequestMapping(value="/expt_results")
 @Controller
 @RequiredArgsConstructor
 public class Expt_ResultsController {
  private  Expt_ResultsService expt_ResultsService;
  
- @RequestMapping("")
+ @RequestMapping("/expt-main")
  public String exptMain() {
    return "/expt_results/expt-main";
+ }
+ 
+ @RequestMapping("/results-write")
+ public String resultsWrite() {
+   return "/expt_results/results-write";
  }
  
  

@@ -24,6 +24,7 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public int createEvent(CalendarDto calendarDto) {
+      System.out.println("서비스 통과");
         if (calendarDto.getTitle() == null || calendarDto.getTitle().trim().isEmpty()) {
             throw new IllegalArgumentException("제목은 필수 입력 사항입니다.");
         }

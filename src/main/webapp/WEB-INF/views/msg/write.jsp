@@ -11,7 +11,7 @@
 
 
 <style>
-#close {
+#btn-close {
 margin-left: 50%;
 }
 </style>
@@ -59,7 +59,7 @@ margin-left: 50%;
       
       
       <div class="w-full px-3 2xsm:w-1/2">
-        <button @click="modalOpen = false"  id="close" class="ml-20 mt-4 block w-full rounded border border-stroke bg-gray p-3 text-center font-medium text-black transition hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
+        <button @click="modalOpen = false"  id="btn-close" class="ml-20 mt-4 block w-full rounded border border-stroke bg-gray p-3 text-center font-medium text-black transition hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
           닫 기
         </button>
     </div>
@@ -319,22 +319,35 @@ const fnSubmitChk = () => {
 	  }     
 	});
   
+ var selectedValues = []; 
+ // 선택된 사원들 값 여기에 저장 -> 닫기 창 버튼 누르면 이 배열은 초기화.
+ // 그래서 하나 추가하고 창 닫았다가 다시 추가는 안됩니다. 창이 열려있을때 넣고 싶은 사람을 다 넣는 구조에요!
+
+ $('#jstree').on("select_node.jstree", function (e, data) {
+     if (data.node.children.length === 0) {
+         selectedValues.push(data.node.data.value);
+         $('#here').val(selectedValues.join(', ')); 
+     }
+ });
+ 
+ $('#btn-close').click(function() {
+	    selectedValues = [];
+	});
+ 
+  
+  
 //다중선택 일단 적어둠
 //$('#jstree').jstree(true).get_selected("full", true);
 
-// mulitple일 경우 선택된 모든 node 가져오기
-
-
-
 
 // Node 선택했을 때
-$('#jstree').on("select_node.jstree", function (e, data) {
-
-    if (data.node.children.length === 0) {
-        $('#here').val(data.node.data.value);
-
-    }
-});
+//$('#jstree').on("select_node.jstree", function (e, data) {
+//
+//    if (data.node.children.length === 0) {
+//        $('#here').val(data.node.data.value);
+///
+//    }
+//});
 
 $('#team').on('click', () => {
     $('#here').val($('#team-list').val());

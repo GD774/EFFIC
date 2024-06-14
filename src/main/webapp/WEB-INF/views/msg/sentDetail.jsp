@@ -151,7 +151,7 @@ fnDownload();
 
 var info = document.getElementsByClassName('attach-info');
 var total = ''; 
-for(var i = 1; i < info.length; i++) {
+for(var i = 0; i < info.length; i++) {
    total += info[i].dataset.originalName;
    total += '\n';       
 }
@@ -164,7 +164,7 @@ $(document).on('mouseover', '.attachId', (evt) => {
 
 var list = document.getElementsByClassName('recp-info');
 var totalList = ''; 
-for(var i = 1; i < list.length; i++) {
+for(var i = 0; i < list.length; i++) {
    totalList += list[i].dataset.recpList;
    totalList += '\n';       
 }

@@ -142,7 +142,7 @@ const fnGetBinList = () => {
 		    	else if(bin.sort.slice(0, 1) === 'M'){
 			    str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
 		    	else if(bin.sort.slice(0, 1) === 'P'){
-				str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/me.svg"/></p></div>';
+				str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.sname +'<img class="ml-4 inline-block w-5" src="/msgIcons/me.svg"/></p></div>';
 			    }
 				 
 				 
@@ -163,6 +163,13 @@ const fnGetBinList = () => {
 		  }
 		})
 	};	
+	
+	const fnPaging = (p)=>{
+	    page = p;
+	    fnGetBinList();
+	  }
+	
+	
 	
 	//체크박스 선택 후 삭제버튼 눌러서 메세지 삭제
 	$('#btn-remove').click(function() {

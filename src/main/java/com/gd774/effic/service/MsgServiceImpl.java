@@ -79,7 +79,6 @@ public class MsgServiceImpl implements MsgService {
 		if (recipientParam != null && !recipientParam.isEmpty()) {
 		    recipients = recipientParam.replaceAll(" ", "").split(",");
 		}
-		System.out.println(recipients);
 		
 		int inserRecpCount = 0;
 		
@@ -93,12 +92,14 @@ public class MsgServiceImpl implements MsgService {
 						.build();
 				
 				inserRecpCount += msgMapper.insertRecp(recp);
+				
+				int UnreadCount = msgMapper.getUnReadCount(recipient);
 			}
 		}
 		
 		
 		
-		// 이거 나중에 수정. boolean으로 바꿔서 1&&list=recp 로 해야할까?
+		// 이거 나중에 수정.
 		return insertMsgCount;
 	}
 	
@@ -498,6 +499,12 @@ public class MsgServiceImpl implements MsgService {
 		updateCount =+ msgMapper.allRemoveRecp();
 		
 		return updateCount;
+	}
+	
+	@Override
+	public int getUnReadCount(String recipient) {
+        
+		return msgMapper.getUnReadCount(recipient);
 	}
 	
 }

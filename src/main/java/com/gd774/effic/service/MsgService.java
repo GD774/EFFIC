@@ -62,6 +62,9 @@ public interface MsgService {
 	 int cancelSentBin(int msgId);
 	 //휴지통 비우기
 	 int clearBin();
+	 
+	 // 안읽은 메세지 세기
+	 int getUnReadCount(String recipient);
 	
 	
 	

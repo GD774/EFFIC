@@ -59,7 +59,7 @@
                  <img src="/msgIcons/star0.svg" />보관
 
               </button>
-            <button class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="select-all" class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                 전체선택
             </button>
           </div>       
@@ -193,6 +193,25 @@ const fnUpdateChkImpt = (evt) => {
 $(document).on('click', '.star', (evt)=>{
      fnUpdateChkImpt(evt)
 });
+
+document.getElementById('select-all').addEventListener('click', function(evt) {
+	  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+	  let allChecked = true;
+
+	  checkboxes.forEach((checkbox) => {
+	    if (!checkbox.checked) {
+	      allChecked = false;
+	    }
+	  });
+
+	  checkboxes.forEach((checkbox) => {
+	    if (allChecked) {
+	      checkbox.checked = false;
+	    } else {
+	      checkbox.checked = true;
+	    }
+	  });
+	});
 
 //체크한 거 삭제버튼 눌러서 휴지통으로 이동
 $('#btn-remove').click(function() {

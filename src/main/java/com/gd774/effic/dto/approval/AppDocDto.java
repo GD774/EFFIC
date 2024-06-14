@@ -15,11 +15,10 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class AppDocDto {
-	private String title, contents, docState, urgent, empId;
-	private int docId, depId, docTempCode;
+	private String title, contents, docState, urgent, empId, depId;
+	private int docId, docTempCode;
 	private Date writeDt, updateDt;
 	private UserDto user;
-//	private DepDto dep;
 	
 	
 }

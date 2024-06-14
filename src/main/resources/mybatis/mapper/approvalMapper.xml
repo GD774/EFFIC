@@ -6,7 +6,7 @@
 <mapper namespace="com.gd774.effic.mapper.ApprovalMapper">
     
     <!-- AppDocDto resultMap -->
-    <resultMap type="com.gd774.effic.dto.approval.AppDocDto" id="AppDocDtoMap">
+    <resultMap type="com.gd774.effic.dto.approval.AppDocDto" id="ApprovalMap">
         <id property="docId" column="DOC_ID"/>
         <result property="empId" column="EMP_ID"/>
         <result property="title" column="TITLE"/>
@@ -17,60 +17,70 @@
         <result property="depId" column="DEP_ID"/>
         <result property="docState" column="DOC_STATE"/>
         <result property="urgent" column="URGENT"/>
+        <result property="remarks" column="REMARKS"/>
+        <result property="other" column="OTHER"/>
         <association property="user" javaType="UserDto">
             <id property="empId" column="EMP_ID"/>
         </association>
     </resultMap>
     
-    <!-- DocDto resultMap -->
-    <resultMap type="com.gd774.effic.dto.approval.DocDto" id="DocDtoMap">
-        <id property="docId" column="DOC_ID"/>
-        <result property="itemName" column="ITEM_NAME"/>
-        <result property="itemStandard" column="ITEM_STANDARD"/>
-        <result property="itemQuan" column="ITEM_QUAN"/>
-        <result property="itemCost" column="ITEM_COST"/>
-        <result property="amount" column="AMOUNT"/>
-        <result property="remarks" column="REMARKS"/>
-        <association property="appDoc" javaType="AppDocDto">
-            <id property="docId" column="DOC_ID"/>
+    <resultMap type="com.gd774.effic.dto.UserDto" id="UserDtoMap">
+        <id property="empId" column="EMP_ID"/>
+        <result property="name" column="NAME"/>
+        <result property="depId" column="DEP_ID"/>
+        <association property="dep" javaType="DepDto">
+            <id property="code" column="DEP_ID"/>
+            <result property="name" column="DEP_NAME"/>
         </association>
     </resultMap>
-
-		<insert id="registerApproval" parameterType="AppDocDto">
-		    <selectKey order="BEFORE" keyProperty="docId" resultType="int">
-		        SELECT DOC_SEQ.NEXTVAL FROM DUAL
-		    </selectKey>
-		    INSERT INTO APP_DOC_T (
-		        DOC_ID, EMP_ID, TITLE, CONTENTS, DOC_TEMP_CODE,
-		        WRITE_DT, DEP_ID, DOC_STATE, URGENT
-		    ) VALUES (
-		        #{docId}, #{empId}, #{title}, #{contents}, #{docTempCode},
-		        SYSDATE, #{depId}, #{docState}, #{urgent}
-		    )
-		</insert>
-		
-		<!-- insertDoc insert -->
-		<insert id="insertDoc" parameterType="DocDto">
-		    INSERT INTO DOC_T (
-		        DOC_ID, ITEM_NAME, ITEM_STANDARD, ITEM_QUAN,
-		        ITEM_COST, AMOUNT, REMARKS
-		    ) VALUES (
-		        #{docId}, #{itemName}, #{itemStandard}, #{itemQuan},
-		        #{itemCost}, #{amount}, #{remarks}
-		    )
-		</insert>
     
-    <!-- insertAttach insert -->
-    <insert id="insertAttach" parameterType="AppAttachDto">
-        INSERT INTO ATTACH_T (
-            ATTACH_NO, ATTACH_ID, ORIGINAL_FILENAME,
-            UPLOAD_PATH, FILESYSTEM_NAME, DOC_ID
-        ) VALUES (
-            ATTACH_SEQ.NEXTVAL, #{attachId}, #{originalFilename},
-            #{uploadPath}, #{filesystemName}, #{docId}
-        )
+<insert id="registerApproval" parameterType="AppDocDto">
+        <selectKey order="BEFORE" keyProperty="docId" resultType="int">
+            SELECT APP_DOC_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO APP_DOC_T (DOC_ID, EMP_ID, TITLE, CONTENTS, DOC_TEMP_CODE, WRITE_DT, UPDATE_DT, DEP_ID, DOC_STATE, URGENT)
+        VALUES (#{docId}, #{empId}, #{title}, #{contents}, #{docTempCode}, TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD'), TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD'), #{depId}, #{docState}, #{urgent})
     </insert>
+
+    <insert id="insertDoc" parameterType="DocDto">
+        INSERT INTO DOC_T (DOC_ID, REMARKS, OTHER)
+        VALUES (#{docId}, #{remarks}, #{other})
+    </insert>
+
+    <insert id="insertDocItem" parameterType="DocItemDto">
+        <selectKey keyProperty="itemId" order="BEFORE" resultType="int">
+            SELECT DOC_ITEM_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO DOC_ITEM_T (ITEM_ID, ITEM_NAME, ITEM_STANDARD, ITEM_QUAN, ITEM_COST, AMOUNT)
+        VALUES (#{itemId}, #{itemName}, #{itemStandard}, #{itemQuan}, #{itemCost}, #{amount})
+    </insert>
+
+    <select id="selectDocId" parameterType="map" resultType="int">
+        SELECT DOC_ID FROM APP_DOC_T 
+        WHERE EMP_ID = #{empId} AND DEP_ID = #{depId} AND TITLE = #{title}
+    </select>
     
-
-
+    <select id="getMyDocList" resultType="map">
+ 		SELECT
+        DOC.WRITE_DT AS WRITE_DT,
+        DOC.APP_DT AS APP_DT,
+        DOC.DOC_TEMP_CODE AS DOC_TEMP_CODE,
+        DOC.URGENT AS URGENT,
+        DOC.TITLE AS TITLE,
+        DEP.NAME AS DEP_NAME,
+        APP.APP_DOC_ID AS APP_DOC_ID,
+        APP.APP_STATE AS APP_STATE,
+        USER.NAME AS USER_NAME
+    FROM
+        APP_DOC_T DOC
+    JOIN
+        USER_T USER ON DOC.EMP_ID = USER.EMP_ID
+    JOIN
+        DEPARTMENT_T DEP ON USER.DEP_ID = DEP.CODE
+    LEFT JOIN
+        APPROVAL_T APP ON DOC.DOC_ID = APP.DOC_ID
+    ORDER BY
+        DOC.WRITE_DT DESC
+</select>
+    
 </mapper>

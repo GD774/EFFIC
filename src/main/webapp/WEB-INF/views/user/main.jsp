@@ -24,3 +24,5 @@
   <!-- ===== Main Content End ===== -->
 </div>
 
+<<<<<<< Updated upstream
+<jsp:include page="../layout/closer.jsp"/>

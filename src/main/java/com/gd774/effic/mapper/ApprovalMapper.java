@@ -1,17 +1,25 @@
 package com.gd774.effic.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import com.gd774.effic.dto.UserDto;
 import com.gd774.effic.dto.approval.AppAttachDto;
 import com.gd774.effic.dto.approval.AppDocDto;
 import com.gd774.effic.dto.approval.DocDto;
+import com.gd774.effic.dto.approval.DocItemDto;
 
 @Mapper
 public interface ApprovalMapper {
-	
-	int registerApproval(AppDocDto approval);
-	int insertAttach(AppAttachDto approval);
-	int insertDoc(DocDto approval);
 
-
+    void registerApproval(AppDocDto appDoc);
+    void insertDoc(DocDto docTemplate);
+    void insertDocItem(DocItemDto docItem);
+    int selectDocId(@Param("empId") String empId, 
+    				@Param("depId") String depId, 
+    				@Param("title") String title); 
+    List<Map<String, Object>> getMyDocList();
 }

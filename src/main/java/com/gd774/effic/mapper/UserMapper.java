@@ -1,8 +1,8 @@
 package com.gd774.effic.mapper;
 
-import com.gd774.effic.dto.UserDto;
-
 import org.apache.ibatis.annotations.Mapper;
+
+import com.gd774.effic.dto.UserDto;
 
 @Mapper
 /**

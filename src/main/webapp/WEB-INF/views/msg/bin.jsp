@@ -178,6 +178,12 @@ const fnGetBinList = () => {
 	        checkValues.push(this.value);
 	        console.log(this.value);
 	    });
+	    
+	    if (checkValues.length === 0) {
+	        alert('선택된 항목이 없습니다.');
+	        return;
+	    }
+	    
 	    var data = $.param({ checkValues: checkValues });
 
 	    $.ajax({
@@ -203,6 +209,12 @@ const fnGetBinList = () => {
 	        checkValues.push(this.value);
 	        console.log(this.value);
 	    });
+	    
+	    if (checkValues.length === 0) {
+	        alert('선택된 항목이 없습니다.');
+	        return;
+	    }
+	    
 	    var data = $.param({ checkValues: checkValues });
 	    $.ajax({
 	        // 요청

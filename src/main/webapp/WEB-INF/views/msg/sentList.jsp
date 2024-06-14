@@ -243,6 +243,12 @@ $('#btn-remove').click(function() {
     $("input[name='checkbox']:checked").each(function() {
         checkValues.push(this.value);
     });
+    
+    if (checkValues.length === 0) {
+        alert('선택된 항목이 없습니다.');
+        return;
+    }
+    
     var data = $.param({ checkValues: checkValues });
     $.ajax({
         // 요청
@@ -267,6 +273,12 @@ $('#btn-star').click(function() {
     $("input[name='checkbox']:checked").each(function() {
         checkValues.push(this.value);
     });
+    
+    if (checkValues.length === 0) {
+        alert('선택된 항목이 없습니다.');
+        return;
+    }
+    
     var data = $.param({ checkValues: checkValues });
     $.ajax({
         // 요청

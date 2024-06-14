@@ -16,6 +16,13 @@
    padding-left: 40%;
 }
 
+ .elli {
+ max-width: 100%;;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+ }
+
 
 </style>
 
@@ -153,11 +160,11 @@ const fnGetImpList = () => {
 		    	str += '<div class="star col-span-1" data-chk-impt="'+imp.chkImpt+'" data-sort="'+imp.sort+'"><img data-sort="'+imp.sort+'" data-chk-impt="'+imp.chkImpt+'" src="/msgIcons/star'+imp.chkImpt+'.svg"/></div>';
 		    	
 		    	if(imp.sort.slice(0, 1) === 'R'){
-		    	str += '<div data-msg-id="'+imp.msgId+'" class="col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ imp.sname +' </p></div>';}
+		    	str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-2"> <p class="elli text-[#637381] dark:text-bodydark"> '+ imp.sname +' </p></div>';}
 		    	else if(imp.sort.slice(0, 1) === 'M'){
-			    str += '<div data-msg-id="'+imp.msgId+'" class="flex items-center col-span-2"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ imp.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
+			    str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail flex items-center col-span-2"> <p class="elli text-[#637381] dark:text-bodydark w-auto"> '+ imp.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
 		    	else if(imp.sort.slice(0, 1) === 'P'){
-				str += '<div data-msg-id="'+imp.msgId+'" class="flex items-center col-span-2"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ imp.sname +'<img class="ml-4 inline-block w-5" src="/msgIcons/me.svg"/></p></div>';
+				str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail flex items-center col-span-2"> <p class="elli text-[#637381] dark:text-bodydark w-auto"> '+ imp.sname +'<img class="ml-4 inline-block w-5" src="/msgIcons/me.svg"/></p></div>';
 		    	}
 		    	
 		    	
@@ -167,7 +174,7 @@ const fnGetImpList = () => {
 				    str += ' <div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'</p></div>';
 			    	}
 		    	
-		    	str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ imp.sendDt.slice(0, -3) +'</p></div>';
+		    	str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ imp.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);

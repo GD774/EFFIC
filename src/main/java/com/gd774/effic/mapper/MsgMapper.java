@@ -76,7 +76,6 @@ public interface MsgMapper {
 	 //팀메세지
 	 List<String> getTeamRegister(String depId, String empId);
 	 int getTeamInboxCount(Map<String, Object> map);
-	 int getTeamSentCount(Map<String, Object> map);
 	 List<MsgDto> getTeamInboxList(String depId);
 	 List<MsgDto> getTeamSentList(String depId);
 	 

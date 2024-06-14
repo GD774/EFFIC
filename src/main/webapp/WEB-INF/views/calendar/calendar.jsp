@@ -6,8 +6,13 @@
 
 <style>
 * { text-decoration: none !important; }
-.calendarbox { margin-top: 20px; margin-left: 150px; width: 1300px; }
-
+.calendarbox { 
+		margin-top: 20px; 
+		margin-left: 150px; 
+		width: 1300px;
+		
+		}
+		
 #closeToGroup {
  margin-left: 60px;
 }
@@ -16,6 +21,46 @@
     color: #fff !important;
     background-color: #0d6efd !important;
     border-color: #0d6efd !important;
+}
+
+.fc-day-mon a {
+		color: black
+}
+.fc-day-tue a {
+		color: black
+}
+.fc-day-wed a {
+		color: black
+}
+.fc-day-thu a {
+		color: black
+}
+.fc-day-fri a {
+		color: black
+}
+
+
+
+.fc-day-sun a {
+    color: red;
+}
+  
+/* 토요일 날짜: 파란색 */
+.fc-day-sat a {
+    color: blue;
+}
+
+
+.form-group {
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    margin-top: 15px;
+    white-space: nowrap; /* 레이블이 텍스트 영역의 줄바꿈을 막기 위해 */
+    align-self: flex-start; /* 레이블이 텍스트 영역의 위쪽에 위치하지 않도록 */
+    
 }
 
 
@@ -130,7 +175,7 @@
 										    </select>
 										</div>
 										
-										<div>
+										<div id="end-hour-row">
 										    종료시간:
 										    <select name="endHour" id="endHour" style="border: solid 1px gray; margin-top: 20px; width: 600px;">
 										        <% for (int i = 0; i < 24; i++) { %>
@@ -147,8 +192,9 @@
                             <option value="3">전사일정</option>
                         </select>
                     </div>
-                    <div>
-                        내용: <textarea name="contents" id="contents" style="border: solid 1px gray; margin-top:20px; margin-left: 32px; width: 600px; height: 300px;"></textarea>
+                    <div class="form-group">
+                    <label for="contents">내용  :</label>
+                     <textarea name="contents" id="contents" style="border: solid 1px gray; margin-top:20px; margin-left:32px; width: 600px; height: 300px;"></textarea>
                     </div>
                 </form>
             </div>
@@ -169,24 +215,35 @@
 
         $('#all-day-checkbox').change(function() {
             if (this.checked) {
+                // 종료 시간을 18:00으로 설정하고 종료 시간 입력을 숨깁니다.
+                $('#datepicker2').datepicker('setDate', $('#datepicker').datepicker('getDate'));
+                $('#endHour').val('23');
                 $('#end-date-row').hide();
+                $('#end-hour-row').hide();
             } else {
                 $('#end-date-row').show();
+                $('#end-hour-row').show();
             }
         });
     });
 
     function parseEvents(data) {
     	return data.map(event => {
-            // startHour와 endHour가 제대로 설정되었는지 확인
-            const startTime = event.startHour ? event.startHour : '00:00:00';
-            const endTime = event.endHour ? event.endHour : '00:00:00';
+           // startHour와 endHour가 제대로 설정되었는지 확인
+            const startHour = (event.startHour || '00').trim();
+       		  const endHour = (event.endHour || '00').trim();
 
+		        // startDateTime와 endDateTime 설정
+		        const startDateTime = event.startDt ? `\${event.startDt}T\${startHour.padStart(2, '0')}:00` : null;
+		        const endDateTime = event.endDt ? `\${event.endDt}T\${endHour.padStart(2, '0')}:00` : null;
+       	  	console.log(startDateTime, endDateTime);
+       	  	
+       	  	
             return {
                 id: event.scheduleId,
                 title: event.title,
-                start: `${event.startDt}T${startTime}`,  // Combine date and time
-                end: `${event.endDt}T${endTime}`,        // Combine date and time
+                start: startDateTime,
+                end: endDateTime,
                 allDay: event.allDay || false,
                 extendedProps: {
                     docState: event.docState,
@@ -194,8 +251,8 @@
                     empId: event.empId,
                     depId: event.depId
                 },
-                backgroundColor: event.docState == 1 ? 'blue' : event.docState == 2 ? 'orange' : 'green',
-                borderColor: event.docState == 1 ? 'blue' : event.docState == 2 ? 'orange' : 'green'
+                backgroundColor: event.docState == 1 ? 'blue' : event.docState == 2 ? 'orange' : '#2ef061',
+                borderColor: event.docState == 1 ? 'blue' : event.docState == 2 ? 'orange' : '#2ef061',
             };
         });
     }
@@ -219,8 +276,20 @@
         		  },
             height: 800,
             initialView: 'dayGridMonth',
-            
-            
+            slotLabelFormat: {
+                hour: 'numeric',
+                minute: '2-digit',
+                omitZeroMinute: true,
+                meridiem: 'short' // 'long'로 변경하여 'am'/'pm' 표기
+            },
+            eventTimeFormat: {
+                hour: 'numeric',
+                minute: '2-digit',
+                omitZeroMinute: true,
+                meridiem: 'short' // 'long'로 변경하여 'am'/'pm' 표기
+            },
+            timeZoneName: 'short', // 기본값은 'short'이나, 'long'으로 변경하여 'am'/'pm' 표기
+   
             events: function(fetchInfo, successCallback, failureCallback) {
                 $.ajax({
                     url: '${contextPath}/calendar/events',
@@ -245,6 +314,8 @@
                 $('#scheduleId').val('');
                 $('#title').val('');
                 $('#contents').val('');
+                $('#startHour').val('9');  // 시작 시간 기본값
+                $('#endHour').val('18');    // 종료 시간 기본값
                 $('#dateModal').modal('show');
                 $('#submitScheduleForm').show();
                 $('#modifyScheduleForm').hide();
@@ -260,8 +331,13 @@
                 $('#datepicker2').datepicker('setDate', info.event.end);
                 $('#contents').val(info.event.extendedProps.contents);
                 $('#openRange').val(info.event.extendedProps.docState);
-                $('#startHour').val(info.event.startStr.split('T')[1].split(':')[0]);
-                $('#endHour').val(info.event.endStr.split('T')[1].split(':')[0]);
+             		// DB에서 가져온 시작 시간과 종료 시간 셀렉트 박스에 설정
+                const startHour = info.event.start.getHours().toString();
+             		console.log('startHour =' + startHour);
+                const endHour = info.event.end.getHours().toString();
+             		console.log('endHour =' + endHour);
+                $('#startHour').val(startHour);
+                $('#endHour').val(endHour);
                 $('#dateModal').modal('show');
                 $('#submitScheduleForm').hide();
                 $('#modifyScheduleForm').show();

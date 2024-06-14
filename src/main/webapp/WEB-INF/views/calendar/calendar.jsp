@@ -121,6 +121,25 @@
                     </div>
                     종일 <input type="checkbox" id="all-day-checkbox">
                     <div>
+                    <div>
+										    시작시간:
+										    <select name="startHour" id="startHour" style="border: solid 1px gray; margin-top: 20px; width: 600px;">
+										        <% for (int i = 0; i < 24; i++) { %>
+										            <option value="<%= i %>"><%= String.format("%02d:00", i) %></option>
+										        <% } %>
+										    </select>
+										</div>
+										
+										<div>
+										    종료시간:
+										    <select name="endHour" id="endHour" style="border: solid 1px gray; margin-top: 20px; width: 600px;">
+										        <% for (int i = 0; i < 24; i++) { %>
+										            <option value="<%= i %>"><%= String.format("%02d:00", i) %></option>
+										        <% } %>
+										    </select>
+										</div>
+                    
+                    
                         공개범위:
                         <select name="docState" id="openRange" style="border: solid 1px gray; margin-top: 20px;">
                             <option value="1" selected="selected">내 일정</option>
@@ -158,19 +177,27 @@
     });
 
     function parseEvents(data) {
-        return data.map(event => ({
-            id: event.scheduleId,
-            title: event.title,
-            start: event.startDt,
-            end: event.endDt,
-            allDay: event.allDay || false,
-            extendedProps: {
-                docState: event.docState,
-                contents: event.contents,
-                empId: event.empId,
-                depId: event.depId
-            }
-        }));
+    	return data.map(event => {
+            // startHour와 endHour가 제대로 설정되었는지 확인
+            const startTime = event.startHour ? event.startHour : '00:00:00';
+            const endTime = event.endHour ? event.endHour : '00:00:00';
+
+            return {
+                id: event.scheduleId,
+                title: event.title,
+                start: `${event.startDt}T${startTime}`,  // Combine date and time
+                end: `${event.endDt}T${endTime}`,        // Combine date and time
+                allDay: event.allDay || false,
+                extendedProps: {
+                    docState: event.docState,
+                    contents: event.contents,
+                    empId: event.empId,
+                    depId: event.depId
+                },
+                backgroundColor: event.docState == 1 ? 'blue' : event.docState == 2 ? 'orange' : 'green',
+                borderColor: event.docState == 1 ? 'blue' : event.docState == 2 ? 'orange' : 'green'
+            };
+        });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -210,6 +237,9 @@
                 });
             },
             dateClick: function(info) {
+            	
+            		$('#dateModalLabel').show();
+                $('#dateModalLabel2').hide();
                 $('#datepicker').datepicker('setDate', info.date);
                 $('#datepicker2').datepicker('setDate', info.date);
                 $('#scheduleId').val('');
@@ -217,7 +247,6 @@
                 $('#contents').val('');
                 $('#dateModal').modal('show');
                 $('#submitScheduleForm').show();
-                $('#dateModalLabel2').hide();
                 $('#modifyScheduleForm').hide();
                 $('#deleteScheduleForm').hide();
             },
@@ -231,11 +260,16 @@
                 $('#datepicker2').datepicker('setDate', info.event.end);
                 $('#contents').val(info.event.extendedProps.contents);
                 $('#openRange').val(info.event.extendedProps.docState);
+                $('#startHour').val(info.event.startStr.split('T')[1].split(':')[0]);
+                $('#endHour').val(info.event.endStr.split('T')[1].split(':')[0]);
                 $('#dateModal').modal('show');
                 $('#submitScheduleForm').hide();
                 $('#modifyScheduleForm').show();
                 $('#deleteScheduleForm').show();
             }
+            
+            
+            
         });
         calendar.render();
     });
@@ -253,6 +287,8 @@
                 title: title,
                 startDt: $('#datepicker').val(),
                 endDt: $('#datepicker2').val() || null,
+                startHour: $('#startHour').val(),
+                endHour: $('#endHour').val(),
                 docState: $('#openRange').val(),
                 contents: $('#contents').val(),
                 allDay: $('#all-day-checkbox').is(':checked')
@@ -291,6 +327,8 @@
                 title: title,
                 startDt: $('#datepicker').val(),
                 endDt: $('#datepicker2').val() || null,
+                startHour: $('#startHour').val(),
+                endHour: $('#endHour').val(),
                 docState: $('#openRange').val(),
                 contents: $('#contents').val(),
                 allDay: $('#all-day-checkbox').is(':checked')

@@ -434,6 +434,10 @@
         
 
         $('#deleteScheduleForm').click(function() {
+        		if(confirm("삭제하시겠습니다?")){
+        			
+        			
+        			
             var scheduleId = $('#scheduleId').val();
             if (scheduleId) {
                 $.ajax({
@@ -456,6 +460,11 @@
                     }
                 });
             }
+            
+        		} else {
+        			return false;
+        		}
+            
         });
     });
 </script>

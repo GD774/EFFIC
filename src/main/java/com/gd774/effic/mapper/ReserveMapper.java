@@ -20,4 +20,6 @@ public interface ReserveMapper {
   List<CategoryDto> getMCategoryList();
   List<CategoryDto> getSCategoryList(String pcatCode);
   List<CategoryDto> listupSubCategory(String name);
+  int updateFacilityList(FacilityManageDto facility);
+  
 }

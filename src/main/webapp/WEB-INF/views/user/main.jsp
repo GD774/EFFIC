@@ -24,4 +24,4 @@
   <!-- ===== Main Content End ===== -->
 </div>
 
-
+<jsp:include page="../layout/closer.jsp"/>

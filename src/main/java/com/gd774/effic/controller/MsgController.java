@@ -34,7 +34,7 @@ public class MsgController {
 	@GetMapping(value="/write.page")
 	public String goWrite(@RequestParam(defaultValue = "") String sender, Model model) {
 		model.addAttribute("sender", sender);
-		return "msg/write";
+		return "msg/tree";
 	}
 	
 	@GetMapping(value="/toMe.page")

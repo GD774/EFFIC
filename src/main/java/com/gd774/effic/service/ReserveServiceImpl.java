@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 
 import com.gd774.effic.dto.CategoryDto;
 import com.gd774.effic.dto.FacilityManageDto;
+import com.gd774.effic.dto.FacilityReserveDto;
 import com.gd774.effic.mapper.ReserveMapper;
 import com.gd774.effic.util.PageUtils;
 
@@ -70,18 +71,6 @@ public class ReserveServiceImpl implements ReserveService {
   }
   
   @Override
-  public int modifyFacility(HttpServletRequest request) {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
-  @Override
-  public int removeFacility(int facilityNo) {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
-  @Override
   public ResponseEntity<Map<String, Object>> getFacilityList(HttpServletRequest request) {
     
     try {
@@ -104,23 +93,7 @@ public class ReserveServiceImpl implements ReserveService {
 
   }
 
-  @Override
-  public ResponseEntity<Map<String, Object>> getFacReserveList(HttpServletRequest request) {
-    
-  
-    int total = reserveMapper.getFacilityCount();
-    int display = 5;
-    int page = Integer.parseInt(request.getParameter("page"));
-    pageUtils.setPaging(total, display, page);
-    Map<String, Object> map = Map.of("begin", pageUtils.getBegin()
-                                   , "end", pageUtils.getEnd());
-    System.out.println(reserveMapper.getFacReserveList(map));
-    
-    return new ResponseEntity<>(Map.of("getFacReserveList", reserveMapper.getFacReserveList(map)
-                                      ,"totalPage", pageUtils.getTotalPage())
-                                      , HttpStatus.OK);
-  }
-  
+
   @Override
   public void loadCategoryList(Model model) {
   List<CategoryDto> mCatList = reserveMapper.getMCategoryList();
@@ -143,5 +116,48 @@ public class ReserveServiceImpl implements ReserveService {
     List<CategoryDto> listupSubCategory = reserveMapper.listupSubCategory(name);
     System.out.println(listupSubCategory);
   }
+  
+  @Override
+  public int modifyFacilityList(HttpServletRequest request) {
+     System.out.println(Integer.getInteger("이건State"+request.getParameter("facilityState")));
+
+    try {
+      int facilityState = Integer.getInteger(request.getParameter("facilityState"));
+      int rentTerm = Integer.getInteger(request.getParameter("rentTerm"));
+      
+      FacilityManageDto facilityMng = FacilityManageDto.builder()
+          .facilityState(facilityState)
+          .rentTerm(rentTerm)
+          .build();
+      int insertCount = reserveMapper.insertFacility(facilityMng);
+      return insertCount;
+      
+            
+    } catch (Exception e) {
+      return 0;
+    }
+      
+  }
+  
+  
+  
+  
+  
+  @Override
+  public ResponseEntity<Map<String, Object>> getFacReserveList(HttpServletRequest request) {
     
+  
+    int total = reserveMapper.getFacilityCount();
+    int display = 5;
+    int page = Integer.parseInt(request.getParameter("page"));
+    pageUtils.setPaging(total, display, page);
+    Map<String, Object> map = Map.of("begin", pageUtils.getBegin()
+                                   , "end", pageUtils.getEnd());
+    System.out.println(reserveMapper.getFacReserveList(map));
+    
+    return new ResponseEntity<>(Map.of("getFacReserveList", reserveMapper.getFacReserveList(map)
+                                      ,"totalPage", pageUtils.getTotalPage())
+                                      , HttpStatus.OK);
+  }
+  
 }

@@ -130,5 +130,16 @@
 				) T
 		WHERE T.RN BETWEEN #{begin} AND #{end}
     </select> 
-	 
+	
+	<update id="updateFacilityList"
+			parameterType="FacilityManageDto">
+		SELECT FACILITY_MANAGE_T
+		   SET FACILITY_STATE = #{facilityState}
+		     , RENT_TERM = #{rentTerm}
+		 WHERE FACILITY_ID = #{facilityId}
+	</update>
+	
+	
+	
+	
 </mapper>

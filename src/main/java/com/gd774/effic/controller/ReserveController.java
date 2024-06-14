@@ -81,6 +81,16 @@ public class ReserveController {
     return "/reservation/settingfacility";
   }
   
+  @PostMapping(value = "/modifyfacility.do")
+  public String modifyFacility(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+     int modifyCount = reserveService.modifyFacilityList(request);
+     redirectAttributes
+       .addAttribute("facilityId", request.getParameter("facilityId"))
+       .addFlashAttribute("modifyResult", modifyCount == 1 ? "수정": "실패");
+
+     return "redirect:/reservation/modifyfacility.do?facilityId={faciltiyId}";
+  }
+  
   @PostMapping(value = "/registerFacility.do")
   public String registerFacility(HttpServletRequest request, RedirectAttributes redirectAttributes){
     int insertCount = reserveService.registerFacility(request);
@@ -92,6 +102,7 @@ public class ReserveController {
   public ResponseEntity<Map<String, Object>> getFacilityList(HttpServletRequest request) {
       return reserveService.getFacilityList(request);
   }
+  
   
   @GetMapping(value = "/getFacReserveList.do", produces = "application/json")
   public ResponseEntity<Map<String, Object>> getFacReserveList(HttpServletRequest request) {

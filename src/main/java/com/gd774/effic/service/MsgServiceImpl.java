@@ -393,6 +393,7 @@ public class MsgServiceImpl implements MsgService {
 			String sender = user.getEmpId();
 			Map<String, Object> getTotal = Map.of("recipient", recipient, "sender", sender);
 		    int total = msgMapper.getImpCount(getTotal);
+		    System.out.println("-------------------------------------" + total);
 		    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
 			Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		    int page = Integer.parseInt(opt.orElse("1"));

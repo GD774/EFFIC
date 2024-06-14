@@ -323,17 +323,21 @@ UPDATE RECP_T
         parameterType="Map">
 SELECT COUNT(DISTINCT SORT) 
   FROM (
-         SELECT CONCAT('R',R.RECP_ID)  AS SORT, 
-                M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT,  R.CHK_IMPT, M.SENDER, R.RECP_ID
+         SELECT CONCAT('R',R.RECP_ID)  AS SORT
            FROM MSG_T M JOIN RECP_T R
              ON M.MSG_ID = R.MSG_ID
-          WHERE R.RECIPIENT = #{recipient} AND R.STATE=1 AND R.CHK_IMPT=1
+          WHERE R.RECIPIENT = #{recipient} AND R.STATE=0 AND R.CHK_IMPT=1
      UNION ALL
-         SELECT  CONCAT('M', M.MSG_ID) AS SORT, 
-                 M.MSG_ID, R.RECIPIENT, M.TITLE, M.SEND_DT, M.CHK_IMPT ,M.SENDER, R.RECP_ID
+         SELECT  CONCAT('M', M.MSG_ID) AS SORT
            FROM MSG_T M JOIN RECP_T R
              ON M.MSG_ID = R.MSG_ID
-          WHERE M.SENDER = #{sender} AND M.STATE=0 AND M.CHK_IMPT=1)        
+          WHERE M.SENDER = #{sender} AND M.STATE=0 AND M.CHK_IMPT=1
+          UNION ALL
+        SELECT CONCAT('P', M.MSG_ID) AS SORT
+         FROM MSG_T M
+         JOIN USER_T SU
+           ON SU.EMP_ID = M.SENDER
+           WHERE M.SENDER =  #{sender} AND M.STATE=0 AND M.CHK_IMPT=1 AND M.IS_ME = 1)    
 </select>
 
 

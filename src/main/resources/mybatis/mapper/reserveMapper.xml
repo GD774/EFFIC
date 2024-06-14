@@ -131,9 +131,17 @@
 		WHERE T.RN BETWEEN #{begin} AND #{end}
     </select> 
 	
+	<select id="getFacilityById"
+			resultMap="FacilityManageMap">
+		SELECT F.FACILITY_ID, F.MODEL_NAME, F.BUY_DT, F.FACILITY_STATE, F.RENT_TERM, C.CAT_NAME, C.PCAT_CODE, C.CAT_NAME,  C.CAT_TYPE
+		  FROM FACILITY_MANAGE_T F INNER JOIN CATEGORY_T C
+		    ON F.CAT_CODE = C.CAT_CODE
+		 WHERE FACILITY_ID = #{facilityId}
+	</select>
+		
 	<update id="updateFacilityList"
 			parameterType="FacilityManageDto">
-		SELECT FACILITY_MANAGE_T
+		UPDATE FACILITY_MANAGE_T
 		   SET FACILITY_STATE = #{facilityState}
 		     , RENT_TERM = #{rentTerm}
 		 WHERE FACILITY_ID = #{facilityId}

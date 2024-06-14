@@ -12,9 +12,9 @@
 <jsp:include page="../layout/sidebar.jsp" />
 
 <body>
-<form id="frm-faciltiy-modify"
+<form id="frm-facility-modify" name="frm-facility-modify"
 	  method="POST"	
-	  action="${contextPath}/reservation/modifyFacility.do"
+	  action="${contextPath}/reservation/modifyfacility.do"
 	  class="flex-1 overflow-y-auto max-h-screen">
   <div class="mx-auto max-w-screen-lg lg:p-10 lg:p-12">
     <div class="flex-1 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -32,8 +32,9 @@
     		<input
             type="text"
             name="facilityId"
-    		value="${facilityMng.facilityId}"
-            class="w-1/4 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+    		value="${facility.facilityId}"
+    		readonly
+            class="w-1/4 rounded border-[1.5px] border-stroke bg-gray-200 px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
           />
 		  </div>
 	
@@ -47,8 +48,9 @@
           <input
             type="text"
             name="modelName"
-    		value="${facilityMng.modelName}"
-            class="w-1/4 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+    		value="${facility.modelName}"
+    		readonly
+            class="w-1/4 rounded border-[1.5px] border-stroke bg-gray-200 px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
           />
       	</div>
 <script>
@@ -70,8 +72,9 @@ $(document).ready(function() {
 		  <input
             type="text"
             name="buyDt"
-    		value="${facilityMng.buyDt}"
-            class="w-1/4 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+    		value="${facility.buyDt}"
+    		readonly
+            class="w-1/4 rounded border-[1.5px] border-stroke bg-gray-200 px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter "
           />
 		
 		</div>
@@ -85,7 +88,7 @@ $(document).ready(function() {
     });
 });
 </script>
-  		  <div class="mb-5 p-4" x-data="{ isChecked: '' }">
+   <div class="mb-5 p-4" x-data="{ facilityState: ${facility.facilityState} }">
         <label
           for="facilityState"
           class="mb-4.5 block text-sm font-medium text-black dark:text-white"
@@ -103,14 +106,15 @@ $(document).ready(function() {
                 name="facilityState"
                 id="normal"
                 value = 0
+                x-model="facilityState"
                 @change="isChecked = 'normal'"
               />
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
-                :class="isChecked === 'normal' ? 'border-primary': 'border-body'"
+                 :class="facilityState == 0 ? 'border-primary': 'border-body'"
               >
                 <span
-                  :class="isChecked === 'normal' ? 'flex': 'hidden'"
+                  :class="facilityState == 0 ? 'flex': 'hidden'"
                   class="h-2.5 w-2.5 rounded-full bg-primary"
                 ></span>
               </span>
@@ -127,14 +131,15 @@ $(document).ready(function() {
                 name="facilityState"
                 id="fixing"
                 value = 1
+                x-model="facilityState"
                 @change="isChecked = 'fixing'"
               />
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
-                :class="isChecked === 'fixing' ? 'border-primary': 'border-body'"
+                :class="facilityState == 1 ? 'border-primary': 'border-body'"
               >
                 <span
-                  :class="isChecked === 'fixing' ? 'flex': 'hidden'"
+                  :class="facilityState == 1 ? 'flex': 'hidden'"
                   class="h-2.5 w-2.5 rounded-full bg-primary"
                 ></span>
               </span>
@@ -151,14 +156,15 @@ $(document).ready(function() {
                 name="facilityState"
                 id="dispose"
                 value = 2
+                x-model="facilityState"
                 @change="isChecked = 'dispose'"
               />
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
-                :class="isChecked === 'dispose' ? 'border-primary': 'border-body'"
+                :class="facilityState == 2 ? 'border-primary': 'border-body'"
               >
                 <span
-                  :class="isChecked === 'dispose' ? 'flex': 'hidden'"
+                  :class="facilityState == 2 ? 'flex': 'hidden'"
                   class="h-2.5 w-2.5 rounded-full bg-primary"
                 ></span>
               </span>
@@ -179,7 +185,7 @@ $(document).ready(function() {
 </script>
    	  <!--사용 가능 여부 체크 끝-->   
       <!--장기단기 체크-->
-      <div class="mb-5 p-4" x-data="{ isChecked: '' }">
+   <div class="mb-5 p-4" x-data="{ rentTerm: ${facility.rentTerm} }">
         <label
           for="rentTerm"
           class="mb-4.5 block text-sm font-medium text-black dark:text-white"
@@ -197,14 +203,15 @@ $(document).ready(function() {
                 name="rentTerm"
                 id="normal"
                 value = 0
+                x-model="rentTerm"
                 @change="isChecked = 'normal'"
               />
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
-                :class="isChecked === 'normal' ? 'border-primary': 'border-body'"
+                 :class="rentTerm == 0 ? 'border-primary': 'border-body'"
               >
                 <span
-                  :class="isChecked === 'normal' ? 'flex': 'hidden'"
+                  :class="rentTerm == 0 ? 'flex': 'hidden'"
                   class="h-2.5 w-2.5 rounded-full bg-primary"
                 ></span>
               </span>
@@ -221,14 +228,15 @@ $(document).ready(function() {
                 name="rentTerm"
                 id="fixing"
                 value = 1
+                x-model="rentTerm"
                 @change="isChecked = 'fixing'"
               />
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
-                :class="isChecked === 'fixing' ? 'border-primary': 'border-body'"
+                 :class="rentTerm == 1 ? 'border-primary': 'border-body'"
               >
               <span
-                 :class="isChecked === 'fixing' ? 'flex': 'hidden'"
+                  :class="rentTerm == 1 ? 'flex': 'hidden'"
                  class="h-2.5 w-2.5 rounded-full bg-primary"
               ></span>
               </span>
@@ -335,9 +343,9 @@ $(document).ready(function() {
       <div class="flex justify-between items-center">
       <!-- 버튼 -->
         <div class="flex gap-1 items-center">
-          <button id="btn-register" type="submit" class="flex justify-start rounded bg-primary py-1 px-4 font-medium text-gray hover:bg-opacity-90 w-4/5">저장</button>
+          <button id="btn-modify" type="submit" class="flex justify-start rounded bg-primary py-1 px-4 font-medium text-gray hover:bg-opacity-90 w-4/5">수정</button>
           <button class="flex justify-start rounded bg-primary py-1 px-4 font-medium text-gray hover:bg-opacity-90 w-4/5"><a href="${contextPath}/reservation/facilitymanage">취소</a></button>
-          <button class="flex justify-start rounded bg-primary py-1 px-4 font-medium text-gray hover:bg-opacity-90 w-4/5">삭제</button>
+          <button id="btn-remove" class="flex justify-start rounded bg-primary py-1 px-4 font-medium text-gray hover:bg-opacity-90 w-4/5">삭제</button>
         </div>
 
     </div>
@@ -346,18 +354,23 @@ $(document).ready(function() {
 </form>
 <script>
 
-const fnRegisterFacility = () => {
-	if(document.getElementById('mainCategory').value === '') {
-		
-	} else if(document.getElementById('subCategory').value === '') {
-		
-	} else if(document.getElementById('modelName').value === '') {
-		
-	}
-}
+<script>
 
 
-fnRegisterFacility();
+const btnModify = document.getElementById('btn-modify');
+
+btnModify.addEventListener('click', (evt)=>{
+    $(frmDetail).attr('action', '${contextPath}/reservation/modifyfacility.do');
+    $(frmDetail).submit();
+})
+
+
+$('#btn-remove').on('click', function() {
+    if(confirm('물품을 삭제할까요?')) {
+        const facilityId = $(this).data('facility-id'); // data-facility-id 속성 가져오기
+        location.href = '${contextPath}/reservation/remove.do?facilityId=' + facilityId;
+    }
+});
 </script>
 
 <!-- ===== Main Content End ===== -->

@@ -517,6 +517,13 @@ public class MsgServiceImpl implements MsgService {
 	}
 	
 	
+	@Override
+	public int IsMsgId(int recpId) {
+		
+		
+		return msgMapper.IsMsgId(recpId);
+	}
+	
 }
 
 

@@ -56,6 +56,8 @@ public interface MsgMapper {
 	 // 전체선택으로 중요메세지리스트에서 해제
 	 int cancelInboxImpList(int recpId);
 	 int cancelSentImpList(int msgId);
+	 //중요메세지 R상세보기 위해 작성
+	 int IsMsgId(int recpId);
 	 
 	 //휴지통 이동
 	 int updateSentTobBin(int msgId);

@@ -48,6 +48,8 @@ public interface MsgService {
 	//전체선택으로 중요메세지 체크 해제
 	int cancelSentChkImp(int msgId);
 	int cancelInboxChkImp(int recpId);
+	//중요메세지 R상세보기 작성
+	int IsMsgId(int recpId);
 	
 	//휴지통이동
 	int updateSentToBin(int msgId);

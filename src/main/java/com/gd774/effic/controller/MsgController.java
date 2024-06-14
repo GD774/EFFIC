@@ -234,8 +234,9 @@ public class MsgController {
 	        model.addAttribute("recipientList", petitList);
 	        return "msg/sentDetail";
 		} else if (msgSort.equals("R")) {
-			model.addAttribute("rcp", msgService.getInboxDetail(pk, request));
-	        model.addAttribute("attachList", msgService.getAttachDetail(pk));
+			int rpk = msgService.IsMsgId(pk);
+			model.addAttribute("rcp", msgService.getInboxDetail(rpk, request));
+	        model.addAttribute("attachList", msgService.getAttachDetail(rpk));
 	        return "msg/inboxDetail";
 		} else if(msgSort.equals("P")) {
 			model.addAttribute("msg", msgService.getToMeDetail(pk));

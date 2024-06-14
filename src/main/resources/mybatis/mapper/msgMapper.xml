@@ -712,5 +712,10 @@ FROM RECP_T
 WHERE RECIPIENT=#{recipient} AND READ_DT IS NULL
 </select>
    
+<select id="IsMsgId">
+SELECT MSG_ID
+FROM RECP_T
+WHERE RECP_ID = #{recpId}
+</select>   
 
 </mapper>

@@ -677,20 +677,15 @@ WHERE DEP_ID = #{depId} AND EMP_ID != #{empId}
 <select id="getTeamInboxCount">
 SELECT COUNT(RECP_ID)
 FROM RECP_T R
+JOIN MSG_T M
+ON R.MSG_ID = M.MSG_ID
 JOIN USER_T U 
-ON EMP_ID = EMP_ID
-WHERE RECIPIENT = #{recipient} AND DEP_ID = #{depId} STATE=0
+ON U.EMP_ID = M.SENDER
+WHERE R.RECIPIENT = #{recipient} AND U.DEP_ID = #{depId}  AND R.STATE=0
 </select>
 
-<select id="getTeamSentCount">
-SELECT COUNT(RECP_ID)
-FROM MSG_T M
-JOIN USER_T U 
-ON EMP_ID = EMP_ID
-WHERE SENDER = #{sender} AND DEP_ID = #{depId} STATE=0
-</select>
-
-<select id="getTeamInboxList">
+<select id="getTeamInboxList"
+        resultMap="MsgMap">
 SELECT MSG_ID, RECIPIENT, TITLE, SEND_DT, CHK_IMPT, SENDER, READ_DT, RECP_ID, NAME,
  CASE WHEN EXISTS ( SELECT ATTACH_ID 
                       FROM MSG_ATTACH_T A

@@ -524,6 +524,29 @@ public class MsgServiceImpl implements MsgService {
 		return msgMapper.IsMsgId(recpId);
 	}
 	
+	@Override
+	public ResponseEntity<Map<String, Object>> getInboxTeamList(HttpServletRequest request) {
+		UserDto user = (UserDto)request.getSession().getAttribute("user");
+		String recipient = user.getEmpId();
+		String depId = user.getDepId();
+		Map<String, Object> forCount = Map.of("recipient", recipient, "depId", depId);
+	    int total = msgMapper.getTeamInboxCount(forCount);
+	    System.out.println(total);
+	    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+	    int page = Integer.parseInt(opt.orElse("1"));
+	    msgPaging.setPaging(total, display, page);
+	    System.out.println(total);
+	    
+	    
+
+		Map<String, Object> map = Map.of("recipient", recipient, "depId" , depId, "begin", msgPaging.getBegin() 
+                , "end", msgPaging.getEnd());
+		
+		return new ResponseEntity<>(Map.of("recpList", msgMapper.getTeamInboxList(map), "total", total
+                , "paging", msgPaging.getAsyncPaging(),"noRead", msgMapper.countNoRead(recipient)), HttpStatus.OK);
+	}
+	
 }
 
 

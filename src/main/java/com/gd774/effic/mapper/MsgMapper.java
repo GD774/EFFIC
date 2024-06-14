@@ -78,8 +78,7 @@ public interface MsgMapper {
 	 //팀메세지
 	 List<String> getTeamRegister(String depId, String empId);
 	 int getTeamInboxCount(Map<String, Object> map);
-	 List<MsgDto> getTeamInboxList(String depId);
-	 List<MsgDto> getTeamSentList(String depId);
+	 List<MsgDto> getTeamInboxList(Map<String, Object> map);
 	 
 	 //EMP_ID 별로 읽지 않은메세지 개수 뽑기
 	 int getUnReadCount(String recipient);

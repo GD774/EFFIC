@@ -454,6 +454,11 @@ public class MsgController {
 		
 	}
 	
+	@GetMapping(value="/getTeamList.do", produces="application/json")
+	public ResponseEntity<Map<String, Object>> getTeamList(HttpServletRequest request) {
+
+		return msgService.getInboxTeamList(request);
+	}
 	
 
 	

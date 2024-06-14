@@ -1,7 +1,7 @@
 
 //웹소켓을 위한 추가 부분
 
-let webSocket; 
+ let webSocket; 
 
 
 

@@ -508,6 +508,15 @@ public class MsgServiceImpl implements MsgService {
 		return msgMapper.getUnReadCount(recipient);
 	}
 	
+	
+	//팀메세지 등록
+	@Override
+	public List<String> getTeamRegister(String depId, String empId) {
+         
+		return msgMapper.getTeamRegister(depId, empId);
+	}
+	
+	
 }
 
 

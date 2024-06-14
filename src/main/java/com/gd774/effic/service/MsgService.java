@@ -5,11 +5,11 @@ import java.util.Map;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gd774.effic.dto.MsgAttachDto;
 import com.gd774.effic.dto.MsgDto;
+import com.gd774.effic.dto.UserDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -65,6 +65,9 @@ public interface MsgService {
 	 
 	 // 안읽은 메세지 세기
 	 int getUnReadCount(String recipient);
+	 
+	 //팀메시지 등록
+	 List<String> getTeamRegister(String depId, String empId);
 	
 	
 	

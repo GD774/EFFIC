@@ -34,8 +34,15 @@ public class MsgController {
 	
 
 	@GetMapping(value="/write.page")
-	public String goWrite(@RequestParam(defaultValue = "") String sender, Model model) {
+	public String goWrite(@RequestParam(defaultValue = "") String sender, Model model, HttpServletRequest request) {
 		model.addAttribute("sender", sender);
+		UserDto user =  (UserDto) request.getSession().getAttribute("user");
+		String empId = user.getEmpId();
+		String depId= user.getDepId();
+		System.out.println(depId);
+		String teamList = String.join(",", msgService.getTeamRegister(depId, empId));
+		
+		model.addAttribute("teamList", teamList);
 		return "msg/write";
 	}
 	
@@ -445,6 +452,9 @@ public class MsgController {
 		return updateCount;
 		
 	}
+	
+	
+
 	
 
 	

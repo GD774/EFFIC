@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.gd774.effic.dto.MsgAttachDto;
 import com.gd774.effic.dto.MsgDto;
 import com.gd774.effic.dto.RecpDto;
+import com.gd774.effic.dto.UserDto;
 
 @Mapper
 public interface MsgMapper {
@@ -73,8 +74,11 @@ public interface MsgMapper {
 	 int allRemoveRecp();
 	 
 	 //팀메세지
-	 List<String> getTeamRegister(String depId);
-	 List<MsgDto> getTeamList(String depId);
+	 List<String> getTeamRegister(String depId, String empId);
+	 int getTeamInboxCount(Map<String, Object> map);
+	 int getTeamSentCount(Map<String, Object> map);
+	 List<MsgDto> getTeamInboxList(String depId);
+	 List<MsgDto> getTeamSentList(String depId);
 	 
 	 //EMP_ID 별로 읽지 않은메세지 개수 뽑기
 	 int getUnReadCount(String recipient);

@@ -42,7 +42,7 @@ margin-left: 50%;
             <button @click="modalOpen = true"  class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  조직도보기
              </button>
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+            <button id="team" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  팀메세지
               </button>
         <div x-show="modalOpen" x-transition="" class="fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5">
@@ -122,20 +122,7 @@ margin-left: 50%;
                 </div>
               </div>
 
-
-
-
-	<div>
-		<div id="id_chatwin"></div>
-		<input type="hidden" id="id_message">
-		<input type="button" id="id_send"> 
-		<input type="button" id="id_exit">
-	</div>
-
-
-
-
-
+        <input type="hidden" id="team-list" value="${teamList}">
 
             </div>
           </div>
@@ -347,6 +334,10 @@ $('#jstree').on("select_node.jstree", function (e, data) {
         $('#here').val(data.node.data.value);
 
     }
+});
+
+$('#team').on('click', () => {
+    $('#here').val($('#team-list').val());
 });
 
 

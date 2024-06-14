@@ -296,6 +296,5 @@ fnResponse();
   recipient = document.getElementById('recipient').value;
   </script>
 
-<script src="${contextPath}/js/message.js?dt=<%=System.currentTimeMillis()%>"></script>
 
 <jsp:include page="../layout/closer.jsp"/>

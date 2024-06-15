@@ -30,19 +30,24 @@
         margin-right: 10px; /* 버튼 간의 간격 조정 */
     }
 
-    .button-container a:hover {
+    .button-container :hover {
         font-weight: bold;
     }
     
     .wrapper {
         background-color: white;
         overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤 표시 */
-        height: 100vh; /* 화면 높이에 맞게 스크롤 영역 제한 */
+        height: 800px; /* 화면 높이에 맞게 스크롤 영역 제한 */
     }
    
    .approvalLine {
      float: right;
      margin-left: 20px;
+	    line-height: 150% !important;
+	    width: 220px !important;
+	    height: 20% !important;
+	    border-collapse: collapse !important;
+	    
    }
    
    #urgent {
@@ -53,18 +58,13 @@
     display: inline-block; /* 가로로 나란히 배치 */
    }
    
-   .approvalLine {
-    font-size: 10pt !important;
-    line-height: 150% !important;
-    width: 220px !important;
-    height: 20% !important;
-    border-collapse: collapse !important;
-}
+
 
 .approvalLine td {
     font-size: 9pt !important;
     width: 50px !important;
     border: 1px solid black !important;
+    text-align: center;
 }
 
 .approvalLine td[rowspan="3"] {
@@ -79,15 +79,43 @@
     border-top: 1px solid black !important;
 }
 .approveds {
-    width: 30px; 
+    width: 35px; 
     display: block;
-    text-align: center
+    margin: 0 auto;
+    margin-top: 10px;
 }
+ #dynamic_table tbody tr td{
+     border: 1px solid black;
+ }
+    table.fixed-size {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+    table.fixed-size td, table.fixed-size th {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        border: 1px solid black;
+    }
+
+    .ipt_editor {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .ipt_editor_currency {
+        text-align: right;
+    }
    
 </style>
 </head>
 
 <body>
+
+
+
 <div class="wrapper">
 	<div class="mx-auto max-w-screen-2xl p-2 md:p-2 2xl:p-6">
     <div class="mb-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -95,20 +123,14 @@
 		</div>
 
 	<div style="font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
-    <span class="button-container">
-    	<a href="#" id="approvalRequest" class="inline-flex items-center justify-center rounded-md bg-primary px-10 py-4 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
-            결재요청
-      </a>
-    	<a href="#" id="saveDraft" class="inline-flex items-center justify-center rounded-md bg-primary px-10 py-4 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
-            임시저장
-      </a>
-    	<a href="#" id="cancelWriting" class="inline-flex items-center justify-center rounded-md bg-primary px-10 py-4 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
-            작성취소
-      </a>
-    	<a href="#" id="approvalLine" class="inline-flex items-center justify-center rounded-md bg-primary px-10 py-4 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
-            결재정보
-      </a>
-    </span>
+    <div class="button-container">
+      <button id="cancelWriting" class="inline-flex rounded bg-[#DC3545] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+            상신취소
+      </button>
+    	<button id="goAppLine" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+            문서수정
+      </button>
+    </div>
 	</div>
 	<form id="documentForm" action="submitDocument.jsp" method="post">
 	<div class="btnWrapper col-9" style="margin-bottom: 10px; font-family: S-CoreDream-6Bold">
@@ -119,7 +141,6 @@
 						</label>
 					</span>
 			</div>
-    
 <!-- Embededd Style이 적용받는 범위 입니다. 상단의 스타일은 이 요소 안에서만 동작합니다. --> 
 <div id="divCustomWrapper" style="font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">  
 <!-- 1. Title Section (start) : 문서제목이 작성되는 영역입니다.-->
@@ -131,7 +152,7 @@
 <div class="partition" id="draftSection" style="font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
 	<!-- 2.1 Drafter Information (Start) -->
 	<div class="left" style="font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
-		<table style="width:250px; height: 120px;">
+		<table style="width:250px; height: 120px; margin-bottom: 30px;">
 			<colgroup>
 				<col width="80"><col width="170">
 			</colgroup>
@@ -171,25 +192,29 @@
 		</tbody>
 	</table>
 </div>
-
-<table class="approvalLine" border="1" cellpadding="5" cellspacing="0">
+	<table class="approvalLine" border="1" cellpadding="5" cellspacing="0">
     <tr>
-        <td rowspan="3"><strong>결재선</strong></td>
+        <td rowspan="3" style="background-color: #DDDDDD;"><strong>결재선</strong></td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td style="height: 50px">
             <img class="approveds" src="${contextPath}/image/approved.png">
-            &nbsp;
+						&nbsp;
         </td>
-        <td>&nbsp;</td>
+        <td>
+        		<img class="approveds" src="${contextPath}/image/approved.png">
+        		&nbsp;
+     		</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
     </tr>
 </table>
+
+
 <!-- 2.1 Drafter Information (end) -->
 <!-- 2.2 Draft Line (start) -->
 <div class="inaRowRight" style="width: 800px; font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
@@ -199,7 +224,7 @@
 </div>
 <!-- 2. Draft Section (end) -->
 <!-- 3. Detail Section (start) : 내용이 작성되는 영역입니다. -->
-<table id="dynamic_table" class="detailSection">
+<table id="dynamic_table" class="fixed-size">
 	<colgroup>
 	<!-- ### 테이블의 컬럼 너비는 colGroup을 통해 지정합니다. td에 지정 X ### -->
 		<col width="200">
@@ -241,17 +266,6 @@
 						<input class="ipt_editor" type="text">
 					<br>
 				</p>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="6" style="border:none !important;" class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
-				<p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;"><br></p>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="6" class="viewModeHiddenPart td_button dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
-				<a class="addRow" id="plus" data-bypass="">추가</a>
-				<a class="removeRow" id="minus" data-bypass="">삭제</a>
 			</td>
 		</tr>
 		<tr>
@@ -345,72 +359,41 @@
 	</tbody>
 
 
-	<!-- 3. Detail Section (end) -->
-	<!-- Page Wrapping (end) -->
-	<!--Style Start---------------------------------------->
-	<!-- Common style (Don't modify) -->
+
 <style type="text/css">
-/* 1. Essential style : 반드시 적용되어야 하는 스타일입니다. 문서작성 시, Sample에서 제거불가 한 스타일 */
 #divCustomWrapper { word-break: break-all;  font-family: malgun gothic, dotum, arial, tahoma; font-size: 9pt; width:800px !important; }
 #divCustomWrapper * { max-width: 800px !important; }
-/* (1) Section(제목, 결재선, 내용) */
 #divCustomWrapper #titleSection,
 #divCustomWrapper #draftSection,
 #divCustomWrapper .detailSection { width:800px !important; clear:both; margin-top: 20px !important; vertical-align: middle; }
 #divCustomWrapper #titleSection { text-align: center; font-size: 25px; font-weight: bold; margin-bottom: 30px !important; margin-top: 20px !important; }
 #divCustomWrapper #draftSection { display: inline-block; }
 #divCustomWrapper .detailSection > * { margin-bottom: 10px; }
-/* (2) Table */
 #divCustomWrapper table { border-collapse: collapse; word-break:break-all; }
-</style><style type="text/css">
-/* 2. Option style : 용도에 따라 적용합니다.*/
-/* (1) Table option : 2Type(subject / detail), Affacted elements(td), Range('divCustomWrapper' 하단요소) */
 #divCustomWrapper td.subjectColumn { border: 1px solid black !important; font-size: 9pt !important; height:22px; padding: 3px 1px 3px 1px;/*top right bottom left*/}
 #divCustomWrapper td.detailColumn { border: 1px solid black !important; font-size: 9pt !important; height:22px; padding: 3px 5px 3px 5px; vertical-align: middle;/*top right bottom left*/ }
 #divCustomWrapper td.detailColumn { text-align: left; }
 #divCustomWrapper td.subjectColumn { background: rgb(221, 221, 221); font-weight: bold; text-align: center; vertical-align: middle; }
-/* (2) detailColumn :  3Type(center / right / high), Affacted elements(All), Range('detailColumn' 하단요소) */
-/* 설명 : detailColumn 커스텀 시 사용 */
-/* 사용방법 : 번호와 중앙정렬 텍스트 작성 시 'centerCol' CLASS 적용, 숫자와 금액 작성 시 'rightCol' CLASS 적용,
-   editor 작성 시 'editorCol' CLASS 적용, textarea 작성 시 'areaCol' CLASS 적용 */
 #divCustomWrapper td.detailColumn.centerCol { text-align: center; }
 #divCustomWrapper td.detailColumn.rightCol { text-align: right; }
 #divCustomWrapper td.detailColumn.editorCol { height: 300px; vertical-align: top;}
 #divCustomWrapper td.detailColumn.areaCol { height: 120px; vertical-align: top; }
-/* (3) Partition option : 2Type (left / right), Affacted elements(div), Range('partition'div영역 하단요소) */
-/* 설명 : 좌,우로 분할되는 레이아웃 작성시 사용, 1라인에 1개 요소만 배치(줄바뀜 동반) */
-/* 사용방법 : 분할할 영역에 partition CLASS를 적용 -> 분할배치하고자하는 하위요소에 'left, right' CLASS 적용 */
 #divCustomWrapper div.partition .left { display: inline-block; clear: left; float: left; }
 #divCustomWrapper div.partition .right { display: inline-block; clear: right; float: right; }
-/* (4) In a row option : 2Type(left / right), Affacted elements(All), Range('inaRowRight or inRowLeft'div영역 하단요소) */
-/* 설명 : 좌,우 끝에 정렬되는 레이아웃 작성 시 사용, 1라인에 여러개 요소 배치, Partition option과 조합(줄바뀜 없이 배치) */
-/* 사용방법 : 나란히 정렬하고자 하는 요소들을, 'in a row'div 영역 내에 배치 */
 #divCustomWrapper div.inaRowRight { text-align: right; }
 #divCustomWrapper div.inaRowLeft { text-align: left; }
-/* (5) button :  2Type(td / div), Affacted elements(All) */
-/* 설명 : 행 추가, 행 삭제 버튼 작성 시 'viewModeHiddenPart'(기안 시 버튼 가려주는 클래스)와 조합해서 사용 */
-/* 사용방법 : 테이블에 한줄로 사용 시 td에 'viewModeHiddenPart .td_button' CLASS 적용 -> 각 버튼에 'button' CLASS 적용 td 내 텍스트 아래에 쓰이거나 테이블 밖에서 사용 시 div에 viewModeHiddenPart .div_button CLASS 적용 -> 각 버튼에 button CLASS 적용 */
 #divCustomWrapper .td_button { word-break:break-all; padding: 3px; border: none; width: 800px; height: 22px; text-align: right; vertical-align: middle; }
 #divCustomWrapper .div_button { word-break:break-all; padding: 3px; border: none; margin-top:2px; margin-bottom:2px; height: 22px; vertical-align: middle;}
 #divCustomWrapper a.button { background: rgb(102, 102, 102); color: rgb(255, 255, 255); padding: 2px 5px; border-radius: 3px; margin-right: 0px; margin-left: 0px; font-size: 9pt !important; }
-/* (6) p :  2Type(titleP / freeP), Affacted elements(All) */
-/* 설명 : 테이블 별 소제목과 테이블 아래 설명 작성 시 사용*/
 p.titleP{font-weight: bold; font-size: 12px; margin: 15px 1px 5px 5px;/*top right bottom left*/}
 p.freeP{font-weight: normal; font-size: 12px; margin: 1px 1px 3px 5px;/*top right bottom left*/}
-</style><!-- Common style (Don't modify) --><!-- Print style (Don't modify) --><style type="text/css">
-/* 인쇄시에만 적용되는 스타일입니다. 순서대로 1.양식 인쇄 시 중앙으로 위치 2.테이블 테두리 고정 3.버튼 가리기 */
-@media print {
-.viewModeHiddenPart {display: none;}
-h1, h2, h3, h4, h5, dl, dt, dd, ul, li, ol, th, td, p, blockquote, form, fieldset, legend, div,body { -webkit-print-color-adjust:exact; }}
-</style><!-- Print style (Don't modify)--><style><!-- Custom style -->
-/* 추가적인 스타일이 필요한 경우, 하단의 style에서 정의하여야 합니다. 상단의 Common style은 변경하지 않습니다. */
-/* (스타일이 중복되는 경우, 기본적으로 하단에 작성한 style이 우선적으로 적용됩니다.) */
-</style><!-- Custom style -->
+</style>
 </table>
 </div>
-	</form>
+</form>
 </div>
 </div>
+</body>
 <script>
 
 
@@ -426,6 +409,90 @@ $(document).ready(function() {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    // 추가 버튼 이벤트 처리
+    document.getElementById("plus").addEventListener("click", function() {
+        var table = document.getElementById("dynamic_table").getElementsByTagName('tbody')[0];
+        
+        // 현재 행 개수 확인
+        var rowCount = table.rows.length;
+
+        // 최대 행 개수 설정 (합계 행, 기타 행 포함하여 최대 10개)
+        var maxRows = 17;
+
+        if (rowCount < maxRows) { // 최대 행 개수보다 적은 경우에만 추가
+            var newRow = table.insertRow(table.rows.length - 2); // 합계 행과 기타 행 사이에 새로운 행 삽입
+
+            var cells = newRow.insertCell(0);
+            var inputElement = document.createElement("input");
+            inputElement.setAttribute("type", "text");
+            inputElement.setAttribute("class", "ipt_editor");
+            cells.appendChild(inputElement);
+
+            cells = newRow.insertCell(1);
+            inputElement = document.createElement("input");
+            inputElement.setAttribute("type", "text");
+            inputElement.setAttribute("class", "ipt_editor");
+            cells.appendChild(inputElement);
+
+            cells = newRow.insertCell(2);
+            inputElement = document.createElement("input");
+            inputElement.setAttribute("type", "text");
+            inputElement.setAttribute("class", "ipt_editor ipt_editor_currency");
+            cells.appendChild(inputElement);
+
+            cells = newRow.insertCell(3);
+            inputElement = document.createElement("input");
+            inputElement.setAttribute("type", "text");
+            inputElement.setAttribute("class", "ipt_editor ipt_editor_currency");
+            cells.appendChild(inputElement);
+
+            cells = newRow.insertCell(4);
+            inputElement = document.createElement("input");
+            inputElement.setAttribute("type", "text");
+            inputElement.setAttribute("class", "ipt_editor ipt_editor_currency");
+            cells.appendChild(inputElement);
+
+            cells = newRow.insertCell(5);
+            inputElement = document.createElement("input");
+            inputElement.setAttribute("type", "text");
+            inputElement.setAttribute("class", "ipt_editor");
+            cells.appendChild(inputElement);
+
+            // 추가 후 행 개수 다시 확인
+            rowCount = table.rows.length;
+            
+            // 삭제 버튼 활성화 여부 설정
+            toggleDeleteButton(rowCount);
+        }
+    });
+
+    // 삭제 버튼 이벤트 처리
+    document.getElementById("minus").addEventListener("click", function() {
+        var table = document.getElementById("dynamic_table").getElementsByTagName('tbody')[0];
+        if (table.rows.length > 8) { // 기본 행과 합계/기타 행을 제외한 경우에만 삭제 가능
+            table.deleteRow(table.rows.length - 3); // 합계 행과 기타 행 사이의 마지막 행을 삭제
+
+            // 삭제 후 행 개수 다시 확인
+            var rowCount = table.rows.length;
+            
+            // 삭제 후 삭제 버튼 활성화 여부 설정
+            toggleDeleteButton(rowCount);
+        }
+    });
+
+    // 삭제 버튼 활성화 여부를 설정하는 함수
+    function toggleDeleteButton(rowCount) {
+        var minusButton = document.getElementById("minus");
+        if (rowCount > 5) { // 추가된 행이 있을 때 삭제 버튼 활성화
+            minusButton.disabled = false;
+        } else { // 추가된 행이 없을 때 삭제 버튼 비활성화
+            minusButton.disabled = true;
+        }
+    }
+});
 </script>
+
+
 
 <jsp:include page="../layout/closer.jsp"/>

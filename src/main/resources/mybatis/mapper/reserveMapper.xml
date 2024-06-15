@@ -14,12 +14,12 @@
  	
  	<resultMap type="com.gd774.effic.dto.FacilityManageDto" id="FacilityManageMap">
 		<id			property="facilityId"			column="FACILITY_ID" />
+		<result		property="facilityCode"			column="FACILITY_CODE" />
 		<result		property="modelName"			column="MODEL_NAME" />
   		<result		property="buyDt"				column="BUY_DT" />
-		<result		property="faciliyState"			column="FACILITY_STATE" />
+		<result		property="facilityState"			column="FACILITY_STATE" />
 		<result		property="rentTerm"				column="RENT_TERM" />
-		<result		property="manageId"				column="MANAGE_ID"/>
-		<association property="category" javaType="CategoryDto">
+		<association property="cat" javaType="CategoryDto">
 			<id			property="catCode"			column="CAT_CODE" />
 			<result		property="pcatCode"			column="PCAT_CODE" />
 			<result		property="catName"			column="CAT_NAME" />
@@ -27,9 +27,31 @@
 		</association>
 	</resultMap>
  
- 	
+ 	<resultMap type="com.gd774.effic.dto.FacilityReserveDto" id="FacilityReserveMap">
+		<id			property="rentId"			column="RENT_ID" />
+		<result		property="startDt"			column="START_DT" />
+		<result		property="endDt"			column="END_DT" />
+  		<result		property="updDt"				column="UPD_DT" />
+		<result		property="updId"			column="FACILITY_STATE" />
+		<result		property="rentState"				column="RENT_TERM" />
+   	 <association property="user" 		javaType="UserDto">
+    		 <id 		property="empId" 			column="EMP_ID"/>
+			<result		property="name"			column="NAME" />
+		</association>
+		<association property="fac" javaType="FacilityManageDto">
+			<id			property="facilityId"			column="FACILITY_ID" />
+			<result		property="modelName"			column="MODEL_NAME" />
+			<result		property="facilityState"			column="FACILITY_STATE" />
+			<result		property="rentTerm"				column="RENT_TERM" />
+		</association>
+	</resultMap>
+ 
  	<insert id="insertFacility"
  			parameterType="FacilityManageDto">
+ 		<selectKey order="BEFORE" keyProperty="facilityId" resultType="int">
+	      SELECT FACILITY_MANAGE_SEQ.NEXTVAL
+	        FROM DUAL
+    	</selectKey>
 	 	INSERT INTO FACILITY_MANAGE_T(
 		  FACILITY_ID
 	 	, MODEL_NAME
@@ -38,15 +60,22 @@
 	 	, RENT_TERM
 	 	, CAT_CODE
 	 	) VALUES (
-	 	  FACILITY_MANAGE_SEQ.NEXTVAL
+		  #{facilityId}
 	 	, #{modelName}
 	 	, #{buyDt}
-	 	, 0
-	 	, 0
-	 	, #{category.catCode}
+	 	, #{facilityState}
+	 	, #{rentTerm}
+	 	, #{cat.catCode}
 	 	)
  	</insert>
+ 	
+ 	<select id="getFacilityCount"
+ 			resultType="int">
+ 		SELECT COUNT(*)
+ 		  FROM FACILITY_MANAGE_T
+ 	</select>
  
+ 	
  	 <select id="getCatList"
   		  resultMap="CategoryMap">
     SELECT CAT_CODE, CAT_TYPE, CAT_NAME, PCAT_CODE
@@ -54,7 +83,7 @@
 	  </select>
 	  
   	<select id="getMCategoryList"
-  		  resultMap="CategoryMap">
+  		 resultType="CategoryDto">
    	 SELECT CAT_CODE, CAT_TYPE, CAT_NAME, PCAT_CODE
       	FROM CATEGORY_T
 	 WHERE CAT_TYPE = 'M'
@@ -73,8 +102,52 @@
 	 	WHERE CAT_TYPE = 'M' 
   	</select>
 
- 
- 
- 
- 
+	<select id="getFacilityList"
+	        parameterType="Map"
+	        resultMap="FacilityManageMap">
+	    SELECT FACILITY_ID, MODEL_NAME, BUY_DT, FACILITY_STATE, RENT_TERM, CAT_NAME, CAT_CODE, PCAT_CODE, CAT_TYPE
+ 		 FROM (SELECT ROW_NUMBER() OVER(ORDER BY C.CAT_NAME ASC, F.BUY_DT DESC) AS RN
+             , C.CAT_CODE, C.PCAT_CODE, C.CAT_TYPE, C.CAT_NAME
+             , F.FACILITY_ID, F.MODEL_NAME, F.BUY_DT, F.FACILITY_STATE, F.RENT_TERM
+          FROM CATEGORY_T C INNER JOIN FACILITY_MANAGE_T F
+            ON C.CAT_CODE = F.CAT_CODE)
+         WHERE RN BETWEEN #{begin} AND #{end}
+	</select>
+	 
+	<select id="getFacReserveList"
+			parameterType="Map"
+			resultMap="FacilityManageMap">
+        	SELECT CAT_NAME, RENT_TERM, MODEL_NAME, RENT_ID, START_DT, END_DT, RENT_STATE, FACILITY_ID, RENT_USER
+		FROM (
+ 		  SELECT ROW_NUMBER() OVER(ORDER BY C.CAT_NAME ASC) AS RN,
+        	  	 R.RENT_ID, R.START_DT, R.END_DT, R.RENT_STATE, 
+           		F.FACILITY_ID, R.RENT_USER, F.MODEL_NAME, F.RENT_TERM,
+                C.CAT_NAME
+       	  FROM CATEGORY_T C
+    	 INNER JOIN FACILITY_MANAGE_T F ON C.CAT_CODE = F.CAT_CODE
+   		  LEFT JOIN FACILITY_RESERVE_T R ON F.FACILITY_ID = R.FACILITY_ID
+   		 LEFT JOIN USER_T U ON R.RENT_USER = U.EMP_ID
+				) T
+		WHERE T.RN BETWEEN #{begin} AND #{end}
+    </select> 
+	
+	<select id="getFacilityById"
+			resultMap="FacilityManageMap">
+		SELECT F.FACILITY_ID, F.MODEL_NAME, F.BUY_DT, F.FACILITY_STATE, F.RENT_TERM, C.CAT_NAME, C.PCAT_CODE, C.CAT_NAME,  C.CAT_TYPE
+		  FROM FACILITY_MANAGE_T F INNER JOIN CATEGORY_T C
+		    ON F.CAT_CODE = C.CAT_CODE
+		 WHERE FACILITY_ID = #{facilityId}
+	</select>
+		
+	<update id="updateFacilityList"
+			parameterType="FacilityManageDto">
+		UPDATE FACILITY_MANAGE_T
+		   SET FACILITY_STATE = #{facilityState}
+		     , RENT_TERM = #{rentTerm}
+		 WHERE FACILITY_ID = #{facilityId}
+	</update>
+	
+	
+	
+	
 </mapper>

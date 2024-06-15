@@ -27,120 +27,126 @@
       <!-- Breadcrumb End -->
       <!-- table header start -->
       <div class="max-w-full overflow-x-auto">
-		<div class="grid grid-cols-10 gap-4 rounded-t-[10px] bg-primary px-5 py-4 lg:px-7.5 2xl:px-11">
-    	  <div class="col-span-3">
+		<div class="grid grid-cols-10 gap-4 rounded-t-[10px] bg-primary px-6 py-4 lg:px-7.5 2xl:px-11">
+    	  <div class="col-span-2">
             <h5 class="font-medium text-white">항목</h5>
           </div>
-            <div class="col-span-3">
-        	  <h5 class="font-medium text-white">장기/단기 항목</h5>
+          <div class="col-span-3">
+            <h5 class="font-medium text-white">모델명</h5>
+          </div>
+            <div class="col-span-2">
+        	  <h5 class="font-medium text-white">장/단기 항목</h5>
             </div>
-		    <div class="col-span-3">
+		    <div class="col-span-1">
 		        <h5 class="font-medium text-white">상태</h5>
 		    </div>
-		    <div class="col-span-1">
-		        <h5 class="text-right font-medium text-white">대여(예정)자</h5>
+		    <div class="col-span-2">
+		        <h5 class="text-right font-medium text-white"></h5>
 		    </div>
 		  </div>
 		  <!-- table header end -->
+		  <div 
+		  		id = "facreserve-list"
+		  		class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
 		  <!-- table body start -->
-		  <div class="bg-white dark:bg-boxdark">
-    	  <!-- table row item -->
-    	  <div class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">노트북1</p>
-	        </div>
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">장기 항목</p>
-	        </div>
-	
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">대여 가능</p>
-	        </div>
-	
-	        <div class="col-span-1 flex justify-end">
-	            <button class="text-primary border border-primary rounded px-2 py-1">대여</button>
-	        </div>
-	    </div>
-    	<!-- table row item -->
-	    <div class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">노트북2</p>
-	        </div>
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">단기 항목</p>
-	        </div>
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">대여 불가</p>
-	        </div>
-	        <div class="col-span-1 flex justify-end">
-	            <button class="text-primary">김** 대리</button>
-	        </div>
-	    </div>
-	    <!-- table row item -->
-	    <div class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">마우스1</p>
-	        </div>
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">장기 항목</p>
-	        </div>
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">대여 가능</p>
-	        </div>
-	        <div class="col-span-1 flex justify-end">
-	            <button class="text-primary">대여하기</button>
-	        </div>
-	    </div>
-	    <!-- table row item -->
-	    <div class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">빔프로젝터1</p>
-	        </div>
-	
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">단기 항목</p>
-	        </div>
-	
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">대여 예정</p>
-	        </div>
-	
-	        <div class="col-span-1 flex justify-end">
-	            <button class="text-primary">박** 과장</button>
-	        </div>
-	    </div>
-	    <!-- table row item -->
-	    <div class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">마우스1</p>
-	        </div>
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">장기 항목</p>
-	        </div>
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">대여 가능</p>
-	        </div>
-	        <div class="col-span-1 flex justify-end">
-	            <button class="text-primary border border-primary rounded px-2 py-1"">대여하기</button>
-	        </div>
-	    </div>
-	    <!-- table row item -->
-	    <div class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">빔프로젝터2</p>
-	        </div>
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">단기 항목</p>
-	        </div>
-	        <div class="col-span-3">
-	            <p class="text-[#637381] dark:text-bodydark">대여중</p>
-	        </div>
-	        <div class="col-span-1 flex justify-end">
-	            <button class="text-primary border border-primary rounded px-2 py-1">반납 가능</button>
-	        </div>
-	    </div>
+    <script>
+    	var page = 1;
+    	var totalPage = 0;
     
-      </div>
+    	const fnGetFacReserveList = () => {
+    	    $.ajax({
+    	      // 요청
+    	      type: 'GET',
+    	      url: '${contextPath}/reservation/getFacReserveList.do', 
+    	      data: 'page=' + page,
+    	      // 응답
+    	      dataType: 'json',
+    	      success: (resData) => {
+    	    	  console.log(resData);
+    	      	totalPage = resData.totalPage;
+    	      	
+    	      	$.each(resData.getFacReserveList, (i, facility) => {
+    	      		
+    	          	let rentState;
+    	          	let rentPeriod;
+    	          	if(facility.facilityState === 0) {
+    	          		rentState = '대여 가능';
+    	          	} else if(facility.facilityState === 1) {
+    	          		rentState = '대여 불가';
+    	          	}
+    	      	
+    	      		
+    	      		if(facility.rentTerm === 0) {
+    	      			rentPeriod = '장기대여';
+    	      		} else {
+    	      			rentPeriod = '단기대여';
+    	      		}
+    	          	let str = '';
+    	            	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + facility.cat.catName + '</p></div>';
+    			      	str += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.modelName + '</p></div>';
+    	            	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + rentPeriod + '</p></div>';
+    	            	str += '<div class="col-span-1"><p class="text-[#637381] dark:text-bodydark">' + rentState + '</p></div>';
+    	                str += '<div class="col-span-2 flex justify-end"><button class="text-primary border border-primary rounded px-2 py-1">대여하기</p></div>';
+    	                str += '</div>';
+    	                $('#facreserve-list').append(str);
+    	             console.log(facility.modelName);
+    	          })
+
+    	      },
+    	      error: (jqXHR) => {
+    	        alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+    	      }   
+    	    });
+    	  }
+
+
+
+    	const fnScrollHandler = () => {
+    		  
+    		  // 스크롤이 바닥에 닿으면 page 증가(최대 totalPage 까지) 후 새로운 목록 요청
+
+    		  // 타이머 id (동작한 타이머의 동작 취소를 위한 변수)
+    		  var timerId;  // undefined, boolean 의 의미로는 false
+    		  
+    		  $(window).on('scroll', (evt) => {
+
+    		    /*
+    		      스크롤 이벤트 발생 → setTimeout() 함수 동작 → 목록 가져옴 → setTimeout() 함수 동작 취소
+    		    */
+    		    
+    		    if(timerId) {  // timerId 가 undefined 이면 false, 아니면 true 
+    		                   // timerId 가 undefined 이면 setTimeout() 함수가 동작한 적 없음
+    		      clearTimeout(timerId);  // setTimeout() 함수 동작을 취소함 -> 목록을 가져오지 않는다.
+    		    }
+    		    
+    		    // 500밀리초(0.5초) 후에 () => {}가 동작하는 setTimeout 함수
+    		    timerId = setTimeout(() => {
+    		      
+    		      let scrollTop = window.scrollY;  // $(window).scrollTop();
+    		      let windowHeight = window.innerHeight;  // $(window).height();
+    		      let documentHeight =  $(document).height();
+    		      
+    		      if( (scrollTop + windowHeight + 50) >= documentHeight ) {  // 스크롤과 바닥 사이 길이가 50px 이하인 경우 
+    		        if(page > totalPage) {
+    		          return;
+    		        }
+    		        page++;
+    		        fnGetFacilityList();
+    		      }
+    		      
+    		    }, 500);
+    		    
+    		  })
+    		  
+    		}
+    		
+    		fnGetFacReserveList();
+    		fnScrollHandler();
+    </script>
+    
+    
+    
+    	
     </div>
     <!-- ===== Main Content Start ===== -->
     <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">

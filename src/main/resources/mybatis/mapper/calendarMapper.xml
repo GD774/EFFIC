@@ -21,22 +21,24 @@
   </resultMap>
 
   <select id="selectAllSchedules" resultType="com.gd774.effic.dto.CalendarDto">
-    SELECT * FROM calendar
-  </select>
+        SELECT *
+        FROM SCHEDULE_T
+    </select>
 
   <insert id="insertSchedule" parameterType="com.gd774.effic.dto.CalendarDto">
-    INSERT INTO SCHEDULE_T (title, startDt, endDt, docState, contents, allDay)
-    VALUES (#{title}, #{startDt}, #{endDt}, #{docState}, #{contents}, #{allDay})
+    INSERT INTO SCHEDULE_T (TITLE, START_DT, END_DT, DOC_STATE, CONTENTS, EMP_ID, SCHEDULE_ID, START_HOUR, END_HOUR)
+    VALUES (#{title}, #{startDt}, #{endDt}, #{docState}, #{contents}, 'tester1', SCHEDULE_SEQ.NEXTVAL, #{startHour}, #{endHour})
   </insert>
+
 
   <update id="updateSchedule">
     UPDATE SCHEDULE_T
-    SET title = #{title}, startDt = #{startDt}, endDt = #{endDt}, docState = #{docState}, contents = #{contents}, allDay = #{allDay}
-    WHERE scheduleId = #{scheduleId}
+    SET TITLE = #{title}, START_DT = #{startDt}, END_DT = #{endDt}, DOC_STATE = #{docState}, CONTENTS = #{contents}, START_HOUR = #{startHour}, END_HOUR = #{endHour}
+    WHERE SCHEDULE_ID = #{scheduleId}
   </update>
 
   <delete id="deleteSchedule">
-    DELETE FROM SCHEDULE_T WHERE scheduleId = #{scheduleId}
+    DELETE FROM SCHEDULE_T WHERE SCHEDULE_ID = #{scheduleId}
   </delete>
 
 </mapper>

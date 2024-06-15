@@ -16,4 +16,5 @@ public class UserDto {
 	private String empId, pw, name, depId, posId;
 	private int status, genderId;
 	private Date joinDt, leaveDt;
+	private DepDto dep;
 }

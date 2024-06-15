@@ -16,7 +16,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     margin: 0;
-    padding: 20px;
+    
 }
 
 .container {
@@ -24,6 +24,8 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 1500px;
+    height: 800px;
 }
 
 h1 {
@@ -305,8 +307,9 @@ document.getElementById('submitButton').addEventListener('click', function() {
 });
 
 document.getElementById('cancelButton').addEventListener('click', function() {
-    // Optional: Add functionality for cancel button
     console.log('Edit cancelled');
+    history.back();
+    
 });
 
 

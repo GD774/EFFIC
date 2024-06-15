@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 
-public class AppAttachDto {
-	private int attachNo, docId;
-	private String attachId, filesystemName, originalfilename, uploadPath;
-	
-	
+public class DocItemDto {
+	private String itemName, itemStandard, itemQuan, itemCost, amount;
+	private int itemId, docId;
+	private AppDocDto appDocDto;
 }

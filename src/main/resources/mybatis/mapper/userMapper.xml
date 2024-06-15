@@ -8,6 +8,7 @@
 	<result  property="empId"        column="EMP_ID"/>
 	<result  property="pw"           column="PASSWORD"/>
 	<result  property="name"         column="NAME"/>
+
 	<result  property="genderId"     column="GENDER_ID"/>
 	<result  property="depId"        column="DEP_ID"/>
 	<result  property="posId"        column="POS_ID"/>

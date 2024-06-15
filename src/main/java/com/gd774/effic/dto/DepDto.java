@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class DepDto {
-	private String code, name, parent;
-	private int level;
+
+  private String code, name, parent;
+  private int level;
 }
+

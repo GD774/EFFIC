@@ -124,6 +124,12 @@ var msgId = $('#msgId').val();
 const fnDownload = () => {
 	  $('.attachId').on('click', (evt) => {
 		  
+		  if($('#attach-file').val() === '--'){
+			  alert('첨부된 파일이 없습니다.');
+			  return;
+		  }
+		  
+		  
 	    if(confirm('해당 첨부 파일을 다운로드 할까요?')) {
 	      location.href = '${contextPath}/msg/download.do?msgId=' + evt.currentTarget.dataset.msgId;
 	    }

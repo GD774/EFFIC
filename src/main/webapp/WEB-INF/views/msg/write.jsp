@@ -159,10 +159,18 @@ $('#btn-me').on('click', (evt) => {
 const fnSubmitChk = () => {
 	  document.getElementById('btn-submit').addEventListener('click', (evt) => {
 	    if(document.getElementById('title').value === '') {
-	      alert('제목은 필수입니다.');
+	      alert('제목을 입력해주세요.');
 	      evt.preventDefault();
 	      return;
 	    }
+	   
+	    if(document.getElementById('here').value === '') {
+		      alert('수신자를 입력해주세요.');
+		      evt.preventDefault();
+		      return;
+		    }
+	    
+	    
 	  });
 	}
 

@@ -17,7 +17,7 @@
 }
 
  .elli {
- max-width: 100%;;
+ max-width: 90%;;
  overflow: hidden;
  text-overflow: ellipsis;
  white-space: nowrap;

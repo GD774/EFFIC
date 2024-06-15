@@ -1,12 +1,21 @@
 package com.gd774.effic.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.gd774.effic.dto.evo.CommCodeEvo;
+import com.gd774.effic.dto.evo.DeptEvo;
+import com.gd774.effic.dto.evo.UserEvo;
 import com.gd774.effic.service.AdminService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,24 +29,56 @@ public class AdminController {
 		this.adminService = adminService;
 	}
 
-	@GetMapping(value = "main")
-	public String main(HttpServletRequest request, HttpServletResponse response) {
-		return "admin/admin-main";
+	@GetMapping(value = "getUsers")
+	@ResponseBody
+	public ArrayList<UserEvo> getUsers() {
+		return this.adminService.getUsers();
 	}
 
-	@GetMapping(value = "enroll")
-	public String enroll(Model model) {
-		model.addAttribute("userList", adminService.getUserList());
-		return "humanresource/enroll";
+	@GetMapping(value = "getDepData")
+	@ResponseBody
+	public Map<String, ArrayList> getDepData() {
+		Map<String, ArrayList> map = new HashMap<>();
+		map.put("users", this.adminService.getUsers());
+		map.put("depts", this.adminService.getDepts());
+		return map;
 	}
 
-	@PostMapping(value = "enroll")
-	public void enroll(HttpServletRequest request, HttpServletResponse response) {
-		//
+	@GetMapping(value = "getPosData")
+	@ResponseBody
+	public ArrayList<CommCodeEvo> getPosData() {
+		return this.adminService.getPositions();
 	}
 
-	@PostMapping(value = "decline")
-	public void decline(HttpServletRequest request, HttpServletResponse response) {
-		//
+	@PostMapping(value = "addUser")
+	@ResponseBody
+	public void addUser(HttpServletRequest request) {
+		this.adminService.addUser(request);
+	}
+
+	@PostMapping(value = "delUser")
+	@ResponseBody
+	public void delUser(HttpServletRequest request) {
+		this.adminService.delUser(request);
+	}
+
+	@PostMapping(value = "addDep")
+	public void addDep(HttpServletRequest request) {
+		this.adminService.addDep(request);
+	}
+
+	@PostMapping(value = "addPos")
+	public void addPos(HttpServletRequest request) {
+		this.adminService.addPos(request);
+	}
+
+	@GetMapping(value = "userlist")
+	public String userlist() {
+		return "admin/userlist";
+	}
+
+	@GetMapping(value = "org")
+	public String org() {
+		return "admin/orginfo";
 	}
 }

@@ -4,25 +4,82 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gd774.effic.mapper.AdminMapper">
-  <resultMap type="com.gd774.effic.dto.UserDto" id="UserMap">
-	<result  property="empId"        column="EMP_ID"/>
+  <resultMap type="UserEvo" id="UserMap">
+	<id      property="empId"        column="EMP_ID"/>
 	<result  property="pw"           column="PASSWORD"/>
 	<result  property="name"         column="NAME"/>
 	<result  property="genderId"     column="GENDER_ID"/>
-	<result  property="depId"        column="DEP_ID"/>
-	<result  property="posId"        column="POS_ID"/>
 	<result  property="joinDt"       column="JOIN_DT"/>
 	<result  property="leaveDt"      column="LEAVE_DT"/>
+	<association property="dept" javaType="DeptEvo">
+	  <id      property="code"         column="dept_code"/>
+	  <result  property="name"         column="dept_name"/>
+	  <result  property="level"        column="dept_level"/>
+	</association>
+	<association property="pos" javaType="CommCodeEvo">
+	  <id      property="code"         column="comm_code"/>
+	  <result  property="name"         column="comm_name"/>
+	  <result  property="catCode"      column="cat_code"/>
+	  <result  property="catName"      column="cat_name"/>
+	</association>
   </resultMap>
 
-  <select id="getUserList"
-		  resultMap="UserMap">
-	SELECT EMP_ID, NAME, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT FROM USER_T
-  </select>
+  <resultMap type="DeptEvo" id="DeptMap">
+	<result  property="code"        column="CODE"/>
+	<result  property="name"        column="NAME"/>
+	<result  property="level"        column="DEP_LEVEL"/>
+  </resultMap>
+
+  <resultMap type="CommCodeEvo" id="CommCodeMap">
+	<result  property="code"        column="CODE"/>
+	<result  property="name"        column="NAME"/>
+	<result  property="catCode"        column="CAT_CODE"/>
+	<result  property="catName"        column="CAT_NAME"/>
+  </resultMap>
 
   <insert id="insertUser"
-		  parameterType="com.gd774.effic.dto.UserDto">
+		  parameterType="UserEvo">
 	<!-- insert into user_t(id, emp_id, password, name, email, phone) values(user_seq.nextval, #{user.empId}, #{user.pw}, #{user.name}, #{user.email}, #{user.phone}) -->
-	insert into user_t(emp_id, password, status) values(#{empId}, #{pw}, 1)
+	insert into user_t(emp_id, password, status, name, gender_id, dep_id, pos_id)
+	            values(#{empId}, #{pw}, 1, #{name}, #{genderId}, #{dept.code}, #{pos.code})
   </insert>
+
+  <update id="deleteUser">
+	UPDATE USER_T SET STATUS = 0 WHERE EMP_ID = #{EMPID}
+  </update>
+
+  <insert id="insertDept"
+		  parameterType="DeptEvo">
+	INSERT INTO DEPARTMENT_T(CODE, NAME, PARENT, DEP_LEVEL) VALUES(#{code}, #{name}, #{level}, #{parent.code})
+  </insert>
+
+  <insert id="insertCommCode"
+		  parameterType="CommCodeEvo">
+	INSERT INTO COMMON_CODE_T(CODE_VAL, CODE_NAME, CODE_GUBUN) VALUES(#{code}, #{name}, #{catCode})
+  </insert>
+
+  <select id="selectUsers"
+		  resultMap="UserMap">
+	SELECT U.EMP_ID as EMP_ID, U.NAME as NAME, U.GENDER_ID as GENDER_ID,
+	       D.CODE as DEPT_CODE, D.NAME as DEPT_NAME, D.DEP_LEVEL as DEPT_LEVEL,
+	       P.CODE_NAME as COMM_NAME , P.CODE_VAL as COMM_CODE,
+		   M.CODE_GUBUN_NAME as CAT_NAME, M.CODE_GUBUN as CAT_CODE,
+	       U.JOIN_DT as JOIN_DT, U.LEAVE_DT as LEAVE_DT
+	FROM USER_T U LEFT JOIN DEPARTMENT_T D ON U.DEP_ID = D.CODE
+	              LEFT JOIN COMMON_CODE_T P ON U.POS_ID = P.CODE_VAL
+	              LEFT JOIN COMMON_CODE_M_T M ON P.CODE_GUBUN = M.CODE_GUBUN
+  </select>
+
+  <select id="selectDepts"
+		  resultMap="DeptMap">
+	SELECT CODE, NAME, DEP_LEVEL FROM DEPARTMENT_T
+  </select>
+
+  <select id="selectCommCodes"
+		  resultMap="CommCodeMap">
+	SELECT CODE, NAME, CAT_CODE, CAT_NAME
+	FROM COMMON_CODE_T C LEFT JOIN COMMON_CODE_M_T M ON C.CODE_GUBUN = M.CODE_GUBUN
+	WHERE M.CODE_GUBUN = #{discriminator}
+  </select>
+
 </mapper>

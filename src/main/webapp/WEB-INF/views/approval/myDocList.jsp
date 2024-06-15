@@ -13,7 +13,7 @@
 <jsp:include page="../layout/opener.jsp"/>
 <jsp:include page="../layout/sidebar.jsp" />
 
-<title>부서기안완료함 | TailAdmin - Tailwind CSS Admin Dashboard Template</title>
+<title>개인기안문서함 | TailAdmin - Tailwind CSS Admin Dashboard Template</title>
 
 <style>
     .filter-button {
@@ -143,7 +143,8 @@
                         </select>
                     </div>
                 </div>
-								<!-- 새 결재 진행 모달창 --> 
+                
+                <!-- 새 결재 진행 모달창 --> 
                 <div class="flex justify-end">
                     <div x-data="{
                     							modalOpen: false,
@@ -153,7 +154,7 @@
 													            
 													            if (selectedValue === 'option2') {
 													                // Replace with your actual context path and JSP file name
-													                window.location.href = '${contextPath}/approval/docTemp1.page';
+													                window.location.href = '${contextPath}/approval/writeDoc.page';
 													            } else {
 													                alert('문서 양식을 선택해주세요.');
 													            }
@@ -187,7 +188,7 @@
                                     <label for="options" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">문서양식 선택</label>
                                     <select id="options" class="block w-full p-2.5 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-primary dark:focus:border-primary">
                                         <option value="option1">문서양식을 선택하세요</option>
-                                        <option value="option2">지출결의서</option>
+                                        <option value="option2">구매신청서</option>
                                         <option value="option3">Option</option>
                                     </select>
                                 </div>
@@ -214,7 +215,6 @@
                     </div>
                 </div>
             </div>
-
 
                 <!-- ====== Table Section Start ===== -->
                 <div class="flex flex-col gap-1">
@@ -258,33 +258,42 @@
                                 <div class="bg-white dark:bg-boxdark">
                                     <!-- table row item -->
                                     <c:forEach var="i" begin="1" end="20">
+                                    		<!-- 기안일 -->
                                         <div class="grid grid-cols-12 border-t border-[#EEEEEE] px-3 py-2 dark:border-strokedark lg:px-5 2xl:px-9">
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">2024-06-<fmt:formatNumber value="${i}" pattern="00"/></p>
+                                                <p class="text-[#637381] dark:text-bodydark">${writeDt}</p>
                                             </div>
+                                        <!-- 완료일 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">2024-06-<fmt:formatNumber value="${i + 3}" pattern="00"/></p>
+                                                <p class="text-[#637381] dark:text-bodydark">${appDt}</p>
                                             </div>
+                                        <!-- 결재양식 -->
                                             <div class="col-span-2">
-                                                <p class="text-[#637381] dark:text-bodydark">보고서</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${docTempCode}</p>
                                             </div>
+                                        <!-- 긴급 -->
                                             <div class="col-span-1">
-                                            	<i class="fi fi-rr-light-emergency-on"></i>
+                                            	<i class="fi fi-rr-light-emergency-on">${urgent}</i>
                                             </div>
+                                       	<!-- 제목 -->
                                             <div class="col-span-3">
-                                                <p class="text-[#637381] dark:text-bodydark">프로젝트 보고 ${i}</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${title}</p>
                                             </div>
+                                        <!-- 기안자 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">${i}</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${user.name}</p>
                                             </div>
+                                        <!-- 기안부서 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">기술부서</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${dep.name}</p>
                                             </div>
+                                        <!-- 결재문서번호 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">DOC-<fmt:formatNumber value="${1234 + i}" pattern="0000"/></p>
+                                                <p class="text-[#637381] dark:text-bodydark">DOC-${appDocId}</p>
                                             </div>
+                                    	 	<!-- 결재상태		 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">승인</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${appState}</p>
                                             </div>
                                         </div>
                                     </c:forEach>
@@ -317,6 +326,9 @@
             </button>
             <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
+                    <li>
+                        <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">작성자</button>
+                    </li>
                     <li>
                         <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">제목</button>
                     </li>
@@ -362,8 +374,6 @@
         });
     }
     
-
-
 </script>
 
 </body>

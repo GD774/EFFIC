@@ -1,0 +1,123 @@
+
+.button-container {
+	display: inline-block; /* 가로로 나란히 배치 */
+	background-color: white;
+	text-decoration: none;
+	text-align: center;
+	font-size: 14px;
+	position: relative; 
+	height: 50px;
+	transition: background-color 0.3s ease;
+	margin-right: 10px; /* 버튼 간의 간격 조정 */
+}
+
+.button-container :hover {
+	font-weight: bold;
+}
+
+.wrapper {
+    background-color: white;
+    overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤 표시 */
+   height: 800px; /* 화면 높이에 맞게 스크롤 영역 제한 */
+ }
+
+.approvalLine {
+	float: right;
+	margin-left: 20px;
+	line-height: 150% !important;
+	width: 220px !important;
+	height: 20% !important;
+	border-collapse: collapse !important; 
+}
+
+#urgents {
+	width: 40px; /* 원하는 크기로 조정하세요 */
+	height: 40px; /* 원하는 크기로 조정하세요 */
+	margin-right: 5px;
+	margin-bottom: 5px;
+	display: inline-block; /* 가로로 나란히 배치 */
+	display: none;
+	position: absolute;
+	right: -50px; /* 버튼 컨테이너의 오른쪽에서 10px 떨어진 위치 */
+	top: -7px;
+}
+   
+
+
+.approvalLine td {
+	font-size: 9pt !important;
+	width: 50px !important;
+	border: 1px solid black !important;
+	text-align: center;
+}
+
+.approvalLine td[rowspan="3"] {
+	text-align: center !important;
+	width: 10% !important;
+	border-bottom: 1px solid black !important;
+}
+
+.approvalLine tr:nth-child(3) td {
+	text-align: center !important;
+	height: 10px !important;
+	border-top: 1px solid black !important;
+}
+.approveds {
+	width: 35px; 
+	display: block;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+ #dynamic_table tbody tr td{
+	border: 1px solid black;
+}
+table.fixed-size {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+table.fixed-size td, table.fixed-size th {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	border: 1px solid black;
+}
+
+.ipt_editor {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.ipt_editor_currency {
+	text-align: right;
+}
+
+
+#divCustomWrapper { word-break: break-all;  font-family: malgun gothic, dotum, arial, tahoma; font-size: 9pt; width:800px !important; }
+#divCustomWrapper * { max-width: 800px !important; }
+#divCustomWrapper #titleSection,
+#divCustomWrapper #draftSection,
+#divCustomWrapper .detailSection { width:800px !important; clear:both; margin-top: 20px !important; vertical-align: middle; }
+#divCustomWrapper #titleSection { text-align: center; font-size: 25px; font-weight: bold; margin-bottom: 30px !important; margin-top: 20px !important; }
+#divCustomWrapper #draftSection { display: inline-block; }
+#divCustomWrapper .detailSection > * { margin-bottom: 10px; }
+#divCustomWrapper table { border-collapse: collapse; word-break:break-all; }
+#divCustomWrapper td.subjectColumn { border: 1px solid black !important; font-size: 9pt !important; height:22px; padding: 3px 1px 3px 1px;/*top right bottom left*/}
+#divCustomWrapper td.detailColumn { border: 1px solid black !important; font-size: 9pt !important; height:22px; padding: 3px 5px 3px 5px; vertical-align: middle;/*top right bottom left*/ }
+#divCustomWrapper td.detailColumn { text-align: left; }
+#divCustomWrapper td.subjectColumn { background: rgb(221, 221, 221); font-weight: bold; text-align: center; vertical-align: middle; }
+#divCustomWrapper td.detailColumn.centerCol { text-align: center; }
+#divCustomWrapper td.detailColumn.rightCol { text-align: right; }
+#divCustomWrapper td.detailColumn.editorCol { height: 300px; vertical-align: top;}
+#divCustomWrapper td.detailColumn.areaCol { height: 120px; vertical-align: top; }
+#divCustomWrapper div.partition .left { display: inline-block; clear: left; float: left; }
+#divCustomWrapper div.partition .right { display: inline-block; clear: right; float: right; }
+#divCustomWrapper div.inaRowRight { text-align: right; }
+#divCustomWrapper div.inaRowLeft { text-align: left; }
+#divCustomWrapper .td_button { word-break:break-all; padding: 3px; border: none; width: 800px; height: 22px; text-align: right; vertical-align: middle; }
+#divCustomWrapper .div_button { word-break:break-all; padding: 3px; border: none; margin-top:2px; margin-bottom:2px; height: 22px; vertical-align: middle;}
+#divCustomWrapper a.button { background: rgb(102, 102, 102); color: rgb(255, 255, 255); padding: 2px 5px; border-radius: 3px; margin-right: 0px; margin-left: 0px; font-size: 9pt !important; }
+p.titleP{font-weight: bold; font-size: 12px; margin: 15px 1px 5px 5px;/*top right bottom left*/}
+p.freeP{font-weight: normal; font-size: 12px; margin: 1px 1px 3px 5px;/*top right bottom left*/}
+   

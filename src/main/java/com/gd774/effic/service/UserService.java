@@ -1,5 +1,7 @@
 package com.gd774.effic.service;
 
+import com.gd774.effic.dto.UserDto;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
@@ -7,4 +9,5 @@ import jakarta.servlet.http.HttpServletRequest;
  */
 public interface UserService {
 	public boolean signin(HttpServletRequest request);
+
 }

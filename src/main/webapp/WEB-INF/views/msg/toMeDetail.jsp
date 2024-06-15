@@ -32,10 +32,11 @@
             <!-- Breadcrumb End -->
              
            <div id="button-wrapper" class="py-3">
-           <button class="inline-flex rounded bg-[#637381] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+              <input type="hidden" id="msgId" name="msgId" value="${msg.msgId}">
+           <button id="btn-remove" class="inline-flex rounded bg-[#637381] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
              삭제
            </button>
-           <button class="inline-flex rounded bg-[#3BA2B8] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+           <button id="btn-star" class="inline-flex rounded bg-[#3BA2B8] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
              보관
            </button>
             </div>
@@ -117,6 +118,9 @@
 
 <script>
 
+var msgId = $('#msgId').val();
+
+
 const fnDownload = () => {
 	  $('.attachId').on('click', (evt) => {
 		  
@@ -126,7 +130,6 @@ const fnDownload = () => {
 	  })
 	}
 
-fnDownload();
 
 var info = document.getElementsByClassName('attach-info');
 var total = ''; 
@@ -141,8 +144,52 @@ $(document).on('mouseover', '.attachId', (evt) => {
     $(evt.currentTarget).attr('title', total);
 	
   });
+  
+const fnStar = () => {
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/sentDetailchkImp.do',
+        data: {msgId: msgId},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           alert('중요메세지로 설정되었습니다');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    })
+};
+
+$('#btn-star').on('click', (evt) =>{
+	fnStar();
+})
+
+const fnBin = () => {
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/sentDetailToBin.do',
+        data: {msgId: msgId},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           alert('휴지통으로 이동되었습니다.');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    })
+};
+
+$('#btn-remove').on('click', (evt) =>{
+	fnBin();
+})
 
 
+
+fnDownload();
   
 
 </script>

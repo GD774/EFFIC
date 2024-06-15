@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.gd774.effic.dto.MsgAttachDto;
 import com.gd774.effic.dto.MsgDto;
 import com.gd774.effic.dto.RecpDto;
+import com.gd774.effic.dto.UserDto;
 
 @Mapper
 public interface MsgMapper {
@@ -55,6 +56,8 @@ public interface MsgMapper {
 	 // 전체선택으로 중요메세지리스트에서 해제
 	 int cancelInboxImpList(int recpId);
 	 int cancelSentImpList(int msgId);
+	 //중요메세지 R상세보기 위해 작성
+	 int IsMsgId(int recpId);
 	 
 	 //휴지통 이동
 	 int updateSentTobBin(int msgId);
@@ -72,7 +75,13 @@ public interface MsgMapper {
 	 int allRemoveMsg();
 	 int allRemoveRecp();
 	 
+	 //팀메세지
+	 List<String> getTeamRegister(String depId, String empId);
+	 int getTeamInboxCount(Map<String, Object> map);
+	 List<MsgDto> getTeamInboxList(Map<String, Object> map);
 	 
+	 //EMP_ID 별로 읽지 않은메세지 개수 뽑기
+	 int getUnReadCount(String recipient);
 	 
 
 }

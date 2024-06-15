@@ -79,7 +79,6 @@ public class MsgServiceImpl implements MsgService {
 		if (recipientParam != null && !recipientParam.isEmpty()) {
 		    recipients = recipientParam.replaceAll(" ", "").split(",");
 		}
-		System.out.println(recipients);
 		
 		int inserRecpCount = 0;
 		
@@ -93,12 +92,14 @@ public class MsgServiceImpl implements MsgService {
 						.build();
 				
 				inserRecpCount += msgMapper.insertRecp(recp);
+				
+				int UnreadCount = msgMapper.getUnReadCount(recipient);
 			}
 		}
 		
 		
 		
-		// 이거 나중에 수정. boolean으로 바꿔서 1&&list=recp 로 해야할까?
+		// 이거 나중에 수정.
 		return insertMsgCount;
 	}
 	
@@ -392,6 +393,7 @@ public class MsgServiceImpl implements MsgService {
 			String sender = user.getEmpId();
 			Map<String, Object> getTotal = Map.of("recipient", recipient, "sender", sender);
 		    int total = msgMapper.getImpCount(getTotal);
+		    System.out.println("-------------------------------------" + total);
 		    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
 			Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		    int page = Integer.parseInt(opt.orElse("1"));
@@ -498,6 +500,51 @@ public class MsgServiceImpl implements MsgService {
 		updateCount =+ msgMapper.allRemoveRecp();
 		
 		return updateCount;
+	}
+	
+	@Override
+	public int getUnReadCount(String recipient) {
+        
+		return msgMapper.getUnReadCount(recipient);
+	}
+	
+	
+	//팀메세지 등록
+	@Override
+	public List<String> getTeamRegister(String depId, String empId) {
+         
+		return msgMapper.getTeamRegister(depId, empId);
+	}
+	
+	
+	@Override
+	public int IsMsgId(int recpId) {
+		
+		
+		return msgMapper.IsMsgId(recpId);
+	}
+	
+	@Override
+	public ResponseEntity<Map<String, Object>> getInboxTeamList(HttpServletRequest request) {
+		UserDto user = (UserDto)request.getSession().getAttribute("user");
+		String recipient = user.getEmpId();
+		String depId = user.getDepId();
+		Map<String, Object> forCount = Map.of("recipient", recipient, "depId", depId);
+	    int total = msgMapper.getTeamInboxCount(forCount);
+	    System.out.println(total);
+	    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+	    int page = Integer.parseInt(opt.orElse("1"));
+	    msgPaging.setPaging(total, display, page);
+	    System.out.println(total);
+	    
+	    
+
+		Map<String, Object> map = Map.of("recipient", recipient, "depId" , depId, "begin", msgPaging.getBegin() 
+                , "end", msgPaging.getEnd());
+		
+		return new ResponseEntity<>(Map.of("recpList", msgMapper.getTeamInboxList(map), "total", total
+                , "paging", msgPaging.getAsyncPaging(),"noRead", msgMapper.countNoRead(recipient)), HttpStatus.OK);
 	}
 	
 }

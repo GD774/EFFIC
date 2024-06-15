@@ -133,6 +133,8 @@
 
 var page = 1;
 var totalPage = 0;
+var isTeam = 0;
+var isLoading = false;
 
 document.getElementById('select-all').addEventListener('click', function(evt) {
 	  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -180,7 +182,6 @@ const fnGetRecpList = () => {
 		    	
 		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ recp.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
-		    	console.log(recp);
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);
 				 $('#total').html(resData.total);
@@ -230,6 +231,12 @@ $('#btn-remove').click(function() {
     $("input[name='checkbox']:checked").each(function() {
         checkValues.push(this.value);
     });
+    
+    if (checkValues.length === 0) {
+        alert('선택된 항목이 없습니다.');
+        return;
+    }
+    
     var data = $.param({ checkValues: checkValues });
     $.ajax({
         // 요청
@@ -254,6 +261,13 @@ $('#btn-star').click(function() {
     $("input[name='checkbox']:checked").each(function() {
         checkValues.push(this.value);
     });
+    
+    if (checkValues.length === 0) {
+        alert('선택된 항목이 없습니다.');
+        return;
+    }
+    
+    
     var data = $.param({ checkValues: checkValues });
     $.ajax({
         // 요청
@@ -280,6 +294,56 @@ const fnApplyBold = () => {
 $(document).ready(() => {
 	fnApplyBold();
 });
+
+$('#team-btn').on('click', () => {
+	
+	if (isLoading) return;
+    isLoading = true; 
+	
+	if(isTeam === 1){
+		fnGetRecpList();
+		isTeam = 0;
+	} 
+	 $.ajax({
+	     
+		 // 요청
+		  type: 'GET',
+		  url: '${contextPath}/msg/getTeamList.do',               
+		  data : 'page=' + page,
+		  // 응답
+		  dataType: 'json',
+		  success: (resData) => {
+			     $('#message-list').html('');
+				 $.each(resData.recpList, (i, recp) => {
+		    	let str=  '<div class="'+recp.readDt +' hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
+		    	str +=  '<div class="col-span-1"><input type="checkbox" name="checkbox" class="chk" value="'+recp.recpId +'"></div>';
+		    	str += '<div class="star col-span-1" data-chk-impt="'+recp.chkImpt+'" data-recp-id="'+recp.recpId+'"><img data-recp-id="'+recp.recpId+'" data-chk-impt="'+recp.chkImpt+'" src="/msgIcons/star'+recp.chkImpt+'.svg"/></div>';
+		        str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ recp.name +' </p></div>';
+		    	
+		        
+		    	if(recp.hasAttach === true){
+			    	str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	} else if(recp.hasAttach === false) {
+				    str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'</p></div>';
+			    	}		    	
+		    	
+		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ recp.sendDt.slice(0, -3) +'</p></div>';
+		    	str += '</div>';
+		    	$('#message-list').append(str);
+		    }),  $('#paging').html(resData.paging);
+				 $('#total').html(resData.total);
+				 $('#no-read').html("");
+				 fnApplyBold();
+				 isTeam = 1;
+				 isLoading = false; 
+				 
+		  },
+		  error: (jqXHR) => {
+			  alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+			  isLoading = false; 
+		  }
+		})
+	  });
 
 
 fnGetRecpList();

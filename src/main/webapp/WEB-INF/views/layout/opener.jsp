@@ -42,6 +42,12 @@
 
 <link href="${contextPath}/css/globalstyle.css" rel="stylesheet">
 
+<!-- jstree를 위한 추가 --> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
+
+</head>
+
 </head>
 <c:choose>
   <c:when test="${empty param.notTailadminBody}">

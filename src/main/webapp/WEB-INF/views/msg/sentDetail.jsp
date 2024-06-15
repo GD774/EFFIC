@@ -52,7 +52,7 @@
                           <label class="mr-2 mb-3 block text-sm font-bold text-black dark:text-white">
                             수신자
                           </label>
-                          <input type="text" value="${msg.name}"  class="w-2/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly>
+                          <input type="text" value="${msg.name}"  class="w-3/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly>
                         </div>
 
                       <div class="flex w-full xl:w-4/12 items-center"  data-set-attach-list="${attachList}">
@@ -151,7 +151,7 @@ fnDownload();
 
 var info = document.getElementsByClassName('attach-info');
 var total = ''; 
-for(var i = 1; i < info.length; i++) {
+for(var i = 0; i < info.length; i++) {
    total += info[i].dataset.originalName;
    total += '\n';       
 }
@@ -164,7 +164,7 @@ $(document).on('mouseover', '.attachId', (evt) => {
 
 var list = document.getElementsByClassName('recp-info');
 var totalList = ''; 
-for(var i = 1; i < list.length; i++) {
+for(var i = 0; i < list.length; i++) {
    totalList += list[i].dataset.recpList;
    totalList += '\n';       
 }

@@ -5,11 +5,11 @@ import java.util.Map;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gd774.effic.dto.MsgAttachDto;
 import com.gd774.effic.dto.MsgDto;
+import com.gd774.effic.dto.UserDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -37,6 +37,7 @@ public interface MsgService {
 	//받은메세지함
 	ResponseEntity<Map<String, Object>> getInboxList(HttpServletRequest request);
 	MsgDto getInboxDetail(int msgId, HttpServletRequest request);
+	ResponseEntity<Map<String, Object>> getInboxTeamList(HttpServletRequest request);
 	
 	//중요메세지 체크
 	int updateSentChkImpt(int msgId);
@@ -48,6 +49,8 @@ public interface MsgService {
 	//전체선택으로 중요메세지 체크 해제
 	int cancelSentChkImp(int msgId);
 	int cancelInboxChkImp(int recpId);
+	//중요메세지 R상세보기 작성
+	int IsMsgId(int recpId);
 	
 	//휴지통이동
 	int updateSentToBin(int msgId);
@@ -62,6 +65,12 @@ public interface MsgService {
 	 int cancelSentBin(int msgId);
 	 //휴지통 비우기
 	 int clearBin();
+	 
+	 // 안읽은 메세지 세기
+	 int getUnReadCount(String recipient);
+	 
+	 //팀메시지 등록
+	 List<String> getTeamRegister(String depId, String empId);
 	
 	
 	

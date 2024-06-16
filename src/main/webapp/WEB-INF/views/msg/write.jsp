@@ -146,6 +146,11 @@ $('#btn-me').on('click', (evt) => {
 	      alert('제목은 필수입니다.')
 	      evt.preventDefault();
 	      return; }
+	
+	 if(!confirm('메세지를 보내시겠습니까?')){
+		return;
+	 }
+	 
 	 
     evt.preventDefault(); 
     $('#frm').attr('action', '${contextPath}/msg/writeToMe.do');
@@ -153,6 +158,16 @@ $('#btn-me').on('click', (evt) => {
     $('#frm').submit();
     sendMessage();
     
+});
+
+$(document).ready(function() {
+    $('#btn-submit').click(function(evt) {
+        evt.preventDefault();
+
+        if (confirm('메세지를 보내시겠습니까?')) {
+            $('#frm').submit();
+        } return;
+    });
 });
 
 //제이쿼리 아닌 것도 써보기...

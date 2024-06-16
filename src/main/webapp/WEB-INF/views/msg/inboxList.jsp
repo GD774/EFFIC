@@ -70,6 +70,7 @@
             <div>
            <button id="team-btn" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                       팀메세지
+                      
            </button>
            </div>
           </div>           
@@ -297,13 +298,15 @@ $(document).ready(() => {
 
 $('#team-btn').on('click', () => {
 	
-	if (isLoading) return;
-    isLoading = true; 
-	
+    
 	if(isTeam === 1){
 		fnGetRecpList();
+		 $('#team-btn').removeClass('inline-flex rounded-full bg-[#637381] px-3 py-1 text-sm font-medium text-white hover:bg-opacity-90')
+         .addClass('inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80');
 		isTeam = 0;
+		return;
 	} 
+	
 	 $.ajax({
 	     
 		 // 요청
@@ -333,14 +336,15 @@ $('#team-btn').on('click', () => {
 		    }),  $('#paging').html(resData.paging);
 				 $('#total').html(resData.total);
 				 $('#no-read').html("");
+				 $('#team-btn').removeClass('inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80')
+                 .addClass('inline-flex rounded-full bg-[#637381] px-3 py-1 text-sm font-medium text-white hover:bg-opacity-90');
 				 fnApplyBold();
 				 isTeam = 1;
-				 isLoading = false; 
+				
 				 
 		  },
 		  error: (jqXHR) => {
 			  alert(jqXHR.statusText + '(' + jqXHR.status + ')');
-			  isLoading = false; 
 		  }
 		})
 	  });

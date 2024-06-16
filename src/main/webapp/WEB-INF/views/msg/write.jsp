@@ -202,9 +202,9 @@ const fnSubmitChk = () => {
     { "id" : "S27", "parent" : "S2", "text" : "홍대지점" , "icon" : "glyphicon glyphicon-picture"},
     { "id" : "S28", "parent" : "S2", "text" : "전주지점" , "icon" : "glyphicon glyphicon-picture"},
 	{ "id" : "S1",  "parent" : "R",  "text" : "본사", "icon" : "glyphicon glyphicon-home" },
-    { "id" : "S11", "parent" : "S1", "text" : "홍보팀" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S12", "parent" : "S1", "text" : "재무팀",   "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S13", "parent" : "S1", "text" : "관리팀" ,"icon" : "glyphicon glyphicon-picture" },
+    { "id" : "S11", "parent" : "S1", "text" : "총무팀" , "icon" : "glyphicon glyphicon-picture"},
+    { "id" : "S12", "parent" : "S1", "text" : "경영팀",   "icon" : "glyphicon glyphicon-picture"},
+    { "id" : "S13", "parent" : "S1", "text" : "인사팀" ,"icon" : "glyphicon glyphicon-picture" },
 
     {
         "id": "tester1",

@@ -1,12 +1,16 @@
 package com.gd774.effic.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -14,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd774.effic.dto.UserDto;
 import com.gd774.effic.dto.approval.AppDocDto;
-import com.gd774.effic.dto.approval.ApprovalMapDto;
 import com.gd774.effic.dto.approval.DocItemDto;
 import com.gd774.effic.service.ApprovalService;
 
@@ -50,16 +53,15 @@ public class ApprovalController {
     @GetMapping("/myDocList")
     public String loadMyDocList(HttpServletRequest request, Model model) {
     	approvalService.loadMyDocList(request, model);
-    	model.addAttribute("myDocList", request);
     	return "approval/myDocList";
     }
     
     
-    @GetMapping("/myTemporaryList")
+    @GetMapping("/mySaveDocList")
     public String loadMyTemporaryList(HttpServletRequest request, Model model) {
-    	model.addAttribute("request", request);
+    	model.addAttribute("mySaveDocList", request);
     	approvalService.loadMyTemporaryList(request, model);
-    	return "approval/myTemporaryList";
+    	return "approval/mySaveDocList";
     }
     
     @GetMapping("depDocList")
@@ -70,21 +72,12 @@ public class ApprovalController {
     }
     
 	@GetMapping("/detail.do")
-	  public String detail(@RequestParam int docId, Model model) {
-        ApprovalMapDto approvalMapDto = approvalService.docById(docId);
-        List<DocItemDto> docItemDto = approvalService.docItemsByDocId(docId);
-        model.addAttribute("approvalMapDto", approvalMapDto);
-        model.addAttribute("docItemDto", docItemDto);
+	  public String detailDoc(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		approvalService.loadMyTemporaryList(request, model);
 	    return "approval/docDetail";
 	  }
 	
-    
-    @GetMapping("jstree")
-    public String jstree(HttpServletRequest request, Model model) {
-
-    	return "approval/jstree";
-    }
-    
     
     
     
@@ -133,7 +126,24 @@ public class ApprovalController {
         redirectAttributes.addFlashAttribute("inserted", approvalService.registerApproval(multipartRequest));
         
         return "redirect:/approval/main"; // 성공 페이지로 리다이렉트
-    }  
+    }
+    
+
+
+    
+}
+    
+ 
+    
+    
+    
+//    @PostMapping("/saveApprovalLine")
+//    public String saveApprovalLine(@RequestBody RequestBody request) {
+//        return approvalService.saveApprovalLine(request);
+//    }
+//    
+    
+
     
 
     
@@ -172,4 +182,3 @@ public class ApprovalController {
 
     
     
-}

@@ -21,6 +21,12 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@3.x.x/dist/alpine.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
+<script src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" 
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" 
+        data-cf-beacon='{"rayId":"891ddd7b2fc9dba2","r":1,"version":"2024.4.1","token":"67f7a278e3374824ae6dd92295d38f77"}' 
+        crossorigin="anonymous">
+</script>
+
 
 
 </head>
@@ -47,9 +53,30 @@
       <button id="cancelWriting" type="button" class="inline-flex rounded bg-[#DC3545] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
             작성취소
       </button>
-	    <button id="goAppLine" type="button" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
-	        결재정보
-	    </button>
+<span x-data="{ modalOpen: false }" id="button-wrapper" class="py-3">
+    <button id="goAppLine" type="button" @click="modalOpen = true" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+        결재정보
+    </button>
+
+    <div x-show="modalOpen" x-transition="" class="fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5">
+        <div @click.outside="modalOpen = false" class="w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:px-17.5 md:py-15">
+            <h3 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
+                사내조직도
+            </h3>
+            <span class="mx-auto mb-6 inline-block h-1 w-22.5 rounded bg-primary"></span>
+            
+            <div id="jstree">
+                <!-- 여기가 jstree 뜨는 부분 -->
+            </div>
+        
+            <div class="w-full px-3 2xsm:w-1/2">
+                <button @click="modalOpen = false" id="btn-close" type="button" class="ml-20 mt-4 inline-block rounded border border-stroke bg-gray p-3 text-center font-medium text-black transition hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
+                    닫 기
+                </button>
+            </div>
+        </div>
+    </div>
+</span>
     	<img id="urgents" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADU0lEQVR4nO3YT0zTUBwHcE4ePXjuZGzr/jIIGy0IItAuRk9wAE4kmxLjmWBMlA2Pmo2oBzzowat68k9MBlFR/mh0W0BF0IAxxotESPjTCqLCM284snbd62zfoyTuJd+E0Db5fejb3u9HSUlxFVdx/X9LCDAdAscmBJ5ZF3kWoLLKMeBrfRVIumgQp6icDJpMYMRiFic89OVdKV7k2LNqRefLlNepiIj/TcpFPyBa/HpjjVngmN9aAQLHgOGy0ryAQYoCb/12JzGAyDNBrcVnMuGxI9/C63J6gByAYy/oBcxUupCAhIseJgYQOPaGXsCc34MEvHRYZwgCmId6AV9qKpCAcdoyTxDATuoFzNdXIQHPLOY1YgCRY7/pBSw1+ZGAR6UHN4kUD9rd+wSe3dILgEm5bUjELGvbT+QMwFF8Jh98bjBoUgZMeRx12AGrTf56nIA0osqtCJgsp08T6X8KKixQAzY6A2CzuwWAcFs68Gf4O3hNfn/SmbudiPRFAs92qxX//fghsNnTCkBfh2LgNXhP9jOLR/xgSLaVUk7bXewAkWf71f7yqOKzEfI3kZR1qq+c1gQBAHMLBYBbRK34TDY6ecmznxivBPCCtnwmARhFAdJ7PrvQa2cAGLsPwPg9AAZ6pG+hu0Xy7EKDTwIYs5qXCQDYjyjAVm+7FAALTz3eDoRkXYP3Zj+72lwtAQybD/7EDhB4Zg0foE3y7EozIwEMmUwAa/HLR2sPqH0D5WwhuG0gAhavtoUO+3LngoqKMmwAIVDrVQPg/BDHKQpMV9pbsQFEnjlWyAGG62s0TlHgjddxHh+AY7sKOYW1HGQLCgfZ9mlsv4kT0FdQG7HTSvDpfQ4/2DDbrQSv2EokFFoJmKTL9gQbQOCY6wUD/iHv8zRz6dPYYZ3eU6OkPIsNvrztNPbREscoaehoKWIYJeVZatyl0RJgHCXlGUJsIWyjJe5RMjtPy8xIAJbRcqW5uo4U4DltQQLeeelTugECx7aTAiTz/Mt9Zzb22Pt1FX+iNxo42XvpRygSA0ak69zFX8FIP68ZEIxErxpVfCiTcOyKZkAoEr1jNCAYjt3W/gbCsVGjAaFIdEQHIDpnNCAYic3qAQiGA8JRQTOguIqruEr2/PoDvwomXOvJFOsAAAAASUVORK5CYII=">
     </div>
 	</div>
@@ -123,21 +150,23 @@
 	</table>
 </div>
 <!-- 결재선 -->
-	<table class="approvalLine" border="1" cellpadding="5" cellspacing="0">
+<table class="approvalLine" border="1" cellpadding="5" cellspacing="0">
     <tr>
         <td rowspan="3" style="background-color: #DDDDDD;"><strong>결재선</strong></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+        <td>${user.name}</td>
+        <td id="approver">&nbsp;
+            <input type="hidden" name="approver" id="approverInput"> <!-- name="approver"로 수정하고 id="approverInput" 추가 -->
+        </td>
     </tr>
     <tr>
-        <td style="height: 50px">
+        <td style="height: 50px" id="approver1">
             <img class="approveds" src="${contextPath}/image/approved.png">
-						&nbsp;
+            &nbsp;
         </td>
-        <td>
-        		<img class="approveds" src="${contextPath}/image/approved.png">
-        		&nbsp;
-     		</td>
+        <td >
+            <img class="approveds" src="${contextPath}/image/approved.png">
+            &nbsp;
+        </td>
     </tr>
     <tr>
         <td>${approval.submitDt}&nbsp;</td>

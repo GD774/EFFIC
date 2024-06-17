@@ -1,32 +1,26 @@
 package com.gd774.effic.service;
 
-import java.sql.Date;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gd774.effic.dto.UserDto;
 import com.gd774.effic.dto.approval.AppDocDto;
 import com.gd774.effic.dto.approval.ApprovalDto;
-import com.gd774.effic.dto.approval.ApprovalMapDto;
 import com.gd774.effic.dto.approval.DocDto;
 import com.gd774.effic.dto.approval.DocItemDto;
 import com.gd774.effic.mapper.ApprovalMapper;
 import com.gd774.effic.util.AppPageUtils;
 import com.gd774.effic.util.ApprovalMyFileUtils;
 import com.gd774.effic.util.PageUtils;
-
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -47,14 +41,18 @@ public class ApprovalServiceImpl implements ApprovalService {
 		
 	}
     
-    
+   
     @Override
     @Transactional
     public int registerApproval(MultipartHttpServletRequest multipartRequest) {
-    	
+        
+        // 세션에서 사용자 정보 추출
+        UserDto user = (UserDto) multipartRequest.getSession().getAttribute("user");
+        String empId = user.getEmpId();
+        String depId = user.getDepId();
+        
         // 필수 파라미터 추출
         String title = multipartRequest.getParameter("title");
-        String contents = multipartRequest.getParameter("contents");
         int docTempCode;
         try {
             docTempCode = Integer.parseInt(multipartRequest.getParameter("docTempCode"));
@@ -62,22 +60,16 @@ public class ApprovalServiceImpl implements ApprovalService {
             docTempCode = 1; // 기본값 설정
         }
 
-        String docState = multipartRequest.getParameter("docState");
-
-        // 세션에서 사용자 정보 추출
-        UserDto user = (UserDto) multipartRequest.getSession().getAttribute("user");
-        String empId = user.getEmpId();
-        String depId = user.getDepId();
-
         // 긴급 여부 설정
         String urgentParam = multipartRequest.getParameter("urgent");
         String urgent = (urgentParam != null && urgentParam.equals("1")) ? "1" : "0";
+        
+        String docState = multipartRequest.getParameter("docState");
 
         // AppDocDto 객체 생성
         AppDocDto appDoc = AppDocDto.builder()
                 .empId(empId)
                 .title(title)
-                .contents(contents)
                 .docTempCode(docTempCode)
                 .depId(depId)
                 .urgent(urgent)
@@ -128,25 +120,23 @@ public class ApprovalServiceImpl implements ApprovalService {
             }
         }
         
-        String appState = multipartRequest.getParameter("appState");
-        String reject = multipartRequest.getParameter("reject");
-        String lineOrder = multipartRequest.getParameter("lineOrder");
-        String appDocId = multipartRequest.getParameter("appDocId");
+        if ("0".equals(docState)) { 
+            String drafter = user.getEmpId();
+            String approver = multipartRequest.getParameter("approver");
+            // ApprovalDto 객체 생성
+            ApprovalDto approvalDto = ApprovalDto.builder()
+                    .docId(docId)
+                    .drafter(empId)
+                    .approver(approver)
+                    .build();
+            
+            // 결재자 정보 등록 실행
+            approvalMapper.insertApprovalLine(approvalDto);       
+        }
         
-        ApprovalDto approval = ApprovalDto.builder()
-        		.docId(docId)
-        		.appState(appState)
-        		.reject(reject)
-        		.lineOrder(lineOrder)
-        		.appDocId(appDocId)
-        		.build();
-        
-        approvalMapper.registerToApp(approval);
-        
-
         return docId; // 문서 등록된 ID 반환
+    }
     
-}
     
     
     @Override
@@ -163,6 +153,8 @@ public class ApprovalServiceImpl implements ApprovalService {
 	    
 	    List<AppDocDto> myDocList = approvalMapper.getMyDocList(map);
 	    model.addAttribute("myDocList", myDocList);
+	    
+	    
     }
 
     
@@ -180,8 +172,8 @@ public class ApprovalServiceImpl implements ApprovalService {
 	    map.put("depId", depId);
 	    map.put("docState", 3); 
 	    
-	    List<AppDocDto> tempSavedDocs = approvalMapper.getMyDocListByDocState(map);
-	    model.addAttribute("tempSavedDocs", tempSavedDocs);	
+	    List<AppDocDto> mySaveDoc = approvalMapper.getMyDocListByDocState(map);
+	    model.addAttribute("mySaveDoc", mySaveDoc);	
     }
     
     
@@ -204,22 +196,25 @@ public class ApprovalServiceImpl implements ApprovalService {
     	
     }
     
-    
     @Override
-    public ApprovalMapDto docById(int docId) {
-    	return approvalMapper.getDocById(docId);
+    public AppDocDto loadAppDocById(int docId) {
+    	return approvalMapper.getAppDocById(docId);
     }
     
     @Override
-    public List<DocItemDto> docItemsByDocId(int docId) {
-    	
-    	return approvalMapper.getItemsByDocId(docId);
-    }
-    
+    public void detailDocByDocId(HttpServletRequest request, Model model) {
+    	UserDto user = (UserDto) request.getSession().getAttribute("user");
 
-    
-    
-    
+	    String empId = user.getEmpId();
+	    String depId = user.getDepId();
+	    
+	    Map<String, Object> map = new HashMap<>();
+	    
+	    List<AppDocDto> detailDoc = approvalMapper.getDocByDocId(map);
+	    model.addAttribute("detailDoc", detailDoc);	
+    }
+
+
     
 }
 	    

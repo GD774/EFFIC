@@ -27,22 +27,41 @@
     <!-- Layout contents -->
 </div>
 
-<div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+
+<<div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
     <main>
         <div class="mx-auto max-w-screen-2xl p-2 md:p-2 2xl:p-6">
             <div class="mb-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                <h2 class="text-title-md2 font-bold text-black dark:text-white mt-4">기안문서함</h2>
+                <h2 class="text-title-md2 font-bold text-black dark:text-white mt-4">부서기안완료함</h2>
             </div>
 
-<div class="flex items-center justify-between mb-3">
-    <!-- Tap 요소들과 Select 요소를 포함하는 Flex 컨테이너 -->
-<div x-data="tabs" class="flex gap-3">
-    <div class="flex gap-3 border-b border-stroke dark:border-strokedark sm:gap-5">
-
-        </div>
-    </div>
-
-
+            <div class="flex items-center justify-between mb-3">
+                <!-- Tap 요소들과 Select 요소를 포함하는 Flex 컨테이너 -->
+                <div class="flex gap-3">
+                    <div x-data="{ openTab: 1, activeClasses: 'text-primary border-primary', inactiveClasses: 'border-transparent' }">
+                        <div class="flex gap-3 border-b border-stroke dark:border-strokedark sm:gap-5">
+                            <a href="#" @click.prevent="openTab = 1" :class="openTab === 1 ? activeClasses : inactiveClasses" class="border-b-2 py-2 text-sm font-medium hover:text-primary md:text-base text-primary border-primary">
+                                전체
+                            </a>
+                            <a href="#" @click.prevent="openTab = 2" :class="openTab === 2 ? activeClasses : inactiveClasses" class="border-b-2 py-2 text-sm font-medium hover:text-primary md:text-base border-transparent">
+                                진행
+                            </a>
+                            <a href="#" @click.prevent="openTab = 3" :class="openTab === 3 ? activeClasses : inactiveClasses" class="border-b-2 py-2 text-sm font-medium hover:text-primary md:text-base border-transparent">
+                                반려
+                            </a>
+                            <a href="#" @click.prevent="openTab = 4" :class="openTab === 4 ? activeClasses : inactiveClasses" class="border-b-2 py-2 text-sm font-medium hover:text-primary md:text-base border-transparent">
+                                완료
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative z-20">
+                        <select class="w-full appearance-none rounded border border-stroke bg-transparent py-2 pl-3 pr-10 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
+                            <option value="" class="text-body">20</option>
+                            <option value="" class="text-body">30</option>
+                            <option value="" class="text-body">40</option>
+                        </select>
+                    </div>
+                </div>
 
                 
   <!-- 새 결재 진행 모달창 --> 
@@ -105,7 +124,7 @@
     </div>
 </div>
 </div>
-
+${myDocList}
                 <!-- ====== Table Section Start ===== -->
                 <div class="flex flex-col gap-1">
                     <!-- ====== Table Four Start -->
@@ -142,35 +161,35 @@
                                         <h5 class="font-bold text-[#637381] dark:text-bodydark">&nbsp;&nbsp;결재상태</h5>
                                     </div>
                                 </div>
-                                ${myDocList}
-                                ${myDocs}
+
                                 <!-- table header end -->
 
                                 <!-- table body start -->
                                 <div class="bg-white dark:bg-boxdark">
                                 <template x-for="doc in filteredDocs">
                                     <!-- table row item -->
-                                    <c:forEach items="${myDocList}"  var="approval" varStatus="status">
+                                    <c:forEach var="approval" items="${myDocList}">
                                     		<!-- 기안일 -->
                                         <div class="grid grid-cols-12 border-t border-[#EEEEEE] px-3 py-2 dark:border-strokedark lg:px-5 2xl:px-9">
 																				<div class="col-span-1">
-																				    <fmt:formatDate value="${approval.WRITEDT}" pattern="yyyy/MM/dd"/>
-																				    <p class="text-[#637381] dark:text-bodydark"></p>
+																				    <p class="text-[#637381] dark:text-bodydark">
+																				    <fmt:formatDate value="${approval.writeDt}" pattern="yyyy/MM/dd"/>
+																				    </p>
 																				</div>
                                         <!-- 완료일 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">${approval.APPDT}</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${approval.appDt}</p>
                                             </div>
                                         <!-- 결재양식 -->
                                             <div class="col-span-2">
                                             		<c:choose>
-																		                <c:when test="${approval.DOCTEMPCODE == 1}">
+																		                <c:when test="${approval.docTempCode == 1}">
 																		                    <p class="text-[#637381] dark:text-bodydark">구매신청서</p>
 																		                </c:when>
-																		                <c:when test="${approval.DOCTEMPCODE ==2}">
+																		                <c:when test="${approval.docTempCode ==2}">
 																		                    <p class="text-[#637381] dark:text-bodydark">휴가신청서</p>
 																		                </c:when>
-																		                <c:when test="${approval.DOCTEMPCODE ==3}">
+																		                <c:when test="${approval.docTempCode ==3}">
 																		                    <p class="text-[#637381] dark:text-bodydark">지출결의서</p>
 																		                </c:when>
 																		            </c:choose>
@@ -178,10 +197,10 @@
                                         <!-- 긴급 -->
                                             <div class="col-span-1" style="margin-left:10px;">
 	                                            		<c:choose>
-																		                <c:when test="${approval.URGENT == 1}">
+																		                <c:when test="${approval.urgent == 1}">
 																		                    <i class="fi fi-rr-light-emergency-on">${urgent}</i>
 																		                </c:when>
-																		                <c:when test="${approval.URGENT == 0}">
+																		                <c:when test="${approval.urgent == 0}">
 																		                		<p class="text-[#637381] dark:text-bodydark"></p>
 																		                </c:when>
 																		            </c:choose>
@@ -189,8 +208,8 @@
                                             </div>
                                        	<!-- 제목 -->
                                             <div class="col-span-3">
-                                            		  <a href="${contextPath}/approval/detail.do?docId=${approval.DOCID}" class="text-[#637381] dark:text-bodydark">
-                                            		  ${approval.TITLE}</a>
+                                            		  <a href="${contextPath}/approval/detail.do?docId=${approval.docId}" class="text-[#637381] dark:text-bodydark">
+                                            		  ${approval.title}</a>
                                                 
                                             </div>
                                         <!-- 기안자 -->
@@ -200,13 +219,13 @@
                                         <!-- 기안부서 -->
                                             <div class="col-span-1">
 																		            <c:choose>
-																		                <c:when test="${approval.DEPID == 1}">
+																		                <c:when test="${approval.depId == 1}">
 																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;총무팀</p>
 																		                </c:when>
-																		                <c:when test="${approval.DEPID == 2}">
+																		                <c:when test="${approval.depId == 2}">
 																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;경영팀</p>
 																		                </c:when>
-																		                <c:when test="${approval.DEPID == 3}">
+																		                <c:when test="${approval.depId == 3}">
 																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;인사팀</p>
 																		                </c:when>
 																		            </c:choose>
@@ -214,27 +233,27 @@
                                         <!-- 결재문서번호 -->
                                             <div class="col-span-1">
                                            		 <c:choose>
-															               		 <c:when test="${approval.APPDOCID == null}">
-															                    <p class="text-[#637381] dark:text-bodydark">${approval.APPDOCID}</p>
+															               		 <c:when test="${approval.appDocId == null}">
+															                    <p class="text-[#637381] dark:text-bodydark">${approval.appDocId}</p>
 															               		 </c:when>
-															               		 <c:when test="${approval.APPDOCID != null}">
-															               		 	<fmt:formatDate value="${approval.APPDOCID}" pattern="yyyy/MM/dd" var="formattedDate"/>
+															               		 <c:when test="${approval.appDocId != null}">
+															               		 	<fmt:formatDate value="${approval.appDocId}" pattern="yyyy/MM/dd" var="formattedDate"/>
 															               		 </c:when>
 														               		 </c:choose>
                                             </div>
                                     	 	<!-- 결재상태		 -->
                                             <div class="col-span-1">
                                                  <c:choose>
-																		                <c:when test="${approval.DOCSTATE == 0}">
+																		                <c:when test="${approval.docState == 0}">
 																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;진행</p>
 																		                </c:when>
-																		                <c:when test="${approval.DOCSTATE == 1}">
+																		                <c:when test="${approval.docState == 1}">
 																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;결재</p>
 																		                </c:when>
-																		                <c:when test="${approval.DOCSTATE ==2}">
+																		                <c:when test="${approval.docState ==2}">
 																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;반려</p>
 																		                </c:when>
-																		                <c:when test="${approval.DOCSTATE ==3}">
+																		                <c:when test="${approval.docState ==3}">
 																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;임시저장</p>
 																		                </c:when>
 																		            </c:choose>
@@ -296,7 +315,6 @@
             </div>
         </div>
     </form>
-    ${myDocList}
    
             
         </main>

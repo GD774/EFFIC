@@ -316,47 +316,49 @@
   <div class="grid grid-cols-6 border-b border-stroke dark:border-strokedark sm:grid-cols-6">
     <div class="p-2.5 xl:p-5">
       <p class="font-medium text-black dark:text-white">
-      <fmt:formatDate value="${approval.WRITEDT}" pattern="yyyy/MM/dd"/>
+      <fmt:formatDate value="${approval.writeDt}" pattern="yyyy/MM/dd"/>
       </p>
     </div>
+    <div>
     <div class="p-2.5 text-center xl:p-5">
       <p class="font-medium text-black dark:text-white">
       <c:choose>
-			   <c:when test="${approval.DOCTEMPCODE == 1}">
+			   <c:when test="${docTempCode == 1}">
 			       <p class="text-[#637381] dark:text-bodydark">구매신청서</p>
 			   </c:when>
-			   <c:when test="${approval.DOCTEMPCODE ==2}">
+			   <c:when test="${docTempCode ==2}">
 			       <p class="text-[#637381] dark:text-bodydark">휴가신청서</p>
 			   </c:when>
-			   <c:when test="${approval.DOCTEMPCODE ==3}">
+			   <c:when test="${docTempCode ==3}">
 			       <p class="text-[#637381] dark:text-bodydark">지출결의서</p>
 			   </c:when>
 			</c:choose>
       </p>
     </div>
+    </div>
     <div class="p-2.5 text-center xl:p-5">
    		<c:choose>
-      <c:when test="${approval.URGENT == 1}">
+      <c:when test="${approval.urgent == 1}">
           <i class="fi fi-rr-light-emergency-on">${urgent}</i>
       </c:when>
-      <c:when test="${approval.URGENT == 0}">
+      <c:when test="${approval.urgent == 0}">
       		<p class="text-[#637381] dark:text-bodydark"></p>
       </c:when>
  		 </c:choose>
     </div>
     <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">${approval.TITLE}</p>
+      <p class="font-medium text-black dark:text-white">${approval.title}</p>
     </div>
     <div class="hidden p-2.5 text-center sm:block xl:p-5">
       <p class="font-medium text-black dark:text-white">
        <c:choose>
-       <c:when test="${approval.DEPID == 1}">
+       <c:when test="${approval.depId == 1}">
            <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;총무팀</p>
        </c:when>
-       <c:when test="${approval.DEPID == 2}">
+       <c:when test="${approval.depId == 2}">
            <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;경영팀</p>
        </c:when>
-       <c:when test="${approval.DEPID == 3}">
+       <c:when test="${approval.depId == 3}">
            <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;인사팀</p>
        </c:when>
    		</c:choose>
@@ -365,16 +367,16 @@
     <div class="hidden p-2.5 text-center sm:block xl:p-5">
       <p class="font-medium text-black dark:text-white">
     <c:choose>
-    <c:when test="${approval.DOCSTATE == 0}">
+    <c:when test="${approval.docState == 0}">
         <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;진행</p>
     </c:when>
-    <c:when test="${approval.DOCSTATE == 1}">
+    <c:when test="${approval.docState == 1}">
         <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;결재</p>
     </c:when>
-    <c:when test="${approval.DOCSTATE ==2}">
+    <c:when test="${approval.docState ==2}">
         <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;반려</p>
     </c:when>
-    <c:when test="${approval.DOCSTATE ==3}">
+    <c:when test="${approval.docState ==3}">
         <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;임시저장</p>
     </c:when>
 		</c:choose>
@@ -382,7 +384,7 @@
     </div>
   </div>
   </c:forEach>
-
+${myDocList}
  
   </div>
 </div>

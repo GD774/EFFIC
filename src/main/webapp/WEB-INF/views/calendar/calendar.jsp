@@ -92,13 +92,7 @@
 
 <div class="calendarbox">
     <h1 id="calendarhead" style="font-size: 50px; font-weight: bold; color: rgb(65,105,225); margin-bottom: 20px;">일정관리</h1>
-		 <label for="eventFilter">공개범위:</label>
-	    <select id="eventFilter">
-	        <option value="all">모두보기</option>
-	        <option value="1">개인일정</option>
-	        <option value="2">부서일정</option>
-	        <option value="3">전사일정</option>
-	    </select>
+		 
   
  
     <hr>
@@ -321,6 +315,10 @@
             
         });
         calendar.render();
+        
+        $('#eventFilter').change(function() {
+            calendar.refetchEvents();
+        });
     });
 
     $(document).ready(function() {

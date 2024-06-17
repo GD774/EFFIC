@@ -2,10 +2,11 @@ package com.gd774.effic.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,10 +31,18 @@ public class MsgController {
 
 	private final MsgService msgService;
 	private final MsgMapper msgMapper;
+	
 
 	@GetMapping(value="/write.page")
-	public String goWrite(@RequestParam(defaultValue = "") String sender, Model model) {
+	public String goWrite(@RequestParam(defaultValue = "") String sender, Model model, HttpServletRequest request) {
 		model.addAttribute("sender", sender);
+		UserDto user =  (UserDto) request.getSession().getAttribute("user");
+		String empId = user.getEmpId();
+		String depId= user.getDepId();
+		System.out.println(depId);
+		String teamList = String.join(",", msgService.getTeamRegister(depId, empId));
+		
+		model.addAttribute("teamList", teamList);
 		return "msg/write";
 	}
 	
@@ -73,7 +82,9 @@ public class MsgController {
 			redirectAttributes.addFlashAttribute("inserted", msgService.msgInsertMe(multipartRequest));
 		} else {
 			redirectAttributes.addFlashAttribute("inserted", msgService.msgInsert(multipartRequest));
+			redirectAttributes.addFlashAttribute("recipient", recipient);
 		}
+		
 		
 		return "redirect:sentList.page";
 	}
@@ -218,10 +229,14 @@ public class MsgController {
 		if(msgSort.equals("M")) {
 			model.addAttribute("msg", msgService.getSentDetail(pk));
 	        model.addAttribute("attachList", msgService.getAttachDetail(pk));
+	        List<String> list = msgService.getRecipientList(pk);
+	        String petitList = list.toString().replace("[", "").replace("]", "");
+	        model.addAttribute("recipientList", petitList);
 	        return "msg/sentDetail";
 		} else if (msgSort.equals("R")) {
-			model.addAttribute("rcp", msgService.getInboxDetail(pk, request));
-	        model.addAttribute("attachList", msgService.getAttachDetail(pk));
+			int rpk = msgService.IsMsgId(pk);
+			model.addAttribute("rcp", msgService.getInboxDetail(rpk, request));
+	        model.addAttribute("attachList", msgService.getAttachDetail(rpk));
 	        return "msg/inboxDetail";
 		} else if(msgSort.equals("P")) {
 			model.addAttribute("msg", msgService.getToMeDetail(pk));
@@ -414,6 +429,38 @@ public class MsgController {
 		return msgService.updateInboxToBin(recpId);
 		
 	}
+	
+	@PostMapping(value="/updateImpToBin.do", produces="application/json")
+	@ResponseBody
+	public int updateImpToBin(@RequestParam List<String> checkValues){
+		
+		int updateCount = 0;
+	
+		
+		for(String check : checkValues) {
+			
+			String msgSort = check.substring(0, 1); 
+			int pk = Integer.parseInt(check.substring(1));
+			if(msgSort.equals("M")) {
+				updateCount = msgService.updateSentToBin(pk);
+			} else if (msgSort.equals("R")) {
+				updateCount = msgService.updateInboxToBin(pk);
+			} else if(msgSort.equals("P")) {
+				updateCount = msgService.updateSentToBin(pk);
+			}
+		}
+		
+		return updateCount;
+		
+	}
+	
+	@GetMapping(value="/getTeamList.do", produces="application/json")
+	public ResponseEntity<Map<String, Object>> getTeamList(HttpServletRequest request) {
+
+		return msgService.getInboxTeamList(request);
+	}
+	
+
 	
 
 	

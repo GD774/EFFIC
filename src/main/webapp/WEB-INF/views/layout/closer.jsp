@@ -11,5 +11,6 @@
 </div>
 
     <!-- ===== Page Wrapper End ===== -->
-  <script defer src="${contextPath}/js/globalbundle.js"></script></body>
+  <script defer src="${contextPath}/js/globalbundle.js"></script>
+  </body>
 </html>

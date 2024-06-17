@@ -26,14 +26,14 @@
     </select>
 
   <insert id="insertSchedule" parameterType="com.gd774.effic.dto.CalendarDto">
-    INSERT INTO SCHEDULE_T (TITLE, START_DT, END_DT, DOC_STATE, CONTENTS, EMP_ID, SCHEDULE_ID)
-    VALUES (#{title}, #{startDt}, #{endDt}, #{docState}, #{contents}, 'tester1', SCHEDULE_SEQ.NEXTVAL)
+    INSERT INTO SCHEDULE_T (TITLE, START_DT, END_DT, DOC_STATE, CONTENTS, EMP_ID, SCHEDULE_ID, START_HOUR, END_HOUR)
+    VALUES (#{title}, #{startDt}, #{endDt}, #{docState}, #{contents}, 'tester1', SCHEDULE_SEQ.NEXTVAL, #{startHour}, #{endHour})
   </insert>
 
 
   <update id="updateSchedule">
     UPDATE SCHEDULE_T
-    SET TITLE = #{title}, START_DT = #{startDt}, END_DT = #{endDt}, DOC_STATE = #{docState}, CONTENTS = #{contents}
+    SET TITLE = #{title}, START_DT = #{startDt}, END_DT = #{endDt}, DOC_STATE = #{docState}, CONTENTS = #{contents}, START_HOUR = #{startHour}, END_HOUR = #{endHour}
     WHERE SCHEDULE_ID = #{scheduleId}
   </update>
 

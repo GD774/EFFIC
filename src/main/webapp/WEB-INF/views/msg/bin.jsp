@@ -142,7 +142,7 @@ const fnGetBinList = () => {
 		    	else if(bin.sort.slice(0, 1) === 'M'){
 			    str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
 		    	else if(bin.sort.slice(0, 1) === 'P'){
-				str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/me.svg"/></p></div>';
+				str += '<div data-msg-id="'+bin.msgId+'" class="flex items-center col-span-3"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ bin.sname +'<img class="ml-4 inline-block w-5" src="/msgIcons/me.svg"/></p></div>';
 			    }
 				 
 				 
@@ -164,6 +164,13 @@ const fnGetBinList = () => {
 		})
 	};	
 	
+	const fnPaging = (p)=>{
+	    page = p;
+	    fnGetBinList();
+	  }
+	
+	
+	
 	//체크박스 선택 후 삭제버튼 눌러서 메세지 삭제
 	$('#btn-remove').click(function() {
 	    var checkValues = [];
@@ -171,7 +178,17 @@ const fnGetBinList = () => {
 	        checkValues.push(this.value);
 	        console.log(this.value);
 	    });
+	    
+	    if (checkValues.length === 0) {
+	        alert('선택된 항목이 없습니다.');
+	        return;
+	    }
+	    
 	    var data = $.param({ checkValues: checkValues });
+	    
+		if(!confirm('정말로 삭제하시겠습니까? 삭제된 메세지는 복원이 불가능할 수 있습니다.')){
+			return;
+		} 
 
 	    $.ajax({
 	        // 요청
@@ -196,6 +213,12 @@ const fnGetBinList = () => {
 	        checkValues.push(this.value);
 	        console.log(this.value);
 	    });
+	    
+	    if (checkValues.length === 0) {
+	        alert('선택된 항목이 없습니다.');
+	        return;
+	    }
+	    
 	    var data = $.param({ checkValues: checkValues });
 	    $.ajax({
 	        // 요청
@@ -215,6 +238,10 @@ const fnGetBinList = () => {
 	
 //비우기 버튼을 눌러서 휴지통 비우기
 const fnClearBin = () => {
+	if(!confirm('정말로 삭제하시겠습니까? 삭제된 메세지는 복원이 불가능할 수 있습니다.')){
+		return;
+	} 
+	
 	 $.ajax({
 	        // 요청
 	        type: 'POST',

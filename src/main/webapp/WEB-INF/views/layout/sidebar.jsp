@@ -350,10 +350,9 @@
 
               메세지
 
-              <span
-                class="absolute right-14 top-1/2 -translate-y-1/2 rounded bg-primary px-2.5 py-1 text-xs font-medium text-white"
-                >5</span
-					>
+              <input type="text" id="message-count"
+                class="w-10 text-center absolute right-14 top-1/2 -translate-y-1/2 rounded bg-primary px-2.5 py-1 text-xs font-medium text-white" readonly
+                />
 			  <svg
 				class="absolute right-4 top-1/2 -translate-y-1/2 fill-current"
 				:class="{ 'rotate-180': (selected === 'Chart') }"
@@ -575,8 +574,15 @@
 
 	</nav>
 	<!-- Sidebar Menu -->
-
   </div>
 </aside>
+
+  <script type="text/javascript">
+    var empId = "${user.empId}";
+    var countMark = document.getElementById("message-count");
+    countMark.value = "0";
+  </script>
+  <script src="${contextPath}/js/message.js?dt=<%=System.currentTimeMillis()%>"></script>
+
 
 <!-- ===== Sidebar End ===== -->

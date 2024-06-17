@@ -98,14 +98,15 @@ const fnGetFacilityList = () => {
           		StateDisplay = '폐기';
           	}
           	let str = ' ';
-            	str += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.facilityId + '</p></div>';
+            	str += '<div class="col-span-3"><p data-facility-id="'+facility.facilityId+'" class="text-[#637381] dark:text-bodydark">' + facility.facilityId + '</p></div>';
 		      	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + facility.cat.catName + '</p></div>';
             	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + facility.modelName + '</p></div>';
             	str += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.buyDt + '</p></div>';
                 str += '<div class="col-span-1"><p class="text-[#637381] dark:text-bodydark">' + StateDisplay + '</p></div>';
-                str += '<div class="col-span-1"><button class="float-right text-primary">설정</button></div>'
+                str += '<div class="col-span-1"><button class="float-right text-primary"><a href="editfacility.do?facilityId=' + facility.facilityId +'">설정</a></button></div>';
                 str += '</div>';
                 $('#facility-list').append(str);
+                
              console.log(facility.modelName);
           })
 
@@ -117,6 +118,8 @@ const fnGetFacilityList = () => {
   }
 
 
+
+	
 
 const fnScrollHandler = () => {
 	  
@@ -156,7 +159,6 @@ const fnScrollHandler = () => {
 	  })
 	  
 	}
-	
 	fnGetFacilityList();
 	fnScrollHandler();
 

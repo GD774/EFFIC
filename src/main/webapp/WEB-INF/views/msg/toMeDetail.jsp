@@ -32,10 +32,11 @@
             <!-- Breadcrumb End -->
              
            <div id="button-wrapper" class="py-3">
-           <button class="inline-flex rounded bg-[#637381] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+              <input type="hidden" id="msgId" name="msgId" value="${msg.msgId}">
+           <button id="btn-remove" class="inline-flex rounded bg-[#637381] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
              삭제
            </button>
-           <button class="inline-flex rounded bg-[#3BA2B8] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+           <button id="btn-star" class="inline-flex rounded bg-[#3BA2B8] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
              보관
            </button>
             </div>
@@ -61,13 +62,13 @@
                           
                          <c:choose>
 					    <c:when test="${empty attachList}">
-					        <input type="text" value="--" data-msg-id="${msg.msgId}" title=""  class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
+					        <input type="text" id="attach-file" value="--" data-msg-id="${msg.msgId}" title=""  class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
 					    </c:when>
 					    <c:when test="${attachList.size() eq 1}">
-					        <input type="text" value="${attachList[0].originalName}"  title=""  data-msg-id="${msg.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
+					        <input type="text" id="attach-file" value="${attachList[0].originalName}"  title=""  data-msg-id="${msg.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
 					    </c:when>
 					    <c:when test="${attachList.size() gt 1}">
-					        <input type="text"  title=""  value="${attachList[0].originalName} 외" data-msg-id="${msg.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
+					        <input type="text"  id="attach-file" title=""  value="${attachList[0].originalName} 외" data-msg-id="${msg.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
 					    </c:when>
 					   </c:choose> 
                         
@@ -117,8 +118,17 @@
 
 <script>
 
+var msgId = $('#msgId').val();
+
+
 const fnDownload = () => {
 	  $('.attachId').on('click', (evt) => {
+		  
+		  if($('#attach-file').val() === '--'){
+			  alert('첨부된 파일이 없습니다.');
+			  return;
+		  }
+		  
 		  
 	    if(confirm('해당 첨부 파일을 다운로드 할까요?')) {
 	      location.href = '${contextPath}/msg/download.do?msgId=' + evt.currentTarget.dataset.msgId;
@@ -126,7 +136,6 @@ const fnDownload = () => {
 	  })
 	}
 
-fnDownload();
 
 var info = document.getElementsByClassName('attach-info');
 var total = ''; 
@@ -141,8 +150,52 @@ $(document).on('mouseover', '.attachId', (evt) => {
     $(evt.currentTarget).attr('title', total);
 	
   });
+  
+const fnStar = () => {
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/sentDetailchkImp.do',
+        data: {msgId: msgId},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           alert('중요메세지로 설정되었습니다');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    })
+};
+
+$('#btn-star').on('click', (evt) =>{
+	fnStar();
+})
+
+const fnBin = () => {
+    $.ajax({
+        // 요청
+        type: 'POST',
+        url: '${contextPath}/msg/sentDetailToBin.do',
+        data: {msgId: msgId},
+        // 응답
+        dataType: 'json',
+        success: (resData) => { 
+           alert('휴지통으로 이동되었습니다.');
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+        }
+    })
+};
+
+$('#btn-remove').on('click', (evt) =>{
+	fnBin();
+})
 
 
+
+fnDownload();
   
 
 </script>

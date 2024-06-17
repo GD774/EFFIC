@@ -16,6 +16,13 @@
    padding-left: 40%;
 }
 
+ .elli {
+ max-width: 90%;;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+ }
+
 
 </style>
 
@@ -43,8 +50,8 @@
             <hr style="border-color: #BDBDBD; border-width: 1px; margin-top: 1rem;">
             
             <div id="button-wrapper" class="py-3">
-            <button class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                 삭제
+             <button id="btn-remove" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
+                 <img src="/msgIcons/bin.svg" />삭제
              </button>
             <button id="btn-cancel" class="ml-4 inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                  보관해제
@@ -153,21 +160,21 @@ const fnGetImpList = () => {
 		    	str += '<div class="star col-span-1" data-chk-impt="'+imp.chkImpt+'" data-sort="'+imp.sort+'"><img data-sort="'+imp.sort+'" data-chk-impt="'+imp.chkImpt+'" src="/msgIcons/star'+imp.chkImpt+'.svg"/></div>';
 		    	
 		    	if(imp.sort.slice(0, 1) === 'R'){
-		    	str += '<div data-msg-id="'+imp.msgId+'" class="col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ imp.sname +' </p></div>';}
+		    	str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-2"> <p class="elli text-[#637381] dark:text-bodydark"> '+ imp.sname +' </p></div>';}
 		    	else if(imp.sort.slice(0, 1) === 'M'){
-			    str += '<div data-msg-id="'+imp.msgId+'" class="flex items-center col-span-2"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ imp.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
+			    str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail flex items-center col-span-2"> <p class="elli text-[#637381] dark:text-bodydark w-auto"> '+ imp.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/mailout.svg"/></p></div>';}
 		    	else if(imp.sort.slice(0, 1) === 'P'){
-				str += '<div data-msg-id="'+imp.msgId+'" class="flex items-center col-span-2"> <p class="text-[#637381] dark:text-bodydark w-auto"> '+ imp.rname +'<img class="ml-4 inline-block w-5" src="/msgIcons/me.svg"/></p></div>';
+				str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail flex items-center col-span-2"> <p class="elli text-[#637381] dark:text-bodydark w-auto"> '+ imp.sname +'<img class="ml-4 inline-block w-5" src="/msgIcons/me.svg"/></p></div>';
 		    	}
 		    	
 		    	
 		    	if(imp.hasAttach === true){
-			    	str += ' <div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	str += ' <div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
 			    	} else if(imp.hasAttach === false) {
-				    str += ' <div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-4"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'</p></div>';
+				    str += ' <div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ imp.title +'</p></div>';
 			    	}
 		    	
-		    	str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ imp.sendDt.slice(0, -3) +'</p></div>';
+		    	str += '<div data-msg-id="'+imp.msgId+'" data-sort="'+imp.sort+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ imp.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);
@@ -178,6 +185,15 @@ const fnGetImpList = () => {
 		})
 	};
 
+	
+	const fnPaging = (p)=>{
+	    page = p;
+	    fnGetImpList();
+	  }
+	
+	
+	
+  // 중요메세지 함에서 중요메시지 토글
 	const fnUpdateChkImpt = (evt) => {
 
 		console.log($(evt.target).data('sort'));
@@ -214,6 +230,12 @@ const fnGetImpList = () => {
 	        checkValues.push(this.value);
 	        console.log(this.value);
 	    });
+	    
+	    if (checkValues.length === 0) {
+	        alert('선택된 항목이 없습니다.');
+	        return;
+	    }
+	    
 	    var data = $.param({ checkValues: checkValues });
 	    $.ajax({
 	        // 요청
@@ -230,6 +252,36 @@ const fnGetImpList = () => {
 	        }
 	    });
 	});	
+	
+	// 체크한 거 삭제버튼 눌러서 휴지통으로 이동
+	$('#btn-remove').click(function() {
+	    var checkValues = [];
+	    $("input[name='checkbox']:checked").each(function() {
+	        checkValues.push(this.value);
+	    });
+	    
+	    if (checkValues.length === 0) {
+	        alert('선택된 항목이 없습니다.');
+	        return;
+	    }
+	    
+	    var data = $.param({ checkValues: checkValues });
+	    $.ajax({
+	        // 요청
+	        type: 'POST',
+	        url: '${contextPath}/msg/updateImpToBin.do',
+	        data: {checkValues: checkValues},
+	        // 응답
+	        dataType: 'json',
+	        success: (resData) => { 
+	        	fnGetImpList();
+	           alert('휴지통으로 이동되었습니다');
+	        },
+	        error: (jqXHR) => {
+	            alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+	        }
+	    });
+	});
 	
 	
 fnGetImpList();

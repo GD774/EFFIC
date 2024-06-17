@@ -10,8 +10,6 @@
 
 <style>
 
-
-
 #paging {
    padding-left: 40%;
 }
@@ -19,6 +17,14 @@
 .current-page {
  font-weight: bold;
 }
+
+ .elli {
+ max-width: 90%;;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+ }
+
 
 </style>
 
@@ -63,11 +69,6 @@
                  전체선택
             </button>
             </div>
-            <div>
-           <button id="team-btn" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                      팀메세지
-           </button>
-           </div>
           </div>       
           
 
@@ -125,6 +126,7 @@
 </div>
 
 <input type="hidden" id="insertResult" value="${inserted}">
+<input type="hidden" id="recipient" value="${recipient}">
 
 <script>
 
@@ -167,7 +169,7 @@ const fnGetMsgList = () => {
 		    	let str=  '<div class="hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
 		    	str +=  '<div class="col-span-1" ><input type="checkbox" name="checkbox" class="chk" value="'+ msg.msgId +'"></div>';
 		    	str += '<div class="star col-span-1" data-chk-impt="'+msg.chkImpt+'" data-msg-id="'+msg.msgId+'"><img data-msg-id="'+msg.msgId+'" data-chk-impt="'+msg.chkImpt+'" src="/msgIcons/star'+msg.chkImpt+'.svg"/></div>';
-		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ msg.name +' </p></div>';
+		    	str += '<div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-2"> <p class="elli text-[#637381] dark:text-bodydark"> '+ msg.name +' </p></div>';
 		    	
 		    	if(msg.hasAttach === true){
 			    	str += ' <div data-msg-id="'+msg.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ msg.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
@@ -242,6 +244,12 @@ $('#btn-remove').click(function() {
     $("input[name='checkbox']:checked").each(function() {
         checkValues.push(this.value);
     });
+    
+    if (checkValues.length === 0) {
+        alert('선택된 항목이 없습니다.');
+        return;
+    }
+    
     var data = $.param({ checkValues: checkValues });
     $.ajax({
         // 요청
@@ -266,6 +274,12 @@ $('#btn-star').click(function() {
     $("input[name='checkbox']:checked").each(function() {
         checkValues.push(this.value);
     });
+    
+    if (checkValues.length === 0) {
+        alert('선택된 항목이 없습니다.');
+        return;
+    }
+    
     var data = $.param({ checkValues: checkValues });
     $.ajax({
         // 요청
@@ -284,10 +298,16 @@ $('#btn-star').click(function() {
     });
 });
 
-
+//var recipient = document.getElementById('recipient').value;
 
 fnGetMsgList();	
 fnResponse();
 </script>
+
+  <script type="text/javascript">
+  var recipient = 0;
+  recipient = document.getElementById('recipient').value;
+  </script>
+
 
 <jsp:include page="../layout/closer.jsp"/>

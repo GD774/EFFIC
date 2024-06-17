@@ -79,13 +79,12 @@ public class MsgServiceImpl implements MsgService {
 		if (recipientParam != null && !recipientParam.isEmpty()) {
 		    recipients = recipientParam.replaceAll(" ", "").split(",");
 		}
-		System.out.println(recipients);
 		
 		int inserRecpCount = 0;
 		
 		for (String recipient : recipients) {
 			if (recipient != null && !recipient.isEmpty()) {
-			   System.out.println(recipient);
+
 			   
 				RecpDto recp = RecpDto.builder()
 						.msgId(msg.getMsgId())
@@ -93,12 +92,13 @@ public class MsgServiceImpl implements MsgService {
 						.build();
 				
 				inserRecpCount += msgMapper.insertRecp(recp);
+				
+				int UnreadCount = msgMapper.getUnReadCount(recipient);
 			}
 		}
 		
 		
 		
-		// 이거 나중에 수정. boolean으로 바꿔서 1&&list=recp 로 해야할까?
 		return insertMsgCount;
 	}
 	
@@ -150,18 +150,16 @@ public class MsgServiceImpl implements MsgService {
 		UserDto user = (UserDto)request.getSession().getAttribute("user");
 		String sender = user.getEmpId();
 	    int total = msgMapper.getMsgCount(sender);
-	    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+	    int display = 10;		 
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 	    int page = Integer.parseInt(opt.orElse("1"));
 	    msgPaging.setPaging(total, display, page);
 	    
 		
-		// 페이징처리 안하고 우선 ajax 작동하는지 부터 확인함
+		// 페이징처리 안하고 우선 ajax 작동하는지 부터 확인함 -> 확인 ok
 		Map<String, Object> map = Map.of("sender", sender,"begin", msgPaging.getBegin() 
                 , "end", msgPaging.getEnd());
-		
-		System.out.println(msgPaging.getBegin());
-		System.out.println(msgPaging.getEnd());
+
 		
 		return new ResponseEntity<>(Map.of("msgList", msgMapper.getListMsg(map), "total", total
                 , "paging", msgPaging.getAsyncPaging()), HttpStatus.OK);
@@ -196,35 +194,31 @@ public class MsgServiceImpl implements MsgService {
 	@Override
 	public ResponseEntity<Resource> download(HttpServletRequest request) {
 		
-		 // 첨부 파일 정보를 DB 에서 가져오기
 		    int msgId = Integer.parseInt(request.getParameter("msgId"));
 		    MsgAttachDto attach = msgMapper.getMsgOneAttach(msgId);
 		    
-		    // 첨부 파일 정보를 File 객체로 만든 뒤 Resource 객체로 변환
-		    File file = new File(attach.getUploadPath(), attach.getFilesysName()); //경로, 파일명
+		    File file = new File(attach.getUploadPath(), attach.getFilesysName());
 		    Resource resource = new FileSystemResource(file);
 		    
 		    // 첨부 파일 없으면 다운로드 취소
-		    // 이런식으로 데이터가 필요없을 때는 응답코드 만으로도 메소드 반환해주고 끝낼 수 있다.
 		    if(!resource.exists()) {
 		      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		    }
 		    
 		    
-		    // 사용자가 다운로드 받을 파일명 결정 (originalFilename을 기본적으로 사용. originalFilename을 브라우저에 따라 다르게 인코딩 처리(주어MS))
 		    String originalFilename = attach.getOriginalName();
-		    String userAgent = request.getHeader("User-Agent");  // 처음에 헤더 배울때 이런게 했었죠...기억이 새록새록...
-		    try { // 플랫폼에 종속적인 소프트웨어들이 있는데...더이상 업데이트를 못해서 울며 겨자먹기로 그 플랫폼 써야만 하는 경우들이 있음. 수두룩함....
+		    String userAgent = request.getHeader("User-Agent");  
+		    try { 
 		      
 		      // IE
-		      if(userAgent.contains("Trident")){ //Trident가 포함되어 있으면 IE
-		        originalFilename = URLEncoder.encode(originalFilename, "UTF-8").replace("+", ""); // +가 나오면 공백으로 바꿔준다.
+		      if(userAgent.contains("Trident")){ 
+		        originalFilename = URLEncoder.encode(originalFilename, "UTF-8").replace("+", ""); 
 		      }
 		      // Edge
-		      else if(userAgent.contains("Edg")){     //Edg가 포함되어 있으면 Edge
+		      else if(userAgent.contains("Edg")){   
 		        originalFilename = URLEncoder.encode(originalFilename, "UTF-8");
 		      }
-		      // Other 그 외 모던 브라우저들
+		    
 		      else {
 		      // originalFilename = new String(originalFilename.getBytes(""), "ISO-8859-1");
 		    	  originalFilename = URLEncoder.encode(originalFilename, "UTF-8");
@@ -236,7 +230,7 @@ public class MsgServiceImpl implements MsgService {
 		      e.printStackTrace();
 		    }
 		    
-		    System.out.println(originalFilename);
+
 		    
 		    // 다운로드용 응답 헤더 설정 (HTTP 참조)
 		    HttpHeaders responseHeader = new HttpHeaders();
@@ -244,7 +238,6 @@ public class MsgServiceImpl implements MsgService {
 		    responseHeader.add("Content-Disposition", "attachment; filename=\"" + originalFilename + "\"");
 		    responseHeader.add("Content-Length", file.length() + "");
 		    
-		    System.out.println("다운로드 서비스 돎");
 		    
 		    
 		    // 다운로드 진행
@@ -254,75 +247,57 @@ public class MsgServiceImpl implements MsgService {
 	 @Override
 	public ResponseEntity<Resource> downloadAll(int msgId) {
 
-		  // 다운로드할 모든 첨부 파일들의 정보를 DB 에서 가져오기
 
 		    List<MsgAttachDto> attachList = msgMapper.getMsgAttach(msgId);
 		    
-		   // MsgAttachDto firstAttach = attachList.get(0);
-		   // String tempFilename = firstAttach.getOriginalName() + "외";
 		    
-		    // 첨부 파일이 없으면 종료
 		    if(attachList.isEmpty()) {
 		      return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
 		    }
 		    
-		    // 임시 zip 파일 저장할 경로
 		    File tempDir = new File(myFileUtils.getTempPath());
 		    if (!tempDir.exists()) {
 		     tempDir.mkdirs(); 
 		    }
 		    
-		    // 임시 zip 파일 이름
 		    String tempFilename = myFileUtils.getTempFilename() + ".zip";
 		    
-		    // 임시 zip 파일 File 객체
 		    File tempfile = new File(tempDir, tempFilename);
 		    
-		    // 첨부 파일들을 하나씩 zip 파일로 모으기
 		    try {
 		      
-		      // ZipOutputStream 객체 생성
 		      ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(tempfile));
 		      
 		      for (MsgAttachDto attach : attachList) {
 		        
-		        // zip 파일에 포함할 ZipEntry 객체 생성
-		        ZipEntry zipEntry = new ZipEntry(attach.getOriginalName()); // zip 파일에 들어갈 개별 파일의 이름
+		        ZipEntry zipEntry = new ZipEntry(attach.getOriginalName());
 		        
-		        // zip 파일에 ZipEntry 객체 명단 추가 (파일의 이름만 등록한 상황)
 		        zout.putNextEntry(zipEntry);
 		        
-		        // 실제 첨부 파일을 zip 파일에 등록 (첨부 파일을 읽어서 zip 파일로 보냄. 읽어들이는 건 InputStream) 
 		        BufferedInputStream in = new BufferedInputStream(new FileInputStream(new File(attach.getUploadPath(), attach.getFilesysName())));
-		        zout.write(in.readAllBytes());  // 싹 다 읽어오는 메소드
+		        zout.write(in.readAllBytes());  
 		        
-		        // 사용한 자원 정리
 		        in.close();
 		        zout.closeEntry();
 
 		        
-		      } // for문 종료
+		      } 
 		      
-		      // zout 자원 반납
+
 		      zout.close();
 		      
 		    } catch (Exception e) {
 		      e.printStackTrace();
 		    }
 		    
-		    // 다운로드 할 zip File 객체 -> Resource 객체
 		     Resource resource = new FileSystemResource(tempfile);
 		    
-		     // 임시파일의 이름이 숫자(TIMPESTAMP)로 되어있기 때문에 인코딩을 할 필요가 없다.
 		     
-		     // 다운로드용 응답 헤더 설정 (HTTP 참조)
 		     HttpHeaders responseHeader = new HttpHeaders();
 		     responseHeader.add("Content-Type", "application/octet-stream");
 		     responseHeader.add("Content-Disposition", "attachment; filename=" + tempFilename);
 		     responseHeader.add("Content-Length", tempfile.length() + ""); //file.length()가 long 이라서 "" 더해서 String 으로 만들어줌
 		     
-		     System.out.println("다운로드 서비스 돎");
-		     // 다운로드 진행
 		     return new ResponseEntity<Resource>(resource, responseHeader, HttpStatus.OK);
 	}
 	 
@@ -392,7 +367,7 @@ public class MsgServiceImpl implements MsgService {
 			String sender = user.getEmpId();
 			Map<String, Object> getTotal = Map.of("recipient", recipient, "sender", sender);
 		    int total = msgMapper.getImpCount(getTotal);
-		    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+		    int display = 10;	
 			Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		    int page = Integer.parseInt(opt.orElse("1"));
 		    msgPaging.setPaging(total, display, page);
@@ -441,11 +416,10 @@ public class MsgServiceImpl implements MsgService {
 			String recipient = user.getEmpId();
 			String sender = user.getEmpId();
 			
-			//데이터 몇백개 넣고 페이징 처리 확인 해봐야함. count 다른거 쓰는거 있었어서 수정. 이런거는 데이터 많이 들어가기 전에는 티안남...조심
 			Map<String, Object> getTotal = Map.of("recipient", recipient, "sender", sender);
 		    int total = msgMapper.getBinCount(getTotal);
 
-		    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+		    int display = 10;		 
 			Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		    int page = Integer.parseInt(opt.orElse("1"));
 		    msgPaging.setPaging(total, display, page);
@@ -500,26 +474,50 @@ public class MsgServiceImpl implements MsgService {
 		return updateCount;
 	}
 	
+	@Override
+	public int getUnReadCount(String recipient) {
+        
+		return msgMapper.getUnReadCount(recipient);
+	}
+	
+	
+	//팀메세지 등록
+	@Override
+	public List<String> getTeamRegister(String depId, String empId) {
+         
+		return msgMapper.getTeamRegister(depId, empId);
+	}
+	
+	
+	@Override
+	public int IsMsgId(int recpId) {
+		
+		
+		return msgMapper.IsMsgId(recpId);
+	}
+	
+	@Override
+	public ResponseEntity<Map<String, Object>> getInboxTeamList(HttpServletRequest request) {
+		UserDto user = (UserDto)request.getSession().getAttribute("user");
+		String recipient = user.getEmpId();
+		String depId = user.getDepId();
+		Map<String, Object> forCount = Map.of("recipient", recipient, "depId", depId);
+	    int total = msgMapper.getTeamInboxCount(forCount);
+	    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+	    int page = Integer.parseInt(opt.orElse("1"));
+	    msgPaging.setPaging(total, display, page);
+	    
+	    
+
+		Map<String, Object> map = Map.of("recipient", recipient, "depId" , depId, "begin", msgPaging.getBegin() 
+                , "end", msgPaging.getEnd());
+		
+		return new ResponseEntity<>(Map.of("recpList", msgMapper.getTeamInboxList(map), "total", total
+                , "paging", msgPaging.getAsyncPaging(),"noRead", msgMapper.countNoRead(recipient)), HttpStatus.OK);
+	}
+	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

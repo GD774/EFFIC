@@ -46,7 +46,7 @@
                   <li>
                    <a id="total" class="font-medium" > </a>
                   </li>
-                  <li class="font-medium text-primary"> / 1000</li>
+                  <li id="thousand" class="font-medium text-primary"> / 1000</li>
                 </ol>
               </nav>
             </div>
@@ -70,6 +70,7 @@
             <div>
            <button id="team-btn" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
                       팀메세지
+                      
            </button>
            </div>
           </div>           
@@ -133,6 +134,8 @@
 
 var page = 1;
 var totalPage = 0;
+var isTeam = 0;
+var isLoading = false;
 
 document.getElementById('select-all').addEventListener('click', function(evt) {
 	  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -180,9 +183,9 @@ const fnGetRecpList = () => {
 		    	
 		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ recp.sendDt.slice(0, -3) +'</p></div>';
 		    	str += '</div>';
-		    	console.log(recp);
 		    	$('#message-list').append(str);
 		    }),  $('#paging').html(resData.paging);
+				 $('#thousand').html(" / 1000");
 				 $('#total').html(resData.total);
 				 $('#no-read').html(resData.noRead +"건 / 미열람");
 				 fnApplyBold();
@@ -230,6 +233,12 @@ $('#btn-remove').click(function() {
     $("input[name='checkbox']:checked").each(function() {
         checkValues.push(this.value);
     });
+    
+    if (checkValues.length === 0) {
+        alert('선택된 항목이 없습니다.');
+        return;
+    }
+    
     var data = $.param({ checkValues: checkValues });
     $.ajax({
         // 요청
@@ -254,6 +263,13 @@ $('#btn-star').click(function() {
     $("input[name='checkbox']:checked").each(function() {
         checkValues.push(this.value);
     });
+    
+    if (checkValues.length === 0) {
+        alert('선택된 항목이 없습니다.');
+        return;
+    }
+    
+    
     var data = $.param({ checkValues: checkValues });
     $.ajax({
         // 요청
@@ -280,6 +296,60 @@ const fnApplyBold = () => {
 $(document).ready(() => {
 	fnApplyBold();
 });
+
+$('#team-btn').on('click', () => {
+	
+    
+	if(isTeam === 1){
+		fnGetRecpList();
+		 $('#team-btn').removeClass('inline-flex rounded-full bg-[#637381] px-3 py-1 text-sm font-medium text-white hover:bg-opacity-90')
+         .addClass('inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80');
+		isTeam = 0;
+		return;
+	} 
+	
+	 $.ajax({
+	     
+		 // 요청
+		  type: 'GET',
+		  url: '${contextPath}/msg/getTeamList.do',               
+		  data : 'page=' + page,
+		  // 응답
+		  dataType: 'json',
+		  success: (resData) => {
+			     $('#message-list').html('');
+				 $.each(resData.recpList, (i, recp) => {
+		    	let str=  '<div class="'+recp.readDt +' hover:bg-gray grid grid-cols-11 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11 hover:opacity-20" style="grid-template-columns: 50px 50px repeat(9, 1fr);">';
+		    	str +=  '<div class="col-span-1"><input type="checkbox" name="checkbox" class="chk" value="'+recp.recpId +'"></div>';
+		    	str += '<div class="star col-span-1" data-chk-impt="'+recp.chkImpt+'" data-recp-id="'+recp.recpId+'"><img data-recp-id="'+recp.recpId+'" data-chk-impt="'+recp.chkImpt+'" src="/msgIcons/star'+recp.chkImpt+'.svg"/></div>';
+		        str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"> <p class="text-[#637381] dark:text-bodydark"> '+ recp.name +' </p></div>';
+		    	
+		        
+		    	if(recp.hasAttach === true){
+			    	str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'<img class="ml-4 inline-block w-5" src="/msgIcons/paperclip.svg"/></p></div>';
+			    	} else if(recp.hasAttach === false) {
+				    str += ' <div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-5"><p class="text-[#637381] dark:text-bodydark">'+ recp.title +'</p></div>';
+			    	}		    	
+		    	
+		    	str += '<div data-msg-id="'+recp.msgId+'" class="msg-detail col-span-2"><p class="text-[#637381] dark:text-bodydark">'+ recp.sendDt.slice(0, -3) +'</p></div>';
+		    	str += '</div>';
+		    	$('#message-list').append(str);
+		    }),  $('#paging').html(resData.paging);
+				 $('#total').html("");
+				 $('#thousand').html("");
+				 $('#no-read').html("");
+				 $('#team-btn').removeClass('inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80')
+                 .addClass('inline-flex rounded-full bg-[#637381] px-3 py-1 text-sm font-medium text-white hover:bg-opacity-90');
+				 fnApplyBold();
+				 isTeam = 1;
+				
+				 
+		  },
+		  error: (jqXHR) => {
+			  alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+		  }
+		})
+	  });
 
 
 fnGetRecpList();

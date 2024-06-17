@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd774.effic.dto.FacilityManageDto;
+import com.gd774.effic.dto.FacilityReserveDto;
 import com.gd774.effic.service.ReserveService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RequiredArgsConstructor
@@ -80,12 +83,6 @@ public class ReserveController {
       return "/reservation/reserve5";
   }
   
-  // 물품 예약 리스트 화면
-  @GetMapping(value = "/getFacReserveList.do", produces = "application/json")
-  public ResponseEntity<Map<String, Object>> getFacReserveList(HttpServletRequest request) {
-    return reserveService.getFacReserveList(request);
-  }
-  
   // 물품 관리 화면
   @GetMapping(value = "/facilitymanage")
   public String facilitymanage() {
@@ -125,6 +122,7 @@ public class ReserveController {
     return "reservation/editfacility";
   }
   
+  // 물품 수정 update
   @PostMapping(value = "/modifyfacility.do")
   public String modifyFacility(HttpServletRequest request, RedirectAttributes redirectAttributes) {
       int modifyCount = reserveService.modifyFacilityList(request);
@@ -136,8 +134,34 @@ public class ReserveController {
     return "redirect:/reservation/facilitymanage";
   }
   
+  // 물품 삭제 
+  @PostMapping("/removefacility.do")
+  public String removeFacility(@RequestParam(value="facilityId", required=false, defaultValue="0") int facilityId
+                                           , RedirectAttributes redirectAttributes) {
+    int removeCount = reserveService.removeFacility(facilityId);
+    redirectAttributes.addFlashAttribute("removeResult", removeCount == 1 ? "삭제" : "실패");
+      return "redirect:/reservation/facilitymanage";
+  }
   
+  // 물품 예약 리스트 화면
+  @PostMapping(value = "/getFacReserveList.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> getFacReserveList(HttpServletRequest request) {
+    return reserveService.getFacReserveList(request);
+  }
   
+  // 물품 대여 클릭시 db로 보내기
+  @PostMapping(value = "/reservefac.do")
+  public String insertFacReserve(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+      int reserveCount = reserveService.FacilityReserve(request);
+      redirectAttributes
+      .addAttribute("facilityId", request.getParameter("facilityId"))
+      .addFlashAttribute("reserveResult", reserveCount == 1 ? "수정" : "실패");
+      return "redirect:/reservation/facilitystatus";
+  }
   
-  
+  @GetMapping(value = "/getreserve.do", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> getFacReserve(HttpServletRequest request) {
+    return reserveService.getFacilityReseve(request);
+  }
+   
 }

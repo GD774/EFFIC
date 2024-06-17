@@ -352,26 +352,28 @@ $(document).ready(function() {
   </div>
 </div>
 </form>
-<script>
 
 <script>
+$(document).ready(function() {
+    const btnModify = document.getElementById('btn-modify');
+    const btnRemove = document.getElementById('btn-remove');
 
+    btnModify.addEventListener('click', function(evt) {
+        // Modify 버튼 클릭 시 동작
+        $('#frm-facility-modify').attr('action', '${contextPath}/reservation/modifyfacility.do');
+        $('#frm-facility-modify').submit();
+    });
 
-const btnModify = document.getElementById('btn-modify');
-
-btnModify.addEventListener('click', (evt)=>{
-    $(frmDetail).attr('action', '${contextPath}/reservation/modifyfacility.do');
-    $(frmDetail).submit();
-})
-
-
-$('#btn-remove').on('click', function() {
-    if(confirm('물품을 삭제할까요?')) {
-        const facilityId = $(this).data('facility-id'); // data-facility-id 속성 가져오기
-        location.href = '${contextPath}/reservation/remove.do?facilityId=' + facilityId;
-    }
+    $('#btn-remove').on('click', function(evt) {
+        // Remove 버튼 클릭 시 동작
+        if (confirm('물품을 삭제하시겠습니까?')) {
+            $('#frm-facility-modify').attr('action', '${contextPath}/reservation/removefacility.do');
+            $('#frm-facility-modify').submit();
+        }
+    });
 });
 </script>
+
 
 <!-- ===== Main Content End ===== -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

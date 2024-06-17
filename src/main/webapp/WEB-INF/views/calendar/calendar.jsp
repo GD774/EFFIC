@@ -10,6 +10,7 @@
 		margin-top: 20px; 
 		margin-left: 150px; 
 		width: 1300px;
+		height: auto;
 		
 		}
 		

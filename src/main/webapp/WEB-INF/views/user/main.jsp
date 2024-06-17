@@ -8,6 +8,25 @@
 <jsp:include page="../layout/opener.jsp"/>
 <jsp:include page="../layout/sidebar.jsp"/>
 
+
+<!-- fullcalendar -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+<script src='fullcalendar/dist/index.global.js'></script>
+
+
+
+<style>
+
+#calendar {
+		text-align: center;
+    width:850px;
+    height: auto;
+}
+
+
+</style>
+
+
 <!-- ===== Content Area Start ===== -->
 <div
   class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden"
@@ -94,7 +113,7 @@
 
             
             
-  <div class="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+  <div id="scheduleBox" class="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
   <!-- ====== Chart One Start -->
   <div class="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8">
   <div class="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
@@ -127,33 +146,7 @@
   </div>
 </div>
 
-             
-
-
-         
-
     
-                 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
   </main>
   <!-- ===== Main Content End ===== -->
@@ -161,9 +154,40 @@
 
 
 
-
 <script>
- 
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        dayMaxEventRows: true,
+        views: {
+		    timeGrid: {
+		      dayMaxEventRows: 2 // 이벤트 날짜 겹치는 일정 최대 3개까지 등장
+		    }
+		  },
+        events: function(fetchInfo, successCallback, failureCallback) {
+            $.ajax({
+                url: '${contextPath}/calendar/events',
+                type: 'GET',
+                success: function(data) {
+                    var events = parseEvents(data);
+                    successCallback(events);
+                },
+                error: function(xhr, status, error) {
+                    alert('일정 조회에 실패했습니다.');
+                    console.error("Error details:", xhr, status, error);
+                }
+            });
+        },
+        eventClick: function(info) {
+        	 window.location.href = '${contextPath}/calendar';
+        }
+        
+    });
+    
+    calendar.render();
+});
+
 function parseEvents(data) {
 	return data.map(event => {
        // startHour와 endHour가 제대로 설정되었는지 확인
@@ -193,101 +217,6 @@ function parseEvents(data) {
         };
     });
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-    		googleCalendarApiKey: 'AIzaSyAovOUlYT-fKpoVo18NKTy6aWJvBxKPpDQ',
-    		eventSources: [
-    			{
-    				  googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
-    				  color: 'white',   // an option!
-    				  textColor: 'red' // an option!
-    				}
-    		],
-    		dayMaxEventRows: true,
-    		views: {
-    		    timeGrid: {
-    		      dayMaxEventRows: 3 // 이벤트 날짜 겹치는 일정 최대 3개까지 등장
-    		    }
-    		  },
-        height: 800,
-        initialView: 'dayGridMonth',
-        slotLabelFormat: {
-            hour: 'numeric',
-            minute: '2-digit',
-            omitZeroMinute: true,
-            meridiem: 'short' // 'long'로 변경하여 'am'/'pm' 표기
-        },
-        eventTimeFormat: {
-            hour: 'numeric',
-            minute: '2-digit',
-            omitZeroMinute: true,
-            meridiem: 'short' // 'long'로 변경하여 'am'/'pm' 표기
-        },
-        timeZoneName: 'short', // 기본값은 'short'이나, 'long'으로 변경하여 'am'/'pm' 표기
-
-        events: function(fetchInfo, successCallback, failureCallback) {
-            $.ajax({
-                url: '${contextPath}/calendar/events',
-                type: 'GET',
-                success: function(data) {
-                    var events = parseEvents(data);
-                    successCallback(events);
-                    console.log("Parsed events:", events);
-                },
-                error: function(xhr, status, error) {
-                    alert('일정 조회에 실패했습니다.');
-                    console.log("Error details:", status, error, xhr.responseText);
-                }
-            });
-        },
-        dateClick: function(info) {
-        	
-        		$('#dateModalLabel').show();
-            $('#dateModalLabel2').hide();
-            $('#datepicker').datepicker('setDate', info.date);
-            $('#datepicker2').datepicker('setDate', info.date);
-            $('#scheduleId').val('');
-            $('#title').val('');
-            $('#contents').val('');
-            $('#startHour').val('9');  // 시작 시간 기본값
-            $('#endHour').val('18');    // 종료 시간 기본값
-            $('#dateModal').modal('show');
-            $('#submitScheduleForm').show();
-            $('#modifyScheduleForm').hide();
-            $('#deleteScheduleForm').hide();
-        },
-        eventClick: function(info) {
-           
-            $('#dateModalLabel2').show();
-            $('#dateModalLabel').hide();
-            $('#scheduleId').val(info.event.id);
-            $('#title').val(info.event.title);
-            $('#datepicker').datepicker('setDate', info.event.start);
-            $('#datepicker2').datepicker('setDate', info.event.end);
-            $('#contents').val(info.event.extendedProps.contents);
-            $('#openRange').val(info.event.extendedProps.docState);
-         		// DB에서 가져온 시작 시간과 종료 시간 셀렉트 박스에 설정
-            const startHour = info.event.start.getHours().toString();
-         		console.log('startHour =' + startHour);
-            const endHour = info.event.end.getHours().toString();
-         		console.log('endHour =' + endHour);
-            $('#startHour').val(startHour);
-            $('#endHour').val(endHour);
-            $('#dateModal').modal('show');
-            $('#submitScheduleForm').hide();
-            $('#modifyScheduleForm').show();
-            $('#deleteScheduleForm').show();
-        }
-        
-        
-        
-    });
-    calendar.render();
-});
- 
- 
 </script>
 
 <jsp:include page="../layout/closer.jsp"/>

@@ -5,6 +5,18 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
+<style>
+
+#logoimage {
+	margin-left: 50px;
+	margin-top: 50px;
+	width: 75px;
+	height: 75px;
+
+}
+
+</style>
+
 <!-- ===== Sidebar Start ===== -->
 <aside
   :class="sidebarToggle ? 'translate-x-0' : '-translate-x-full'"
@@ -13,8 +25,8 @@
   >
   <!-- SIDEBAR HEADER -->
   <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-	<a href="index.html">
-      <img src="${contextPath}/images/logo/logo.svg" alt="Logo" />
+	<a href="${contextPath}/">
+      <img id="logoimage" src="${contextPath}/image/logo-white.svg" alt="Logo" />
 	</a>
 
 	<button
@@ -525,7 +537,7 @@
           <li>
 			<a
               class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-              href="organization.html"
+              href="${contextPath}/msg/tree.page"
               @click="selected = (selected === 'Organization' ? '':'Organization')"
               :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Organization') && (page === 'organization') }"
               :class="page === 'organization' && 'bg-graydark'"
@@ -563,7 +575,6 @@
                   </clipPath>
                 </defs>
               </svg>
-
               조직도
 			</a>
           </li>

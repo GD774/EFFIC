@@ -40,8 +40,11 @@
         <div
       	  class="grid grid-cols-12 rounded-lg rounded-t-[10px] bg-primary px-5 py-4 lg:px-7.5 2xl:px-11"
      	 >
-          <div class="col-span-3">
+          <div class="col-span-1">
             <h5 class="font-medium text-white">물품코드</h5>
+          </div>
+          <div class="col-span-2">
+            <h5 class="font-medium text-white">장기/단기</h5>
           </div>
 	        <div class="col-span-2">
     	      <h5 class="font-medium text-white">물품명</h5>
@@ -90,6 +93,7 @@ const fnGetFacilityList = () => {
       	$.each(resData.getFacilityList, (i, facility) => {
       		
           	let StateDisplay;
+          	let rentPeriod;
           	if(facility.facilityState === 0) {
           		StateDisplay = '정상';
           	} else if(facility.facilityState === 1) {
@@ -97,8 +101,14 @@ const fnGetFacilityList = () => {
           	} else if(facility.facilityState === 2) {
           		StateDisplay = '폐기';
           	}
+          	if(facility.rentTerm === 0) {
+          		rentPeriod = '장기대여';
+          	} else if(facility.rentTerm === 1) {
+          		rentPeriod = '단기대여';
+          	}
           	let str = ' ';
-            	str += '<div class="col-span-3"><p data-facility-id="'+facility.facilityId+'" class="text-[#637381] dark:text-bodydark">' + facility.facilityId + '</p></div>';
+            	str += '<div class="col-span-1"><p data-facility-id="'+facility.facilityId+'" class="text-[#637381] dark:text-bodydark">' + facility.facilityId + '</p></div>';
+            	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + rentPeriod + '</p></div>';
 		      	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + facility.cat.catName + '</p></div>';
             	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + facility.modelName + '</p></div>';
             	str += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.buyDt + '</p></div>';

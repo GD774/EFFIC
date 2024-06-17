@@ -154,19 +154,14 @@
     <tr>
         <td rowspan="3" style="background-color: #DDDDDD;"><strong>결재선</strong></td>
         <td>${user.name}</td>
-        <td id="approver">&nbsp;
-            <input type="hidden" name="approver" id="approverInput"> <!-- name="approver"로 수정하고 id="approverInput" 추가 -->
+        <td id="approverCell">
+            <input type="hidden" name="approver" id="approverInput"> <!-- hidden input으로 직원 ID 설정 -->
+            <input type="text" id="approverName" readonly style="width:50px; text-align:center;"> <!-- 직원 이름을 표시할 readonly input -->
         </td>
     </tr>
     <tr>
-        <td style="height: 50px" id="approver1">
-            <img class="approveds" src="${contextPath}/image/approved.png">
-            &nbsp;
-        </td>
-        <td >
-            <img class="approveds" src="${contextPath}/image/approved.png">
-            &nbsp;
-        </td>
+        <td style="height: 50px" id="approver1">&nbsp;</td>
+        <td>&nbsp;</td>
     </tr>
     <tr>
         <td>${approval.submitDt}&nbsp;</td>

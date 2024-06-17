@@ -166,13 +166,6 @@
                     <li>
                       <a
                         class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
-                        href="${contextPath}/approval/myRefList"
-                        :class="page === 'formElements' && '!text-white'"
-                      >참조문서함</a>
-                    </li>
-                    <li>
-                      <a
-                        class="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white"
                         href="${contextPath}/approval/myAppDocList"
                         :class="page === 'formElements' && '!text-white'"
                       >결재문서함</a>

@@ -32,7 +32,7 @@
     <main>
         <div class="mx-auto max-w-screen-2xl p-2 md:p-2 2xl:p-6">
             <div class="mb-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                <h2 class="text-title-md2 font-bold text-black dark:text-white mt-4">부서기안완료함</h2>
+                <h2 class="text-title-md2 font-bold text-black dark:text-white mt-4">기안문서함</h2>
             </div>
 
             <div class="flex items-center justify-between mb-3">

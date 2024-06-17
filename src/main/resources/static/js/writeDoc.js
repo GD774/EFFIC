@@ -372,23 +372,24 @@ $(document).ready(function() {
         }
     });
 
-   // jstree에서 노드 선택 시 이벤트 처리
-    $('#jstree').on("select_node.jstree", function(e, data) {
-        if (data.node.children.length === 0) {					
-            var selectedEmpId = data.node.data.value; // 선택된 사람의 직원 ID 가져오기
-            addApprover(selectedEmpId, data.node.text); // 결재선 테이블에 직원 ID와 이름 추가
-        }
-    });
 
-    // 결재선 테이블에 직원 ID와 이름 추가하는 함수
-    function addApprover(empId, name) {
-        if ($('#approverInput').val().trim() === "") {
-            $('#approverInput').val(empId); // 결재선 테이블의 hidden input에 직원 ID 설정
-        }
-        if ($('#approver').text().trim() === "") {
-            $('#approver').text(name); // 결재선 테이블에 직원 이름 추가
-        }
-    }
+
+    
+			    // jstree에서 노드 선택 시 이벤트 처리
+			$('#jstree').on("select_node.jstree", function(e, data) {
+			    if (data.node.children.length === 0) {
+			        var selectedEmpId = data.node.data.value; // 선택된 사람의 직원 ID 가져오기
+			        var selectedEmpName = data.node.text; // 선택된 사람의 이름 가져오기
+			        addApprover(selectedEmpId, selectedEmpName); // 결재선 테이블에 직원 ID와 이름 추가
+			    }
+			});
+			
+			// 결재선 테이블에 직원 ID와 이름 추가하는 함수
+			function addApprover(empId, name) {
+			    $('#approverInput').val(empId); // hidden input에 직원 ID 설정
+			    $('#approverName').val(name); // readonly input에 직원 이름 설정
+			}
+    
     // 닫기 버튼 클릭 시 선택된 사람 초기화
     $('#btn-close').click(function() {
         // 선택된 사람 초기화 관련 로직 추가

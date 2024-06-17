@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gd774.effic.dto.approval.AppDocDto;
+import com.gd774.effic.dto.approval.ApprovalDto;
+import com.gd774.effic.dto.approval.DocDto;
 import com.gd774.effic.dto.approval.DocItemDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,11 +16,13 @@ public interface ApprovalService {
 	
 	int registerApproval(MultipartHttpServletRequest multipartRequest);	
 	void loadMyDocList(HttpServletRequest request, Model model);
-	void loadMyTemporaryList(HttpServletRequest request, Model model);
+	void loadMySaveDocList(HttpServletRequest request, Model model);
+	void loadMyAppDocList(HttpServletRequest request, Model model);
 	void loadDepDocList(HttpServletRequest request, Model model);
 	AppDocDto loadAppDocById(int docId);
 	void detailDocByDocId(HttpServletRequest request, Model model);
-	
+	void modifyDoc(AppDocDto appDocDto, DocDto docDto, DocItemDto docItemDto, ApprovalDto approvalDto);
+	AppDocDto getDocById(int docId);
 	
 	
 

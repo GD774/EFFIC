@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd774.effic.dto.UserDto;
 import com.gd774.effic.dto.approval.AppDocDto;
+import com.gd774.effic.dto.approval.ApprovalDto;
+import com.gd774.effic.dto.approval.DocDto;
 import com.gd774.effic.dto.approval.DocItemDto;
 import com.gd774.effic.service.ApprovalService;
 
@@ -36,11 +39,6 @@ public class ApprovalController {
         this.approvalService = approvalService;
     }
     
-//    // 전자결재 메인페이지
-//    @GetMapping("/main")
-//    public String approvalMain() {
-//        return "approval/main";
-//    }
     
     @GetMapping("/main")
     public String approvalMain(HttpServletRequest request, Model model) {
@@ -58,13 +56,20 @@ public class ApprovalController {
     
     
     @GetMapping("/mySaveDocList")
-    public String loadMyTemporaryList(HttpServletRequest request, Model model) {
+    public String loadMySaveDocList(HttpServletRequest request, Model model) {
     	model.addAttribute("mySaveDocList", request);
-    	approvalService.loadMyTemporaryList(request, model);
+    	approvalService.loadMySaveDocList(request, model);
     	return "approval/mySaveDocList";
     }
     
-    @GetMapping("depDocList")
+    @GetMapping("/myAppDocList")
+    public String loadMyAppDocList(HttpServletRequest request, Model model) {
+    	model.addAttribute("myAppDocList", request);
+    	approvalService.loadMyAppDocList(request, model);
+    	return "approval/myAppDocList";
+    }
+    
+    @GetMapping("/depDocList")
     public String loadDepDocList(HttpServletRequest request, Model model) {
     	model.addAttribute("request", request);
     	approvalService.loadDepDocList(request, model);
@@ -73,32 +78,11 @@ public class ApprovalController {
     
 	@GetMapping("/detail.do")
 	  public String detailDoc(HttpServletRequest request, Model model) {
-		model.addAttribute("request", request);
-		approvalService.loadMyTemporaryList(request, model);
-	    return "approval/docDetail";
+		approvalService.detailDocByDocId(request, model);
+	    return "approval/docDetailApprover";
 	  }
-	
-    
-    
-    
-//    // 전자결재 개인진행문서함
-//    @GetMapping("/myIngDocList")
-//    public String loadMyIngDocList(HttpServletRequest request, Model model) {
-//    	model.addAttribute("request", request);
-//    	approvalService.loadMyDocList(request, model);
-//    }
-    
-    // 전자결재 개인참조문서함
-    @GetMapping("/myRefList.page")
-    public String goMyRefList() {
-        return "approval/myRefList";
-    }
-    
-    // 전자결재 개인결재문서함
-    @GetMapping("/myAppDocList.page")
-    public String goMyAppDocList() {
-        return "approval/myAppDocList";
-    }
+  
+
     
     // 전자결재 부서기안완료함
     @GetMapping("/depDocList.page")
@@ -128,54 +112,35 @@ public class ApprovalController {
         return "redirect:/approval/main"; // 성공 페이지로 리다이렉트
     }
     
-
-
     
+    @PostMapping("/edit.do")
+    public String edit(@RequestParam int docId, Model model) {
+      model.addAttribute("docId", approvalService.getDocById(docId));
+      return "approval/edit";
+    }
+    
+    @PostMapping("/update.do")
+    public String updateDoc(
+            @ModelAttribute AppDocDto appDocDto,
+            @ModelAttribute DocDto docDto,
+            @ModelAttribute DocItemDto docItemDto,
+            @ModelAttribute ApprovalDto approvalDto,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            approvalService.modifyDoc(appDocDto, docDto, docItemDto, approvalDto);
+            redirectAttributes.addAttribute("docId", appDocDto.getDocId())
+                              .addFlashAttribute("modifyResult", "수정되었습니다.");
+        } catch (Exception e) {
+            redirectAttributes.addAttribute("docId", appDocDto.getDocId())
+                              .addFlashAttribute("modifyResult", "수정을 하지 못했습니다. 오류: " + e.getMessage());
+        }
+
+        return "redirect:/approval/detail.do?docId={docId}";
+    }
+    
+
 }
-    
- 
-    
-    
-    
-//    @PostMapping("/saveApprovalLine")
-//    public String saveApprovalLine(@RequestBody RequestBody request) {
-//        return approvalService.saveApprovalLine(request);
-//    }
-//    
-    
-
-    
-
-    
-    
-
-    
- 
-    
-//    @GetMapping("/detail.do")
-//    public String detail(@RequestParam(value="uploadNo", required=false, defaultValue="0") int uploadNo
-//                       , Model model) {
-//      uploadService.loadUploadByNo(uploadNo, model);
-//      return "upload/detail";
-//    }
-//    
-//    @GetMapping("/list.do")
-//    public String list(HttpServletRequest request, Model model) {
-//      model.addAttribute("request", request);
-//      uploadService.loadUploadList(model);
-//      return "upload/list";
-//    }
-    
-//    @GetMapping("/userInfo")
-//    public String getUserInfo(HttpServletRequest request, Model model) {
-//        HttpSession session = request.getSession();
-//        UserDto user = (UserDto) session.getAttribute("user");
-//        
-//        if (user != null) {
-//            String empId = user.getEmpId();
-//            UserDto userInfo = approvalService.getUserWithDep();
-//            
-//        }
     
 
     

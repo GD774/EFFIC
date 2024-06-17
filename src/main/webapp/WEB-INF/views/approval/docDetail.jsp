@@ -128,7 +128,7 @@
             <img class="approveds" src="${contextPath}/image/approved.png">
 						&nbsp;
         </td>
-        <td>
+        <td> ${detailDoc.docState}
         		<img class="approveds" src="${contextPath}/image/approved.png">
         		&nbsp;
      		</td>

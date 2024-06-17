@@ -159,7 +159,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     
     @Override
-    public void loadMyTemporaryList(HttpServletRequest request, Model model) {
+    public void loadMySaveDocList(HttpServletRequest request, Model model) {
 	    // 세션에서 사용자 정보를 가져옵니다.
 	    UserDto user = (UserDto) request.getSession().getAttribute("user");
 
@@ -172,8 +172,24 @@ public class ApprovalServiceImpl implements ApprovalService {
 	    map.put("depId", depId);
 	    map.put("docState", 3); 
 	    
-	    List<AppDocDto> mySaveDoc = approvalMapper.getMyDocListByDocState(map);
-	    model.addAttribute("mySaveDoc", mySaveDoc);	
+	    List<AppDocDto> mySaveDocList = approvalMapper.getMySaveDocList(map);
+	    model.addAttribute("mySaveDocList", mySaveDocList);	
+    }
+    
+    @Override
+    public void loadMyAppDocList(HttpServletRequest request, Model model) {
+    	
+    	UserDto user = (UserDto) request.getSession().getAttribute("user");
+    	
+    	String approver = user.getEmpId();
+    	String depId = user.getDepId();
+    	
+    	Map<String, Object> map = new HashMap<>();
+    	
+    	map.put("empId", approver);
+    	
+    	List<AppDocDto> myAppDocList = approvalMapper.getMyAppDocList(map);
+    	model.addAttribute("myAppDocList", myAppDocList);
     }
     
     
@@ -201,19 +217,37 @@ public class ApprovalServiceImpl implements ApprovalService {
     	return approvalMapper.getAppDocById(docId);
     }
     
+    // 결재자가 결재를 위해 문서 상세보기
     @Override
     public void detailDocByDocId(HttpServletRequest request, Model model) {
     	UserDto user = (UserDto) request.getSession().getAttribute("user");
 
-	    String empId = user.getEmpId();
+	    String approver = user.getEmpId();
 	    String depId = user.getDepId();
 	    
 	    Map<String, Object> map = new HashMap<>();
+	    map.put("empId", approver);
 	    
 	    List<AppDocDto> detailDoc = approvalMapper.getDocByDocId(map);
 	    model.addAttribute("detailDoc", detailDoc);	
     }
+ 
+    @Override
+    public void modifyDoc(AppDocDto appDocDto, DocDto docDto, DocItemDto docItemDto, ApprovalDto approvalDto) {
+        int appDocResult = approvalMapper.updateAppDoc(appDocDto);
+        int docResult = approvalMapper.updateDoc(docDto);
+        int docItemResult = approvalMapper.updateDocItem(docItemDto);
+        int approvalResult = approvalMapper.updateApproval(approvalDto);
 
+
+    }
+
+    
+	   @Override
+	public AppDocDto getDocById(int docId) {
+		
+		return approvalMapper.getDocById(docId);
+	}
 
     
 }

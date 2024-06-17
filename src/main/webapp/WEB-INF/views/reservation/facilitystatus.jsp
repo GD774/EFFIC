@@ -5,6 +5,7 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 <!--header-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 <jsp:include page="../layout/opener.jsp"/>
 <jsp:include page="../layout/sidebar.jsp" />
 <!--body-->
@@ -49,103 +50,7 @@
 		  		id = "facreserve-list"
 		  		class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
 		  <!-- table body start -->
-    <script>
-    	var page = 1;
-    	var totalPage = 0;
-    
-    	const fnGetFacReserveList = () => {
-    	    $.ajax({
-    	      // 요청
-    	      type: 'GET',
-    	      url: '${contextPath}/reservation/getFacReserveList.do', 
-    	      data: 'page=' + page,
-    	      // 응답
-    	      dataType: 'json',
-    	      success: (resData) => {
-    	    	  console.log(resData);
-    	      	totalPage = resData.totalPage;
-    	      	
-    	      	$.each(resData.getFacReserveList, (i, facility) => {
-    	      		
-    	          	let rentState;
-    	          	let rentPeriod;
-    	          	if(facility.facilityState === 0) {
-    	          		rentState = '대여 가능';
-    	          	} else if(facility.facilityState === 1) {
-    	          		rentState = '대여 불가';
-    	          	}
-    	      	
-    	      		
-    	      		if(facility.rentTerm === 0) {
-    	      			rentPeriod = '장기대여';
-    	      		} else {
-    	      			rentPeriod = '단기대여';
-    	      		}
-    	          	let str = '';
-    	            	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + facility.cat.catName + '</p></div>';
-    			      	str += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.modelName + '</p></div>';
-    	            	str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + rentPeriod + '</p></div>';
-    	            	str += '<div class="col-span-1"><p class="text-[#637381] dark:text-bodydark">' + rentState + '</p></div>';
-    	                str += '<div class="col-span-2 flex justify-end"><button class="text-primary border border-primary rounded px-2 py-1">대여하기</p></div>';
-    	                str += '</div>';
-    	                $('#facreserve-list').append(str);
-    	             console.log(facility.modelName);
-    	          })
-
-    	      },
-    	      error: (jqXHR) => {
-    	        alert(jqXHR.statusText + '(' + jqXHR.status + ')');
-    	      }   
-    	    });
-    	  }
-
-
-
-    	const fnScrollHandler = () => {
-    		  
-    		  // 스크롤이 바닥에 닿으면 page 증가(최대 totalPage 까지) 후 새로운 목록 요청
-
-    		  // 타이머 id (동작한 타이머의 동작 취소를 위한 변수)
-    		  var timerId;  // undefined, boolean 의 의미로는 false
-    		  
-    		  $(window).on('scroll', (evt) => {
-
-    		    /*
-    		      스크롤 이벤트 발생 → setTimeout() 함수 동작 → 목록 가져옴 → setTimeout() 함수 동작 취소
-    		    */
-    		    
-    		    if(timerId) {  // timerId 가 undefined 이면 false, 아니면 true 
-    		                   // timerId 가 undefined 이면 setTimeout() 함수가 동작한 적 없음
-    		      clearTimeout(timerId);  // setTimeout() 함수 동작을 취소함 -> 목록을 가져오지 않는다.
-    		    }
-    		    
-    		    // 500밀리초(0.5초) 후에 () => {}가 동작하는 setTimeout 함수
-    		    timerId = setTimeout(() => {
-    		      
-    		      let scrollTop = window.scrollY;  // $(window).scrollTop();
-    		      let windowHeight = window.innerHeight;  // $(window).height();
-    		      let documentHeight =  $(document).height();
-    		      
-    		      if( (scrollTop + windowHeight + 50) >= documentHeight ) {  // 스크롤과 바닥 사이 길이가 50px 이하인 경우 
-    		        if(page > totalPage) {
-    		          return;
-    		        }
-    		        page++;
-    		        fnGetFacilityList();
-    		      }
-    		      
-    		    }, 500);
-    		    
-    		  })
-    		  
-    		}
-    		
-    		fnGetFacReserveList();
-    		fnScrollHandler();
-    </script>
-    
-    
-    
+   
     	
     </div>
     <!-- ===== Main Content Start ===== -->
@@ -162,59 +67,26 @@
     <!-- ====== Table Four Start -->
       <div class="overflow-hidden rounded-[10px]">
  	    <div class="max-w-full overflow-x-auto">
-    	  <div class="min-w-[1170px]">
+
      	    <!-- table header start -->
-			  <div class="flex justify-between bg-[#F9FAFB] px-5 py-4 dark:bg-meta-4 lg:px-7.5 2xl:px-11">
-			    <div class="w-1/4">
+			  <div class="grid grid-cols-10 bg-[#F9FAFB] px-5 py-4 dark:bg-meta-4 lg:px-7.5 2xl:px-11">
+			    <div class="col-span-3">
 			        <h5 class="font-medium text-[#637381] dark:text-bodydark">항목</h5>
 			    </div>
-			    <div class="w-1/4">
+			    <div class="col-span-2">
 			        <h5 class="font-medium text-[#637381] dark:text-bodydark">대여종류</h5>
 			    </div>
-			    <div class="w-1/4">
+			    <div class="col-span-3">
 			        <h5 class="font-medium text-[#637381] dark:text-bodydark">대여시작시간</h5>
 			    </div>
-			    <div class="w-1/4">
+			    <div class="col-span-2">
 			        <h5 class="font-medium text-[#637381] dark:text-bodydark">반납</h5>
 			    </div>
 			</div>
         <!-- table header end -->
 	    <!-- table body start -->
-		  <div class="bg-white dark:bg-boxdark">
-		    <!-- table row item -->
-		    <div
-		      class="grid grid-cols-12 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11"
-		    >
-		      <div class="col-span-3">
-		        <p class="text-[#637381] dark:text-bodydark">빔프로젝터2</p>
-		      </div>
-		      <div class="col-span-3">
-		        <p class="text-[#637381] dark:text-bodydark">단기 항목</p>
-		      </div>
-		      <div class="col-span-2">
-		        <p class="text-[#637381] dark:text-bodydark"> 2024.04.06 09:30</p>
-		      </div>
-		      <div class="col-span-1">
-		        <button class="float-right text-primary border border-primary bg-red rounded px-2 py-1">반납요망</button>
-		      </div>
-		   </div>
-		    <!-- table row item -->
-		    <div
-		      class="grid grid-cols-12 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11"
-		    >
-		      <div class="col-span-3">
-		        <p class="text-[#637381] dark:text-bodydark">마우스4</p>
-		      </div>
-		      <div class="col-span-3">
-		        <p class="text-[#637381] dark:text-bodydark">단기 항목</p>
-		      </div>
-		      <div class="col-span-2">
-		        <p class="text-[#637381] dark:text-bodydark">2024.06.03 17:05</p>
-		      </div>
-		      <div class="col-span-1">
-		        <button class="float-right text-primary border border-primary rounded px-2 py-1">반납가능</button>
-		      </div>
-		    </div>
+		  <div id="facreserve" class="bg-white dark:bg-boxdark">
+
     	  </div>
   		<!-- table row end -->
 		<!-- Paging -->
@@ -310,4 +182,274 @@
   </div>
 </div>
 <!--footer-->
+
+
+
+        <!--모달창 시작-->
+<!-- Main modal -->
+<div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    공용물품 대여
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="static-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">닫기</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+<!--예약자입력칸-->
+    <div class="flex items-center m-5 p-2">
+      <input type="hidden" id="facilityId" value="${facility.facilityId}"/>
+      <label class="mb-3 block font-medium mr-8 text-sm">
+		물품명
+      </label>
+      <input
+        type="text"
+		value="${facility.cat.catName}"
+		id="catName"
+        class="block w-40 px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-lg shadow-sm text-xs"
+      />
+    </div>
+<!--예약자입력끝-->
+<!-- 날짜/시간 선택 시작 -->
+<div class="flex items-center space-x-4 m-5 p-2">
+    <h6 class="mb-0 text-sm">예약일시</h6>
+    <div class="relative">
+    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+
+    </div>
+    <input name="start" type="text" id="startDt" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700">
+  </div>
+  <span class="mx-4 text-gray-500">~</span>
+  <div class="relative">
+    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+    </div>
+    <input name="end" type="text" id="endDt" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 placeholder="0000-00-00">
+</div>
+</div>
+<!--날짜/시간 선택 끝-->
+<!--예약자입력칸-->
+    <div class="flex items-center m-5 p-2">
+      <label
+        class="mb-3 block font-medium mr-8 text-sm"
+      >
+		예약자
+      </label>
+      <input
+        type="text"
+        placeholder="예약자명"
+		value="${sessionScope.user.name}"
+		id="name"
+        class="block w-40 px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-lg shadow-sm text-xs"
+      />
+    </div>
+<!--예약자입력끝-->
+</p>
+<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+<!--참석자 리스트-->
+ <div class="flex items-center m-5 p-2">
+  <label
+    class="mb-3 block font-medium mr-8 text-sm"
+  >
+	참석자
+  </label>
+      <div class="flex items-center gap-2.5">
+    <input
+      type="text"
+      name="taskList"
+      id="taskList"
+      placeholder="참석자 리스트 입력"
+      class="block w-80 px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-lg shadow-sm text-xs"
+    />
+
+    <button
+      class="flex h-8.5 w-8.5 text-xl items-center justify-center rounded-sm border border-stroke bg-white p-4 hover:text-primary rounded-lg"
+    >
+      -
+        <path
+          d="M18.4375 10.7187H1.5625C1.1875 10.7187 0.84375 10.4062 0.84375 10C0.84375 9.625 1.15625 9.28125 1.5625 9.28125H18.4375C18.8125 9.28125 19.1562 9.59375 19.1562 10C19.1562 10.375 18.8125 10.7187 18.4375 10.7187Z"
+          fill=""
+        />
+      </svg>
+    </button>
+    <button
+      class="flex h-8.5 w-8.5 text-xl items-center justify-center rounded-sm border border-stroke bg-white p-4 hover:text-primary rounded-lg"
+    >
+      +
+    </button>
+  </div>
+</div>   
+<!--참석자 리스트 끝-->                
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
+                <button data-modal-hide="static-modal" id="btn-reserve" type="button" class="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">예약</button>
+                <button data-modal-hide="static-modal" id="btn-cancel" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--모달창 끝-->
+<script>
+var page = 1;
+var totalPage = 0;
+
+const fnGetFacReserveList = () => {
+    $.ajax({
+      // 요청
+      type: 'POST',
+      url: '${contextPath}/reservation/getFacReserveList.do', 
+      data: 'page=' + page,
+      // 응답
+      dataType: 'json',
+      success: (resData) => {
+          console.log(resData);
+        totalPage = resData.totalPage;
+        
+        $.each(resData.getFacReserveList, (i, facility) => {
+            let rentTerm = facility.rentTerm;
+            let rentState;
+            var rentPeriod;
+            if(facility.facilityState === 0) {
+                rentState = '대여 가능';
+            } else if(facility.facilityState === 1) {
+                rentState = '대여 불가';
+            }
+        
+            
+            if(facility.rentTerm === 0) {
+                rentPeriod = '장기대여';
+            } else {
+                rentPeriod = '단기대여';
+            }
+            let str = '';
+                str += '<div class="col-span-2"><p data-cat-name="' + facility.cat.catName + '" class="text-[#637381] dark:text-bodydark">' + facility.cat.catName + '</p></div>';
+                str += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.modelName + '</p></div>';
+                str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + rentPeriod + '</p></div>';
+                str += '<div class="col-span-1"><p class="text-[#637381] dark:text-bodydark">' + rentState + '</p></div>';
+                str += '<div class="col-span-2 flex justify-end" data-cat-name="' + facility.cat.catName + '"><button data-facility-id="' + facility.facilityId + '" data-modal-target="static-modal" data-modal-toggle="static-modal" data-rent-Term="' + facility.rentTerm + '" class="text-primary border border-primary rounded px-2 py-1 open-modal">대여하기</p></div>';
+                str += '</div>';
+                $('#facreserve-list').append(str);
+             console.log(facility.facilityId);
+          });
+          
+        var modalstartDt = new Date().toISOString().substring(0,10);
+        
+        
+            $(document).on('click', '.open-modal', function(event){
+                console.log("나옴?");
+                var facilityId = $(this).data('facilityId');
+                var catName = $(this).parent().data('cat-name');
+                var rentTerm = $(this).data('rent-term');
+                console.log(facilityId);
+                console.log(catName);
+                console.log(rentTerm);
+                
+                var modalendDt= new Date(modalstartDt);
+                $('#facilityId').val(facilityId);
+                $('#catName').val(catName);
+                $('#startDt').val(modalstartDt);
+                $('#endDt').val(modalendDt);
+                if(rentTerm === 0) {
+                    modalendDt.setFullYear(modalendDt.getFullYear() + 1);
+                } else {
+                    modalendDt.setDate(modalendDt.getDate() + 7);
+                }
+                 var modalendDtISOString = modalendDt.toISOString().substring(0, 10);
+                $('#endDt').val(modalendDtISOString);
+            });
+        
+        
+      },
+      error: (jqXHR, textStatus, errorThrown) => {
+          console.error('Error fetching facility reserve list:', textStatus, errorThrown);
+          alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+      } 
+    });
+    
+    
+    var frmModal = $('#frm-modal');
+    const getFacReserve = () => {
+    	$('#btn-reserve').on('click', (evt) =>{
+
+    		frmModal.attr('action', '${contextPath}/reservation/reservefac.do');
+    		frmModal.submit();
+    	})
+    	
+    }
+      
+  }
+
+const fnGetModal = () => {
+	$(document).on('click', '#btn-reserve', (evt) => {
+				const selectedFacilityId = $('#facilityId').val();
+		        const selectedstartDt = $('#startDt').val();
+		        const selectedendDt = $('#endDt').val();
+		        const selectedcatName = $('#catName').val();
+		        const requestData = {
+		            facilityId: selectedFacilityId,
+		            startDt: selectedstartDt,
+		            endDt: selectedendDt,
+		            catName: selectedcatName
+		            
+		        };
+		        console.log(requestData);
+		            
+		            $.ajax({
+		    			type:'POST',
+		    			url: '${contextPath}/reservation/reservefac.do',
+		    			data: requestData,
+		    			dataType:'json',
+		    				
+		    			success: (resData) => {
+		    	    		console.log(resData.getFacReserve);
+		    			}
+		    		});
+		        });
+		}
+	
+const fnGetReserve = () => {
+	$.ajax({
+		type:'GET',
+		url: '${contextPath}/reservation/getreserve.do',
+		data: 'page=' + page,
+		dataType: 'json',
+		success: (resData) => {
+			totalPage = resData.totalPage;
+			
+			$.each(resData.getFacReserve, (i, facility) => {
+				let res = '';
+                res += '<div class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">';
+                res += ' <div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.cat.catName + '</p></div>';
+                res += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + rentPeriod + '</p></div>';
+                res += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.startDt + '</p></div>';
+                res += '<div class="col-span-2"><button class="text-primary border border-primary bg-red rounded px-2 py-1">반납요망</button></div>';
+                res += '</div>';
+                $('#facreserve').append(res);
+                console.log(facility.facilityId);
+
+			})
+		}
+	})
+}
+
+
+fnGetReserve();
+fnGetModal();
+fnGetFacReserveList();
+
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 <jsp:include page="../layout/closer.jsp"/>

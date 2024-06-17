@@ -132,112 +132,104 @@ $(document).ready(function() {
 		  <input datepicker datepicker-buttons datepicker-autoselect-today
 		  		 name="buyDt"
 		  		 type="text" 
+		  		 value="${facilityMng.buyDt}"
 		  		 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="00/00/1900">
 		</div>
 	  </div>
 <script>
-let dateValue;
 $(document).ready(function() {
-    $('input[name="datepicker"]').on('click', function() {
+    $('input[name="buyDt"]').on('click', function() {
     	var dateValue = $(this).val();
     	console.log(dateValue);
     });
 });
 </script>
-   <div x-data="{ isChecked: 'normal' }" class="p-4 mb-5"">
-    <label
+<!-- 사용가능 여부 시작 -->
+<div class="mb-5 p-4" x-data="{ isChecked: 'normal' }"> 
+	<label
       for="facilityState"
       class="mb-4.5 block text-sm font-medium text-black dark:text-white"
-    >
-      사용 가능 여부
+	>
+    사용 가능 여부
     </label>
     <div class="flex flex-wrap items-center gap-5.5">
-      <div>
-        <label
-          class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
-        >
-          <input
-            class="sr-only"
-            type="radio"
-            name="facilityState"
-            id="normal"
-            value="normal"
-            x-model="isChecked"
-          />
-          <span
-            class="flex h-5 w-5 items-center justify-center rounded-full border"
-            :class="isChecked === 'normal' ? 'border-primary' : 'border-body'"
-          >
-            <span
-              :class="isChecked === 'normal' ? 'flex' : 'hidden'"
-              class="h-2.5 w-2.5 rounded-full bg-primary"
-            ></span>
-          </span>
-          정상
-        </label>
-      </div>
-      <div>
-        <label
-          class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
-        >
-          <input
-            class="sr-only"
-            type="radio"
-            name="facilityState"
-            id="fixing"
-            value="fixing"
-            x-model="isChecked"
-          />
-          <span
-            class="flex h-5 w-5 items-center justify-center rounded-full border"
-            :class="isChecked === 'fixing' ? 'border-primary' : 'border-body'"
-          >
-            <span
-              :class="isChecked === 'fixing' ? 'flex' : 'hidden'"
-              class="h-2.5 w-2.5 rounded-full bg-primary"
-            ></span>
-          </span>
-          수리
-        </label>
-      </div>
-      <div>
-        <label
-          class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
-        >
-          <input
-            class="sr-only"
-            type="radio"
-            name="facilityState"
-            id="dispose"
-            value="dispose"
-            x-model="isChecked"
-          />
-          <span
-            class="flex h-5 w-5 items-center justify-center rounded-full border"
-            :class="isChecked === 'dispose' ? 'border-primary' : 'border-body'"
-          >
-            <span
-              :class="isChecked === 'dispose' ? 'flex' : 'hidden'"
-              class="h-2.5 w-2.5 rounded-full bg-primary"
-            ></span>
-          </span>
-          폐기
-        </label>
+       <div>
+         <label
+           class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
+         >
+           <input
+             class="sr-only"
+             type="radio"
+             name="facilityState"
+             id="normal"
+             value = 0
+             @change="isChecked = 'normal'"
+           />
+           <span
+             class="flex h-5 w-5 items-center justify-center rounded-full border"
+             :class="isChecked === 'normal' ? 'border-primary': 'border-body'"
+           >
+             <span
+               :class="isChecked === 'normal' ? 'flex': 'hidden'"
+               class="h-2.5 w-2.5 rounded-full bg-primary"
+             ></span>
+           </span>
+           정상
+         </label>
+       </div>
+       <div>
+         <label
+           class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
+         >
+           <input
+             class="sr-only"
+             type="radio"
+             name="facilityState"
+             id="fixing"
+             value = 1
+             @change="isChecked = 'fixing'"
+           />
+           <span
+             class="flex h-5 w-5 items-center justify-center rounded-full border"
+             :class="isChecked === 'fixing' ? 'border-primary': 'border-body'"
+           >
+             <span
+               :class="isChecked === 'fixing' ? 'flex': 'hidden'"
+               class="h-2.5 w-2.5 rounded-full bg-primary"
+             ></span>
+           </span>
+           수리
+         </label>
+       </div>
+       <div>
+         <label
+           class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
+         >
+           <input
+             class="sr-only"
+             type="radio"
+             name="facilityState"
+             id="dispose"
+             value = 2
+             @change="isChecked = 'dispose'"
+           />
+           <span
+             class="flex h-5 w-5 items-center justify-center rounded-full border"
+             :class="isChecked === 'dispose' ? 'border-primary': 'border-body'"
+           >
+             <span
+               :class="isChecked === 'dispose' ? 'flex': 'hidden'"
+               class="h-2.5 w-2.5 rounded-full bg-primary"
+             ></span>
+           </span>
+           폐기
+         </label>
+        </div>
       </div>
     </div>
-  </div>
-<script>
-let stateChecked;
-$(document).ready(function() {
-    $('input[name="facilityState"]').change(function() {
-        var stateChecked = $('input[name="facilityState"]:checked').val();
-        console.log(stateChecked);
-    });
-});
-</script>
-   	  <!--사용 가능 여부 체크 끝-->   
-      <!--장기단기 체크-->
-      <div x-data="{ isChecked: 'normal' }" class="p-4 mb-5"">
+    <!--사용 가능 여부 체크 끝-->   
+    <!--장기단기 체크-->
+    <div class="mb-5 p-4" x-data="{ isChecked: 'long' }"> 
         <label
           for="rentTerm"
           class="mb-4.5 block text-sm font-medium text-black dark:text-white"
@@ -247,23 +239,22 @@ $(document).ready(function() {
         <div class="flex flex-wrap items-center gap-5.5">
           <div>
             <label
-              class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black dark:text-white"
+              class="relative flex cursor-pointer select-none items-center gap-2 text-sm font-medium text-black"
             >
               <input
                 class="sr-only"
                 type="radio"
                 name="rentTerm"
-                id="normal"
+                id="long"
                 value = 0
-                @change="isChecked = 'normal'"
-                x-model="isChecked"
+                @change="isChecked = 'long'"
               />
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
-                :class="isChecked === 'normal' ? 'border-primary': 'border-body'"
+                :class="isChecked == 'long' ? 'border-primary': 'border-body'"
               >
                 <span
-                  :class="isChecked === 'normal' ? 'flex': 'hidden'"
+                  :class="isChecked == 'long' ? 'flex': 'hidden'"
                   class="h-2.5 w-2.5 rounded-full bg-primary"
                 ></span>
               </span>
@@ -278,17 +269,16 @@ $(document).ready(function() {
                 class="sr-only"
                 type="radio"
                 name="rentTerm"
-                id="fixing"
+                id="short"
                 value = 1
-                @change="isChecked = 'fixing'"
-                x-model="isChecked"
+                @change="isChecked = 'short'"
               />
               <span
                 class="flex h-5 w-5 items-center justify-center rounded-full border"
-                :class="isChecked === 'fixing' ? 'border-primary': 'border-body'"
+                :class="isChecked == 'short' ? 'border-primary': 'border-body'"
               >
               <span
-                 :class="isChecked === 'fixing' ? 'flex': 'hidden'"
+                 :class="isChecked == 'short' ? 'flex': 'hidden'"
                  class="h-2.5 w-2.5 rounded-full bg-primary"
               ></span>
               </span>
@@ -297,17 +287,6 @@ $(document).ready(function() {
           </div>
         </div>
       </div>
-<script>
-let rentChecked;
-$(document).ready(function() {
-    $('input[name="rentTerm"]').change(function() {
-        var rentChecked = $('input[name="rentTerm"]:checked').val();
-        console.log(rentChecked);
-    });
-});
-
-</script>
-
       <!--장기 단기 체크 끝-->
 	  <!--물품 담당자 지정-->
 	  <div class="mb-5">
@@ -404,6 +383,8 @@ $(document).ready(function() {
 </div>
 </form>
 <script>
+var page = 1;
+var totalPage = 0;
 
 const fnRegisterFacility = () => {
 	if(document.getElementById('mainCategory').value === '') {
@@ -414,6 +395,8 @@ const fnRegisterFacility = () => {
 		
 	}
 }
+
+
 
 
 fnRegisterFacility();

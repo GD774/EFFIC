@@ -31,9 +31,6 @@
 		<id			property="rentId"			column="RENT_ID" />
 		<result		property="startDt"			column="START_DT" />
 		<result		property="endDt"			column="END_DT" />
-  		<result		property="updDt"				column="UPD_DT" />
-		<result		property="updId"			column="FACILITY_STATE" />
-		<result		property="rentState"				column="RENT_TERM" />
    	 <association property="user" 		javaType="UserDto">
     		 <id 		property="empId" 			column="EMP_ID"/>
 			<result		property="name"			column="NAME" />
@@ -127,9 +124,34 @@
     	 INNER JOIN FACILITY_MANAGE_T F ON C.CAT_CODE = F.CAT_CODE
    		  LEFT JOIN FACILITY_RESERVE_T R ON F.FACILITY_ID = R.FACILITY_ID
    		 LEFT JOIN USER_T U ON R.RENT_USER = U.EMP_ID
+   		 WHERE R.RENT_STATE = 0 AND F.FACILITY_STATE = 0
 				) T
 		WHERE T.RN BETWEEN #{begin} AND #{end}
     </select> 
+	
+	<insert id="updateFacReserve"
+			parameterType="FacilityReserveDto">
+	UPDATE FACILITY_RESERVE_T
+		   SET RENT_STATE = 1
+		     , START_DT = #{startDt}
+		     , END_DT = #{endDt}
+		     , RENT_USER = 'tester1'
+		 WHERE FACILITY_ID = #{facilityId}
+	</insert>
+
+	<select id="getFacReserve"
+			parameterType="Map"
+			resultMap="FacilityReserveMap">
+		SELECT RENT_ID, START_DT, END_DT, RENT_STATE, FACILITY_ID, RENT_USER 
+		  FROM FACILITY_RESERVE_T
+		 WHERE RENT_STATE = 1
+	</select>
+	
+	<select id="getFacReserveCount"
+			resultType="int">
+		SELECT COUNT(*)
+		  FROM FACILITY_RESERVE_T
+	</select>
 	
 	<select id="getFacilityById"
 			resultMap="FacilityManageMap">
@@ -147,6 +169,11 @@
 		 WHERE FACILITY_ID = #{facilityId}
 	</update>
 	
+	<delete id="deleteFacilityList">
+		DELETE
+		  FROM FACILITY_MANAGE_T
+		 WHERE FACILITY_ID = #{facilityId}
+	</delete>
 	
 	
 	

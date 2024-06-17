@@ -17,10 +17,15 @@ public interface ReserveMapper {
   int getFacilityCount();
   List<FacilityManageDto> getFacilityList(Map<String, Object> map);
   List<FacilityReserveDto> getFacReserveList(Map<String, Object> map); 
+  int getFacReserve(FacilityReserveDto facReserve); 
   List<CategoryDto> getMCategoryList();
   List<CategoryDto> getSCategoryList(String pcatCode);
-  List<CategoryDto> listupSubCategory(String name);
-  FacilityManageDto getFacilityById(int facilityId);
-  int updateFacilityList(FacilityManageDto facility);
   
+  FacilityManageDto getFacilityById(int rentState);
+  int updateFacilityList(FacilityManageDto facility);
+  int deleteFacilityList(int facilityId);
+  
+  int getFacReserveCount();
+  int updateFacReserve(FacilityReserveDto facility);
+  List<FacilityReserveDto> getFacReserve(Map<String, Object> map);
 }

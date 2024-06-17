@@ -37,7 +37,6 @@
   <!-- ===== Main Content Start ===== -->
   <main>
 
-	유저 사번: ${user.empId}
 	<div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
               <!-- Card Item Start -->
@@ -99,7 +98,7 @@
                 <div class="mt-4 flex items-end justify-between">
                   <div>
                     <h4 class="text-title-md font-bold text-black dark:text-white">
-                      안 읽은 메세지 개수?
+                      ${noread} 건 / 미열람
                       
                     </h4>
                     

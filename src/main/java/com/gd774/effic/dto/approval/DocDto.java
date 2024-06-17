@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 
 public class DocDto {
 	private String remarks, other;
-	private int docId;
+	private int docId, docsId;
 	private AppDocDto appDocDto;
+	
+
 }

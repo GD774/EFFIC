@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class ApprovalDto {
-	private int appId;
+	private int appId, docId;
 	private String appState, appDocId, reject, lineOrder;
 	private Date sumbitDt, appDt;
-	private AppDocDto doc;
+	private AppDocDto appDocDto;
 }

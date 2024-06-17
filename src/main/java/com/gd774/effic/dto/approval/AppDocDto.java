@@ -1,6 +1,7 @@
 package com.gd774.effic.dto.approval;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.gd774.effic.dto.UserDto;
 
@@ -19,6 +20,9 @@ public class AppDocDto {
 	private int docId, docTempCode;
 	private Date writeDt, updateDt;
 	private UserDto user;
+    private DocDto docDetails; // DocDto 객체 참조
+    private List<DocItemDto> docItems; // DocItemDto 리스트 참조
+	
 	
 	
 }

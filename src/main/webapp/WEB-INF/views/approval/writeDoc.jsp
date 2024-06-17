@@ -15,9 +15,12 @@
 <jsp:include page="../layout/opener.jsp"/>
 <jsp:include page="../layout/sidebar.jsp" />
 <link href="${contextPath}/css/writeDoc.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="${contextPath}/js/writeDoc.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css">
 
+<script src="${contextPath}/js/writeDoc.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@3.x.x/dist/alpine.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
 
 
 </head>
@@ -34,30 +37,32 @@
 
 	<div style="font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
     <div class="button-container">
-    	<button id="approvalRequest" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+    	<button type="submit" id="approvalRequest" name="docState" value="0" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
             결재요청
       </button>
-    	<button id="saveDraft" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+    	<button id="tempSave" type="submit" name="docState" value="3" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
             임시저장
+        
       </button>
-      <button id="cancelWriting" class="inline-flex rounded bg-[#DC3545] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+      <button id="cancelWriting" type="button" class="inline-flex rounded bg-[#DC3545] px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
             작성취소
       </button>
-    	<button id="goAppLine" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
-            결재정보
-      </button>
+	    <button id="goAppLine" type="button" class="inline-flex rounded bg-primary px-2 py-1 text-sm font-medium text-white hover:bg-opacity-90">
+	        결재정보
+	    </button>
     	<img id="urgents" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADU0lEQVR4nO3YT0zTUBwHcE4ePXjuZGzr/jIIGy0IItAuRk9wAE4kmxLjmWBMlA2Pmo2oBzzowat68k9MBlFR/mh0W0BF0IAxxotESPjTCqLCM284snbd62zfoyTuJd+E0Db5fejb3u9HSUlxFVdx/X9LCDAdAscmBJ5ZF3kWoLLKMeBrfRVIumgQp6icDJpMYMRiFic89OVdKV7k2LNqRefLlNepiIj/TcpFPyBa/HpjjVngmN9aAQLHgOGy0ryAQYoCb/12JzGAyDNBrcVnMuGxI9/C63J6gByAYy/oBcxUupCAhIseJgYQOPaGXsCc34MEvHRYZwgCmId6AV9qKpCAcdoyTxDATuoFzNdXIQHPLOY1YgCRY7/pBSw1+ZGAR6UHN4kUD9rd+wSe3dILgEm5bUjELGvbT+QMwFF8Jh98bjBoUgZMeRx12AGrTf56nIA0osqtCJgsp08T6X8KKixQAzY6A2CzuwWAcFs68Gf4O3hNfn/SmbudiPRFAs92qxX//fghsNnTCkBfh2LgNXhP9jOLR/xgSLaVUk7bXewAkWf71f7yqOKzEfI3kZR1qq+c1gQBAHMLBYBbRK34TDY6ecmznxivBPCCtnwmARhFAdJ7PrvQa2cAGLsPwPg9AAZ6pG+hu0Xy7EKDTwIYs5qXCQDYjyjAVm+7FAALTz3eDoRkXYP3Zj+72lwtAQybD/7EDhB4Zg0foE3y7EozIwEMmUwAa/HLR2sPqH0D5WwhuG0gAhavtoUO+3LngoqKMmwAIVDrVQPg/BDHKQpMV9pbsQFEnjlWyAGG62s0TlHgjddxHh+AY7sKOYW1HGQLCgfZ9mlsv4kT0FdQG7HTSvDpfQ4/2DDbrQSv2EokFFoJmKTL9gQbQOCY6wUD/iHv8zRz6dPYYZ3eU6OkPIsNvrztNPbREscoaehoKWIYJeVZatyl0RJgHCXlGUJsIWyjJe5RMjtPy8xIAJbRcqW5uo4U4DltQQLeeelTugECx7aTAiTz/Mt9Zzb22Pt1FX+iNxo42XvpRygSA0ak69zFX8FIP68ZEIxErxpVfCiTcOyKZkAoEr1jNCAYjt3W/gbCsVGjAaFIdEQHIDpnNCAYic3qAQiGA8JRQTOguIqruEr2/PoDvwomXOvJFOsAAAAASUVORK5CYII=">
     </div>
 	</div>
 
-	<div class="btnWrapper col-9" style="margin-bottom: 10px; font-family: S-CoreDream-6Bold">
-					<span class="" style="position: relative;left: 650px;">
-						<label class="checkbox-inline" for="emergency" style="cursor: pointer;">
-							<strong>긴급결재여부</strong>
-							<input name="urgent" id="emergency" name="urgentChk" type="checkbox" style="position:relative;top: 3px; width: 17px;height: 17px;padding-top: 2px;cursor: pointer; border-radius: 3px;">
-						</label>
-					</span>
-			</div>
+<div class="btnWrapper col-9" style="margin-bottom: 10px; font-family: S-CoreDream-6Bold">
+    <span class="" style="position: relative; left: 650px;">
+        <label class="checkbox-inline" for="emergency" style="cursor: pointer;">
+            <strong>긴급결재여부</strong>
+            <input name="urgentChk" id="emergency" type="checkbox" style="position:relative; top: 3px; width: 17px; height: 17px; padding-top: 2px; cursor: pointer; border-radius: 3px;">
+        </label>
+        <input type="hidden" name="urgent" id="urgent" value="0">
+    </span>
+</div>
 
 <div id="divCustomWrapper" style="font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">  
 <div id="titleSection" style="font-size: 19pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;">
@@ -81,11 +86,21 @@
 				</tr>
 				<tr>
 					<td class="subjectColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">			
-						소속 부서번호
+						소속 부서
 					</td>
 					<td class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 							<span id="depNames" class="comp_item">
-							<input type="hidden" id="hiddenTotalCurrency" name="depId">${user.depId}</span>
+		            <c:choose>
+		              <c:when test="${user.depId == 1}">
+		                  <p class="text-[#637381] dark:text-bodydark">총무팀</p>
+		              </c:when>
+		              <c:when test="${user.depId == 2}">
+		                  <p class="text-[#637381] dark:text-bodydark">경영팀</p>
+		              </c:when>
+		              <c:when test="${user.depId == 3}">
+		                  <p class="text-[#637381] dark:text-bodydark">인사팀</p>
+		              </c:when>
+	          </c:choose>
 					</td>
 				</tr>
 				<tr>
@@ -154,7 +169,17 @@
 			</td>
 			<td colspan="3" class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
 				<span id="depId}" style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;">
-						<input id="depName" class="ipt_editor" type="text">
+        <c:choose>
+	        <c:when test="${user.depId == 1}">
+	            <p class="text-[#637381] dark:text-bodydark">총무팀</p>
+	        </c:when>
+	        <c:when test="${user.depId == 2}">
+	            <p class="text-[#637381] dark:text-bodydark">경영팀</p>
+	        </c:when>
+	        <c:when test="${user.depId == 3}">
+	            <p class="text-[#637381] dark:text-bodydark">인사팀</p>
+	        </c:when>
+ 		   </c:choose>
 				</span>
 			</td>
 			<td class="subjectColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
@@ -285,7 +310,7 @@
 			<td colspan="5">
 			    <p style="font-size: 9pt; line-height: 18px; margin-top: 0px; margin-bottom: 0px;">
 			        <span style="width: 100%;">
-			            <textarea id="other" class="txta_editor" style="width: 100%; height: 100px;"></textarea>
+			            <textarea name="other" id="other" class="txta_editor" style="width: 100%; height: 100px;"></textarea>
 			        </span><br>
 			    </p>
 			</td>

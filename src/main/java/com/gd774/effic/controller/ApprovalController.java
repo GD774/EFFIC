@@ -1,27 +1,26 @@
 package com.gd774.effic.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.ui.Model;
 
-import com.gd774.effic.dto.DepDto;
 import com.gd774.effic.dto.UserDto;
+import com.gd774.effic.dto.approval.AppDocDto;
+import com.gd774.effic.dto.approval.ApprovalMapDto;
+import com.gd774.effic.dto.approval.DocItemDto;
 import com.gd774.effic.service.ApprovalService;
-
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/approval")
@@ -34,23 +33,67 @@ public class ApprovalController {
         this.approvalService = approvalService;
     }
     
-    // 전자결재 메인페이지
+//    // 전자결재 메인페이지
+//    @GetMapping("/main")
+//    public String approvalMain() {
+//        return "approval/main";
+//    }
+    
     @GetMapping("/main")
-    public String approvalMain() {
-        return "approval/main";
+    public String approvalMain(HttpServletRequest request, Model model) {
+    	approvalService.loadMyDocList(request, model);
+    	model.addAttribute("mainDocList", request);
+    	return "approval/main";
     }
     
-    // 전자결재 개인기안문서함
-    @GetMapping("/myDocList.page")
-    public String goMyDocList() {
-        return "approval/myDocList";
+   
+    @GetMapping("/myDocList")
+    public String loadMyDocList(HttpServletRequest request, Model model) {
+    	approvalService.loadMyDocList(request, model);
+    	model.addAttribute("myDocList", request);
+    	return "approval/myDocList";
     }
     
-    // 전자결재 개인임시저장함
-    @GetMapping("/temporaryList.page")
-    public String goTemporaryList() {
-        return "approval/temporaryList";
+    
+    @GetMapping("/myTemporaryList")
+    public String loadMyTemporaryList(HttpServletRequest request, Model model) {
+    	model.addAttribute("request", request);
+    	approvalService.loadMyTemporaryList(request, model);
+    	return "approval/myTemporaryList";
     }
+    
+    @GetMapping("depDocList")
+    public String loadDepDocList(HttpServletRequest request, Model model) {
+    	model.addAttribute("request", request);
+    	approvalService.loadDepDocList(request, model);
+    	return "approval/depDocList";
+    }
+    
+	@GetMapping("/detail.do")
+	  public String detail(@RequestParam int docId, Model model) {
+        ApprovalMapDto approvalMapDto = approvalService.docById(docId);
+        List<DocItemDto> docItemDto = approvalService.docItemsByDocId(docId);
+        model.addAttribute("approvalMapDto", approvalMapDto);
+        model.addAttribute("docItemDto", docItemDto);
+	    return "approval/docDetail";
+	  }
+	
+    
+    @GetMapping("jstree")
+    public String jstree(HttpServletRequest request, Model model) {
+
+    	return "approval/jstree";
+    }
+    
+    
+    
+    
+//    // 전자결재 개인진행문서함
+//    @GetMapping("/myIngDocList")
+//    public String loadMyIngDocList(HttpServletRequest request, Model model) {
+//    	model.addAttribute("request", request);
+//    	approvalService.loadMyDocList(request, model);
+//    }
     
     // 전자결재 개인참조문서함
     @GetMapping("/myRefList.page")
@@ -90,15 +133,12 @@ public class ApprovalController {
         redirectAttributes.addFlashAttribute("inserted", approvalService.registerApproval(multipartRequest));
         
         return "redirect:/approval/main"; // 성공 페이지로 리다이렉트
-    }     
+    }  
     
-    @GetMapping("/myDocList.do")
-    public String myDocList(Model model) {
-        List<Map<String, Object>> myDocList = approvalService.getMyDocList();
-        model.addAttribute("myDocList", myDocList);
-        return "approval/myDocList.page";
-    }
+
     
+    
+
     
  
     

@@ -259,7 +259,7 @@
                                 <!-- table body start -->
                                 <div class="bg-white dark:bg-boxdark">
                                     <!-- table row item -->
-                                    <c:forEach items="${myDocList}"  var="approval" varStatus="vs">
+                                    <c:forEach items="${myIngDocList}"  var="approval" varStatus="vs">
                                     		<!-- 기안일 -->
                                         <div class="grid grid-cols-12 border-t border-[#EEEEEE] px-3 py-2 dark:border-strokedark lg:px-5 2xl:px-9">
 																				<div class="col-span-1">
@@ -330,21 +330,9 @@
 														               		 </c:choose>
                                             </div>
                                     	 	<!-- 결재상태		 -->
-                                            <div class="col-span-1">
-                                                 <c:choose>
-																		                <c:when test="${approval.DOCSTATE == 0}">
-																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;진행</p>
-																		                </c:when>
-																		                <c:when test="${approval.DOCSTATE == 1}">
-																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;결재</p>
-																		                </c:when>
-																		                <c:when test="${approval.DOCSTATE ==2}">
-																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;반려</p>
-																		                </c:when>
-																		                <c:when test="${approval.DOCSTATE ==3}">
-																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;임시저장</p>
-																		                </c:when>
-																		            </c:choose>
+                                            <div class="col-span-1" ${approval.DOCSTATE == 0}>
+                                           		 
+                                            	<p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;진행</p>
                                             </div>
                                         </div>
                                     </c:forEach>

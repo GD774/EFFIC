@@ -120,31 +120,22 @@
 <div class="flex items-center justify-between mb-3">
     <!-- Tap 요소들과 Select 요소를 포함하는 Flex 컨테이너 -->
     <div class="flex gap-3" x-data="tabs">
-        <div class="flex gap-3 border-b border-stroke dark:border-strokedark sm:gap-5">
-            <a id="tabAll" 
-               :class="openTab === 1 ? activeClasses : inactiveClasses"
-               class="border-b-2 py-2 text-sm font-medium hover:text-primary md:text-base">
-                전체
-            </a>
-            
-            <a id="tabIngDoc" href="${contextPath}/approval/myIngDocList"
-               :class="openTab === 2 ? activeClasses : inactiveClasses"
-               class="border-b-2 py-2 text-sm font-medium hover:text-primary md:text-base border-transparent">
-               진행
-            </a>
-            
-            <a id="tabRejecDoc" href="${contextPath}/approval/myRejDocList"
-               :class="openTab === 3 ? activeClasses : inactiveClasses"
-               class="border-b-2 py-2 text-sm font-medium hover:text-primary md:text-base border-transparent">
-               반려
-            </a>
-            
-            <a id="tabComDoc" href="${contextPath}/approval/myComDocList"
-               :class="openTab === 4 ? activeClasses : inactiveClasses"
-               class="border-b-2 py-2 text-sm font-medium hover:text-primary md:text-base border-transparent">
-               완료
-            </a>
-        </div>
+    
+			<div class="mb-6 flex flex-wrap gap-5 border-b border-stroke dark:border-strokedark sm:gap-10">
+                    <a href="#" @click.prevent="openTab = 1" :class="openTab === 1 ? activeClasses : inactiveClasses" class="border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base text-primary border-primary">
+                      Profile
+                    </a>
+                    <a href="#" @click.prevent="openTab = 2" :class="openTab === 2 ? activeClasses : inactiveClasses" class="border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base border-transparent">
+                      Password
+                    </a>
+                    <a href="#" @click.prevent="openTab = 3" :class="openTab === 3 ? activeClasses : inactiveClasses" class="border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base border-transparent">
+                      Team
+                    </a>
+                    <a href="#" @click.prevent="openTab = 4" :class="openTab === 4 ? activeClasses : inactiveClasses" class="border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base border-transparent">
+                      Notification
+                    </a>
+                  </div>
+        
         <div class="relative z-20">
             <select class="w-full appearance-none rounded border border-stroke bg-transparent py-2 pl-3 pr-10 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
                 <option value="20" class="text-body">20</option>
@@ -259,7 +250,7 @@
                                 <!-- table body start -->
                                 <div class="bg-white dark:bg-boxdark">
                                     <!-- table row item -->
-                                    <c:forEach items="${myDocList}"  var="approval" varStatus="vs">
+                                    <c:forEach items="${myRejDocList}"  var="approval" varStatus="vs">
                                     		<!-- 기안일 -->
                                         <div class="grid grid-cols-12 border-t border-[#EEEEEE] px-3 py-2 dark:border-strokedark lg:px-5 2xl:px-9">
 																				<div class="col-span-1">

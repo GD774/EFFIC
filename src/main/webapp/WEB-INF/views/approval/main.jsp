@@ -117,92 +117,31 @@
                   </div>
 
 
-	<div class="col-span-12 rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+<div class="col-span-12 rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4 xl:gap-2">
-        <div class="flex flex-col gap-1 border-b border-stroke pb-2 dark:border-strokedark xl:border-b-0 xl:border-r xl:pb-0">
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                결재상태
-                <p class="text-xs font-medium">&nbsp;</p>
+        <c:forEach items="${tempSavedDocs}" var="doc">
+            <div class="flex flex-col gap-1 border-b border-stroke pb-2 dark:border-strokedark xl:border-b-0 xl:border-r xl:pb-0">
+                <div class="mb-0.5 text-xs text-black dark:text-white p-1">
+                    결재상태
+                    <p class="text-xs font-medium">${doc.DOCSTATE}</p>
+                </div>
+                <div class="mb-0.5 text-xs text-black dark:text-white p-1">
+                    <p class="text-xs font-medium">&nbsp;</p>
+                </div>
+                <div class="mb-0.5 text-xs text-black dark:text-white p-1">
+                    결재제목
+                    <p class="text-xs font-medium">${doc.TITLE}</p>
+                </div>
+                <div class="mb-0.5 text-xs text-black dark:text-white p-1">
+                    기안자
+                    <p class="text-xs font-medium">${user.name}</p>
+                </div>
+                <div class="mb-0.5 text-xs text-black dark:text-white p-1">
+                    기안일
+                    <p class="text-xs font-medium">${doc.WRITEDT}</p>
+                </div>
             </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                결재제목
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                기안자
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                기안일
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-1 border-b border-stroke pb-2 dark:border-strokedark xl:border-b-0 xl:border-r xl:pb-0">
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                결재상태
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                결재제목
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                기안자
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                기안일
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-1 border-b border-stroke pb-2 dark:border-strokedark xl:border-b-0 xl:border-r xl:pb-0">
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                결재상태
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                결재제목
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                기안자
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                기안일
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-1 border-b border-stroke pb-2 dark:border-strokedark xl:border-b-0 xl:border-r xl:pb-0">
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                결재상태
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                결재제목
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                기안자
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-            <div class="mb-0.5 text-xs text-black dark:text-white p-1">
-                기안일
-                <p class="text-xs font-medium">&nbsp;</p>
-            </div>
-        </div>
+        </c:forEach>
     </div>
 </div>
 
@@ -372,112 +311,79 @@
 				<h5 class="text-sm font-medium uppercase xsm:text-base">결재상태</h5>
 			</div>
   </div>
-
+	
+	<c:forEach items="${myDocList}"  var="approval" varStatus="status" begin="0" end="4">
   <div class="grid grid-cols-6 border-b border-stroke dark:border-strokedark sm:grid-cols-6">
     <div class="p-2.5 xl:p-5">
-      <p class="font-medium text-black dark:text-white">2024-06-01</p>
+      <p class="font-medium text-black dark:text-white">
+      <fmt:formatDate value="${approval.WRITEDT}" pattern="yyyy/MM/dd"/>
+      </p>
     </div>
     <div class="p-2.5 text-center xl:p-5">
-      <p class="font-medium text-black dark:text-white">보고서</p>
+      <p class="font-medium text-black dark:text-white">
+      <c:choose>
+			   <c:when test="${approval.DOCTEMPCODE == 1}">
+			       <p class="text-[#637381] dark:text-bodydark">구매신청서</p>
+			   </c:when>
+			   <c:when test="${approval.DOCTEMPCODE ==2}">
+			       <p class="text-[#637381] dark:text-bodydark">휴가신청서</p>
+			   </c:when>
+			   <c:when test="${approval.DOCTEMPCODE ==3}">
+			       <p class="text-[#637381] dark:text-bodydark">지출결의서</p>
+			   </c:when>
+			</c:choose>
+      </p>
     </div>
     <div class="p-2.5 text-center xl:p-5">
-    	<i class="fi fi-rr-light-emergency-on"></i>
+   		<c:choose>
+      <c:when test="${approval.URGENT == 1}">
+          <i class="fi fi-rr-light-emergency-on">${urgent}</i>
+      </c:when>
+      <c:when test="${approval.URGENT == 0}">
+      		<p class="text-[#637381] dark:text-bodydark"></p>
+      </c:when>
+ 		 </c:choose>
     </div>
     <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">프로젝트 보고</p>
+      <p class="font-medium text-black dark:text-white">${approval.TITLE}</p>
     </div>
     <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">${i}</p>
+      <p class="font-medium text-black dark:text-white">
+       <c:choose>
+       <c:when test="${approval.DEPID == 1}">
+           <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;총무팀</p>
+       </c:when>
+       <c:when test="${approval.DEPID == 2}">
+           <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;경영팀</p>
+       </c:when>
+       <c:when test="${approval.DEPID == 3}">
+           <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;인사팀</p>
+       </c:when>
+   		</c:choose>
+      </p>
     </div>
     <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">완료</p>
+      <p class="font-medium text-black dark:text-white">
+    <c:choose>
+    <c:when test="${approval.DOCSTATE == 0}">
+        <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;진행</p>
+    </c:when>
+    <c:when test="${approval.DOCSTATE == 1}">
+        <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;결재</p>
+    </c:when>
+    <c:when test="${approval.DOCSTATE ==2}">
+        <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;반려</p>
+    </c:when>
+    <c:when test="${approval.DOCSTATE ==3}">
+        <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;임시저장</p>
+    </c:when>
+		</c:choose>
+      </p>
     </div>
   </div>
+  </c:forEach>
 
-  <div class="grid grid-cols-6 border-b border-stroke dark:border-strokedark sm:grid-cols-6">
-    <div class="p-2.5 xl:p-5">
-      <p class="font-medium text-black dark:text-white">2024-06-02</p>
-    </div>
-    <div class="p-2.5 text-center xl:p-5">
-      <p class="font-medium text-black dark:text-white">결재서</p>
-    </div>
-    <div class="p-2.5 text-center xl:p-5">
-    	<i class="fi fi-rr-light-emergency-on"></i>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">예산 결재</p>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">${i}</p>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">대기</p>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-6 border-b border-stroke dark:border-strokedark sm:grid-cols-6">
-    <div class="p-2.5 xl:p-5">
-      <p class="font-medium text-black dark:text-white">2024-06-03</p>
-    </div>
-    <div class="p-2.5 text-center xl:p-5">
-      <p class="font-medium text-black dark:text-white">회의록</p>
-    </div>
-    <div class="p-2.5 text-center xl:p-5">
-    	<i class="fi fi-rr-light-emergency-on"></i>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">팀 회의 결과</p>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">${i}</p>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">반려</p>
-    </div>
-  </div>
-  
-  <div class="grid grid-cols-6 border-b border-stroke dark:border-strokedark sm:grid-cols-6">
-	    <div class="p-2.5 xl:p-5">
-	      <p class="font-medium text-black dark:text-white">2024-06-01</p>
-	    </div>
-	    <div class="p-2.5 text-center xl:p-5">
-	      <p class="font-medium text-black dark:text-white">보고서</p>
-	    </div>
-	    <div class="p-2.5 text-center xl:p-5">
-	    	<i class="fi fi-rr-light-emergency-on"></i>
-	    </div>
-	    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-	      <p class="font-medium text-black dark:text-white">프로젝트 보고</p>
-	    </div>
-	    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-	      <p class="font-medium text-black dark:text-white">${i}</p>
-	    </div>
-	    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-	      <p class="font-medium text-black dark:text-white">완료</p>
-	    </div>
-	  </div>
-  
-  
-
-  <div class="grid grid-cols-6 sm:grid-cols-6">
-    <div class="p-2.5 xl:p-5">
-      <p class="font-medium text-black dark:text-white">2024-06-04</p>
-    </div>
-    <div class="p-2.5 text-center xl:p-5">
-      <p class="font-medium text-black dark:text-white">보고서</p>
-    </div>
-    <div class="p-2.5 text-center xl:p-5">
-    	<i class="fi fi-rr-light-emergency-on"></i>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">일일 업무 보고</p>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">${i}</p>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">진행중</p>
-    </div>
+ 
   </div>
 </div>
 </div>

@@ -5,6 +5,18 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
+<style>
+
+#logoimage {
+	margin-left: 50px;
+	margin-top: 50px;
+	width: 75px;
+	height: 75px;
+
+}
+
+</style>
+
 <!-- ===== Sidebar Start ===== -->
 <aside
   :class="sidebarToggle ? 'translate-x-0' : '-translate-x-full'"
@@ -13,8 +25,8 @@
   >
   <!-- SIDEBAR HEADER -->
   <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-	<a href="index.html">
-      <img src="${contextPath}/images/logo/logo.svg" alt="Logo" />
+	<a href="${contextPath}/">
+      <img id="logoimage" src="${contextPath}/image/logo-white.svg" alt="Logo" />
 	</a>
 
 	<button

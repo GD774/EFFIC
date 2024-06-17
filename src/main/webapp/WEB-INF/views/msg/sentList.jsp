@@ -69,11 +69,6 @@
                  전체선택
             </button>
             </div>
-            <div>
-           <button id="team-btn" class="inline-flex rounded-full border border-[#637381] px-5 py-2 text-sm font-medium text-[#637381] hover:opacity-80">
-                      팀메세지
-           </button>
-           </div>
           </div>       
           
 

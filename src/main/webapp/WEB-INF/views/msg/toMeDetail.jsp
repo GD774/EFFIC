@@ -62,13 +62,13 @@
                           
                          <c:choose>
 					    <c:when test="${empty attachList}">
-					        <input type="text" value="--" data-msg-id="${msg.msgId}" title=""  class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
+					        <input type="text" id="attach-file" value="--" data-msg-id="${msg.msgId}" title=""  class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
 					    </c:when>
 					    <c:when test="${attachList.size() eq 1}">
-					        <input type="text" value="${attachList[0].originalName}"  title=""  data-msg-id="${msg.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
+					        <input type="text" id="attach-file" value="${attachList[0].originalName}"  title=""  data-msg-id="${msg.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
 					    </c:when>
 					    <c:when test="${attachList.size() gt 1}">
-					        <input type="text"  title=""  value="${attachList[0].originalName} 외" data-msg-id="${msg.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
+					        <input type="text"  id="attach-file" title=""  value="${attachList[0].originalName} 외" data-msg-id="${msg.msgId}" class="attachId w-4/5 rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" readonly/>
 					    </c:when>
 					   </c:choose> 
                         
@@ -123,6 +123,12 @@ var msgId = $('#msgId').val();
 
 const fnDownload = () => {
 	  $('.attachId').on('click', (evt) => {
+		  
+		  if($('#attach-file').val() === '--'){
+			  alert('첨부된 파일이 없습니다.');
+			  return;
+		  }
+		  
 		  
 	    if(confirm('해당 첨부 파일을 다운로드 할까요?')) {
 	      location.href = '${contextPath}/msg/download.do?msgId=' + evt.currentTarget.dataset.msgId;

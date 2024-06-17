@@ -146,6 +146,11 @@ $('#btn-me').on('click', (evt) => {
 	      alert('제목은 필수입니다.')
 	      evt.preventDefault();
 	      return; }
+	
+	 if(!confirm('메세지를 보내시겠습니까?')){
+		return;
+	 }
+	 
 	 
     evt.preventDefault(); 
     $('#frm').attr('action', '${contextPath}/msg/writeToMe.do');
@@ -155,14 +160,32 @@ $('#btn-me').on('click', (evt) => {
     
 });
 
+$(document).ready(function() {
+    $('#btn-submit').click(function(evt) {
+        evt.preventDefault();
+
+        if (confirm('메세지를 보내시겠습니까?')) {
+            $('#frm').submit();
+        } return;
+    });
+});
+
 //제이쿼리 아닌 것도 써보기...
 const fnSubmitChk = () => {
 	  document.getElementById('btn-submit').addEventListener('click', (evt) => {
 	    if(document.getElementById('title').value === '') {
-	      alert('제목은 필수입니다.');
+	      alert('제목을 입력해주세요.');
 	      evt.preventDefault();
 	      return;
 	    }
+	   
+	    if(document.getElementById('here').value === '') {
+		      alert('수신자를 입력해주세요.');
+		      evt.preventDefault();
+		      return;
+		    }
+	    
+	    
 	  });
 	}
 
@@ -179,9 +202,9 @@ const fnSubmitChk = () => {
     { "id" : "S27", "parent" : "S2", "text" : "홍대지점" , "icon" : "glyphicon glyphicon-picture"},
     { "id" : "S28", "parent" : "S2", "text" : "전주지점" , "icon" : "glyphicon glyphicon-picture"},
 	{ "id" : "S1",  "parent" : "R",  "text" : "본사", "icon" : "glyphicon glyphicon-home" },
-    { "id" : "S11", "parent" : "S1", "text" : "홍보팀" , "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S12", "parent" : "S1", "text" : "재무팀",   "icon" : "glyphicon glyphicon-picture"},
-    { "id" : "S13", "parent" : "S1", "text" : "관리팀" ,"icon" : "glyphicon glyphicon-picture" },
+    { "id" : "S11", "parent" : "S1", "text" : "총무팀" , "icon" : "glyphicon glyphicon-picture"},
+    { "id" : "S12", "parent" : "S1", "text" : "경영팀",   "icon" : "glyphicon glyphicon-picture"},
+    { "id" : "S13", "parent" : "S1", "text" : "인사팀" ,"icon" : "glyphicon glyphicon-picture" },
 
     {
         "id": "tester1",

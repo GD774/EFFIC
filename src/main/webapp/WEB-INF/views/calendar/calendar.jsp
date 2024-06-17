@@ -90,7 +90,7 @@
 <jsp:include page="../layout/sidebar.jsp"/>
 
 <div class="calendarbox">
-    <h1 id="calendarhead" style="font-size: 50px; font-weight: bold; color: rgb(65,105,225); margin-bottom: 20px;">일정</h1>
+    <h1 id="calendarhead" style="font-size: 50px; font-weight: bold; color: rgb(65,105,225); margin-bottom: 20px;">일정관리</h1>
     
  <!--    <div
   class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden"

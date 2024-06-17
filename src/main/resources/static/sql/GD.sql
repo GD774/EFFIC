@@ -270,12 +270,12 @@ CONSTRAINT   PK_DOC_TEMP PRIMARY KEY(DOC_TEMP_CODE)
 );
 
 CREATE TABLE APP_ATTACH_T (
-    ATTACH_NO        NUMBER NOT NULL,    -- ÆÄÀÏ¹øÈ£
-    ATTACH_ID        VARCHAR2(100 BYTE), -- ÆÄÀÏ¸í
-    ORIGINALFILENAME VARCHAR2(100 BYTE), -- ÆÄÀÏ¿øº»ÀÌ¸§
-    FILESYSTEM_NAME  VARCHAR2(100 BYTE), -- ÆÄÀÏ½Ã½ºÅÛ¸í
-    UPLOAD_PATH      VARCHAR2(200 BYTE), -- ÆÄÀÏ°æ·Î
-    DOC_ID           NUMBER,              -- ¹®¼­¹øÈ£
+    ATTACH_NO        NUMBER NOT NULL,    -- ï¿½ï¿½ï¿½Ï¹ï¿½È£
+    ATTACH_ID        VARCHAR2(100 BYTE), -- ï¿½ï¿½ï¿½Ï¸ï¿½
+    ORIGINALFILENAME VARCHAR2(100 BYTE), -- ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+    FILESYSTEM_NAME  VARCHAR2(100 BYTE), -- ï¿½ï¿½ï¿½Ï½Ã½ï¿½ï¿½Û¸ï¿½
+    UPLOAD_PATH      VARCHAR2(200 BYTE), -- ï¿½ï¿½ï¿½Ï°ï¿½ï¿½
+    DOC_ID           NUMBER,              -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
     CONSTRAINT PK_APP_ATTACH PRIMARY KEY(ATTACH_NO)
 );
 
@@ -300,32 +300,32 @@ CONSTRAINT PK_DOC PRIMARY KEY(DOC_ID)
 );
 
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester1', '1111', '¾È¼º±â', 1, 0, 1, '001', TO_DATE('2023-01-01', 'YYYY-MM-DD'), NULL);
+VALUES ('tester1', '1111', 'ï¿½È¼ï¿½ï¿½ï¿½', 1, 0, 1, '001', TO_DATE('2023-01-01', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester2', '1111', '½ÅÇØÃ¶', 1, 0, 1, '002', TO_DATE('2023-02-01', 'YYYY-MM-DD'), NULL);
+VALUES ('tester2', '1111', 'ï¿½ï¿½ï¿½ï¿½Ã¶', 1, 0, 1, '002', TO_DATE('2023-02-01', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester3', '1111', '½ÅÇý¼±', 1, 1, 1, '003', TO_DATE('2023-03-01', 'YYYY-MM-DD'), NULL);
+VALUES ('tester3', '1111', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 1, 1, 1, '003', TO_DATE('2023-03-01', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester4', '1111', '±¸Çý¼±', 1, 1, 1, '004', TO_DATE('2023-04-01', 'YYYY-MM-DD'), NULL);
+VALUES ('tester4', '1111', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 1, 1, 1, '004', TO_DATE('2023-04-01', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('testser', '1111', '¹Ú¼Ò´ã', 1, 1, 1, '005', TO_DATE('2023-05-01', 'YYYY-MM-DD'), NULL);
+VALUES ('tester5', '1111', 'ï¿½Ú¼Ò´ï¿½  ', 1, 1, 1, '005', TO_DATE('2023-05-01', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester6', '1111', 'Á¶ÁØ¿µ', 1, 0, 2, '001', TO_DATE('2023-01-15', 'YYYY-MM-DD'), NULL);
+VALUES ('tester6', '1111', 'ï¿½ï¿½ï¿½Ø¿ï¿½', 1, 0, 2, '001', TO_DATE('2023-01-15', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester7', '1111', '³²¹Î¿ì', 1, 0, 2, '003', TO_DATE('2023-01-15', 'YYYY-MM-DD'), NULL);
+VALUES ('tester7', '1111', 'ï¿½ï¿½ï¿½Î¿ï¿½', 1, 0, 2, '003', TO_DATE('2023-01-15', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester8', '1111', '¹ÚÈ­Æò', 1, 0, 2, '002', TO_DATE('2023-01-15', 'YYYY-MM-DD'), NULL);
+VALUES ('tester8', '1111', 'ï¿½ï¿½È­ï¿½ï¿½', 1, 0, 2, '002', TO_DATE('2023-01-15', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester9', '1111', 'ÀüÁöÇö', 1, 1, 2, '001', TO_DATE('2023-01-15', 'YYYY-MM-DD'), NULL);
+VALUES ('tester9', '1111', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 1, 1, 2, '001', TO_DATE('2023-01-15', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester10', '1111', '±èÁöÀº', 1, 1, 2, '004', TO_DATE('2023-01-15', 'YYYY-MM-DD'), NULL);
+VALUES ('tester10', '1111', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 1, 1, 2, '004', TO_DATE('2023-01-15', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester11', '1111', 'ÁÖÀ±¹ß', 1, 0, '3', '003', TO_DATE('2020-01-01', 'YYYY-MM-DD'), NULL);
+VALUES ('tester11', '1111', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 1, 0, '3', '003', TO_DATE('2020-01-01', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester12', '1111', '°í±æµ¿', 1, 0, '3', '002', TO_DATE('2022-03-05', 'YYYY-MM-DD'), NULL);
+VALUES ('tester12', '1111', 'ï¿½ï¿½æµ¿', 1, 0, '3', '002', TO_DATE('2022-03-05', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester13', '1111', '³ª¹«´Ì', 1, 1, '3', '003', TO_DATE('2024-02-07', 'YYYY-MM-DD'), NULL);
+VALUES ('tester13', '1111', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 1, 1, '3', '003', TO_DATE('2024-02-07', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester14', '1111', '¾çÈñÀº', 1, 1, '3', '001', TO_DATE('2021-11-18', 'YYYY-MM-DD'), NULL);
+VALUES ('tester14', '1111', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 1, 1, '3', '001', TO_DATE('2021-11-18', 'YYYY-MM-DD'), NULL);
 INSERT INTO USER_T (EMP_ID, PASSWORD, NAME, STATUS, GENDER_ID, DEP_ID, POS_ID, JOIN_DT, LEAVE_DT)
-VALUES ('tester15', '1111', '½Å¼º¿ì', 1, 0, '3', '002', TO_DATE('2023-07-16', 'YYYY-MM-DD'), NULL);
+VALUES ('tester15', '1111', 'ï¿½Å¼ï¿½ï¿½ï¿½', 1, 0, '3', '002', TO_DATE('2023-07-16', 'YYYY-MM-DD'), NULL);

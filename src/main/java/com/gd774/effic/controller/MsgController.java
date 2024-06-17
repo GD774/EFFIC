@@ -33,6 +33,11 @@ public class MsgController {
 	private final MsgMapper msgMapper;
 	
 
+	@GetMapping(value="/tree.page")
+	public String treePage() {
+		return "msg/tree";
+	}
+	
 	@GetMapping(value="/write.page")
 	public String goWrite(@RequestParam(defaultValue = "") String sender, Model model, HttpServletRequest request) {
 		model.addAttribute("sender", sender);

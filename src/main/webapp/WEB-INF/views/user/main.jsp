@@ -64,6 +64,7 @@
 #weather {
 	text-align: center;
 	margin-top: 50px;
+	border: solid 4px #b5b3b3;
 }
 
 #map {
@@ -187,11 +188,9 @@
       <h4 class="text-xl font-bold text-black dark:text-white">
       
       <!-- 날씨  -->
-				<div id="weather" class="rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+				<div id="weather" class="rounded-sm border border-stroke bg-white p-7.5 dark:border-strokedark dark:bg-boxdark xl:col-span-4">
 				</div>
       
-        
-				    
 				    	<div id="map" style=" width: 400px; height: 300px;"></div>
 			
 			
@@ -351,7 +350,6 @@ function parseEvents(data) {
                     url: apiUrl,
                     type: 'GET',
                     success: function(data) {
-                        console.log("API 응답 데이터:", data); // 콘솔에 API 응답 로그 출력
                         
                         // 온도와 날씨 설명 및 아이콘 추출
                         const temperature = Math.round(data.main.temp); // 온도
@@ -361,9 +359,6 @@ function parseEvents(data) {
                         // 아이콘 URL
                         const iconUrl = `http://openweathermap.org/img/wn/\${icon}.png`;
                         
-                        console.log("온도:", temperature); // 콘솔에 온도 출력
-                        console.log("날씨 설명:", description); // 콘솔에 날씨 설명 출력
-                        console.log("아이콘 URL:", iconUrl); // 콘솔에 아이콘 URL 출력
                         
                         // HTML 업데이트
                         $('#weather').append(`

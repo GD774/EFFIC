@@ -63,11 +63,13 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "addDep")
+	@ResponseBody
 	public void addDep(HttpServletRequest request) {
 		this.adminService.addDep(request);
 	}
 
 	@PostMapping(value = "addPos")
+	@ResponseBody
 	public void addPos(HttpServletRequest request) {
 		this.adminService.addPos(request);
 	}

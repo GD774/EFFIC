@@ -50,7 +50,7 @@
 
   <insert id="insertDept"
 		  parameterType="DeptEvo">
-	INSERT INTO DEPARTMENT_T(CODE, NAME, PARENT, DEP_LEVEL) VALUES(#{code}, #{name}, #{level}, #{parent.code})
+	INSERT INTO DEPARTMENT_T(CODE, NAME, PARENT, DEP_LEVEL) VALUES(#{code}, #{name}, #{parent.code}, #{level})
   </insert>
 
   <insert id="insertCommCode"

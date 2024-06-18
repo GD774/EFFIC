@@ -42,7 +42,7 @@
 
     <p class="mt-10 text-center text-sm text-gray-500">
       GD774
-      <a href="${contextPath}/admin/userlist" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Visit Our Project Page 가 아니고 사원 임시 등록 페이지</a>
+      <a href="https://github.com/GD774/EFFIC" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Visit Our Project Page</a>
     </p>
   </div>
 

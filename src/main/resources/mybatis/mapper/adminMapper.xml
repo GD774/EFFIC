@@ -28,6 +28,9 @@
 	<result  property="code"        column="CODE"/>
 	<result  property="name"        column="NAME"/>
 	<result  property="level"        column="DEP_LEVEL"/>
+	<association property="parent" javaType="DeptEvo">
+	  <result      property="code"         column="PCODE"/>
+	</association>
   </resultMap>
 
   <resultMap type="CommCodeEvo" id="CommCodeMap">
@@ -73,7 +76,7 @@
 
   <select id="selectDepts"
 		  resultMap="DeptMap">
-	SELECT CODE, NAME, DEP_LEVEL FROM DEPARTMENT_T
+	SELECT CODE, NAME, DEP_LEVEL, PARENT AS PCODE FROM DEPARTMENT_T
   </select>
 
   <select id="selectCommCodes"

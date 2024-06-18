@@ -251,23 +251,23 @@
                                     		<!-- 기안일 -->
                                         <div class="grid grid-cols-12 border-t border-[#EEEEEE] px-3 py-2 dark:border-strokedark lg:px-5 2xl:px-9">
 																				<div class="col-span-1">
-																				    <fmt:formatDate value="${approval.WRITEDT}" pattern="yyyy/MM/dd" var="formattedDate"/>
+																				    <fmt:formatDate value="${approval.writeDt}" pattern="yyyy/MM/dd" var="formattedDate"/>
 																				    <p class="text-[#637381] dark:text-bodydark">${formattedDate}</p>
 																				</div>
                                         <!-- 완료일 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">${approval.APPDT}</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${approval.appDt}</p>
                                             </div>
                                         <!-- 결재양식 -->
                                             <div class="col-span-2">
                                             		<c:choose>
-																		                <c:when test="${approval.DOCTEMPCODE == 1}">
+																		                <c:when test="${approval.docTempCode == 1}">
 																		                    <p class="text-[#637381] dark:text-bodydark">구매신청서</p>
 																		                </c:when>
-																		                <c:when test="${approval.DOCTEMPCODE ==2}">
+																		                <c:when test="${approval.docTempCode ==2}">
 																		                    <p class="text-[#637381] dark:text-bodydark">휴가신청서</p>
 																		                </c:when>
-																		                <c:when test="${approval.DOCTEMPCODE ==3}">
+																		                <c:when test="${approval.docTempCode ==3}">
 																		                    <p class="text-[#637381] dark:text-bodydark">지출결의서</p>
 																		                </c:when>
 																		            </c:choose>
@@ -275,10 +275,10 @@
                                         <!-- 긴급 -->
                                             <div class="col-span-1" style="margin-left:10px;">
 	                                            		<c:choose>
-																		                <c:when test="${approval.URGENT == 1}">
+																		                <c:when test="${approval.urgent == 1}">
 																		                    <i class="fi fi-rr-light-emergency-on">${urgent}</i>
 																		                </c:when>
-																		                <c:when test="${approval.URGENT == 0}">
+																		                <c:when test="${approval.urgent == 0}">
 																		                		<p class="text-[#637381] dark:text-bodydark"></p>
 																		                </c:when>
 																		            </c:choose>
@@ -286,11 +286,11 @@
                                             </div>
                                        	<!-- 제목 -->
                                             <div class="col-span-3">
-                                                <p class="text-[#637381] dark:text-bodydark">${approval.TITLE}</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${approval.title}</p>
                                             </div>
                                         <!-- 기안자 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">${approval.USERNAME}</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${approval.user.name}</p>
                                             </div>
                                         <!-- 기안부서 -->
                                             <div class="col-span-1">
@@ -309,18 +309,18 @@
                                         <!-- 결재문서번호 -->
                                             <div class="col-span-1">
                                            		 <c:choose>
-															               		 <c:when test="${approval.APPDOCID == null}">
-															                    <p class="text-[#637381] dark:text-bodydark">${approval.APPDOCID}</p>
+															               		 <c:when test="${approval.appDocId == null}">
+															                    <p class="text-[#637381] dark:text-bodydark">${approval.appDocId}</p>
 															               		 </c:when>
-															               		 <c:when test="${approval.APPDOCID != null}">
-															               		 	<fmt:formatDate value="${approval.APPDOCID}" pattern="yyyy/MM/dd" var="formattedDate"/>
+															               		 <c:when test="${approval.appDocId != null}">
+															               		 	<fmt:formatDate value="${approval.appDocId}" pattern="yyyy/MM/dd" var="formattedDate"/>
 															               		 </c:when>
 														               		 </c:choose>
                                             </div>
                                     	 	<!-- 결재상태		 -->
                                             <div class="col-span-1">
                                                  <c:choose>
-																		                <c:when test="${approval.DOCSTATE == 1}">
+																		                <c:when test="${approval.docState == 1}">
 																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;결재</p>
 																		                </c:when>
 																		            </c:choose>
@@ -331,7 +331,7 @@
                                       <tr>
 																        <td colspan="4">${paging}</td>
 																      </tr>
-																      ${depDocList}
+
 
                                 
                                 <!-- table body end -->

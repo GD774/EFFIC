@@ -28,7 +28,7 @@
 </div>
 
 
-<<div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+<div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
     <main>
         <div class="mx-auto max-w-screen-2xl p-2 md:p-2 2xl:p-6">
             <div class="mb-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
@@ -124,7 +124,7 @@
     </div>
 </div>
 </div>
-${myDocList}
+
                 <!-- ====== Table Section Start ===== -->
                 <div class="flex flex-col gap-1">
                     <!-- ====== Table Four Start -->
@@ -161,6 +161,8 @@ ${myDocList}
                                         <h5 class="font-bold text-[#637381] dark:text-bodydark">&nbsp;&nbsp;결재상태</h5>
                                     </div>
                                 </div>
+                                
+ 
 
                                 <!-- table header end -->
 
@@ -168,28 +170,32 @@ ${myDocList}
                                 <div class="bg-white dark:bg-boxdark">
                                 <template x-for="doc in filteredDocs">
                                     <!-- table row item -->
-                                    <c:forEach var="approval" items="${myDocList}">
+                                    
+                                    <c:forEach items="${myDocList}" var="approval" varStatus="vs">
                                     		<!-- 기안일 -->
                                         <div class="grid grid-cols-12 border-t border-[#EEEEEE] px-3 py-2 dark:border-strokedark lg:px-5 2xl:px-9">
 																				<div class="col-span-1">
 																				    <p class="text-[#637381] dark:text-bodydark">
-																				    <fmt:formatDate value="${approval.writeDt}" pattern="yyyy/MM/dd"/>
-																				    </p>
+																				    <fmt:formatDate value="${approval.writeDt}" pattern="yyyy/MM/dd" var="formattedDate"/>
+																				    <p class="text-[#637381] dark:text-bodydark">${formattedDate}</p>
 																				</div>
                                         <!-- 완료일 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">${approval.appDt}</p>
+                                                <p class="text-[#637381] dark:text-bodydark">
+                                                <fmt:formatDate value="${approval.appDt}" pattern="yyyy/MM/dd" var="formattedDate"/>
+																				    <p class="text-[#637381] dark:text-bodydark">${formattedDate}</p>
+                                                
                                             </div>
                                         <!-- 결재양식 -->
                                             <div class="col-span-2">
                                             		<c:choose>
-																		                <c:when test="${approval.docTempCode == 1}">
+																		                <c:when test="${approval.docTempCode == '1'}">
 																		                    <p class="text-[#637381] dark:text-bodydark">구매신청서</p>
 																		                </c:when>
-																		                <c:when test="${approval.docTempCode ==2}">
+																		                <c:when test="${approval.docTempCode =='2'}">
 																		                    <p class="text-[#637381] dark:text-bodydark">휴가신청서</p>
 																		                </c:when>
-																		                <c:when test="${approval.docTempCode ==3}">
+																		                <c:when test="${approval.docTempCode =='3'}">
 																		                    <p class="text-[#637381] dark:text-bodydark">지출결의서</p>
 																		                </c:when>
 																		            </c:choose>
@@ -262,7 +268,7 @@ ${myDocList}
                                     </c:forEach>
                                     </template>
                                 </div>
-                                
+                                ${myDocList}
                                 <!-- table body end -->
                             </div>
                         </div>

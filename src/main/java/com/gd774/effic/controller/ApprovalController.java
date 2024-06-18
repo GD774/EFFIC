@@ -43,30 +43,33 @@ public class ApprovalController {
     @GetMapping("/main")
     public String approvalMain(HttpServletRequest request, Model model) {
     	approvalService.loadMyDocList(request, model);
-    	model.addAttribute("mainDocList", request);
+    	approvalService.loadMyAppDocList(request, model);
+    	
+    	model.addAttribute("myDocList", request);
+    	model.addAttribute("myAppDocList", request);
     	return "approval/main";
     }
     
    
     @GetMapping("/myDocList")
     public String loadMyDocList(HttpServletRequest request, Model model) {
-    	List<AppDocDto> myDocList = approvalService.loadMyDocList(request, model);
-    	model.addAttribute("myDocList", myDocList);
+    	model.addAttribute("myDocList", request);
+    	approvalService.loadMyDocList(request, model);
     	return "approval/myDocList";
     }
     
     
     @GetMapping("/mySaveDocList")
     public String loadMySaveDocList(HttpServletRequest request, Model model) {
-    	model.addAttribute("mySaveDocList", request);
     	approvalService.loadMySaveDocList(request, model);
+    	model.addAttribute("mySaveDocList", request);
     	return "approval/mySaveDocList";
     }
     
     @GetMapping("/myAppDocList")
     public String loadMyAppDocList(HttpServletRequest request, Model model) {
-    	model.addAttribute("myAppDocList", request);
     	approvalService.loadMyAppDocList(request, model);
+    	model.addAttribute("myAppDocList", request);
     	return "approval/myAppDocList";
     }
     

@@ -173,12 +173,14 @@
                                         <div class="grid grid-cols-12 border-t border-[#EEEEEE] px-3 py-2 dark:border-strokedark lg:px-5 2xl:px-9">
 																				<div class="col-span-1">
 																				    <p class="text-[#637381] dark:text-bodydark">
-																				    <fmt:formatDate value="${approval.writeDt}" pattern="yyyy/MM/dd"/>
-																				    </p>
+																				    <fmt:formatDate value="${approval.writeDt}" pattern="yyyy/MM/dd" var="formattedDate"/>
+																				    <p class="text-[#637381] dark:text-bodydark">${formattedDate}</p>
+																				    
 																				</div>
                                         <!-- 완료일 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">${approval.appDt}</p>
+                                                <fmt:formatDate value="${approval.appDt}" pattern="yyyy/MM/dd" var="formattedDate"/>
+																				    <p class="text-[#637381] dark:text-bodydark">${formattedDate}</p>
                                             </div>
                                         <!-- 결재양식 -->
                                             <div class="col-span-2">

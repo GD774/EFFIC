@@ -113,18 +113,18 @@
 		
 		<!-- 임시저장함 리스트 위해 -->
 		<select id="getMySaveDocList" parameterType="map" resultMap="ApprovalMap">
-		    SELECT AD.WRITE_DT AS writeDt, 
-		           AD.DOC_ID AS docId,
-		           APP.APP_DT AS appDt, 
-		           AD.DOC_TEMP_CODE AS docTempCode, 
-		           AD.URGENT AS urgent, 
-		           AD.TITLE AS title, 
-		           AD.DOC_STATE AS docState,
-		           U.NAME AS userName, 
-		           DEP.NAME AS depName, 
-		           U.DEP_ID AS depId,
-		           APP.APP_DOC_ID AS appDocId,
-		           APP.APP_STATE AS appState
+		    SELECT AD.WRITE_DT, 
+		           AD.DOC_ID,
+		           APP.APP_DT, 
+		           AD.DOC_TEMP_CODE, 
+		           AD.URGENT, 
+		           AD.TITLE, 
+		           AD.DOC_STATE,
+		           U.NAME, 
+		           DEP.NAME, 
+		           U.DEP_ID ,
+		           APP.APP_DOC_ID,
+		           APP.APP_STATE
 		    FROM APP_DOC_T AD
 		    JOIN USER_T U ON AD.EMP_ID = U.EMP_ID
 		    JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
@@ -158,7 +158,7 @@
 		</select>
 
 <!-- 부서문서함 리스트 -->
-<select id="getDepDocListByDocState" parameterType="map" resultMap="ApprovalMap">
+<select id="getDepDocList" parameterType="map" resultMap="ApprovalMap">
     SELECT AD.WRITE_DT AS writeDt, 
            APP.APP_DT AS appDt, 
            AD.DOC_TEMP_CODE AS docTempCode, 
@@ -311,4 +311,6 @@
     WHERE 
         AD.DOC_ID = #{docId}
 </select>
+
+
 </mapper>

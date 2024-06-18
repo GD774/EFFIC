@@ -33,8 +33,8 @@ public class HomeController {
       String empId = user.getEmpId();
       
       model.addAttribute("noread", msgService.getUnReadCount(empId));
-      List<AppDocDto> myDocList = approvalService.loadMyDocList(request, model);
-      model.addAttribute("myDocList", myDocList);
+      List<AppDocDto> myDocListUserMain = approvalService.myDocListUserMain(request, model);
+      model.addAttribute("myDocListUserMain", myDocListUserMain);
       
       return "user/main";}
     return "redirect:/signin";

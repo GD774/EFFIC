@@ -190,8 +190,8 @@
                                             </div>
                                        	<!-- 제목 -->
                                             <div class="col-span-3"  class="text-[#637381] dark:text-bodydark">
-                                            <a href="${contextPath}/approval/detail.do?docId=${approval.docId}"></a>
-                                                ${approval.title}
+                                            <a href="${contextPath}/approval/detail.do?docId=${approval.docId}"> ${approval.title}</a>
+                                               
                                             </div>
                                         <!-- 기안자 -->
                                             <div class="col-span-1">
@@ -224,20 +224,7 @@
                                             </div>
                                     	 	<!-- 결재상태		 -->
                                             <div class="col-span-1">
-                                                 <c:choose>
-																		                <c:when test="${approval.docState == 0}">
-																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;진행</p>
-																		                </c:when>
-																		                <c:when test="${approval.docState == 1}">
-																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;결재</p>
-																		                </c:when>
-																		                <c:when test="${approval.docState ==2}">
-																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;반려</p>
-																		                </c:when>
-																		                <c:when test="${approval.docState ==3}">
 																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;임시저장</p>
-																		                </c:when>
-																		            </c:choose>
                                             </div>
                                         </div>
                                     </c:forEach>

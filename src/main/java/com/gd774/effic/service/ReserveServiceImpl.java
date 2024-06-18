@@ -164,9 +164,23 @@ public class ReserveServiceImpl implements ReserveService {
                                       , HttpStatus.OK);
   }
   
+  // 대여 자산 불러오기
+  @Override
+  public ResponseEntity<Map<String, Object>> getReserveFacility(HttpServletRequest request) {
+    int retotal = reserveMapper.getFacReserveCount();
+    int redisplay = 3;
+    int repage = Integer.parseInt(request.getParameter("page"));
+    pageUtils.setPaging(retotal, redisplay, repage);
+    Map<String, Object> map = Map.of("begine", pageUtils.getBegin()
+        ,"end", pageUtils.getEnd());
+    return new ResponseEntity<>(Map.of("getFacReserve", reserveMapper.getFacReserve(map)
+        ,"totalPage", pageUtils.getTotalPage())
+        , HttpStatus.OK);
+  }
+
   // 자산 예약 모달 클릭시 insert
   @Override
-  public int FacilityReserve(HttpServletRequest request) {
+  public int insertFacReserve(HttpServletRequest request) {
     int facilityId = Integer.parseInt(request.getParameter("facilityId"));
     String startDt = request.getParameter("startDt");
     String endDt = request.getParameter("endDt");
@@ -182,24 +196,12 @@ public class ReserveServiceImpl implements ReserveService {
                                           .facilityId(facilityId)
                                           .startDt(startDt)
                                           .endDt(endDt)
-                                          .user(user)
                                           .build();
+    
+    //.user(user)
     return reserveMapper.insertFacReserve(facReserve);
   }
   
-  // insert된 자산 불러오기
-  @Override
-  public ResponseEntity<Map<String, Object>> getFacilityReseve(HttpServletRequest request) {
-    int total = reserveMapper.getFacReserveCount();
-    int display = 3;
-    int page = Integer.parseInt(request.getParameter("page"));
-    pageUtils.setPaging(total, display, page);
-    Map<String, Object> map = Map.of("beging", pageUtils.getBegin()
-                                    ,"end", pageUtils.getEnd());
-    return new ResponseEntity<>(Map.of("getFacReserve", reserveMapper.getFacReserve(map)
-                                      ,"totalPage", pageUtils.getTotalPage())
-                                      , HttpStatus.OK);
-   }
 
 
 }

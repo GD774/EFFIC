@@ -6,7 +6,7 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
 <jsp:include page="../layout/opener.jsp"/>
-<jsp:include page="../layout/sidebar-admin.jsp"/>
+<jsp:include page="../layout/sidebar.jsp"/>
 
 <!-- ===== Content Area Start ===== -->
 <div
@@ -124,19 +124,16 @@
 </div>
 <!-- ===== Content Area End ===== -->
 
-<script type="module">
-
-  // import { orgChart } from "${contextPath}/js/orgChart.js";
-  // import { BasicTable } from "${contextPath}/js/tableBasic.js";
+<script>
 
   const organize = (users, depts) => {
 	  var tree = [];
 	  for (var d of depts) {
-		  var node = { id: id,
-					   text: d.name,
-					   code: d.code,
-					   parent: d.parent,
-					   children: []};
+		  var node = { //"id": id,
+					   "text": d.name,
+					   "code": d.code,
+					   "parent": d.parent,
+					   "children": []};
 		  tree.push(node);
 		  if (!d.parent)
 			  continue;
@@ -146,15 +143,15 @@
 				  break;
 			  }
 	  }
-	  tree.push({ id: id,
-				  text: "가발령",
-				  code: null,
-				  children: []});
+	  tree.push({ //"id": id,
+				  "text": "가발령",
+				  "code": null,
+				  "children": []});
 
 	  for (var u of users) {
-		  var node = { id: id,
-					   text: u.name,
-					   empId: u.empId};
+		  var node = { //"id": id,
+					   "text": u.name,
+					   "empId": u.empId};
 		  var flag = false;
 		  for (var n of tree)
 			  if (u.dept && (u.dept.code === n.code)) {
@@ -188,19 +185,24 @@
 				  'data': organize(users, depts)
 			  }});
 			  depChart.on("changed.jstree", (evt, data) => {
-				  var name = data.instance.get_node(data.selected[0]).name;
-				  var code = data.instance.get_node(data.selected[0]).code;
-				  $("#parentDepName").attr("value", name);
-				  $("#parentDep").attr("code", code);
+				  var name = data.instance.get_node(data.selected[0]).text;
+				  var code = data.instance.get_node(data.selected[0]).original.code;
+				  if (code) {
+					  $("#parentDepName").attr("value", name);
+					  $("#parentDep").attr("value", code);
+					  renderDepInfo(name, code);
+				  }
 			  });
 		  },
-		  error: (jqXHR) => {}
+		  error: (jqXHR) => {
+			  alert("renderDepChart\n\n" + jqXHR.responseText);
+		  }
 	  });
   };
 
   const renderPosChart = () => {
 	  $.ajax({
-		  url: "{contextPath}/admin/getPosData",
+		  url: "${contextPath}/admin/getPosData",
 		  method: "GET",
 		  success: (data) => {
 			  var posChart = $("#pos-chart > div > div");
@@ -227,25 +229,50 @@
   </div>
 </div>`;
 			  posChart.append(posTable);
+
+			  listenPosChart();
 		  },
-		  error: (jqXHR) => {}
+		  error: (jqXHR) => {
+			  alert("renderPosChart\n\n" + jqXHR.responseText);
+		  }
 	  });
   };
 
-  // const listenPosChart = () => {
-  // 	  var els = document.getElementsByClassName("poschart");
-  // 	  for (var e of els) {
-  // 		  e.addEventListener("click", (evt) => {
-  // 			  var el = evt.currentTarget;
-  // 			  $("#parentPosName").attr("value", el.children[0].children[0].textContent);
-  // 			  $("#parentPos").attr("code", el.getAttribute("code"));
-  // 		  });
-  // 	  }
-  // }
+  const listenPosChart = () => {
+	  var els = document.getElementsByClassName("poschart");
+	  for (var e of els) {
+		  e.addEventListener("click", (evt) => {
+			  console.log("clicked!!!")
+			  var el = evt.currentTarget;
+			  // $("#parentPosName").attr("value", el.children[0].children[0].textContent);
+			  // $("#parentPos").attr("code", el.getAttribute("code"));
+			  var code = el.getAttribute("code");
+			  renderPosInfo(el.children[0].children[0].textContent, code);
+		  });
+	  }
+  };
+
+  const listenToDelete = (id, url) => {
+	  var el = document.getElementById(id);
+	  el.addEventListener("click", (evt) => {
+		  var code = $("#" + id).attr("code");
+		  console.log("code is ", code);
+		  $.ajax({
+			  url: url,
+			  method: "DELETE",
+			  data: "code=" + code,
+			  success: (resData) => {
+				  document.location.reload();
+			  },
+			  error: (jqXHR) => {
+			  }
+		  });
+	  });
+  };
 
   const renderMainTable = (element, data, option=null) => {
 	  var content = '';
-	  if (option) {
+	  if (option && option["input"]) {
 		  content += `<form action="` + option["action"] + `" method="` + option["method"] + `">`;
 	  }
 	  for (var ind in data) {
@@ -256,9 +283,9 @@
 			  content += d[0];
 			  content += `</p></div>`
 		  }
-		  if (!option) {
+		  if (!(option && option["input"])) {
 			  content += `<div class="col-auto"><p class="text-[#637381] dark:text-bodydark">`;
-			  content += d[1];
+			  content += d[1] ? d[1] : "불명";
 			  content += `</p></div></div>`;
 		  }
 		  else {
@@ -269,48 +296,59 @@
 				  content += `</div>`;
 		  }
 	  }
-	  if (option) {
+	  if (option && option["button"]) {
 		  content += `<div class="grid grid-cols-12">
 				      <div class="col-span-2">
-            <button
-			  class="rounded-md px-4 py-3 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6"
-			  >
-			  생성
-			</button>
-</div></div></form>`;
+            <button `
+		  + option["button"]["attrs"] +
+			  ` class="rounded-md px-4 py-3 text-white font-medium ` + option["button"]["color"] + ` hover:text-white md:text-base lg:px-6"
+			  >`
+			  + option["button"]["text"] +
+			`</button>
+</div></div>`;
 	  }
+	  if (option && option["input"])
+		  content += `</form>`;
 	  element.empty();
 	  element.append(content);
   };
 
-  const renderDepInfo = () => {
+  const renderDepInfo = (depName, depCode) => {
 	  $.ajax({
 		  url: "${contextPath}/admin/getDepInfo",
 		  method: "GET",
+		  data: "code=" + depCode,
 		  success: (resData) => {
-			  var data = [["부서명", resData[0]],
-						  ["코드", resData[1]],
-						  ["사원수", resData[2]]];
-			  renderMainTable($("#depInfo"), data);
+			  var data = [["부서명", depName],
+						  ["코드", depCode],
+						  ["사원수", resData]];
+			  renderMainTable($("#depInfo"), data,
+							  {"button":{"attrs": " code=\"" + depCode + "\" id=delDep ",
+										 "text": " 삭제 ", "color": " bg-red "}});
+			  listenToDelete("delDep", "${contextPath}/admin/delDep");
 		  },
 		  error: (jqXHR) => {
-			  alert(jqXHR);
+			  alert("renderDepInfo\n\n" + jqXHR.responseText);
 		  }
 	  });
   };
 
-  const renderPosInfo = () => {
+  const renderPosInfo = (posName, posCode) => {
 	  $.ajax({
 		  url: "${contextPath}/admin/getPosInfo",
 		  method: "GET",
+		  data: "code=" + posCode,
 		  success: (resData) => {
-			  var data = [["직위명", resData[0]],
-						  ["코드", resData[1]],
-						  ["사원수", resData[2]]];
-			  renderMainTable($("#posInfo"), data);
+			  var data = [["직위명", posName],
+						  ["코드", posCode],
+						  ["사원수", resData]];
+			  renderMainTable($("#posInfo"), data,
+							  {"button": {"attrs": " code=\"" + posCode + "\" id=delPos ",
+										  "text": " 삭제 ", "color": " bg-red "}});
+			  listenToDelete("delPos", "${contextPath}/admin/delPos");
 		  },
 		  error: (jqXHR) => {
-			  alert(jqXHR);
+			  alert("renderPosInfo\n\n" + jqXHR.responseText);
 		  }
 	  });
   };
@@ -320,9 +358,10 @@
 					  [["부서명", "name"],["코드", "code"],["상위 부서", ""],[null,"parent"]],
 					  {"action": "${contextPath}/admin/addDep",
 					   "method": "POST",
+					   "button": {"id": "", "text": "생성", "color": "bg-primary"},
 					   "input": { 0: "", 1: "",
 								  2:"id=\"parentDepName\" disabled",
-								  3:"id=\"parentDep\" hidden"}});
+								  3:"id=\"parentDep\" name=\"parent\" hidden"}});
   };
 
   const renderPosMake = () => {
@@ -330,6 +369,7 @@
 					  [["직위명", "name"],["코드", "code"]],
 					  {"action": "${contextPath}/admin/addPos",
 					   "method": "POST",
+					   "button": {"id": "", "text": "생성", "color": "bg-primary"},
 					   "input": { 0: "", 1: ""}});
   };
 

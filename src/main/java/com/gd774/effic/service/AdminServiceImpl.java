@@ -1,5 +1,6 @@
 package com.gd774.effic.service;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -34,7 +35,34 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public ArrayList<CommCodeEvo> getPositions() {
-		return adminMapper.selectCommCodes("P");
+		 ArrayList<CommCodeEvo> pos = adminMapper.selectCommCodes("P");
+		 System.out.println("!!!!!!!!!!!!!!system message!!!!!!!!!!!!!!!!!!");
+		 System.out.println("positions are: " + Arrays.deepToString(pos.toArray()));
+		 return pos;
+	}
+
+	@Override
+	public int getDepInfo(HttpServletRequest request) {
+		String code = request.getParameter("code");
+		ArrayList<UserEvo> users = adminMapper.selectUsers();
+		int cnt = 0;
+		for (UserEvo u: users)
+			if (u.getDept() != null && u.getDept().getCode().equals(code))
+				cnt++;
+
+		return cnt;
+	}
+
+	@Override
+	public int getPosInfo(HttpServletRequest request) {
+		String code = request.getParameter("code");
+		ArrayList<UserEvo> users = adminMapper.selectUsers();
+		int cnt = 0;
+		for (UserEvo u: users)
+			if (u.getPos() != null && u.getPos().getCode().equals(code))
+				cnt++;
+
+		return cnt;
 	}
 
 	@Override
@@ -42,19 +70,22 @@ public class AdminServiceImpl implements AdminService {
 		String empId = request.getParameter("empId");
 		String pw = BasicSecurity.getHash(request.getParameter("pw"), BasicSecurity.SHA256);
 		String name = request.getParameter("name");
+		Optional<String> opt = Optional.ofNullable(request.getParameter("depId"));
+		String depId = opt.orElse(null);
+		opt = Optional.ofNullable(request.getParameter("posId"));
+		String posId = opt.orElse(null);
+
+		DeptEvo dep = DeptEvo.builder().code(depId).build();
+		CommCodeEvo pos = CommCodeEvo.builder().code(posId).build();
 
 		UserEvo user = UserEvo.builder()
 			.empId(empId)
 			.pw(pw)
 			.name(name)
+			.dept(dep)
+			.pos(pos)
 			.build();
 		return adminMapper.insertUser(user);
-	}
-
-	@Override
-	public int delUser(HttpServletRequest request) {
-		String empId = request.getParameter("empId");
-		return adminMapper.deleteUser(empId);
 	}
 
 	@Override
@@ -81,6 +112,24 @@ public class AdminServiceImpl implements AdminService {
 			.catCode("P")
 			.build();
 		return this.adminMapper.insertCommCode(commcode);
+	}
+
+	@Override
+	public int delUser(HttpServletRequest request) {
+		String empId = request.getParameter("empId");
+		return adminMapper.deleteUser(empId);
+	}
+
+	@Override
+	public int delDep(HttpServletRequest request) {
+		String code = request.getParameter("code");
+		return adminMapper.deleteDep(code);
+	}
+
+	@Override
+	public int delPos(HttpServletRequest request) {
+		String code = request.getParameter("code");
+		return adminMapper.deleteComm(code, "P");
 	}
 
 }

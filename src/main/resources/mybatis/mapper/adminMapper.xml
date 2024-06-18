@@ -33,8 +33,8 @@
   <resultMap type="CommCodeEvo" id="CommCodeMap">
 	<result  property="code"        column="CODE"/>
 	<result  property="name"        column="NAME"/>
-	<result  property="catCode"        column="CAT_CODE"/>
-	<result  property="catName"        column="CAT_NAME"/>
+	<result  property="catCode"     column="CAT_CODE"/>
+	<result  property="catName"     column="CAT_NAME"/>
   </resultMap>
 
   <insert id="insertUser"
@@ -68,6 +68,7 @@
 	FROM USER_T U LEFT JOIN DEPARTMENT_T D ON U.DEP_ID = D.CODE
 	              LEFT JOIN COMMON_CODE_T P ON U.POS_ID = P.CODE_VAL
 	              LEFT JOIN COMMON_CODE_M_T M ON P.CODE_GUBUN = M.CODE_GUBUN
+	WHERE U.STATUS = 1
   </select>
 
   <select id="selectDepts"
@@ -77,9 +78,20 @@
 
   <select id="selectCommCodes"
 		  resultMap="CommCodeMap">
-	SELECT CODE, NAME, CAT_CODE, CAT_NAME
-	FROM COMMON_CODE_T C LEFT JOIN COMMON_CODE_M_T M ON C.CODE_GUBUN = M.CODE_GUBUN
-	WHERE M.CODE_GUBUN = #{discriminator}
+	<!-- SELECT C.CODE_VAL AS CODE, C.CODE_NAME AS NAME, M.CODE_GUBUN AS CAT_CODE, M.CODE_GUBUN_NAME AS CAT_NAME -->
+	<!-- FROM COMMON_CODE_T C LEFT JOIN COMMON_CODE_M_T M ON C.CODE_GUBUN = M.CODE_GUBUN -->
+	<!-- WHERE M.CODE_GUBUN = #{discriminator}
+	-->
+	SELECT C.CODE_VAL AS CODE, C.CODE_NAME AS NAME, C.CODE_GUBUN AS CAT_CODE
+	FROM COMMON_CODE_T C
   </select>
+
+  <delete id="deleteDep">
+	delete from department_t where code = #{code}
+  </delete>
+
+  <delete id="deleteComm">
+	delete from common_code_t where code_val = #{code} and code_gubun = #{catCode}
+  </delete>
 
 </mapper>

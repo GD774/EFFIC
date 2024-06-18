@@ -128,6 +128,14 @@
 				) T
 		WHERE T.RN BETWEEN #{begin} AND #{end}
     </select> 
+
+	<select id="getReserveFacility"
+			parameterType="Map"
+			resultMap="FacilityReserveMap">
+		SELECT RENT_ID, START_DT, END_DT, RENT_STATE, FACILITY_ID, RENT_USER 
+		  FROM FACILITY_RESERVE_T
+		 WHERE RENT_STATE = 1
+	</select>
 	
 	<insert id="insertFacReserve"
 			parameterType="FacilityReserveDto">
@@ -139,26 +147,16 @@
 		  RENT_ID
 		, START_DT
 		, END_DT
-		, RENT_STATE
 		, FACILITY_ID
 		, RENT_USER
 	) VALUES(
 		  #{rentId}
 		, #{startDt}
 		, #{endDt}
-		, #{rentState}
 		, #{facilityId}
-		, #{user.empId}
+		, 'tester1'
 	)
 	</insert>
-
-	<select id="getFacReserve"
-			parameterType="Map"
-			resultMap="FacilityReserveMap">
-		SELECT RENT_ID, START_DT, END_DT, RENT_STATE, FACILITY_ID, RENT_USER 
-		  FROM FACILITY_RESERVE_T
-		 WHERE RENT_STATE = 1
-	</select>
 	
 	<select id="getFacReserveCount"
 			resultType="int">

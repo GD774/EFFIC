@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -50,10 +52,24 @@ public class AdminController {
 		return this.adminService.getPositions();
 	}
 
+	@GetMapping(value = "getDepInfo")
+	@ResponseBody
+	public int getDepInfo(HttpServletRequest request) {
+		return this.adminService.getDepInfo(request);
+	}
+
+	@GetMapping(value = "getPosInfo")
+	@ResponseBody
+	public int getPosInfo(HttpServletRequest request) {
+		return this.adminService.getPosInfo(request);
+	}
+
 	@PostMapping(value = "addUser")
 	@ResponseBody
-	public void addUser(HttpServletRequest request) {
+	public void addUser(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
 		this.adminService.addUser(request);
+		response.sendRedirect("/admin/userlist");
 	}
 
 	@PostMapping(value = "delUser")
@@ -64,14 +80,18 @@ public class AdminController {
 
 	@PostMapping(value = "addDep")
 	@ResponseBody
-	public void addDep(HttpServletRequest request) {
+	public void addDep(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
 		this.adminService.addDep(request);
+		response.sendRedirect("/admin/org");
 	}
 
 	@PostMapping(value = "addPos")
 	@ResponseBody
-	public void addPos(HttpServletRequest request) {
+	public void addPos(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
 		this.adminService.addPos(request);
+		response.sendRedirect("/admin/org");
 	}
 
 	@GetMapping(value = "userlist")

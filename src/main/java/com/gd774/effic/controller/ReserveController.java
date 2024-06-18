@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd774.effic.dto.FacilityManageDto;
@@ -144,24 +145,20 @@ public class ReserveController {
   }
   
   // 물품 예약 리스트 화면
-  @PostMapping(value = "/getFacReserveList.do", produces = "application/json")
+  @GetMapping(value = "/getFacReserveList.do", produces = "application/json")
   public ResponseEntity<Map<String, Object>> getFacReserveList(HttpServletRequest request) {
+    System.out.println("예약"+reserveService.getFacReserveList(request));
     return reserveService.getFacReserveList(request);
   }
   
-  // 물품 대여 클릭시 db로 보내기
-  @PostMapping(value = "/reservefac.do")
-  public String insertFacReserve(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-      int reserveCount = reserveService.FacilityReserve(request);
-      redirectAttributes
-      .addAttribute("facilityId", request.getParameter("facilityId"))
-      .addFlashAttribute("reserveResult", reserveCount == 1 ? "수정" : "실패");
-      return "redirect:/reservation/facilitystatus";
-  }
-  
-  @GetMapping(value = "/getreserve.do", produces = "application/json")
-  public ResponseEntity<Map<String, Object>> getFacReserve(HttpServletRequest request) {
-    return reserveService.getFacilityReseve(request);
-  }
-   
+//물품 대여 클릭시 db로 보내기
+ @PostMapping(value = "/reservefac.do")
+ public ResponseEntity<Map<String, Object>> facilityReserve(HttpServletRequest request) {
+     return ResponseEntity.ok(Map.of("insertFacility", reserveService.FacilityReserve(request)));
+ }
+ 
+ @GetMapping(value = "/getreserve.do", produces = "application/json")
+ public ResponseEntity<Map<String, Object>> getFacReserve(HttpServletRequest request) {
+   return reserveService.getFacilityReseve(request);
+ }
 }

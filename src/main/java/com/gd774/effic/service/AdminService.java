@@ -21,4 +21,6 @@ public interface AdminService {
 	public int delUser(HttpServletRequest request);
 	public int addDep(HttpServletRequest request);
 	public int addPos(HttpServletRequest request);
+	public int delDep(HttpServletRequest request);
+	public int delPos(HttpServletRequest request);
 }

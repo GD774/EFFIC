@@ -344,7 +344,7 @@ function parseEvents(data) {
 
 <script>
         $(document).ready(function() {
-            //const apiKey = '117b9ffd59be6b785defaf8aa207ef3a'; // OpenWeather API 키를 여기에 입력하세요
+            //const apiKey = '117b9ffd59be6b785defaf8aa207ef3a'; // OpenWeather API 키
             const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=37.5665&lon=126.9780&units=metric&appid=117b9ffd59be6b785defaf8aa207ef3a&lang=kr`;
 
             function fetchWeather() {
@@ -353,10 +353,7 @@ function parseEvents(data) {
                     url: apiUrl,
                     type: 'GET',
                     success: function(data) {
-<<<<<<< HEAD
-=======
-                        console.log("API 응답 데이터:", data); // 콘솔에 API 응답 로그 출력
->>>>>>> 1c02f8119886f7790d9a169898c50b6eaab1aed7
+
                         
                         // 온도와 날씨 설명 및 아이콘 추출
                         const temperature = Math.round(data.main.temp); // 온도
@@ -365,13 +362,7 @@ function parseEvents(data) {
 
                         // 아이콘 URL
                         const iconUrl = `http://openweathermap.org/img/wn/\${icon}.png`;
-                        
-<<<<<<< HEAD
-=======
-                        console.log("온도:", temperature); // 콘솔에 온도 출력
-                        console.log("날씨 설명:", description); // 콘솔에 날씨 설명 출력
-                        console.log("아이콘 URL:", iconUrl); // 콘솔에 아이콘 URL 출력
->>>>>>> 1c02f8119886f7790d9a169898c50b6eaab1aed7
+                       
                         
                         // HTML 업데이트
                         $('#weather').append(`

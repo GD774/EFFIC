@@ -6,7 +6,7 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
 <jsp:include page="../layout/opener.jsp"/>
-<jsp:include page="../layout/sidebar-admin.jsp"/>
+<jsp:include page="../layout/sidebar.jsp"/>
 
 <main class="w-full">
   <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -143,8 +143,6 @@
                 class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 >
 				<option value="">선택</option>
-				<option value="0">남자</option>
-				<option value="1">여자</option>
 			  </select>
             </div>
 
@@ -168,12 +166,14 @@
                 >
                 직위
               </label>
-              <input
+			  <select
+				id="positions"
                 type="text"
 				name="posId"
-                autocomplete="re-enter-password"
                 class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                />
+                >
+				<option value="">선택</option>
+			  </select>
             </div>
 		  </div>
 
@@ -256,7 +256,7 @@
 			  deluserListener();
 		  },
 		  error: (jqXHR) => {
-			  alert("error: " + jqXHR);
+			  alert("getTableData\n\n" + jqXHR.responseText);
 		  }
 	  })
   };

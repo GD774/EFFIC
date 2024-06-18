@@ -72,12 +72,6 @@ public class AdminController {
 		response.sendRedirect("/admin/userlist");
 	}
 
-	@PostMapping(value = "delUser")
-	@ResponseBody
-	public void delUser(HttpServletRequest request) {
-		this.adminService.delUser(request);
-	}
-
 	@PostMapping(value = "addDep")
 	@ResponseBody
 	public void addDep(HttpServletRequest request, HttpServletResponse response)
@@ -92,6 +86,24 @@ public class AdminController {
 	throws ServletException, IOException {
 		this.adminService.addPos(request);
 		response.sendRedirect("/admin/org");
+	}
+
+	@PostMapping(value = "delUser")
+	@ResponseBody
+	public void delUser(HttpServletRequest request) {
+		this.adminService.delUser(request);
+	}
+
+	@DeleteMapping(value = "delDep")
+	@ResponseBody
+	public void delDep(HttpServletRequest request) {
+		this.adminService.delDep(request);
+	}
+
+	@DeleteMapping(value = "delPos")
+	@ResponseBody
+	public void delPos(HttpServletRequest request) {
+		this.adminService.delPos(request);
 	}
 
 	@GetMapping(value = "userlist")

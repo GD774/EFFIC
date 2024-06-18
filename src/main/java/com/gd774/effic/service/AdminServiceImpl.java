@@ -70,11 +70,20 @@ public class AdminServiceImpl implements AdminService {
 		String empId = request.getParameter("empId");
 		String pw = BasicSecurity.getHash(request.getParameter("pw"), BasicSecurity.SHA256);
 		String name = request.getParameter("name");
+		Optional<String> opt = Optional.ofNullable(request.getParameter("depId"));
+		String depId = opt.orElse(null);
+		opt = Optional.ofNullable(request.getParameter("posId"));
+		String posId = opt.orElse(null);
+
+		DeptEvo dep = DeptEvo.builder().code(depId).build();
+		CommCodeEvo pos = CommCodeEvo.builder().code(posId).build();
 
 		UserEvo user = UserEvo.builder()
 			.empId(empId)
 			.pw(pw)
 			.name(name)
+			.dept(dep)
+			.pos(pos)
 			.build();
 		return adminMapper.insertUser(user);
 	}

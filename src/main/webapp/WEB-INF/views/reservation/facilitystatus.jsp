@@ -10,7 +10,7 @@
 <jsp:include page="../layout/sidebar.jsp" />
 <!--body-->
 <body>
-  <div class="min-h-screen overflow-auto">
+  <div class="flex-1 max-h-screen overflow-y-auto">
     <div class="container mx-auto p-2 sm:p-3 md:p-4 lg:p-5 xl:p-6 2xl:p-8">
       <div class="mx-auto w-full max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-7xl">
         <!-- Breadcrumb Start -->
@@ -85,7 +85,7 @@
 			</div>
         <!-- table header end -->
 	    <!-- table body start -->
-		  <div id="facreserve" class="bg-white dark:bg-boxdark">
+		  <div id="facilityreserve" class="bg-white dark:bg-boxdark">
 
     	  </div>
   		<!-- table row end -->
@@ -209,6 +209,7 @@
 <!--예약자입력칸-->
     <div class="flex items-center m-5 p-2">
       <input type="hidden" id="facilityId" value="${facility.facilityId}"/>
+      <input type="hidden" id="rentTerm" value="${facility.rentTerm}"/>
       <label class="mb-3 block font-medium mr-8 text-sm">
 		물품명
       </label>
@@ -255,40 +256,7 @@
 <!--예약자입력끝-->
 </p>
 <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-<!--참석자 리스트-->
- <div class="flex items-center m-5 p-2">
-  <label
-    class="mb-3 block font-medium mr-8 text-sm"
-  >
-	참석자
-  </label>
-      <div class="flex items-center gap-2.5">
-    <input
-      type="text"
-      name="taskList"
-      id="taskList"
-      placeholder="참석자 리스트 입력"
-      class="block w-80 px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-lg shadow-sm text-xs"
-    />
-
-    <button
-      class="flex h-8.5 w-8.5 text-xl items-center justify-center rounded-sm border border-stroke bg-white p-4 hover:text-primary rounded-lg"
-    >
-      -
-        <path
-          d="M18.4375 10.7187H1.5625C1.1875 10.7187 0.84375 10.4062 0.84375 10C0.84375 9.625 1.15625 9.28125 1.5625 9.28125H18.4375C18.8125 9.28125 19.1562 9.59375 19.1562 10C19.1562 10.375 18.8125 10.7187 18.4375 10.7187Z"
-          fill=""
-        />
-      </svg>
-    </button>
-    <button
-      class="flex h-8.5 w-8.5 text-xl items-center justify-center rounded-sm border border-stroke bg-white p-4 hover:text-primary rounded-lg"
-    >
-      +
-    </button>
-  </div>
-</div>   
-<!--참석자 리스트 끝-->                
+    
                 </p>
             </div>
             <!-- Modal footer -->
@@ -307,7 +275,7 @@ var totalPage = 0;
 const fnGetFacReserveList = () => {
     $.ajax({
       // 요청
-      type: 'POST',
+      type: 'GET',
       url: '${contextPath}/reservation/getFacReserveList.do', 
       data: 'page=' + page,
       // 응답
@@ -340,7 +308,6 @@ const fnGetFacReserveList = () => {
                 str += '<div class="col-span-2 flex justify-end" data-cat-name="' + facility.cat.catName + '"><button data-facility-id="' + facility.facilityId + '" data-modal-target="static-modal" data-modal-toggle="static-modal" data-rent-Term="' + facility.rentTerm + '" class="text-primary border border-primary rounded px-2 py-1 open-modal">대여하기</p></div>';
                 str += '</div>';
                 $('#facreserve-list').append(str);
-             console.log(facility.facilityId);
           });
           
         var modalstartDt = new Date().toISOString().substring(0,10);
@@ -376,78 +343,55 @@ const fnGetFacReserveList = () => {
           alert(jqXHR.statusText + '(' + jqXHR.status + ')');
       } 
     });
-    
-    
-    var frmModal = $('#frm-modal');
-    const getFacReserve = () => {
-    	$('#btn-reserve').on('click', (evt) =>{
-
-    		frmModal.attr('action', '${contextPath}/reservation/reservefac.do');
-    		frmModal.submit();
-    	})
-    	
-    }
-      
   }
-
-const fnGetModal = () => {
-	$(document).on('click', '#btn-reserve', (evt) => {
-				const selectedFacilityId = $('#facilityId').val();
-		        const selectedstartDt = $('#startDt').val();
-		        const selectedendDt = $('#endDt').val();
-		        const selectedcatName = $('#catName').val();
-		        const requestData = {
-		            facilityId: selectedFacilityId,
-		            startDt: selectedstartDt,
-		            endDt: selectedendDt,
-		            catName: selectedcatName
-		            
-		        };
-		        console.log(requestData);
-		            
-		            $.ajax({
-		    			type:'POST',
-		    			url: '${contextPath}/reservation/reservefac.do',
-		    			data: requestData,
-		    			dataType:'json',
-		    				
-		    			success: (resData) => {
-		    	    		console.log(resData.getFacReserve);
-		    			}
-		    		});
-		        });
-		}
-	
+  
 const fnGetReserve = () => {
-	$.ajax({
-		type:'GET',
-		url: '${contextPath}/reservation/getreserve.do',
-		data: 'page=' + page,
-		dataType: 'json',
-		success: (resData) => {
-			totalPage = resData.totalPage;
-			
-			$.each(resData.getFacReserve, (i, facility) => {
-				let res = '';
+    $(document).on('click', '#btn-reserve', (evt) =>{
+        evt.preventDefault();
+        
+        const selectedFacilityId = $('#facilityId').val();
+        const requestData = {
+                facilityId: selectedFacilityId,
+                page: page
+        };
+        
+        $.ajax({
+            type:'POST',
+            url:'${contextPath}/reservation/reservefac.do',
+            data: requestData,
+            dataType:'json',
+            success: (resData) => {
+            if(facility.rentTerm === 0) {
+                rentPeriod = '장기대여';
+            } else {
+                rentPeriod = '단기대여';
+            }
+            const facilityreserve = $('#facilityreserve');
+            const paging = $('#paging');
+            paging.empty();
+			facilityreserve.empty();
+            
+            $.each(resData.facilityReserve, (i, facility) => {
+                let res = '';
                 res += '<div class="grid grid-cols-10 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">';
                 res += ' <div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.cat.catName + '</p></div>';
                 res += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + rentPeriod + '</p></div>';
                 res += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.startDt + '</p></div>';
                 res += '<div class="col-span-2"><button class="text-primary border border-primary bg-red rounded px-2 py-1">반납요망</button></div>';
                 res += '</div>';
-                $('#facreserve').append(res);
+                facilityreserve.append(res);
                 console.log(facility.facilityId);
-
-			})
-		}
-	})
+    
+            })
+        }
+        })
+    })
 }
 
-
 fnGetReserve();
-fnGetModal();
-fnGetFacReserveList();
 
+
+fnGetFacReserveList();
 
 </script>
 

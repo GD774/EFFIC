@@ -31,14 +31,24 @@ public class HomeController {
       return "user/main";}
     return "redirect:/signin";
   }
+
   @GetMapping(value = "signin")
   public String signin() {
     return "user/signin";
   }
+
+  @GetMapping(value = "signout")
+  public String signout(HttpServletRequest request, HttpServletRequest response) {
+	HttpSession session = request.getSession();
+	session.removeAttribute("user");
+    return "redirect:/signin";
+  }
+
   @PostMapping(value = "call_help")
   public void callHelp() {
     //
   }
+
   @GetMapping(value = "test")
   public String test() {
     return "user/main";

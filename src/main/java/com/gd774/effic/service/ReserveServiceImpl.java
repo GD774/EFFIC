@@ -140,6 +140,7 @@ public class ReserveServiceImpl implements ReserveService {
       
   }
   
+  //자산삭제
   @Override
   public int removeFacility(int facilityId) {
     return reserveMapper.deleteFacilityList(facilityId);
@@ -156,29 +157,37 @@ public class ReserveServiceImpl implements ReserveService {
     pageUtils.setPaging(total, display, page);
     Map<String, Object> map = Map.of("begin", pageUtils.getBegin()
                                    , "end", pageUtils.getEnd());
-    System.out.println(reserveMapper.getFacReserveList(map));
+    System.out.println("서비스"+reserveMapper.getFacilityList(map));
     
     return new ResponseEntity<>(Map.of("getFacReserveList", reserveMapper.getFacReserveList(map)
                                       ,"totalPage", pageUtils.getTotalPage())
                                       , HttpStatus.OK);
   }
+  
+  // 자산 예약 모달 클릭시 insert
   @Override
   public int FacilityReserve(HttpServletRequest request) {
     int facilityId = Integer.parseInt(request.getParameter("facilityId"));
     String startDt = request.getParameter("startDt");
     String endDt = request.getParameter("endDt");
+    String rentUser = request.getParameter("rentUser");
     System.out.println(facilityId);
     System.out.println(startDt);
     System.out.println(endDt);
+    
+    UserDto user = new UserDto();
+    user.setEmpId(rentUser);
+    
     FacilityReserveDto facReserve = FacilityReserveDto.builder()
                                           .facilityId(facilityId)
                                           .startDt(startDt)
                                           .endDt(endDt)
+                                          .user(user)
                                           .build();
-    int reserveResult = reserveMapper.updateFacReserve(facReserve);
-    return reserveResult;
+    return reserveMapper.insertFacReserve(facReserve);
   }
-
+  
+  // insert된 자산 불러오기
   @Override
   public ResponseEntity<Map<String, Object>> getFacilityReseve(HttpServletRequest request) {
     int total = reserveMapper.getFacReserveCount();

@@ -124,19 +124,32 @@
     	 INNER JOIN FACILITY_MANAGE_T F ON C.CAT_CODE = F.CAT_CODE
    		  LEFT JOIN FACILITY_RESERVE_T R ON F.FACILITY_ID = R.FACILITY_ID
    		 LEFT JOIN USER_T U ON R.RENT_USER = U.EMP_ID
-   		 WHERE R.RENT_STATE = 0 AND F.FACILITY_STATE = 0
+   		 WHERE F.FACILITY_STATE = 0
 				) T
 		WHERE T.RN BETWEEN #{begin} AND #{end}
     </select> 
 	
-	<insert id="updateFacReserve"
+	<insert id="insertFacReserve"
 			parameterType="FacilityReserveDto">
-	UPDATE FACILITY_RESERVE_T
-		   SET RENT_STATE = 1
-		     , START_DT = #{startDt}
-		     , END_DT = #{endDt}
-		     , RENT_USER = 'tester1'
-		 WHERE FACILITY_ID = #{facilityId}
+		<selectKey order="BEFORE" keyProperty="rentId" resultType="int">
+	      SELECT FACILITY_RESERVE_SEQ.NEXTVAL
+	        FROM DUAL
+    	</selectKey>
+	INSERT INTO FACILITY_RESERVE_T(
+		  RENT_ID
+		, START_DT
+		, END_DT
+		, RENT_STATE
+		, FACILITY_ID
+		, RENT_USER
+	) VALUES(
+		  #{rentId}
+		, #{startDt}
+		, #{endDt}
+		, #{rentState}
+		, #{facilityId}
+		, #{user.empId}
+	)
 	</insert>
 
 	<select id="getFacReserve"

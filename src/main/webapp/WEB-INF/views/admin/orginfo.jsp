@@ -127,7 +127,7 @@
 <script type="module">
 
   // import { orgChart } from "${contextPath}/js/orgChart.js";
-  import { BasicTable } from "${contextPath}/js/tableBasic.js";
+  // import { BasicTable } from "${contextPath}/js/tableBasic.js";
 
   const organize = (users, depts) => {
 	  var tree = [];

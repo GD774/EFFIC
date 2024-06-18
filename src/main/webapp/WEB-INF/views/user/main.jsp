@@ -23,10 +23,34 @@
     height: auto;
 }
 
+.fc-day-mon a {
+		color: black
+}
+.fc-day-tue a {
+		color: black
+}
+.fc-day-wed a {
+		color: black
+}
+.fc-day-thu a {
+		color: black
+}
+.fc-day-fri a {
+		color: black
+}
 
-  .grid-cols-6 > * {
+.fc-day-sun a {
+    color: red;
+}
+  
+/* 토요일 날짜: 파란색 */
+.fc-day-sat a {
+    color: blue;
+}
+
+.grid-cols-6 > * {
     padding: 10px; 
-  }
+}
 
 
 </style>
@@ -45,32 +69,111 @@
 	<div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
               <!-- Card Item Start -->
-              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark" style="padding-top:15px;">
               
 
                 <div class="mt-4 flex items-end justify-between">
                   <div>
-                    <h4 class="text-title-md font-bold text-black dark:text-white">
-                     
-                     오늘날짜나 현재 예약중인 물품
-                     
-                     
-                    </h4>
-                  </div>      
+                                                     
+              <c:forEach items="${myDocList}" var="approval" begin="0" end="0">
+                <span>
+                   		<c:choose>
+								      <c:when test="${approval.urgent == 1}">
+								          <i class="fi fi-rr-light-emergency-on">${urgent}</i>
+								      </c:when>
+								      <c:when test="${approval.urgent == 0}">
+								      		<p class="text-[#637381] dark:text-bodydark"></p>
+								      </c:when>
+								 		 </c:choose>
+                    <p  class="text-lg font-medium" style="font-weight:bold;">결재상태</p>
+                    <c:choose>
+                        <c:when test="${approval.docState == 0}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">진행</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 1}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">결재</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 2}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">반려</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 3}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">임시저장</p>
+                        </c:when>
+                    </c:choose>
+                </span>
+                <span>
+                    <p class="text-lg font-medium" style="font-weight:bold;">&nbsp;</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.title}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${user.name}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.writeDt}</p>
+                </span>
+            </span>
+        </c:forEach>
+
+             </div>      
                   </div>
               </div>
 
               <!-- Card Item End -->
 
               <!-- Card Item Start -->
-              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark" style="padding-top:15px;">
                
 
                 <div class="mt-4 flex items-end justify-between">
                   <div>
-                    <h4 class="text-title-md font-bold text-black dark:text-white">
-                     내가 올린 기안? 결제해야할 기안?
-                    </h4>
+                 <c:forEach items="${myDocList}" var="approval" begin="1" end="1">
+                <span>
+                   		<c:choose>
+								      <c:when test="${approval.urgent == 1}">
+								          <i class="fi fi-rr-light-emergency-on">${urgent}</i>
+								      </c:when>
+								      <c:when test="${approval.urgent == 0}">
+								      		<p class="text-[#637381] dark:text-bodydark"></p>
+								      </c:when>
+								 		 </c:choose>
+                    <p  class="text-lg font-medium" style="font-weight:bold;">결재상태</p>
+                    <c:choose>
+                        <c:when test="${approval.docState == 0}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">진행</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 1}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">결재</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 2}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">반려</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 3}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">임시저장</p>
+                        </c:when>
+                    </c:choose>
+                </span>
+                <span>
+                    <p class="text-lg font-medium" style="font-weight:bold;">&nbsp;</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.title}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${user.name}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.writeDt}</p>
+                </span>
+            </span>
+        </c:forEach>
                   
                   </div>
 
@@ -80,14 +183,54 @@
               <!-- Card Item End -->
 
               <!-- Card Item Start -->
-              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark" style="padding-top:15px;">
                 
 
                 <div class="mt-4 flex items-end justify-between">
                   <div>
-                    <h4 class="text-title-md font-bold text-black dark:text-white">
-                      뭐 넣을거 있나
-                    </h4>
+           				  <c:forEach items="${myDocList}" var="approval" begin="2" end="2">
+                <span>
+                   		<c:choose>
+								      <c:when test="${approval.urgent == 1}">
+								          <i class="fi fi-rr-light-emergency-on">${urgent}</i>
+								      </c:when>
+								      <c:when test="${approval.urgent == 0}">
+								      		<p class="text-[#637381] dark:text-bodydark"></p>
+								      </c:when>
+								 		 </c:choose>
+                    <p  class="text-lg font-medium" style="font-weight:bold;">결재상태</p>
+                    <c:choose>
+                        <c:when test="${approval.docState == 0}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">진행</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 1}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">결재</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 2}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">반려</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 3}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">임시저장</p>
+                        </c:when>
+                    </c:choose>
+                </span>
+                <span>
+                    <p class="text-lg font-medium" style="font-weight:bold;">&nbsp;</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.title}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${user.name}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.writeDt}</p>
+                </span>
+            </span>
+        </c:forEach>
                    
                   </div>
 
@@ -97,7 +240,7 @@
               <!-- Card Item End -->
 
               <!-- Card Item Start -->
-              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark" style="padding-top:15px;">
                
 
                 <div class="mt-4 flex items-end justify-between">
@@ -135,85 +278,7 @@
          
 
             
-<div class="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-  <div class="mb-4 justify-between gap-4 sm:flex">
-    <div>
-      <h4 class="text-xl font-bold text-black dark:text-white">
-        기안문서 
-      </h4>
-				<c:forEach items="${myDocList}"  var="approval" varStatus="vs" begin="0" end="4">
-  <div class="grid grid-cols-6 border-b border-stroke dark:border-strokedark sm:grid-cols-6">
-    <div class="p-2.5 xl:p-5">
-      <p class="font-medium text-black dark:text-white">
-      <fmt:formatDate value="${approval.writeDt}" pattern="yyyy/MM/dd"/>
-      </p>
-    </div>
-    <div>
-    <div class="p-2.5 text-center xl:p-5">
-      <p class="font-medium text-black dark:text-white">
-      <c:choose>
-			   <c:when test="${docTempCode == 1}">
-			       <p class="text-[#637381] dark:text-bodydark">구매신청서</p>
-			   </c:when>
-			   <c:when test="${docTempCode ==2}">
-			       <p class="text-[#637381] dark:text-bodydark">휴가신청서</p>
-			   </c:when>
-			   <c:when test="${docTempCode ==3}">
-			       <p class="text-[#637381] dark:text-bodydark">지출결의서</p>
-			   </c:when>
-			</c:choose>
-      </p>
-    </div>
-    </div>
-    <div class="p-2.5 text-center xl:p-5">
-   		<c:choose>
-      <c:when test="${approval.urgent == 1}">
-          <i class="fi fi-rr-light-emergency-on">${urgent}</i>
-      </c:when>
-      <c:when test="${approval.urgent == 0}">
-      		<p class="text-[#637381] dark:text-bodydark"></p>
-      </c:when>
- 		 </c:choose>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">${approval.title}</p>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">
-       <c:choose>
-       <c:when test="${approval.depId == 1}">
-           <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;총무팀</p>
-       </c:when>
-       <c:when test="${approval.depId == 2}">
-           <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;경영팀</p>
-       </c:when>
-       <c:when test="${approval.depId == 3}">
-           <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;인사팀</p>
-       </c:when>
-   		</c:choose>
-      </p>
-    </div>
-    <div class="hidden p-2.5 text-center sm:block xl:p-5">
-      <p class="font-medium text-black dark:text-white">
-    <c:choose>
-    <c:when test="${approval.docState == 0}">
-        <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;진행</p>
-    </c:when>
-    <c:when test="${approval.docState == 1}">
-        <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;결재</p>
-    </c:when>
-    <c:when test="${approval.docState ==2}">
-        <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;반려</p>
-    </c:when>
-    <c:when test="${approval.docState ==3}">
-        <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;임시저장</p>
-    </c:when>
-		</c:choose>
-      </p>
-    </div>
-  </div>
-  </c:forEach>
-    </div>
+
     
 
   
@@ -234,13 +299,35 @@
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
+    		googleCalendarApiKey: 'AIzaSyAovOUlYT-fKpoVo18NKTy6aWJvBxKPpDQ',
+    		eventSources: [
+    			{
+    				  googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
+    				  color: 'white',   // an option!
+    				  textColor: 'red' // an option!
+    				}
+    		],
+    		dayMaxEventRows: true,
+    		views: {
+    		    timeGrid: {
+    		      dayMaxEventRows: 2 // 이벤트 날짜 겹치는 일정 최대 N개까지 등장
+    		    }
+    		  },
         initialView: 'dayGridMonth',
-        dayMaxEventRows: true,
-        views: {
-		    timeGrid: {
-		      dayMaxEventRows: 2 // 이벤트 날짜 겹치는 일정 최대 3개까지 등장
-		    }
-		  },
+        slotLabelFormat: {
+            hour: 'numeric',
+            minute: '2-digit',
+            omitZeroMinute: true,
+            meridiem: 'short' // 'long'로 변경하여 'am'/'pm' 표기
+        },
+        eventTimeFormat: {
+            hour: 'numeric',
+            minute: '2-digit',
+            omitZeroMinute: true,
+            meridiem: 'short' // 'long'로 변경하여 'am'/'pm' 표기
+        },
+        timeZoneName: 'short', // 기본값은 'short'이나, 'long'으로 변경하여 'am'/'pm' 표기
+
         events: function(fetchInfo, successCallback, failureCallback) {
             $.ajax({
                 url: '${contextPath}/calendar/events',
@@ -248,19 +335,56 @@ document.addEventListener('DOMContentLoaded', function() {
                 success: function(data) {
                     var events = parseEvents(data);
                     successCallback(events);
+                    console.log("Parsed events:", events);
                 },
                 error: function(xhr, status, error) {
                     alert('일정 조회에 실패했습니다.');
-                    console.error("Error details:", xhr, status, error);
+                    console.log("Error details:", status, error, xhr.responseText);
                 }
             });
         },
+        dateClick: function(info) {
+        	
+        		$('#dateModalLabel').show();
+            $('#dateModalLabel2').hide();
+            $('#datepicker').datepicker('setDate', info.date);
+            $('#datepicker2').datepicker('setDate', info.date);
+            $('#scheduleId').val('');
+            $('#title').val('');
+            $('#contents').val('');
+            $('#startHour').val('9');  // 시작 시간 기본값
+            $('#endHour').val('18');    // 종료 시간 기본값
+            $('#dateModal').modal('show');
+            $('#submitScheduleForm').show();
+            $('#modifyScheduleForm').hide();
+            $('#deleteScheduleForm').hide();
+        },
         eventClick: function(info) {
-        	 window.location.href = '${contextPath}/calendar';
+           
+            $('#dateModalLabel2').show();
+            $('#dateModalLabel').hide();
+            $('#scheduleId').val(info.event.id);
+            $('#title').val(info.event.title);
+            $('#datepicker').datepicker('setDate', info.event.start);
+            $('#datepicker2').datepicker('setDate', info.event.end);
+            $('#contents').val(info.event.extendedProps.contents);
+            $('#openRange').val(info.event.extendedProps.docState);
+         		// DB에서 가져온 시작 시간과 종료 시간 셀렉트 박스에 설정
+            const startHour = info.event.start.getHours().toString();
+         		console.log('startHour =' + startHour);
+            const endHour = info.event.end.getHours().toString();
+         		console.log('endHour =' + endHour);
+            $('#startHour').val(startHour);
+            $('#endHour').val(endHour);
+            $('#dateModal').modal('show');
+            $('#submitScheduleForm').hide();
+            $('#modifyScheduleForm').show();
+            $('#deleteScheduleForm').show();
         }
         
+        
+        
     });
-    
     calendar.render();
 });
 

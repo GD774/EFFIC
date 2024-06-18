@@ -50,7 +50,8 @@ public class ApprovalController {
    
     @GetMapping("/myDocList")
     public String loadMyDocList(HttpServletRequest request, Model model) {
-    	approvalService.loadMyDocList(request, model);
+    	List<AppDocDto> myDocList = approvalService.loadMyDocList(request, model);
+    	model.addAttribute("myDocList", myDocList);
     	return "approval/myDocList";
     }
     

@@ -23,6 +23,7 @@
     height: auto;
 }
 
+
 .fc-day-mon a {
 		color: black
 }
@@ -39,6 +40,8 @@
 		color: black
 }
 
+
+
 .fc-day-sun a {
     color: red;
 }
@@ -48,10 +51,29 @@
     color: blue;
 }
 
-.grid-cols-6 > * {
-    padding: 10px; 
+#weatherIcon {
+	display: inline-block
+	
 }
 
+#today {
+
+	font-size: 30px;
+}
+
+#weather {
+	text-align: center;
+	margin-top: 50px;
+}
+
+#map {
+	margin-top: 100px;
+}
+
+/* #weatherMap {
+	margin: auto;
+	
+} */
 
 </style>
 
@@ -270,18 +292,25 @@
   </div>
   </div>
 
+<div id="weatherMap" class="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+  <div class="mb-4 justify-between gap-4 sm:flex">
+    <div>
+      <h4 class="text-xl font-bold text-black dark:text-white">
+      
+      <!-- 날씨  -->
+				<div id="weather" class="rounded-sm border border-stroke bg-white p-7.5 dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+				</div>
+      
+        
+				    
+				    	<div id="map" style=" width: 400px; height: 300px;"></div>
+			
+			
+        
+        
+      </h4>
+    </div>
 
- 
-   
-
-
-         
-
-            
-
-    
-
-  
 </div>
     </div>
   </div>
@@ -418,5 +447,89 @@ function parseEvents(data) {
     });
 }
 </script>
+
+<script>
+        $(document).ready(function() {
+            //const apiKey = '117b9ffd59be6b785defaf8aa207ef3a'; // OpenWeather API 키를 여기에 입력하세요
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=37.5665&lon=126.9780&units=metric&appid=117b9ffd59be6b785defaf8aa207ef3a&lang=kr`;
+
+            function fetchWeather() {
+                console.log("API 요청 URL:", apiUrl);
+                $.ajax({
+                    url: apiUrl,
+                    type: 'GET',
+                    success: function(data) {
+                        console.log("API 응답 데이터:", data); // 콘솔에 API 응답 로그 출력
+                        
+                        // 온도와 날씨 설명 및 아이콘 추출
+                        const temperature = Math.round(data.main.temp); // 온도
+                        const description = data.weather[0].description; // 날씨 설명
+                        const icon = data.weather[0].icon; // 아이콘 코드
+
+                        // 아이콘 URL
+                        const iconUrl = `http://openweathermap.org/img/wn/\${icon}.png`;
+                        
+                        console.log("온도:", temperature); // 콘솔에 온도 출력
+                        console.log("날씨 설명:", description); // 콘솔에 날씨 설명 출력
+                        console.log("아이콘 URL:", iconUrl); // 콘솔에 아이콘 URL 출력
+                        
+                        // HTML 업데이트
+                        $('#weather').append(`
+                        	    <div>
+                        	        <h5 id="today">오늘의 날씨</h5>
+                        	        <br>
+                        	        <h5>서울</h5>
+                        	        <p>온도: \${temperature}°C</p>
+                        	        <p>\${description}<img id="weatherIcon"src="\${iconUrl}" alt="날씨 아이콘"></p>
+                        	        
+                        	    </div>
+                        	`);
+                    },
+                    error: function(xhr, status, error) {
+                        alert('날씨 정보를 가져오는데 실패했습니다. API 키 또는 URL을 확인하세요.');
+                        console.error('날씨 정보를 가져오는데 실패했습니다.', error);
+                    }
+                });
+            }
+
+            fetchWeather();
+        });
+    </script>
+    
+    
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVlHOQjjs4Um_CkyPgIa971pnU_4ZFdpA&callback=initMap"></script>
+    
+     <script>
+window.initMap = function () {
+	  const map = new google.maps.Map(document.getElementById("map"), {
+	    center: { lat: 37.5321526, lng: 126.9714061 },
+	    zoom: 1
+	  });
+	  const office = [
+	    { label: "", name: "본사", lat: 37.5321526, lng: 126.9714061 },
+	    { label: "", name: "이촌", lat: 37.5167173, lng: 126.9720073 }
+	  ];
+	 
+	  const bounds = new google.maps.LatLngBounds();
+	  const infoWindow = new google.maps.InfoWindow();
+	  office.forEach(({ label, name, lat, lng }) => {
+	    const marker = new google.maps.Marker({
+	      position: { lat, lng },
+	      label,
+	      map
+	    });
+	    bounds.extend(marker.position);
+	    marker.addListener("click", () => {
+	      map.panTo(marker.position);
+	      infoWindow.setContent(name);
+	      infoWindow.open({
+	        anchor: marker,
+	        map
+	      });
+	    });
+	  });
+	  map.fitBounds(bounds);
+	};
+  </script>
 
 <jsp:include page="../layout/closer.jsp"/>

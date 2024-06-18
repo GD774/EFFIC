@@ -169,9 +169,10 @@ public class ReserveServiceImpl implements ReserveService {
   public ResponseEntity<Map<String, Object>> getReserveFacility(HttpServletRequest request) {
     int retotal = reserveMapper.getFacReserveCount();
     int redisplay = 3;
-    int repage = Integer.parseInt(request.getParameter("page"));
+    int repage = Integer.parseInt(request.getParameter("repage"));
+    System.out.println("서비스이지롱");
     pageUtils.setPaging(retotal, redisplay, repage);
-    Map<String, Object> map = Map.of("begine", pageUtils.getBegin()
+    Map<String, Object> map = Map.of("begin", pageUtils.getBegin()
         ,"end", pageUtils.getEnd());
     return new ResponseEntity<>(Map.of("getFacReserve", reserveMapper.getFacReserve(map)
         ,"totalPage", pageUtils.getTotalPage())

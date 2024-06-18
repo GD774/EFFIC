@@ -23,6 +23,11 @@
     height: auto;
 }
 
+#map-wrapper{
+  width: 450px;
+  height: 450px;
+}
+
 
 </style>
 
@@ -45,10 +50,7 @@
 
                 <div class="mt-4 flex items-end justify-between">
                   <div>
-                    <h4 class="text-title-md font-bold text-black dark:text-white">
-                     
-                     오늘날짜나 현재 예약중인 물품
-                     
+                   <h4 class="text-title-md font-bold text-black dark:text-white">
                      
                     </h4>
                   </div>      
@@ -133,10 +135,13 @@
 <div class="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
   <div class="mb-4 justify-between gap-4 sm:flex">
     <div>
-      <h4 class="text-xl font-bold text-black dark:text-white">
-        사원정보?
-      </h4>
+    <div id="map" style=" width: 400px; height: 300px;"></div>
+    
+     <div class="mb-4 justify-between gap-4 sm:flex">
+    <div>
+    <div id="map" style=" width: 400px; height: 300px;"></div>
     </div>
+ 
     
 
   
@@ -150,6 +155,46 @@
   </main>
   <!-- ===== Main Content End ===== -->
 </div>
+
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVlHOQjjs4Um_CkyPgIa971pnU_4ZFdpA&callback=initMap"></script>
+  
+ <script>
+    
+window.initMap = function () {
+	  const map = new google.maps.Map(document.getElementById("map"), {
+	    center: { lat: 37.5321526, lng: 126.9714061 },
+	    zoom: 1
+	  });
+
+	  const office = [
+	    { label: "", name: "본사", lat: 37.5321526, lng: 126.9714061 },
+	    { label: "", name: "이촌", lat: 37.5167173, lng: 126.9720073 }
+	  ];
+	  
+	  const bounds = new google.maps.LatLngBounds();
+	  const infoWindow = new google.maps.InfoWindow();
+
+	  office.forEach(({ label, name, lat, lng }) => {
+	    const marker = new google.maps.Marker({
+	      position: { lat, lng },
+	      label,
+	      map
+	    });
+	    bounds.extend(marker.position);
+	    marker.addListener("click", () => {
+	      map.panTo(marker.position);
+	      infoWindow.setContent(name);
+	      infoWindow.open({
+	        anchor: marker,
+	        map
+	      });
+	    });
+	  });
+	  map.fitBounds(bounds);
+	};
+
+  
+  </script>
 
 
 
@@ -217,5 +262,7 @@ function parseEvents(data) {
     });
 }
 </script>
+
+ 
 
 <jsp:include page="../layout/closer.jsp"/>

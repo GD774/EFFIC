@@ -63,7 +63,11 @@
 
 #weather {
 	text-align: center;
-	margin-left: 90px;
+	margin-top: 50px;
+}
+
+#map {
+	margin-top: 100px;
 }
 
 /* #weatherMap {
@@ -190,7 +194,7 @@
 				    
 				    	<div id="map" style=" width: 400px; height: 300px;"></div>
 			
-				</div> 
+			
         
         
       </h4>

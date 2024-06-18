@@ -208,15 +208,37 @@ $(document).ready(function() {
         }
     });
     
-    // 결재 요청 버튼 
-    $('#approvalRequest').click(function() {
-				alert('결재 요청이 완료되었습니다.');
+		   // 결재 요청 버튼 
+		$('#approvalRequest').click(function() {
+		    if (confirm('결재 요청을 하시겠습니까?')) {
+		        alert('결재 요청이 완료되었습니다.');
+		       
+		    } else {
+		        alert('결재 요청이 취소되었습니다.');
+		    }
+		});
+		
+		
+		// 임시 저장 버튼 
+    $('#tempSave').click(function() {
+	    if (confirm('문서를 임시저장함에 보관하시겠습니까?')) {
+						alert('작성 중인 문서가 임시저장함에 보관되었습니다.')
+	        window.location.href = 'main'; // 메인 페이지로 이동
+	    } else {
+				
+			}
     });
     
-    // 임시저장 버튼 
-    $('#tempSave').click(function() {
-				alert('작성 중인 문서가 임시저장함으로 보관되었습니다..');
+    // 작성취소 버튼
+    $('#cancelWriting').click(function() {
+	    if (confirm('문서를 임시저장함에 보관하시겠습니까?')) {
+						alert('작성 중인 문서가 임시저장함에 보관되었습니다.')
+	        window.location.href = 'main'; // 메인 페이지로 이동
+	    } else {
+				
+			}
     });
+
 		
 		
 

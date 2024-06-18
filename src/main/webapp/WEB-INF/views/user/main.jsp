@@ -103,7 +103,7 @@
                 <div class="mt-4 flex items-end justify-between">
                   <div>
                                                      
-              <c:forEach items="${myDocList}" var="approval" begin="0" end="0">
+              <c:forEach items="${myDocListUserMain}" var="approval" begin="0" end="0">
                 <span>
                          <c:choose>
                               <c:when test="${approval.urgent == 1}">

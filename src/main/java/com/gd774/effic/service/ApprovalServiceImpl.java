@@ -158,7 +158,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 //    }
     
     @Override
-    public List<AppDocDto> loadMyDocList(HttpServletRequest request, Model model) {
+    public void loadMyDocList(HttpServletRequest request, Model model) {
 	    UserDto user = (UserDto) request.getSession().getAttribute("user");
 
 	    String empId = user.getEmpId();
@@ -168,8 +168,11 @@ public class ApprovalServiceImpl implements ApprovalService {
 	    
 	    map.put("empId", empId);
 	    map.put("depId", depId);
-    	return approvalMapper.getMyDocList(map);
+    	
+	    List<AppDocDto> myDocList = approvalMapper.getMyDocList(map);
+	    model.addAttribute("myDocList", myDocList);	
     }
+    
 
     
     @Override
@@ -201,11 +204,36 @@ public class ApprovalServiceImpl implements ApprovalService {
     	Map<String, Object> map = new HashMap<>();
     	
     	map.put("empId", approver);
+    	map.put("docState", 0);
     	
     	List<AppDocDto> myAppDocList = approvalMapper.getMyAppDocList(map);
-    	model.addAttribute("myAppDocList", myAppDocList);
+	    model.addAttribute("myAppDocList", myAppDocList);	
+    	
+    	
     }
     
+    // 결재자가 결재를 위해 문서 상세보기
+    @Override
+    public void detailDocByDocId(HttpServletRequest request, Model model) {
+    	UserDto user = (UserDto) request.getSession().getAttribute("user");
+
+    	String drafter = user.getEmpId();
+	    String approver = user.getEmpId();    
+	    String docId = request.getParameter("docId");
+	    String docState = request.getParameter("docState");
+	    
+	    String depId = user.getDepId();
+	    
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("empId", approver);
+	    map.put("docId", docId);
+	    map.put("docState", docState);
+	    
+	    List<AppDocDto> detailDoc = approvalMapper.getDocByDocId(map);
+	    model.addAttribute("detailDoc", detailDoc);	
+    }
+    
+
     
     @Override
     public void loadDepDocList(HttpServletRequest request, Model model) {
@@ -221,35 +249,11 @@ public class ApprovalServiceImpl implements ApprovalService {
 	    map.put("depId", depId);
 	    map.put("docState", 1); 
 	    
-	    List<AppDocDto> depDocList = approvalMapper.getDepDocListByDocState(map);
+	    List<AppDocDto> depDocList = approvalMapper.getDepDocList(map);
 	    model.addAttribute("depDocList", depDocList);	
     	
     }
-    
-    @Override
-    public AppDocDto loadAppDocById(int docId) {
-    	return approvalMapper.getAppDocById(docId);
-    }
-    
-    // 결재자가 결재를 위해 문서 상세보기
-    @Override
-    public void detailDocByDocId(HttpServletRequest request, Model model) {
-    	UserDto user = (UserDto) request.getSession().getAttribute("user");
 
-	    String approver = user.getEmpId();    
-	    String docId = request.getParameter("docId");
-	    String docState = request.getParameter("docState");
-	    
-	    String depId = user.getDepId();
-	    
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("empId", approver);
-	    map.put("docId", docId);
-	    map.put("docState", docState);
-	    
-	    List<AppDocDto> detailDoc = approvalMapper.getDocByDocId(map);
-	    model.addAttribute("detailDoc", detailDoc);	
-    }
  
     @Override
     public void modifyDoc(AppDocDto appDocDto, DocDto docDto, DocItemDto docItemDto, ApprovalDto approvalDto) {
@@ -267,7 +271,20 @@ public class ApprovalServiceImpl implements ApprovalService {
 		
 		return approvalMapper.getDocById(docId);
 	}
-
+ 
+	@Override
+	public List<AppDocDto> myDocListUserMain(HttpServletRequest request, Model model) {
+		UserDto user = (UserDto) request.getSession().getAttribute("user");
+	    String empId = user.getEmpId();
+	    String depId = user.getDepId();
+	    
+	    Map<String, Object> map = new HashMap<>();
+	    
+	    map.put("empId", empId);
+	    map.put("depId", depId);
+    	return approvalMapper.getMyDocList(map);
+	}
+	   
     
 }
 	    

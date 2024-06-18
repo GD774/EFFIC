@@ -24,13 +24,14 @@ public interface ApprovalMapper {
     int getDocCount();
     AppDocDto getAppDocById(@Param("docId") int docId);
     List<DocItemDto> getItemsByDocId(@Param("docId") int docId);
-//    ApprovalMapDto getItemsByDocId(@Param("docId") int docId);
     List<AppDocDto> getMyDocListByDocState(Map<String, Object> map);
     List<AppDocDto> getMySaveDocList(Map<String, Object> map);
     List<AppDocDto> getMyAppDocList(Map<String, Object> map);
-    List<AppDocDto> getDepDocListByDocState(Map<String, Object> map);
+    List<AppDocDto> getDepDocList(Map<String, Object> map);
     List<AppDocDto> getAllDocById(Map<String, Object> map);
+    List<AppDocDto> getAllDocs(Map<String, Object> map);
     List<AppDocDto> getDocByDocId(Map<String, Object> map);
+   
     
     int updateAppDoc(AppDocDto appDoc);
     int updateDoc(DocDto doc);
@@ -38,5 +39,10 @@ public interface ApprovalMapper {
     int updateApproval(ApprovalDto approval);
     
     AppDocDto getDocById(int docId);
+    
+    void approveDoc(AppDocDto appDoc);
+    void rejectDoc(AppDocDto appDoc);
+    
+    int getDocCount(AppDocDto appDoc);
 
 }

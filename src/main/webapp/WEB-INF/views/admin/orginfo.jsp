@@ -169,7 +169,12 @@
 		  else
 			  delete tree[ind].parent;
 
-	  return tree;
+	  var realtree = [];
+	  for (var n of tree)
+		  if (n)
+			  realtree.push(n);
+
+	  return realtree;
   };
 
   const renderDepChart = () => {

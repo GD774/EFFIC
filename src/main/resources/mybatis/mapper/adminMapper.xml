@@ -29,7 +29,7 @@
 	<result  property="name"        column="NAME"/>
 	<result  property="level"        column="DEP_LEVEL"/>
 	<association property="parent" javaType="DeptEvo">
-	  <id      property="code"         column="PCODE"/>
+	  <result      property="code"         column="PCODE"/>
 	</association>
   </resultMap>
 

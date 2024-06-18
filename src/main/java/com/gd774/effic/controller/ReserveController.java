@@ -152,14 +152,15 @@ public class ReserveController {
   }
   
 //물품 대여 클릭시 db로 보내기
- @PostMapping(value = "/reservefac.do", produces = "application/json")
+ @PostMapping(value = "/reservefac.do")
  public ResponseEntity<Map<String, Object>> insertFacReserve(HttpServletRequest request) {
      return ResponseEntity.ok(Map.of("insertFacility", reserveService.insertFacReserve(request)));
  }
- 
+ // 물품 대여한 내용 받아오기
  @GetMapping(value = "/getReserveFacility.do", produces = "application/json")
  public ResponseEntity<Map<String, Object>> getReserveFacility(HttpServletRequest request) {
-     return reserveService.getReserveFacility(request);
+   System.out.println("받아오기"+reserveService.getReserveFacility(request));  
+   return reserveService.getReserveFacility(request);
  }
  
  

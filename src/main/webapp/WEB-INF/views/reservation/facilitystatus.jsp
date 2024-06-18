@@ -273,7 +273,9 @@
 <!--모달창 끝-->
 <script>
 var page = 1;
+var repage = 1;
 var totalPage = 0;
+var reTotalPage = 0;
 var modalstartDt = new Date().toISOString().substring(0,10);
 var modalendDt= new Date(modalstartDt);
 
@@ -289,6 +291,8 @@ const fnGetFacReserveList = () => {
           console.log(resData);
         totalPage = resData.totalPage;
         
+        $('#facreserve-list').empty();
+        
         $.each(resData.getFacReserveList, (i, facility) => {
             let rentTerm = facility.rentTerm;
             let rentState;
@@ -298,6 +302,11 @@ const fnGetFacReserveList = () => {
                 rentPeriod = '장기대여';
             } else {
                 rentPeriod = '단기대여';
+            }
+            if(facility.facilityState === 0) {
+                rentState = '대여 가능';
+            } else if(facility.facilityState === 1) {
+                rentState = '대여 불가';
             }
             let str = '';
                 str += '<div class="col-span-2"><p data-cat-name="' + facility.cat.catName + '" class="text-[#637381] dark:text-bodydark">' + facility.cat.catName + '</p></div>';
@@ -350,11 +359,7 @@ const fnGetFacReserveList = () => {
                         rentPeriod = '단기대여';
                     }
                     
-                    let currentDate = new Date().toISOString().substring(0,10);
-                    if(endDt === currentDate) {
-                    	$('#btn-return').text('반납요망');
-                    }
-
+             
                     $.ajax({
                     	type:'POST',
                     	url: '${contextPath}/reservation/reservefac.do',
@@ -376,16 +381,7 @@ const fnGetFacReserveList = () => {
                     });
                     
                     
-                    let res = '<form id="frm-return" action="${contextPath}/reservation/getreserve.do" method="POST">';
-                    res += '<div class="grid grid-cols-12 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">';
-                    res += '<div class="col-span-2"><p class="text-[#637381]">' + catName + '</p></div>';
-                    res += '<div class="col-span-2"><p class="text-[#637381]">' + rentPeriod + '</p></div>';
-                    res += '<div class="col-span-3"><p class="text-[#637381]">' + startDt + '</p></div>';
-                    res += '<div class="col-span-3"><p class="text-[#637381]">' + endDt + '</p></div>';
-                    res += '<div class="col-span-2"><button id="btn-return" class="text-primary border border-primary rounded px-2 py-1">' + '반납' + '</button></div>';
-                    res += '</div>';
-                    res += '</form>';
-                    $('#facilityreserve').append(res);
+           
                 });
                 
                
@@ -402,17 +398,15 @@ const fnGetFacReserveList = () => {
    
 } 
 
-document.addEventListener('DOMContentLoaded', (event) => {
-	 var modal = new Flowbite.Modal('#static-modal');
-    // DOM이 완전히 로드된 후 실행될 코드
-    const BtnReturn = document.getElementById('btn-return'); // 'btn-return' 요소를 가져옵니다.
-    const frmReturn = document.getElementById('frm-return'); // 'frm-return' 요소를 가져옵니다.
-
-    if (BtnReturn) {
-        BtnReturn.addEventListener('click', (evt) => {
-            // 클릭 이벤트가 발생했을 때 실행될 코드
+document.addEventListener('DOMContentLoaded', function(event) {
+    const staticModal = document.getElementById('static-modal'); // 모달 요소 가져오기
+    const btnReturn = document.getElementById('btn-return'); // 'btn-return' 버튼 요소 가져오기
+    const frmReturn = document.getElementById('frm-return'); // 'frm-return' 폼 요소 가져오기
+	
+    // 'btn-return' 버튼 클릭 시 처리
+    if (btnReturn) {
+        btnReturn.addEventListener('click', function(evt) {
             if (confirm('물품을 반납하시겠습니까?')) {
-                // 확인을 클릭했을 때 실행될 코드
                 $('#endDt').val('');
                 frmReturn.action = '/reservation/getreserve.do'; // form의 action 속성 설정
                 frmReturn.submit(); // form 제출
@@ -421,7 +415,121 @@ document.addEventListener('DOMContentLoaded', (event) => {
     } else {
         console.error('btn-return 요소를 찾을 수 없습니다.');
     }
+
+    // 대여하기 버튼 클릭 시 처리
+    $(document).off('click', '.open-modal').on('click', '.open-modal', function(event) {
+        var facilityId = $(this).data('facility-id');
+        var catName = $(this).parent().data('cat-name');
+        var rentTerm = $(this).data('rent-term');
+        $('#facilityId').val(facilityId);
+        $('#catName').val(catName);
+        $('#startDt').val(modalstartDt);
+        $('#endDt').val(modalendDt.toISOString().substring(0, 10));
+
+        if (rentTerm === '0') {
+            modalendDt.setFullYear(modalendDt.getFullYear() + 1);
+        } else {
+            modalendDt.setDate(modalendDt.getDate() + 7);
+        }
+
+        // 모달 보이기
+        staticModal.classList.remove('hidden');
+    });
+
+    // 모달 숨기기 처리 (취소 버튼 클릭 시)
+    $(document).off('click', '#btn-cancel').on('click', '#btn-cancel', function(event) {
+        staticModal.classList.add('hidden'); // 모달 숨기기
+    });
+
+    // 예약하기 버튼 클릭 시 처리
+    $(document).off('click', '#btn-reserve').on('click', '#btn-reserve', function(event) {
+        let startDt = $('#startDt').val();
+        let endDt = $('#endDt').val();
+        let facilityId = $('#facilityId').val();
+        let catName = $('#catName').val();
+        let rentTerm = $('#rentTerm').val();
+        let rentPeriod = (rentTerm === '0') ? '장기대여' : '단기대여';
+
+        $.ajax({
+            type: 'POST',
+            url: '${contextPath}/reservation/reservefac.do',
+            data: {
+                facilityId: facilityId,
+                rentTerm: rentTerm,
+                startDt: startDt,
+                endDt: endDt,
+                catName: catName
+            },
+            success: function(response) {	
+            	console.log("response", response);
+                staticModal.classList.add('hidden'); // 모달 숨기기
+                fnGetReserveFacility(); // 예약 추가 후 목록을 다시 불러오는 함수 호출
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('예약을 처리하는 중 오류가 발생했습니다:', textStatus, errorThrown);
+                // 에러 처리 (예: 사용자에게 알림, 로깅 등)
+            }
+        });
+    });
+
 });
+
+const fnGetReserveFacility = () => {
+    $(document).off('click', '#btn-reserve').on('click', '#btn-reserve', function(event) {
+       
+    	 let startDt = $('#startDt').val();
+         let endDt = $('#endDt').val();
+         let facilityId = $('#facilityId').val();
+         let catName = $('#catName').val();
+         let rentTerm = $('#rentTerm').val();
+    	
+    	$.ajax({
+            type: 'GET',
+            url: '/reservation/getReserveFacility.do',
+            data: {
+                rePage: repage,
+                startDt: startDt,  // Pass start date to server
+                endDt: endDt,      // Pass end date to server
+                facilityId: facilityId,
+                catName: catName,
+                rentTerm: rentTerm
+            },
+            dataType: 'json',
+            success: (resData) => {
+                reTotalPage = resData.reTotalPage;
+				console.log("resData", resData);
+                $.each(resData.getReserveFacility, (i, facility) => {
+                   
+                    let rentPeriod;
+                    if (rentTerm === '0') {
+                        rentPeriod = '장기대여';
+                    } else {
+                        rentPeriod = '단기대여';
+                    }
+
+                    let currentDate = new Date().toISOString().substring(0, 10);
+                    if (endDt === currentDate) {
+                        $('#btn-return').text('반납요망');
+                    }
+
+                    let res = '';
+                    res += '<div class="grid grid-cols-12 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">';
+                    res += '<div class="col-span-2"><p class="text-[#637381]">' + catName + '</p></div>';
+                    res += '<div class="col-span-2"><p class="text-[#637381]">' + rentPeriod + '</p></div>';
+                    res += '<div class="col-span-3"><p class="text-[#637381]">' + startDt + '</p></div>';
+                    res += '<div class="col-span-3"><p class="text-[#637381]">' + endDt + '</p></div>';
+                    res += '<div class="col-span-2"><button id="btn-return" class="text-primary border border-primary rounded px-2 py-1">반납</button></div>';
+                    res += '</div>';
+                    res += '';
+                    $('#facilityreserve').append(res);
+                });
+            }
+        });
+    });
+};
+
+
+fnGetReserveFacility();
 fnGetFacReserveList();
 
 </script>

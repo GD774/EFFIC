@@ -15,7 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 public interface ApprovalService {
 	
 	int registerApproval(MultipartHttpServletRequest multipartRequest);	
-	void loadMyDocList(HttpServletRequest request, Model model);
+//	void loadMyDocList(HttpServletRequest request, Model model);
+	List<AppDocDto> loadMyDocList(HttpServletRequest request, Model model);
 	void loadMySaveDocList(HttpServletRequest request, Model model);
 	void loadMyAppDocList(HttpServletRequest request, Model model);
 	void loadDepDocList(HttpServletRequest request, Model model);

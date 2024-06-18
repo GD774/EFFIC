@@ -139,8 +139,26 @@ public class ApprovalServiceImpl implements ApprovalService {
     
     
     
+//    @Override
+//    public void loadMyDocList(HttpServletRequest request, Model model) {
+//	    UserDto user = (UserDto) request.getSession().getAttribute("user");
+//
+//	    String empId = user.getEmpId();
+//	    String depId = user.getDepId();
+//	    
+//	    Map<String, Object> map = new HashMap<>();
+//	    
+//	    map.put("empId", empId);
+//	    map.put("depId", depId);
+//	    
+//	    List<AppDocDto> myDocList = approvalMapper.getMyDocList(map);
+//	    model.addAttribute("myDocList", myDocList);
+//	    
+//	    
+//    }
+    
     @Override
-    public void loadMyDocList(HttpServletRequest request, Model model) {
+    public List<AppDocDto> loadMyDocList(HttpServletRequest request, Model model) {
 	    UserDto user = (UserDto) request.getSession().getAttribute("user");
 
 	    String empId = user.getEmpId();
@@ -150,11 +168,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 	    
 	    map.put("empId", empId);
 	    map.put("depId", depId);
-	    
-	    List<AppDocDto> myDocList = approvalMapper.getMyDocList(map);
-	    model.addAttribute("myDocList", myDocList);
-	    
-	    
+    	return approvalMapper.getMyDocList(map);
     }
 
     
@@ -222,11 +236,16 @@ public class ApprovalServiceImpl implements ApprovalService {
     public void detailDocByDocId(HttpServletRequest request, Model model) {
     	UserDto user = (UserDto) request.getSession().getAttribute("user");
 
-	    String approver = user.getEmpId();
+	    String approver = user.getEmpId();    
+	    String docId = request.getParameter("docId");
+	    String docState = request.getParameter("docState");
+	    
 	    String depId = user.getDepId();
 	    
 	    Map<String, Object> map = new HashMap<>();
 	    map.put("empId", approver);
+	    map.put("docId", docId);
+	    map.put("docState", docState);
 	    
 	    List<AppDocDto> detailDoc = approvalMapper.getDocByDocId(map);
 	    model.addAttribute("detailDoc", detailDoc);	

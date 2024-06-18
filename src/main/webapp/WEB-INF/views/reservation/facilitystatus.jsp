@@ -293,12 +293,6 @@ const fnGetFacReserveList = () => {
             let rentTerm = facility.rentTerm;
             let rentState;
             var rentPeriod;
-            if(facility.facilityState === 0) {
-                rentState = '대여 가능';
-            } else if(facility.facilityState === 1) {
-                rentState = '대여 불가';
-            }
-        
             
             if(facility.rentTerm === 0) {
                 rentPeriod = '장기대여';

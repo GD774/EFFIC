@@ -71,7 +71,6 @@
  		SELECT COUNT(*)
  		  FROM FACILITY_MANAGE_T
  	</select>
- 
  	
  	 <select id="getCatList"
   		  resultMap="CategoryMap">
@@ -125,18 +124,23 @@
 	            LEFT JOIN FACILITY_RESERVE_T R ON F.FACILITY_ID = R.FACILITY_ID
 	            LEFT JOIN USER_T U ON R.RENT_USER = U.EMP_ID
 	            WHERE F.FACILITY_STATE = 0
+	              AND (R.START_DT IS NULL OR R.END_DT IS NULL)
 	        ) T
 	        WHERE T.RN BETWEEN #{begin} AND #{end}
 	    ) T2
 	</select>
 
-
-	<select id="getReserveFacility"
-			parameterType="Map"
-			resultMap="FacilityReserveMap">
-		SELECT RENT_ID, START_DT, END_DT, RENT_STATE, FACILITY_ID, RENT_USER 
-		  FROM FACILITY_RESERVE_T
-		 WHERE END_DT IS NOT NULL
+	<select id="getFacReserve"
+	        parameterType="java.util.Map"
+	        resultMap="FacilityReserveMap">
+	    SELECT *
+	    FROM (
+	        SELECT RENT_ID, START_DT, END_DT, RENT_STATE, FACILITY_ID, RENT_USER,
+	               ROW_NUMBER() OVER (ORDER BY END_DT ASC) AS RN
+	        FROM FACILITY_RESERVE_T
+	        WHERE END_DT IS NOT NULL
+	    )
+	    WHERE RN BETWEEN #{begin} AND #{end}
 	</select>
 	
 	<insert id="insertFacReserve"

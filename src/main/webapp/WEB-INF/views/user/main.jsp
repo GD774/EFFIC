@@ -186,13 +186,10 @@
 				<div id="weather" class="rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
 				</div>
       
-        <div class="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-				  <div class="mb-4 justify-between gap-4 sm:flex">
-				    <div>
+        
+				    
 				    	<div id="map" style=" width: 400px; height: 300px;"></div>
-						</div>
-				    </div>
-				  </div>
+			
 				</div> 
         
         

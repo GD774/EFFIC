@@ -2,6 +2,8 @@ package com.gd774.effic.dto.approval;
 
 import java.sql.Date;
 
+import com.gd774.effic.dto.UserDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +15,9 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class ApprovalDto {
-	private int appId;
-	private String appState, appDocId, reject, lineOrder;
+	private int appId, docId;
+	private String drafter, approver, appState, appDocId, reject;
 	private Date sumbitDt, appDt;
-	private AppDocDto doc;
+	private AppDocDto appDocDto;
+	private UserDto userDto;
 }

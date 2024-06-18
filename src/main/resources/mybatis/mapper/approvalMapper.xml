@@ -4,83 +4,341 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gd774.effic.mapper.ApprovalMapper">
-    
-    <!-- AppDocDto resultMap -->
-    <resultMap type="com.gd774.effic.dto.approval.AppDocDto" id="ApprovalMap">
-        <id property="docId" column="DOC_ID"/>
-        <result property="empId" column="EMP_ID"/>
-        <result property="title" column="TITLE"/>
-        <result property="contents" column="CONTENTS"/>
-        <result property="docTempCode" column="DOC_TEMP_CODE"/>
-        <result property="writeDt" column="WRITE_DT"/>
-        <result property="updateDt" column="UPDATE_DT"/>
-        <result property="depId" column="DEP_ID"/>
-        <result property="docState" column="DOC_STATE"/>
-        <result property="urgent" column="URGENT"/>
-        <result property="remarks" column="REMARKS"/>
-        <result property="other" column="OTHER"/>
-        <association property="user" javaType="UserDto">
-            <id property="empId" column="EMP_ID"/>
-        </association>
+
+    <resultMap id="AppDocDtoMap" type="com.gd774.effic.dto.approval.AppDocDto">
+        <id property="docId" column="DOC_ID" />
+        <result property="empId" column="EMP_ID" />
+        <result property="title" column="TITLE" />
+        <result property="docTempCode" column="DOC_TEMP_CODE" />
+        <result property="writeDt" column="WRITE_DT" />
+        <result property="updateDt" column="UPDATE_DT" />
+        <result property="depId" column="DEP_ID" />
+        <result property="docState" column="DOC_STATE" />
+        <result property="urgent" column="URGENT" />
     </resultMap>
-    
-    <resultMap type="com.gd774.effic.dto.UserDto" id="UserDtoMap">
+
+    <resultMap id="ApprovalDtoMap" type="com.gd774.effic.dto.approval.ApprovalDto">
+        <id property="appId" column="APP_ID" />
+        <result property="docId" column="DOC_ID" />
+        <result property="appState" column="APP_STATE" />
+        <result property="empId" column="EMP_ID" />
+        <result property="submitDt" column="SUBMIT_DT" />
+        <result property="appDt" column="APP_DT" />
+        <result property="appDocId" column="APP_DOC_ID" />
+        <result property="reject" column="REJECT" />
+    </resultMap>
+
+    <resultMap id="AppLineDtoMap" type="com.gd774.effic.dto.approval.AppLineDto">
+        <id property="lineId" column="LINE_ID" />
+        <result property="lineType" column="LINE_TYPE" />
+        <result property="empId" column="EMP_ID" />
+        <result property="lineFavOrder" column="LINE_FAV_ORDER" />
+        <result property="register" column="REGISTER" />
+        <result property="registerDt" column="REGISTER_DT" />
+        <result property="updater" column="UPDATER" />
+        <result property="updateDt" column="UPDATE_DT" />
+    </resultMap>
+
+    <resultMap id="RefDtoMap" type="com.gd774.effic.dto.approval.RefDto">
+        <id property="docId" column="DOC_ID" />
+        <result property="refType" column="REF_TYPE" />
+        <result property="empId" column="EMP_ID" />
+        <result property="depId" column="DEP_ID" />
+    </resultMap>
+
+    <resultMap id="DocDtoMap" type="com.gd774.effic.dto.approval.DocDto">
+        <id property="docsId" column="DOCS_ID" />
+        <result property="docId" column="DOC_ID" />
+        <result property="remarks" column="REMARKS" />
+        <result property="other" column="OTHER" />
+    </resultMap>
+
+    <resultMap id="DocItemDtoMap" type="com.gd774.effic.dto.approval.DocItemDto">
+        <id property="itemId" column="ITEM_ID" />
+        <result property="docId" column="DOC_ID" />
+        <result property="itemName" column="ITEM_NAME" />
+        <result property="itemStandard" column="ITEM_STANDARD" />
+        <result property="itemQuan" column="ITEM_QUAN" />
+        <result property="itemCost" column="ITEM_COST" />
+        <result property="amount" column="AMOUNT" />
+    </resultMap>
+
+    <!-- 추가된 UserDtoMap resultMap -->
+    <resultMap id="UserDtoMap" type="com.gd774.effic.dto.UserDto">
         <id property="empId" column="EMP_ID"/>
         <result property="name" column="NAME"/>
         <result property="depId" column="DEP_ID"/>
-        <association property="dep" javaType="DepDto">
+        <association property="dep" javaType="com.gd774.effic.dto.DepDto">
             <id property="code" column="DEP_ID"/>
             <result property="name" column="DEP_NAME"/>
         </association>
     </resultMap>
-    
-<insert id="registerApproval" parameterType="AppDocDto">
+
+    <insert id="insertAppDoc" parameterType="com.gd774.effic.dto.approval.AppDocDto">
         <selectKey order="BEFORE" keyProperty="docId" resultType="int">
             SELECT APP_DOC_SEQ.NEXTVAL FROM DUAL
         </selectKey>
-        INSERT INTO APP_DOC_T (DOC_ID, EMP_ID, TITLE, CONTENTS, DOC_TEMP_CODE, WRITE_DT, UPDATE_DT, DEP_ID, DOC_STATE, URGENT)
-        VALUES (#{docId}, #{empId}, #{title}, #{contents}, #{docTempCode}, TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD'), TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD'), #{depId}, #{docState}, #{urgent})
+        INSERT INTO APP_DOC_T (DOC_ID, EMP_ID, TITLE, DOC_TEMP_CODE, WRITE_DT, UPDATE_DT, DEP_ID, DOC_STATE, URGENT)
+        VALUES (#{docId}, #{empId}, #{title}, #{docTempCode}, TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD'), TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD'), #{depId}, #{docState}, #{urgent})
     </insert>
 
-    <insert id="insertDoc" parameterType="DocDto">
-        INSERT INTO DOC_T (DOC_ID, REMARKS, OTHER)
-        VALUES (#{docId}, #{remarks}, #{other})
+    <insert id="insertDoc" parameterType="com.gd774.effic.dto.approval.DocDto">
+        <selectKey order="BEFORE" keyProperty="docsId" resultType="int">
+            SELECT DOC_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO DOC_T (DOCS_ID, DOC_ID,REMARKS, OTHER)
+        VALUES (#{docsId}, #{docId}, #{remarks}, #{other})
     </insert>
 
-    <insert id="insertDocItem" parameterType="DocItemDto">
-        <selectKey keyProperty="itemId" order="BEFORE" resultType="int">
+    <!-- 문서등록 -->
+    <insert id="insertDocItem" parameterType="com.gd774.effic.dto.approval.DocItemDto">
+        <selectKey order="BEFORE" keyProperty="itemId" resultType="int">
             SELECT DOC_ITEM_SEQ.NEXTVAL FROM DUAL
         </selectKey>
-        INSERT INTO DOC_ITEM_T (ITEM_ID, ITEM_NAME, ITEM_STANDARD, ITEM_QUAN, ITEM_COST, AMOUNT)
-        VALUES (#{itemId}, #{itemName}, #{itemStandard}, #{itemQuan}, #{itemCost}, #{amount})
+        INSERT INTO DOC_ITEM_T (ITEM_ID, DOC_ID, ITEM_NAME, ITEM_STANDARD, ITEM_QUAN, ITEM_COST, AMOUNT)
+        VALUES (#{itemId}, #{docId}, #{itemName}, #{itemStandard}, #{itemQuan}, #{itemCost}, #{amount})
     </insert>
 
-    <select id="selectDocId" parameterType="map" resultType="int">
-        SELECT DOC_ID FROM APP_DOC_T 
-        WHERE EMP_ID = #{empId} AND DEP_ID = #{depId} AND TITLE = #{title}
+    <insert id="insertApprovalLine" parameterType="com.gd774.effic.dto.approval.ApprovalDto">
+        <selectKey keyProperty="appId" order="BEFORE" resultType="int">
+            SELECT APPROVAL_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO APPROVAL_T (APP_ID, DOC_ID, DRAFTER, APPROVER, SUBMIT_DT)
+        VALUES (#{appId}, #{docId}, #{drafter}, #{approver}, TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD'))
+    </insert>		
+    
+    <!-- 결재 -->
+    <insert id="approveDoc" parameterType="com.gd774.effic.dto.approval.ApprovalDto">
+        INSERT INTO APPROVAL_T (APP_STATE, APP_DT, APP_DOC_ID)
+        VALUES (#{appState}, TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD'), #{appDocId})
+    </insert>
+    
+    <!-- 반려 -->
+    <insert id="rejectDoc" parameterType="com.gd774.effic.dto.approval.ApprovalDto">
+        INSERT INTO APPROVAL_T (APP_STATE, REJECT)
+        VALUES (#{appState}, #{reject})
+    </insert>
+    
+    <!-- 내가 기안한 문서 목록 -->
+    <select id="getMyDocList" parameterType="map" resultMap="AppDocDtoMap">
+        SELECT AD.WRITE_DT AS writeDt, 
+               AD.DOC_ID AS docId,
+               APP.APP_DT AS appDt, 
+               AD.DOC_TEMP_CODE AS docTempCode, 
+               AD.URGENT AS urgent, 
+               AD.TITLE AS title, 
+               AD.DOC_STATE AS docState,
+               U.NAME AS userName, 
+               DEP.NAME AS depName, 
+               U.DEP_ID AS depId,
+               APP.APP_DOC_ID AS appDocId,
+               APP.APP_STATE AS appState
+        FROM APP_DOC_T AD
+        JOIN USER_T U ON AD.EMP_ID = U.EMP_ID
+        JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
+        LEFT JOIN APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
+        WHERE AD.EMP_ID = #{empId}
+        ORDER BY AD.WRITE_DT DESC
     </select>
-    
-    <select id="getMyDocList" resultType="map">
- 		SELECT
-        DOC.WRITE_DT AS WRITE_DT,
-        DOC.APP_DT AS APP_DT,
-        DOC.DOC_TEMP_CODE AS DOC_TEMP_CODE,
-        DOC.URGENT AS URGENT,
-        DOC.TITLE AS TITLE,
-        DEP.NAME AS DEP_NAME,
-        APP.APP_DOC_ID AS APP_DOC_ID,
-        APP.APP_STATE AS APP_STATE,
-        USER.NAME AS USER_NAME
-    FROM
-        APP_DOC_T DOC
-    JOIN
-        USER_T USER ON DOC.EMP_ID = USER.EMP_ID
-    JOIN
-        DEPARTMENT_T DEP ON USER.DEP_ID = DEP.CODE
-    LEFT JOIN
-        APPROVAL_T APP ON DOC.DOC_ID = APP.DOC_ID
-    ORDER BY
-        DOC.WRITE_DT DESC
+
+		
+		<!-- 임시저장함 리스트 위해 -->
+		<select id="getMySaveDocList" parameterType="map" resultMap="AppDocDtoMap">
+		    SELECT AD.WRITE_DT AS writeDt, 
+		           AD.DOC_ID AS docId,
+		           APP.APP_DT AS appDt, 
+		           AD.DOC_TEMP_CODE AS docTempCode, 
+		           AD.URGENT AS urgent, 
+		           AD.TITLE AS title, 
+		           AD.DOC_STATE AS docState,
+		           U.NAME AS userName, 
+		           DEP.NAME AS depName, 
+		           U.DEP_ID AS depId,
+		           APP.APP_DOC_ID AS appDocId,
+		           APP.APP_STATE AS appState
+		    FROM APP_DOC_T AD
+		    JOIN USER_T U ON AD.EMP_ID = U.EMP_ID
+		    JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
+		    LEFT JOIN APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
+		    WHERE AD.EMP_ID = #{empId} AND AD.DOC_STATE = #{docState}
+		    ORDER BY AD.WRITE_DT DESC
+		</select>
+		
+				<!-- 결재문서함 위해 -->
+		<select id="getMyAppDocList" parameterType="map" resultMap="AppDocDtoMap">
+		    SELECT AD.WRITE_DT AS writeDt, 
+		           AD.DOC_ID AS docId,
+		           APP.APP_DT AS appDt, 
+		           AD.DOC_TEMP_CODE AS docTempCode, 
+		           AD.URGENT AS urgent, 
+		           AD.TITLE AS title, 
+		           AD.DOC_STATE AS docState,
+		           U.NAME AS userName, 
+		           DEP.NAME AS depName, 
+		           U.DEP_ID AS depId,
+		           APP.APP_DOC_ID AS appDocId,
+               APP.DRAFTER AS drafter,
+   					   APP.APPROVER AS approver,
+		           APP.APP_STATE AS appState
+		    FROM APP_DOC_T AD
+		    JOIN USER_T U ON AD.EMP_ID = U.EMP_ID
+		    JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
+		    LEFT JOIN APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
+		    WHERE AD.EMP_ID = #{empId} AND APP.DRAFTER = #{empId}
+		    ORDER BY AD.WRITE_DT DESC
+		</select>
+
+<!-- 부서문서함 리스트 -->
+<select id="getDepDocListByDocState" parameterType="map" resultMap="AppDocDtoMap">
+    SELECT AD.WRITE_DT AS writeDt, 
+           APP.APP_DT AS appDt, 
+           AD.DOC_TEMP_CODE AS docTempCode, 
+           AD.URGENT AS urgent, 
+           AD.TITLE AS title, 
+           AD.DOC_STATE AS docState,
+           U.NAME AS userName, 
+           DEP.NAME AS depName, 
+           U.DEP_ID AS depId,
+           APP.APP_DOC_ID AS appDocId,
+           APP.APP_STATE AS appState
+    FROM APP_DOC_T AD
+    JOIN USER_T U ON AD.EMP_ID = U.EMP_ID
+    JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
+    LEFT JOIN APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
+    WHERE DEP.CODE = #{depId} AND AD.DOC_STATE = #{docState}
+    ORDER BY AD.WRITE_DT DESC
 </select>
-    
+
+<select id="getDocCount" parameterType="map" resultType="int">
+    SELECT COUNT(*)
+    FROM APP_DOC_T
+    WHERE EMP_ID = #{empId}
+</select>
+
+<!-- 모든 문서 가져오기 -->
+<select id="getAllDocs" resultMap="AppDocDtoMap">
+    SELECT 
+        AD.DOC_ID AS docId,
+        AD.EMP_ID AS empId,
+        AD.TITLE AS title,
+        AD.DOC_TEMP_CODE AS docTempCode,
+        AD.WRITE_DT AS writeDt,
+        AD.UPDATE_DT AS updateDt,
+        AD.DEP_ID AS depId,
+        AD.DOC_STATE AS docState,
+        AD.URGENT AS urgent,
+        APP.APP_ID AS appId,
+        APP.APP_STATE AS appState,
+        APP.SUBMIT_DT AS submitDt,
+        APP.APP_DT AS appDt,
+        APP.APP_DOC_ID AS appDocId,
+        APP.REJECT AS reject
+    FROM 
+        APP_DOC_T AD
+    LEFT JOIN 
+        APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
+    WHERE AD.DOC_ID = #{docId}
+    ORDER BY AD.WRITE_DT DESC
+</select>
+
+<!-- 결재자가 결재를 위해 detailDoc -->
+<select id="getDocByDocId" parameterType="map" resultMap="AppDocDtoMap">
+    SELECT 
+        I.ITEM_ID AS itemId,
+        AD.DOC_ID AS docId,
+        I.ITEM_NAME AS itemName,
+        I.ITEM_STANDARD AS itemStandard,
+        I.ITEM_QUAN AS itemQuan,
+        I.ITEM_COST AS itemCost,
+        I.AMOUNT AS amount,
+        DT.REMARKS AS remarks,
+        DT.OTHER AS other,
+        AD.EMP_ID AS empId,
+        AD.TITLE AS title,
+        AD.DEP_ID AS depId,
+        APP.DRAFTER AS drafter,
+        APP.APPROVER AS approver,
+        APP.SUBMIT_DT AS submitDt
+    FROM 
+        APP_DOC_T AD
+    LEFT JOIN 
+        DOC_T DT ON AD.DOC_ID = DT.DOC_ID
+    LEFT JOIN 
+        DOC_ITEM_T I ON AD.DOC_ID = I.DOC_ID
+    LEFT JOIN 
+        APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
+    WHERE 
+        AD.DOC_ID = #{docId} AND APP.APPROVER = #{approver}
+</select>
+
+<!-- 문서 수정 -->
+<!-- APP_DOC_T -->
+<update id="updateAppDoc" parameterType="AppDocDto">
+    UPDATE APP_DOC_T
+    SET TITLE = #{title},
+        URGENT = #{urgent},
+        UPDATE_DT = TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD')
+    WHERE DOC_ID = #{docId}
+</update>
+
+<!-- DOC_T -->
+<update id="updateDoc" parameterType="DocDto">
+    UPDATE DOC_T
+    SET REMARKS = #{remarks},
+        OTHER = #{other}
+    WHERE DOC_ID = #{docId}
+</update>
+
+<!-- DOC_ITEM_T -->
+<update id="updateDocItem" parameterType="DocItemDto">
+    UPDATE DOC_ITEM_T
+    SET ITEM_NAME = #{itemName},
+        ITEM_STANDARD = #{itemStandard},
+        ITEM_QUAN = #{itemQuan},
+        ITEM_COST = #{itemCost},
+        AMOUNT = #{amount}
+    WHERE DOC_ID = #{docId}
+</update>
+
+<!-- APPROVAL_T -->
+<update id="updateApproval" parameterType="ApprovalDto">
+    UPDATE APPROVAL_T
+    SET APPROVER = #{approver},
+        SUBMIT_DT = #{submitDt}
+    WHERE APP_DOC_ID = #{docId}
+</update>
+
+<!-- 문서 상세 정보 가져오기 -->
+<select id="getDocById" resultMap="AppDocDtoMap">
+    SELECT 
+        AD.DOC_ID AS docId,
+        AD.EMP_ID AS empId,
+        AD.TITLE AS title,
+        AD.WRITE_DT AS writeDt,
+        AD.UPDATE_DT AS updateDt,
+        AD.DEP_ID AS depId,
+        AD.DOC_STATE AS docState,
+        AD.URGENT AS urgent,
+        APP.APPROVER AS approver,
+        APP.SUBMIT_DT AS submitDt,
+        APP.REJECT AS reject,
+        DT.REMARKS AS remarks,
+        DT.OTHER AS other,
+        I.ITEM_ID AS itemId,
+        I.ITEM_NAME AS itemName,
+        I.ITEM_STANDARD AS itemStandard,
+        I.ITEM_QUAN AS itemQuan,
+        I.ITEM_COST AS itemCost,
+        I.AMOUNT AS amount
+    FROM 
+        APP_DOC_T AD
+    LEFT JOIN 
+        APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
+    LEFT JOIN 
+        DOC_T DT ON AD.DOC_ID = DT.DOC_ID
+    LEFT JOIN 
+        DOC_ITEM_T I ON AD.DOC_ID = I.DOC_ID
+    WHERE 
+        AD.DOC_ID = #{docId}
+</select>
 </mapper>

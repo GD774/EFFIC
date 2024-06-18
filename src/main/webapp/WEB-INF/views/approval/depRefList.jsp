@@ -143,76 +143,68 @@
                         </select>
                     </div>
                 </div>
-								<!-- 새 결재 진행 모달창 --> 
-                <div class="flex justify-end">
-                    <div x-data="{
-                    							modalOpen: false,
-													        redirectToPage() {
-													            var selectBox = document.getElementById('options');
-													            var selectedValue = selectBox.value;
-													            
-													            if (selectedValue === 'option2') {
-													                // Replace with your actual context path and JSP file name
-													                window.location.href = '${contextPath}/approval/writeDoc.page';
-													            } else {
-													                alert('문서 양식을 선택해주세요.');
-													            }
-													        }
-													    }"
-                    							}">
-                        <button
-                            @click="modalOpen = true"
-                            class="rounded-md bg-primary px-9 py-3 font-medium text-white"
-                        >
-                            기안작성
-                        </button>
-                        <div
-                            x-show="modalOpen"
-                            x-transition
-                            class="fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5"
-                        >
-                            <div
-                                @click.outside="modalOpen = false"
-                                class="w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:px-17.5 md:py-15"
-                            >
-                                <h3 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
-                                    새 결재 진행
-                                </h3>
-                                <span class="mx-auto mb-6 inline-block h-1 w-22.5 rounded bg-primary"></span>
-                                <p class="mb-10 font-medium">
 
-                                </p>
-                                <!-- Select Box -->
-                                <div class="mb-10">
-                                    <label for="options" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">문서양식 선택</label>
-                                    <select id="options" class="block w-full p-2.5 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-primary dark:focus:border-primary">
-                                        <option value="option1">문서양식을 선택하세요</option>
-                                        <option value="option2">구매신청서</option>
-                                        <option value="option3">Option</option>
-                                    </select>
-                                </div>
-                                <div class="-mx-3 flex flex-wrap gap-y-4">
-                                    <div class="w-full px-3 2xsm:w-1/2">
-                                        <button
-                                            @click="modalOpen = false"
-                                            class="block w-full rounded border border-stroke bg-gray p-3 text-center font-medium text-black transition hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1"
-                                        >
-                                            취소
-                                        </button>
-                                    </div>
-								                    <div class="w-full px-3 2xsm:w-1/2">
-								                        <button
-								                            @click="redirectToPage()"
-								                            class="block w-full rounded border border-primary bg-primary p-3 text-center font-medium text-white transition hover:bg-opacity-90"
-								                        >
-								                            작성하러 가기
-								                        </button>
-								                    </div>
-                                </div>
-                            </div>
-                        </div>
+                
+  <!-- 새 결재 진행 모달창 --> 
+<div class="flex justify-end">
+    <div x-data="{ modalOpen: false, redirectToPage() {
+                    var selectBox = document.getElementById('options');
+                    var selectedValue = selectBox.value;
+                    
+                    if (selectedValue === 'option2') {
+                        // Replace with your actual context path and JSP file name
+                        window.location.href = '${contextPath}/approval/writeDoc.page';
+                    } else {
+                        alert('문서 양식을 선택해주세요.');
+                    }
+                }}" x-init="modalOpen = false">
+        <button @click="modalOpen = true"
+                class="rounded-md bg-primary px-9 py-3 font-medium text-white">
+            기안작성
+        </button>
+        <div x-show="modalOpen"
+             x-transition
+             class="fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5">
+            <div @click.outside="modalOpen = false"
+                 class="w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:px-17.5 md:py-15">
+                <h3 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
+                    새 결재 진행
+                </h3>
+                <span class="mx-auto mb-6 inline-block h-1 w-22.5 rounded bg-primary"></span>
+                <p class="mb-10 font-medium">
+
+                </p>
+                <!-- Select Box -->
+                <div class="mb-10">
+                    <label for="options"
+                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">문서양식 선택</label>
+                    <select id="options"
+                            class="block w-full p-2.5 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-primary dark:focus:border-primary">
+                        <option value="option1">문서양식을 선택하세요</option>
+                        <option value="option2">구매신청서</option>
+                        <option value="option3">휴가신청서</option>
+                        <option value="option4">지출결의서</option>
+                    </select>
+                </div>
+                <div class="-mx-3 flex flex-wrap gap-y-4">
+                    <div class="w-full px-3 2xsm:w-1/2">
+                        <button @click="modalOpen = false"
+                                class="block w-full rounded border border-stroke bg-gray p-3 text-center font-medium text-black transition hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1">
+                            취소
+                        </button>
                     </div>
-                  </div>
+                    <div class="w-full px-3 2xsm:w-1/2">
+                        <button @click="redirectToPage()"
+                                class="block w-full rounded border border-primary bg-primary p-3 text-center font-medium text-white transition hover:bg-opacity-90">
+                            작성하러 가기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
                 <!-- ====== Table Section Start ===== -->
                 <div class="flex flex-col gap-1">
@@ -223,31 +215,31 @@
                                 <!-- table header start -->
                                 <div class="grid grid-cols-12 bg-[#F9FAFB] px-3 py-2 dark:bg-meta-4 lg:px-5 2xl:px-9">
                                     <div class="col-span-1">
-                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">기안일</h5>
+                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">&nbsp;&nbsp;기안일</h5>
                                     </div>
                                     <div class="col-span-1">
-                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">완료일</h5>
+                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">&nbsp;&nbsp;완료일</h5>
                                     </div>
                                     <div class="col-span-2">
-                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">결재양식</h5>
+                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">&nbsp;&nbsp;결재양식</h5>
                                     </div>
                                     <div class="col-span-1">
                                         <h5 class="font-bold text-[#637381] dark:text-bodydark">긴급</h5>
                                     </div>
                                     <div class="col-span-3">
-                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">제목</h5>
+                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">&nbsp;&nbsp;제목</h5>
                                     </div>
                                     <div class="col-span-1">
-                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">첨부</h5>
+                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">기안자</h5>
                                     </div>
                                     <div class="col-span-1">
                                         <h5 class="font-bold text-[#637381] dark:text-bodydark">기안부서</h5>
                                     </div>
                                     <div class="col-span-1">
-                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">문서번호</h5>
+                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">&nbsp;&nbsp;문서번호</h5>
                                     </div>
                                     <div class="col-span-1">
-                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">결재상태</h5>
+                                        <h5 class="font-bold text-[#637381] dark:text-bodydark">&nbsp;&nbsp;결재상태</h5>
                                     </div>
                                 </div>
                                 <!-- table header end -->
@@ -255,38 +247,101 @@
                                 <!-- table body start -->
                                 <div class="bg-white dark:bg-boxdark">
                                     <!-- table row item -->
-                                    <c:forEach var="i" begin="1" end="20">
+                                    <c:forEach items="${myDocList}"  var="approval" varStatus="vs">
+                                    		<!-- 기안일 -->
                                         <div class="grid grid-cols-12 border-t border-[#EEEEEE] px-3 py-2 dark:border-strokedark lg:px-5 2xl:px-9">
+																				<div class="col-span-1">
+																				    <fmt:formatDate value="${approval.WRITEDT}" pattern="yyyy/MM/dd" var="formattedDate"/>
+																				    <p class="text-[#637381] dark:text-bodydark">${formattedDate}</p>
+																				</div>
+                                        <!-- 완료일 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">2024-06-<fmt:formatNumber value="${i}" pattern="00"/></p>
+                                                <p class="text-[#637381] dark:text-bodydark">${approval.APPDT}</p>
                                             </div>
-                                            <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">2024-06-<fmt:formatNumber value="${i + 3}" pattern="00"/></p>
-                                            </div>
+                                        <!-- 결재양식 -->
                                             <div class="col-span-2">
-                                                <p class="text-[#637381] dark:text-bodydark">보고서</p>
+                                            		<c:choose>
+																		                <c:when test="${approval.DOCTEMPCODE == 1}">
+																		                    <p class="text-[#637381] dark:text-bodydark">구매신청서</p>
+																		                </c:when>
+																		                <c:when test="${approval.DOCTEMPCODE ==2}">
+																		                    <p class="text-[#637381] dark:text-bodydark">휴가신청서</p>
+																		                </c:when>
+																		                <c:when test="${approval.DOCTEMPCODE ==3}">
+																		                    <p class="text-[#637381] dark:text-bodydark">지출결의서</p>
+																		                </c:when>
+																		            </c:choose>
                                             </div>
-                                            <div class="col-span-1">
-                                            	<i class="fi fi-rr-light-emergency-on"></i>
+                                        <!-- 긴급 -->
+                                            <div class="col-span-1" style="margin-left:10px;">
+	                                            		<c:choose>
+																		                <c:when test="${approval.URGENT == 1}">
+																		                    <i class="fi fi-rr-light-emergency-on">${urgent}</i>
+																		                </c:when>
+																		                <c:when test="${approval.URGENT == 0}">
+																		                		<p class="text-[#637381] dark:text-bodydark"></p>
+																		                </c:when>
+																		            </c:choose>
+                                            	
                                             </div>
+                                       	<!-- 제목 -->
                                             <div class="col-span-3">
-                                                <p class="text-[#637381] dark:text-bodydark">프로젝트 보고 ${i}</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${approval.TITLE}</p>
                                             </div>
+                                        <!-- 기안자 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">${i}</p>
+                                                <p class="text-[#637381] dark:text-bodydark">${user.name}</p>
                                             </div>
+                                        <!-- 기안부서 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">기술부서</p>
+																		            <c:choose>
+																		                <c:when test="${user.depId == 1}">
+																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;총무팀</p>
+																		                </c:when>
+																		                <c:when test="${user.depId == 2}">
+																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;경영팀</p>
+																		                </c:when>
+																		                <c:when test="${user.depId == 3}">
+																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;인사팀</p>
+																		                </c:when>
+																		            </c:choose>
                                             </div>
+                                        <!-- 결재문서번호 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">DOC-<fmt:formatNumber value="${1234 + i}" pattern="0000"/></p>
+                                           		 <c:choose>
+															               		 <c:when test="${approval.APPDOCID == null}">
+															                    <p class="text-[#637381] dark:text-bodydark">${approval.APPDOCID}</p>
+															               		 </c:when>
+															               		 <c:when test="${approval.APPDOCID != null}">
+															               		 	<fmt:formatDate value="${approval.APPDOCID}" pattern="yyyy/MM/dd" var="formattedDate"/>
+															               		 </c:when>
+														               		 </c:choose>
                                             </div>
+                                    	 	<!-- 결재상태		 -->
                                             <div class="col-span-1">
-                                                <p class="text-[#637381] dark:text-bodydark">승인</p>
+                                                 <c:choose>
+																		                <c:when test="${approval.DOCSTATE == 0}">
+																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;진행</p>
+																		                </c:when>
+																		                <c:when test="${approval.DOCSTATE == 1}">
+																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;결재</p>
+																		                </c:when>
+																		                <c:when test="${approval.DOCSTATE ==2}">
+																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;반려</p>
+																		                </c:when>
+																		                <c:when test="${approval.DOCSTATE ==3}">
+																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;임시저장</p>
+																		                </c:when>
+																		            </c:choose>
                                             </div>
                                         </div>
                                     </c:forEach>
                                 </div>
+                                      <tr>
+																        <td colspan="4">${paging}</td>
+																      </tr>
+
+                                
                                 <!-- table body end -->
                             </div>
                         </div>
@@ -303,6 +358,7 @@
                 </div>
                 <!-- ====== Table Section End -->
             </div> 
+            <p></p>
             
 	<!-- 검색 폼 -->
     <form class="max-w-lg mx-auto">
@@ -363,7 +419,6 @@
         });
     }
     
-
 </script>
 
 </body>

@@ -1,5 +1,7 @@
 package com.gd774.effic.dto.approval;
 
+import com.gd774.effic.dto.UserDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,10 +12,13 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 
-public class DocDto {
-	private String remarks, other;
-	private int docId, docsId;
-	private AppDocDto appDocDto;
-	
+public class RefDto {
+	private String refType, empId, depId;
+	private int docId;
+	private UserDto user;
+	private AppDocDto appDoc;
 
+	
+	
+	
 }

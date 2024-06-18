@@ -14,4 +14,6 @@ public class DocItemDto {
 	private String itemName, itemStandard, itemQuan, itemCost, amount;
 	private int itemId, docId;
 	private AppDocDto appDocDto;
+	
+
 }

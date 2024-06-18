@@ -454,7 +454,6 @@ function parseEvents(data) {
 }
 </script>
 
-<<<<<<< HEAD
 
 <script>
         $(document).ready(function() {
@@ -502,7 +501,7 @@ function parseEvents(data) {
     </script>
     
     
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVlHOQjjs4Um_CkyPgIa971pnU_4ZFdpA&callback=initMap"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbNmIjC1fPeLBAuaI5SopaXeOTR0DKiYI&callback=initMap"></script>
     
      <script>
 window.initMap = function () {

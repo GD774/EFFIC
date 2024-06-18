@@ -86,37 +86,116 @@
   <!-- ===== Header End ===== -->
 
   <!-- ===== Main Content Start ===== -->
-  <main>
+ <main>
 
 	<div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
               <!-- Card Item Start -->
-              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark" style="padding-top:15px;">
               
 
                 <div class="mt-4 flex items-end justify-between">
                   <div>
-                    <h4 class="text-title-md font-bold text-black dark:text-white">
-                     
-                     오늘날짜나 현재 예약중인 물품
-                     
-                     
-                    </h4>
-                  </div>      
+                                                     
+              <c:forEach items="${myDocList}" var="approval" begin="0" end="0">
+                <span>
+                   		<c:choose>
+								      <c:when test="${approval.urgent == 1}">
+								          <i class="fi fi-rr-light-emergency-on">${urgent}</i>
+								      </c:when>
+								      <c:when test="${approval.urgent == 0}">
+								      		<p class="text-[#637381] dark:text-bodydark"></p>
+								      </c:when>
+								 		 </c:choose>
+                    <p  class="text-lg font-medium" style="font-weight:bold;">결재상태</p>
+                    <c:choose>
+                        <c:when test="${approval.docState == 0}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">진행</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 1}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">결재</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 2}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">반려</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 3}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">임시저장</p>
+                        </c:when>
+                    </c:choose>
+                </span>
+                <span>
+                    <p class="text-lg font-medium" style="font-weight:bold;">&nbsp;</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.title}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${user.name}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.writeDt}</p>
+                </span>
+            </span>
+        </c:forEach>
+
+             </div>      
                   </div>
               </div>
 
               <!-- Card Item End -->
 
               <!-- Card Item Start -->
-              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark" style="padding-top:15px;">
                
 
                 <div class="mt-4 flex items-end justify-between">
                   <div>
-                    <h4 class="text-title-md font-bold text-black dark:text-white">
-                     내가 올린 기안? 결제해야할 기안?
-                    </h4>
+                 <c:forEach items="${myDocList}" var="approval" begin="1" end="1">
+                <span>
+                   		<c:choose>
+								      <c:when test="${approval.urgent == 1}">
+								          <i class="fi fi-rr-light-emergency-on">${urgent}</i>
+								      </c:when>
+								      <c:when test="${approval.urgent == 0}">
+								      		<p class="text-[#637381] dark:text-bodydark"></p>
+								      </c:when>
+								 		 </c:choose>
+                    <p  class="text-lg font-medium" style="font-weight:bold;">결재상태</p>
+                    <c:choose>
+                        <c:when test="${approval.docState == 0}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">진행</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 1}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">결재</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 2}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">반려</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 3}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">임시저장</p>
+                        </c:when>
+                    </c:choose>
+                </span>
+                <span>
+                    <p class="text-lg font-medium" style="font-weight:bold;">&nbsp;</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.title}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${user.name}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.writeDt}</p>
+                </span>
+            </span>
+        </c:forEach>
                   
                   </div>
 
@@ -126,14 +205,54 @@
               <!-- Card Item End -->
 
               <!-- Card Item Start -->
-              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark" style="padding-top:15px;">
                 
 
                 <div class="mt-4 flex items-end justify-between">
                   <div>
-                    <h4 class="text-title-md font-bold text-black dark:text-white">
-                      뭐 넣을거 있나
-                    </h4>
+           				  <c:forEach items="${myDocList}" var="approval" begin="2" end="2">
+                <span>
+                   		<c:choose>
+								      <c:when test="${approval.urgent == 1}">
+								          <i class="fi fi-rr-light-emergency-on">${urgent}</i>
+								      </c:when>
+								      <c:when test="${approval.urgent == 0}">
+								      		<p class="text-[#637381] dark:text-bodydark"></p>
+								      </c:when>
+								 		 </c:choose>
+                    <p  class="text-lg font-medium" style="font-weight:bold;">결재상태</p>
+                    <c:choose>
+                        <c:when test="${approval.docState == 0}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">진행</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 1}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">결재</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 2}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">반려</p>
+                        </c:when>
+                        <c:when test="${approval.docState == 3}">
+                            <p class="text-lg font-medium" style="font-weight:bold;">임시저장</p>
+                        </c:when>
+                    </c:choose>
+                </span>
+                <span>
+                    <p class="text-lg font-medium" style="font-weight:bold;">&nbsp;</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.title}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${user.name}</p>
+                </span>
+                <span>
+                    
+                    <p class="text-lg font-medium" style="font-weight:bold;">${approval.writeDt}</p>
+                </span>
+            </span>
+        </c:forEach>
                    
                   </div>
 
@@ -143,7 +262,7 @@
               <!-- Card Item End -->
 
               <!-- Card Item Start -->
-              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+              <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark" style="padding-top:15px;">
                
 
                 <div class="mt-4 flex items-end justify-between">

@@ -87,29 +87,29 @@
         VALUES (#{appState}, #{reject})
     </insert>
     
-    <!-- 내가 기안한 문서 목록 -->
-    <select id="getMyDocList" parameterType="map"
-     resultMap="ApprovalMap">
-        SELECT AD.WRITE_DT,
-        			 AD.EMP_ID, 
-               AD.DOC_ID,
-               APP.APP_DT, 
-               AD.DOC_TEMP_CODE, 
-               AD.URGENT, 
-               AD.TITLE, 
-               AD.DOC_STATE,
-               U.NAME, 
-               DEP.NAME, 
-               U.DEP_ID,
-               APP.APP_DOC_ID,
-               APP.APP_STATE
-        FROM APP_DOC_T AD
-        JOIN USER_T U ON AD.EMP_ID = U.EMP_ID
-        JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
-        LEFT JOIN APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
-        WHERE AD.EMP_ID = #{empId}
-        ORDER BY AD.DOC_ID DESC
-    </select>
+		<!-- 내가 기안한 문서 목록 -->
+		<select id="getMyDocList" parameterType="map" resultMap="ApprovalMap">
+		    SELECT AD.WRITE_DT,
+		           AD.EMP_ID, 
+		           AD.DOC_ID,
+		           APP.APP_DT, 
+		           AD.DOC_TEMP_CODE, 
+		           AD.URGENT, 
+		           AD.TITLE, 
+		           AD.DOC_STATE,
+		           U.NAME, 
+		           DEP.NAME, 
+		           U.DEP_ID,
+		           APP.APP_DOC_ID,
+		           APP.APP_STATE
+		    FROM APP_DOC_T AD
+		    JOIN USER_T U ON AD.EMP_ID = U.EMP_ID
+		    JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
+		    LEFT JOIN APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
+		    WHERE AD.EMP_ID = #{empId}
+		      AND (AD.DOC_STATE = '0' OR AD.DOC_STATE = '1' OR AD.DOC_STATE = '2')
+		    ORDER BY AD.DOC_ID DESC
+		</select>
 
 		
 		<!-- 임시저장함 리스트 위해 -->

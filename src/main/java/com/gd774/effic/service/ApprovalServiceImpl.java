@@ -76,6 +76,8 @@ public class ApprovalServiceImpl implements ApprovalService {
                 .docState(docState)
                 .build();
 
+        System.out.println("appDoc=====>");
+        System.out.println(appDoc);
         // 문서 등록 실행
         approvalMapper.insertAppDoc(appDoc);
 
@@ -219,7 +221,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     	String drafter = user.getEmpId();
 	    String approver = user.getEmpId();    
-	    String docId = request.getParameter("docId");
+	    int docId = Integer.parseInt(request.getParameter("docId"));
 	    String docState = request.getParameter("docState");
 	    
 	    String depId = user.getDepId();

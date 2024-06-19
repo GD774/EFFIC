@@ -75,7 +75,7 @@
 						기 안 자
 					</td>
 					<td class="detailColumn dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
-							<span class="comp_item">${detailDoc.name}</span>
+							<span class="comp_item">${detailDoc.empId}</span>
 					</td>
 				</tr>
 				<tr>

@@ -181,6 +181,9 @@ $(document).ready(function() {
             formData.append('items[' + index + '].amount', $(this).find("[name='amount']").val());
             formData.append('items[' + index + '].remarks', $(this).find("[name='remarks']").val());
         });
+        
+            formData.append('title', $('#title').val());
+    				formData.append('urgent', $('#emergency').is(':checked') ? '1' : '0');
 
         $.ajax({
             url: '/approval/register.do',
@@ -210,6 +213,7 @@ $(document).ready(function() {
 		       
 		    } else {
 		        alert('결재 요청이 취소되었습니다.');
+		        return false;
 		    }
 		});
 		
@@ -220,7 +224,7 @@ $(document).ready(function() {
 						alert('작성 중인 문서가 임시저장함에 보관되었습니다.')
 	        window.location.href = 'main'; // 메인 페이지로 이동
 	    } else {
-				return;
+				return ;
 			}
     });
     

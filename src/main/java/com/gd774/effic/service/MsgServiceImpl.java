@@ -129,7 +129,7 @@ public class MsgServiceImpl implements MsgService {
 		UserDto user = (UserDto)request.getSession().getAttribute("user");
 		String sender = user.getEmpId();
 	    int total = msgMapper.getToMeCount(sender);
-	    int display = 10;		 
+	    int display = 30;		 
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 	    int page = Integer.parseInt(opt.orElse("1"));
 	    msgPaging.setPaging(total, display, page);
@@ -150,7 +150,7 @@ public class MsgServiceImpl implements MsgService {
 		UserDto user = (UserDto)request.getSession().getAttribute("user");
 		String sender = user.getEmpId();
 	    int total = msgMapper.getMsgCount(sender);
-	    int display = 10;		 
+	    int display = 30;		 
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 	    int page = Integer.parseInt(opt.orElse("1"));
 	    msgPaging.setPaging(total, display, page);
@@ -308,7 +308,7 @@ public class MsgServiceImpl implements MsgService {
 		 UserDto user = (UserDto)request.getSession().getAttribute("user");
 			String recipient = user.getEmpId();
 		    int total = msgMapper.getRcpCount(recipient);
-		    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+		    int display = 30;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
 			Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		    int page = Integer.parseInt(opt.orElse("1"));
 		    msgPaging.setPaging(total, display, page);
@@ -367,7 +367,7 @@ public class MsgServiceImpl implements MsgService {
 			String sender = user.getEmpId();
 			Map<String, Object> getTotal = Map.of("recipient", recipient, "sender", sender);
 		    int total = msgMapper.getImpCount(getTotal);
-		    int display = 10;	
+		    int display = 30;	
 			Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		    int page = Integer.parseInt(opt.orElse("1"));
 		    msgPaging.setPaging(total, display, page);
@@ -419,7 +419,7 @@ public class MsgServiceImpl implements MsgService {
 			Map<String, Object> getTotal = Map.of("recipient", recipient, "sender", sender);
 		    int total = msgMapper.getBinCount(getTotal);
 
-		    int display = 10;		 
+		    int display = 30;		 
 			Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		    int page = Integer.parseInt(opt.orElse("1"));
 		    msgPaging.setPaging(total, display, page);
@@ -503,7 +503,7 @@ public class MsgServiceImpl implements MsgService {
 		String depId = user.getDepId();
 		Map<String, Object> forCount = Map.of("recipient", recipient, "depId", depId);
 	    int total = msgMapper.getTeamInboxCount(forCount);
-	    int display = 10;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
+	    int display = 30;		 // 화면 봐가면서 몇개가 적당할지 찾기. 15 아님 20 아님 25
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 	    int page = Integer.parseInt(opt.orElse("1"));
 	    msgPaging.setPaging(total, display, page);

@@ -42,6 +42,7 @@ public class UserController {
 				out.println("<script>");
 				out.println("alert('일치하는 회원정보 없음')");
 				out.println("</script>");
+				return "/user/error";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -221,7 +221,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     	String drafter = user.getEmpId();
 	    String approver = user.getEmpId();    
-	    String docId = request.getParameter("docId");
+	    int docId = Integer.parseInt(request.getParameter("docId"));
 	    String docState = request.getParameter("docState");
 	    
 	    String depId = user.getDepId();

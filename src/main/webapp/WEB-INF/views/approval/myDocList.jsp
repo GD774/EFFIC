@@ -151,6 +151,7 @@
                                 <div class="bg-white dark:bg-boxdark">
                                     <!-- table row item -->
                                     <c:forEach items="${myDocList}"  var="approval" varStatus="vs">
+                                    <c:if test="${approval.docState != 3}">
                                     		<!-- 기안일 -->
                                         <div class="grid grid-cols-12 border-t border-[#EEEEEE] px-3 py-2 dark:border-strokedark lg:px-5 2xl:px-9">
 																				<div class="col-span-1">
@@ -223,9 +224,24 @@
                                             </div>
                                     	 	<!-- 결재상태		 -->
                                             <div class="col-span-1">
+                                                    <c:choose>
+																		                <c:when test="${approval.docState == 0}">
+																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;진행</p>
+																		                </c:when>
+																		                <c:when test="${approval.docState == 1}">
+																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;결재</p>
+																		                </c:when>
+																		                <c:when test="${approval.docState == 2}">
+																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;&nbsp;&nbsp;반려</p>
+																		                </c:when>
+																		                <c:when test="${approval.docState == 3}">
 																		                    <p class="text-[#637381] dark:text-bodydark">&nbsp;&nbsp;임시저장</p>
+																		                    
+																		                </c:when>
+																		            </c:choose>
                                             </div>
                                         </div>
+                                        </c:if>
                                     </c:forEach>
                                 </div>
 

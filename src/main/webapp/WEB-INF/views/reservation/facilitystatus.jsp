@@ -254,6 +254,7 @@
         placeholder="예약자명"
 		value="${sessionScope.user.name}"
 		id="name"
+		name="facilityId"
         class="block w-40 px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-lg shadow-sm text-xs"
       />
     </div>
@@ -272,11 +273,11 @@
     </div>
 </div>
 <!--모달창 끝-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
 <script>
 var page = 1;
-var repage = 1;
 var totalPage = 0;
-var reTotalPage = 0;
 var modalstartDt = new Date().toISOString().substring(0,10);
 var modalendDt= new Date(modalstartDt);
 
@@ -314,25 +315,28 @@ const fnGetFacReserveList = () => {
                 str += '<div class="col-span-3"><p class="text-[#637381] dark:text-bodydark">' + facility.modelName + '</p></div>';
                 str += '<div class="col-span-2"><p class="text-[#637381] dark:text-bodydark">' + rentPeriod + '</p></div>';
                 str += '<div class="col-span-1"><p class="text-[#637381] dark:text-bodydark">' + rentState + '</p></div>';
-                str += '<div class="col-span-2 flex justify-end" data-cat-name="' + facility.cat.catName + '"><button data-facility-id="' + facility.facilityId + '" data-modal-target="static-modal" data-modal-toggle="static-modal" data-rent-Term="' + facility.rentTerm + '" class="text-primary border border-primary rounded px-2 py-1 open-modal">대여하기</p></div>';
+                str += '<div class="col-span-2 flex justify-end" data-cat-name="' + facility.cat.catName + '"><button data-facility-id="' + facility.facilityId + '" data-modal-target="static-modal" data-modal-toggle="static-modal" data-rent-term="' + facility.rentTerm + '" class="text-primary border border-primary rounded px-2 py-1 open-modal">대여하기</p></div>';
                 str += '</div>';
                 $('#facreserve-list').append(str);
-            
+            	 
           });
-		
+        	
         
-        $(document).off('click', '.open-modal').on('click', '.open-modal', function(event){
+        $(document).on('click', '.open-modal', function(event){
                 console.log("나옴?");
                 var facilityId = $(this).data('facility-id');
                 var catName = $(this).parent().data('cat-name');
                 var rentTerm = $(this).data('rent-term');
-                
+           
                 $('#facilityId').val(facilityId);
                 $('#catName').val(catName);
                 $('#startDt').val(modalstartDt);
                 $('#endDt').val(modalendDt);
+                $('#rentTerm').val(rentTerm);
                 $('#static-modal').removeClass('hidden');
                 
+         
+
                 if(rentTerm === 0) {
                     modalendDt.setFullYear(modalendDt.getFullYear() + 1);
                 } else {
@@ -346,7 +350,7 @@ const fnGetFacReserveList = () => {
                     $('#static-modal').addClass('hidden'); // 모달 숨기기
                 });
            		
-                $(document).off('click', '#btn-reserve').on('click', '#btn-reserve', function(event) {
+                $(document).on('click', '.btn-reserve', function(event) {
                 	
                 	let startDt = $('#startDt').val();
                	    let endDt = $('#endDt').val();
@@ -360,7 +364,8 @@ const fnGetFacReserveList = () => {
                         rentPeriod = '단기대여';
                     }
                     
-             
+             		
+                    
                     $.ajax({
                     	type:'POST',
                     	url: '${contextPath}/reservation/reservefac.do',
@@ -382,7 +387,16 @@ const fnGetFacReserveList = () => {
                          }
                     });
                     
-                    
+                    let res = '';
+                    res += '<div class="grid grid-cols-12 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">';
+                    res += '<div class="col-span-2"><p class="text-[#637381]">' + catName + '</p></div>';
+                    res += '<div class="col-span-2"><p class="text-[#637381]">' + rentPeriod + '</p></div>';
+                    res += '<div class="col-span-3"><p class="text-[#637381]">' + startDt + '</p></div>';
+                    res += '<div class="col-span-3"><p class="text-[#637381]">' + endDt + '</p></div>';
+                    res += '<div class="col-span-2"><button id="btn-return" class="text-primary border border-primary rounded px-2 py-1">반납</button></div>';
+                    res += '</div>';
+                    res += '';
+                    $('#facilityreserve').append(res);
            
                 });
                 
@@ -419,7 +433,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
 
     // 대여하기 버튼 클릭 시 처리
-    $(document).off('click', '.open-modal').on('click', '.open-modal', function(event) {
+    $(document).on('click', '.open-modal', function(event) {
         var facilityId = $(this).data('facility-id');
         var catName = $(this).parent().data('cat-name');
         var rentTerm = $(this).data('rent-term');
@@ -433,21 +447,58 @@ document.addEventListener('DOMContentLoaded', function(event) {
         } else {
             modalendDt.setDate(modalendDt.getDate() + 7);
         }
-
+		
+        
+        
         // 모달 보이기
         staticModal.classList.remove('hidden');
     });
 
     // 모달 숨기기 처리 (취소 버튼 클릭 시)
-    $(document).off('click', '#btn-cancel').on('click', '#btn-cancel', function(event) {
+    $(document).on('click', '#btn-cancel', function(event) {
         staticModal.classList.add('hidden'); // 모달 숨기기
 
     });
 
+    $(document).on('click', '#btn-reserve', function(event) {
+        let startDt = $('#startDt').val();
+        let endDt = $('#endDt').val();
+        let facilityId = $('#facilityId').val();
+        let catName = $('#catName').val();
+        let rentTerm = $('#rentTerm').val();
+        let rentPeriod = (rentTerm === '0') ? '장기대여' : '단기대여';
+
+        $.ajax({
+            type: 'POST',
+            url: '${contextPath}/reservation/reservefac.do',
+            data: {
+                facilityId: facilityId,
+                rentTerm: rentTerm,
+                startDt: startDt,
+                endDt: endDt,
+                catName: catName
+            },
+            success: function(response) {	
+            	console.log("response", response);
+                staticModal.classList.add('hidden'); // 모달 숨기기
+                fnGetReserveFacility(); // 예약 추가 후 목록을 다시 불러오는 함수 호출
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('예약을 처리하는 중 오류가 발생했습니다:', textStatus, errorThrown);
+                // 에러 처리 (예: 사용자에게 알림, 로깅 등)
+            }
+        });
+        
+        
+    });
+    
 });
 
-var repage = 1;
-var reTotalPage = 0;
+
+
+
+var page = 1;
+var totalPage = 0;
 const fnGetReserveFacility = () => {
 	$(document).on('click', '.btn-reserve', function(event) {
          console.log("이건나와?");
@@ -464,7 +515,7 @@ const fnGetReserveFacility = () => {
             type: 'GET',
             url: '${contextPath}/reservation/getReserveFacility.do',
             data: {
-                repage: repage,
+                page: page,
                 startDt: startDt,  
                 endDt: endDt,  
                 facilityId: facilityId,
@@ -508,7 +559,9 @@ const fnGetReserveFacility = () => {
                 console.log("Ready State:", jqXHR.readyState);
             }
         });
+    	
     });
+	
 };
 
 

@@ -8,7 +8,7 @@
 //연결
 connect();
 function connect() {
-	webSocket = new WebSocket("ws://localhost:8080/msg"); //notifi 핸들러에서 앤드포인트 설정
+	webSocket = new WebSocket("ws://192.168.8.190:8080/msg"); //notifi 핸들러에서 앤드포인트 설정
 	//이벤트핸들러 등록
 	webSocket.onopen = fnOpen; 
 	webSocket.onmessage = fnMessage; 

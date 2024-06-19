@@ -108,7 +108,7 @@
         JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
         LEFT JOIN APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
         WHERE AD.EMP_ID = #{empId}
-        ORDER BY AD.WRITE_DT DESC
+        ORDER BY AD.DOC_ID DESC
     </select>
 
 		
@@ -131,7 +131,7 @@
 		    JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
 		    LEFT JOIN APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
 		    WHERE AD.EMP_ID = #{empId} AND AD.DOC_STATE = #{docState}
-		    ORDER BY AD.WRITE_DT DESC
+		    ORDER BY AD.DOC_ID DESC
 		</select>
 		
 				<!-- 결재문서함 위해 -->
@@ -155,7 +155,7 @@
 		    JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
 		    LEFT JOIN APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
 		    WHERE AD.EMP_ID = #{empId} AND APP.APPROVER = #{empId}
-		    ORDER BY AD.WRITE_DT DESC
+		    ORDER BY AD.DOC_ID DESC
 		</select>
 
 <!-- 부서문서함 리스트 -->
@@ -176,7 +176,7 @@
     JOIN DEPARTMENT_T DEP ON U.DEP_ID = DEP.CODE
     LEFT JOIN APPROVAL_T APP ON AD.DOC_ID = APP.DOC_ID
     WHERE DEP.CODE = #{depId} AND AD.DOC_STATE = #{docState}
-    ORDER BY AD.WRITE_DT DESC
+    ORDER BY AD.DOC_ID DESC
 </select>
 
 <select id="getDocCount" parameterType="map" resultType="int">

@@ -106,7 +106,7 @@
                 <c:if test="${approval.docState == 0}">
                     <div class="flex flex-col gap-1 border-b border-stroke pb-2 dark:border-strokedark xl:border-b-0 xl:border-r xl:pb-0">
                         <div class="mb-0.5 text-lg text-black dark:text-white p-1">
-                            결재상태
+                            
 			                     <c:choose>
 			                        <c:when test="${approval.docState == 0}">
 			                            <p class="text-lg font-medium">진행</p>
@@ -122,7 +122,7 @@
 			                        </c:when>
 			                    </c:choose>                       
                         </div>
-   
+   											<br>
                         <div class="mb-0.5 text-lg text-black dark:text-white p-1">
                             <p class="text-lg font-medium">${approval.title}</p>
                         </div>
@@ -209,7 +209,7 @@
                                 </p>
                             </div>
                             <div class="flex items-center justify-center p-2.5 xl:p-5">
-                                <p class="text-meta-3">${user.name}</p>
+                                <p class="text-meta-2">${user.name}</p>
                             </div>
                         </div>
                         </c:if>

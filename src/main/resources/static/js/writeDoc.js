@@ -224,7 +224,7 @@ $(document).ready(function() {
 						alert('작성 중인 문서가 임시저장함에 보관되었습니다.')
 	        window.location.href = 'main'; // 메인 페이지로 이동
 	    } else {
-				return ;
+				return false;
 			}
     });
     

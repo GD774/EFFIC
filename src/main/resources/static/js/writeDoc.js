@@ -230,8 +230,8 @@ $(document).ready(function() {
     
     // 작성취소 버튼
     $('#cancelWriting').click(function() {
-	    if (confirm('문서를 임시저장함에 보관하시겠습니까?')) {
-						alert('작성 중인 문서가 임시저장함에 보관되었습니다.')
+	    if (confirm('작성을 취소하시겠습니까? 작성 중이던 문서는 저장되지 않습니다.')) {
+						alert('작성을 취소하였습니다.')
 	        window.location.href = 'main'; // 메인 페이지로 이동
 	    } else {
 				return;

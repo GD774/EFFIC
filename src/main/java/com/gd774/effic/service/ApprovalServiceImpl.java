@@ -76,6 +76,8 @@ public class ApprovalServiceImpl implements ApprovalService {
                 .docState(docState)
                 .build();
 
+        System.out.println("appDoc=====>");
+        System.out.println(appDoc);
         // 문서 등록 실행
         approvalMapper.insertAppDoc(appDoc);
 

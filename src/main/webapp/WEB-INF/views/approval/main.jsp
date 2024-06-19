@@ -102,7 +102,7 @@
 
         <div class="col-span-12 rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
             <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4 xl:gap-2">
-                <c:forEach items="${myDocList}" var="approval" varStatus="status"  begin="1" end="4">
+                <c:forEach items="${myDocList}" var="approval" varStatus="status"  begin="0" end="3">
                 <c:if test="${approval.docState == 0 || approval.title != null}">
                     <div class="flex flex-col gap-1 border-b border-stroke pb-2 dark:border-strokedark xl:border-b-0 xl:border-r xl:pb-0">
                         <div class="mb-0.5 text-lg text-black dark:text-white p-1">

@@ -145,10 +145,12 @@
 	
 	<insert id="insertFacReserve"
 			parameterType="FacilityReserveDto">
+<!--  			
 		<selectKey order="BEFORE" keyProperty="rentId" resultType="int">
 	      SELECT FACILITY_RESERVE_SEQ.NEXTVAL
 	        FROM DUAL
     	</selectKey>
+ -->   	
 	INSERT INTO FACILITY_RESERVE_T(
 		  RENT_ID
 		, START_DT
@@ -156,11 +158,11 @@
 		, FACILITY_ID
 		, RENT_USER
 	) VALUES(
-		  #{rentId}
+		  FACILITY_RESERVE_SEQ.NEXTVAL
 		, #{startDt}
 		, #{endDt}
-		, #{facilityId}
-		, #{user.empId}
+		, #{fac.facilityId}
+		, #{rentUser}
 	)
 	</insert>
 	

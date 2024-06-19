@@ -167,11 +167,11 @@ public class ReserveServiceImpl implements ReserveService {
   // 대여 자산 불러오기
   @Override
   public ResponseEntity<Map<String, Object>> getReserveFacility(HttpServletRequest request) {
-    int retotal = reserveMapper.getFacReserveCount();
-    int redisplay = 3;
-    int repage = Integer.parseInt(request.getParameter("repage"));
+    int total = reserveMapper.getFacReserveCount();
+    int display = 3;
+    int page = Integer.parseInt(request.getParameter("page"));
     System.out.println("서비스이지롱");
-    pageUtils.setPaging(retotal, redisplay, repage);
+    pageUtils.setPaging(total, display, page);
     Map<String, Object> map = Map.of("begin", pageUtils.getBegin()
         ,"end", pageUtils.getEnd());
     return new ResponseEntity<>(Map.of("getFacReserve", reserveMapper.getFacReserve(map)
@@ -186,6 +186,7 @@ public class ReserveServiceImpl implements ReserveService {
     String startDt = request.getParameter("startDt");
     String endDt = request.getParameter("endDt");
     String rentUser = request.getParameter("rentUser");
+    int rentTerm = Integer.parseInt(request.getParameter("rentTerm"));
     System.out.println(facilityId);
     System.out.println(startDt);
     System.out.println(endDt);
@@ -193,13 +194,16 @@ public class ReserveServiceImpl implements ReserveService {
     UserDto user = new UserDto();
     user.setEmpId(rentUser);
     
+    FacilityManageDto facility = new FacilityManageDto();
+    facility.setFacilityId(facilityId);
+    facility.setRentTerm(rentTerm);
+    
     FacilityReserveDto facReserve = FacilityReserveDto.builder()
-                                          .facilityId(facilityId)
+                                          .fac(facility)
                                           .startDt(startDt)
                                           .endDt(endDt)
                                           .build();
     
-    //.user(user)
     return reserveMapper.insertFacReserve(facReserve);
   }
   

@@ -302,20 +302,6 @@ $(document).ready(function() {
 </div>
 </form>
 <script>
-var page = 1;
-var totalPage = 0;
-
-const fnRegisterFacility = () => {
-	if(document.getElementById('mainCategory').value === '') {
-		
-	} else if(document.getElementById('subCategory').value === '') {
-		
-	} else if(document.getElementById('modelName').value === '') {
-		
-	}
-}
-
-
 
 
 fnRegisterFacility();

@@ -88,7 +88,7 @@
     </insert>
     
     <!-- 내가 기안한 문서 목록 -->
-    <select id="getMyDocList" parameterType="AppDocDto"
+    <select id="getMyDocList" parameterType="map"
      resultMap="ApprovalMap">
         SELECT AD.WRITE_DT,
         			 AD.EMP_ID, 

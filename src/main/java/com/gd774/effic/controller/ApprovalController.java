@@ -44,39 +44,33 @@ public class ApprovalController {
     public String approvalMain(HttpServletRequest request, Model model) {
     	approvalService.loadMyDocList(request, model);
     	approvalService.loadMyAppDocList(request, model);
-    	
-    	model.addAttribute("myDocList", request);
-    	model.addAttribute("myAppDocList", request);
     	return "approval/main";
     }
     
    
     @GetMapping("/myDocList")
     public String loadMyDocList(HttpServletRequest request, Model model) {
-    	approvalService.loadMyDocList(request, model);
-    	model.addAttribute("myDocList", request);
-    	return "approval/myDocList";
+        approvalService.loadMyDocList(request, model);
+        return "approval/myDocList";
     }
+
     
     
     @GetMapping("/mySaveDocList")
     public String loadMySaveDocList(HttpServletRequest request, Model model) {
     	approvalService.loadMySaveDocList(request, model);
-    	model.addAttribute("mySaveDocList", request);
     	return "approval/mySaveDocList";
     }
     
     @GetMapping("/myAppDocList")
     public String loadMyAppDocList(HttpServletRequest request, Model model) {
     	approvalService.loadMyAppDocList(request, model);
-    	model.addAttribute("myAppDocList", request);
     	return "approval/myAppDocList";
     }
     
     @GetMapping("/depDocList")
     public String loadDepDocList(HttpServletRequest request, Model model) {
     	model.addAttribute("request", request);
-    	approvalService.loadDepDocList(request, model);
     	return "approval/depDocList";
     }
     
@@ -113,7 +107,7 @@ public class ApprovalController {
     							 , RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("inserted", approvalService.registerApproval(multipartRequest));
         
-        return "redirect:/approval/myDocList"; // 성공 페이지로 리다이렉트
+        return "redirect:/approval/main"; // 성공 페이지로 리다이렉트
     }
     
     

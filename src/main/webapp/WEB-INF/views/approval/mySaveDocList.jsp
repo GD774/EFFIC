@@ -109,7 +109,6 @@
     </div>
 </div>
 </div>
-${mySaveDocList}
                 <!-- ====== Table Section Start ===== -->
                 <div class="flex flex-col gap-1">
                     <!-- ====== Table Four Start -->

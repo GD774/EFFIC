@@ -168,6 +168,8 @@ public class ApprovalServiceImpl implements ApprovalService {
 	    
 	    map.put("empId", empId);
 	    map.put("depId", depId);
+	    
+	    
     	
 	    List<AppDocDto> myDocList = approvalMapper.getMyDocList(map);
 	    model.addAttribute("myDocList", myDocList);	
@@ -204,11 +206,9 @@ public class ApprovalServiceImpl implements ApprovalService {
     	Map<String, Object> map = new HashMap<>();
     	
     	map.put("empId", approver);
-    	map.put("docState", 0);
     	
     	List<AppDocDto> myAppDocList = approvalMapper.getMyAppDocList(map);
 	    model.addAttribute("myAppDocList", myAppDocList);	
-    	
     	
     }
     

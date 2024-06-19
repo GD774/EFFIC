@@ -23,7 +23,7 @@ public interface ReserveService {
    
    
    ResponseEntity<Map<String, Object>> getFacReserveList(HttpServletRequest request);
-   int FacilityReserve(HttpServletRequest request);
-   ResponseEntity<Map<String, Object>> getFacilityReseve(HttpServletRequest request);
+   int insertFacReserve(HttpServletRequest request);
+   ResponseEntity<Map<String, Object>> getReserveFacility(HttpServletRequest request);
    
 }

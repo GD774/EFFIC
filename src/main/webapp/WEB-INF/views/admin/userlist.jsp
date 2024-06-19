@@ -238,7 +238,7 @@
             <p class="text-[#637381] dark:text-bodydark">` + (user.pos ? user.pos.name : "미정") + `</p>
           </div>`;
 	  row += `<div class="col-span-1">
-              <button empId="` + user.empId + `" class="deleteuser float-right text-primary">삭제</button>
+              <button empid="` + user.empId + `" class="deleteuser float-right text-primary">삭제</button>
           </div>`;
 	  row += `</div>`;
 	  return row;
@@ -283,13 +283,15 @@
 	  var els = document.getElementsByClassName("deleteuser");
 	  for (var el of els) {
 		  el.addEventListener("click", (evt) => {
-			  var empId = evt.currentTarget.getAttribute("empId");
+			  var empId = evt.currentTarget.getAttribute("empid");
+			  console.log(JSON.stringify(empId));
 			  $.ajax({
 				  url: "${contextPath}/admin/delUser",
 				  method: "POST",
-				  data: JSON.stringify(empId)
+				  data: "empId=" + empId
 				  // error: (jqXHR) => {}
 			  });
+			  document.location.reload();
 		  });
 	  }
   };

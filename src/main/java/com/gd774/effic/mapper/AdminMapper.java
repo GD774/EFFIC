@@ -14,7 +14,9 @@ public interface AdminMapper {
 	public ArrayList<DeptEvo> selectDepts();
 	public ArrayList<CommCodeEvo> selectCommCodes(String discriminator);
 	public int insertUser(UserEvo user);
-	public int deleteUser(String empId);
 	public int insertDept(DeptEvo user);
-	public int insertCommCode(CommCodeEvo user);
+	public int insertCommCode(CommCodeEvo commcode);
+	public int deleteUser(String empId);
+	public int deleteDep(String code);
+	public int deleteComm(String code, String catCode);
 }

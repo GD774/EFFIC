@@ -37,9 +37,8 @@
       color: black
 }
 .fc-day-fri a {
-      color: black
+		color: black
 }
-
 
 
 .fc-day-sun a {
@@ -50,6 +49,12 @@
 .fc-day-sat a {
     color: blue;
 }
+
+.grid-cols-6 > * {
+    padding: 10px; 
+      color: black
+}
+
 
 #weatherIcon {
    display: inline-block
@@ -62,8 +67,9 @@
 }
 
 #weather {
-   text-align: center;
-   margin-top: 50px;
+	text-align: center;
+	margin-top: 50px;
+	border: solid 4px #b5b3b3;
 }
 
 #map {
@@ -285,21 +291,14 @@
   <div id="scheduleBox" class="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
   <!-- ====== Chart One Start -->
   <div class="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8">
-  <div class="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
-     
-     <div id='calendar'></div>
-     
+	  <div class="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
+	  	
+	  	<div id='calendar'></div>
+	  	
+	  </div>
   </div>
-  </div>
 
 
- 
-   
-
-
-         
-
-            
 <div id="weatherMap" class="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
   <div class="mb-4 justify-between gap-4 sm:flex">
     <div>
@@ -309,18 +308,15 @@
             <div id="weather" class="rounded-sm border border-stroke bg-white p-7.5 dark:border-strokedark dark:bg-boxdark xl:col-span-4">
             </div>
       
-        
-                
-                   <div id="map" style=" width: 400px; height: 300px;"></div>
-         
-         
+
+				    	<div id="map" style=" width: 400px; height: 300px;"></div>
+			
+			
         
         
       </h4>
     </div>
-    
 
-  
 </div>
     </div>
   </div>
@@ -461,7 +457,7 @@ function parseEvents(data) {
 
 <script>
         $(document).ready(function() {
-            //const apiKey = '117b9ffd59be6b785defaf8aa207ef3a'; // OpenWeather API 키를 여기에 입력하세요
+            //const apiKey = '117b9ffd59be6b785defaf8aa207ef3a'; // OpenWeather API 키
             const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=37.5665&lon=126.9780&units=metric&appid=117b9ffd59be6b785defaf8aa207ef3a&lang=kr`;
 
             function fetchWeather() {
@@ -470,7 +466,7 @@ function parseEvents(data) {
                     url: apiUrl,
                     type: 'GET',
                     success: function(data) {
-                        console.log("API 응답 데이터:", data); // 콘솔에 API 응답 로그 출력
+
                         
                         // 온도와 날씨 설명 및 아이콘 추출
                         const temperature = Math.round(data.main.temp); // 온도
@@ -479,10 +475,7 @@ function parseEvents(data) {
 
                         // 아이콘 URL
                         const iconUrl = `http://openweathermap.org/img/wn/\${icon}.png`;
-                        
-                        console.log("온도:", temperature); // 콘솔에 온도 출력
-                        console.log("날씨 설명:", description); // 콘솔에 날씨 설명 출력
-                        console.log("아이콘 URL:", iconUrl); // 콘솔에 아이콘 URL 출력
+                       
                         
                         // HTML 업데이트
                         $('#weather').append(`
@@ -508,7 +501,7 @@ function parseEvents(data) {
     </script>
     
     
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVlHOQjjs4Um_CkyPgIa971pnU_4ZFdpA&callback=initMap"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbNmIjC1fPeLBAuaI5SopaXeOTR0DKiYI&callback=initMap"></script>
     
      <script>
 window.initMap = function () {

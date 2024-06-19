@@ -90,16 +90,17 @@
     <!-- 내가 기안한 문서 목록 -->
     <select id="getMyDocList" parameterType="AppDocDto"
      resultMap="ApprovalMap">
-        SELECT AD.WRITE_DT, 
+        SELECT AD.WRITE_DT,
+        			 AD.EMP_ID, 
                AD.DOC_ID,
                APP.APP_DT, 
                AD.DOC_TEMP_CODE, 
-               AD.URGENT AS, 
-               AD.TITLE AS, 
-               AD.DOC_STATE AS,
-               U.NAME AS, 
-               DEP.NAME AS, 
-               U.DEP_ID AS,
+               AD.URGENT, 
+               AD.TITLE, 
+               AD.DOC_STATE,
+               U.NAME, 
+               DEP.NAME, 
+               U.DEP_ID,
                APP.APP_DOC_ID,
                APP.APP_STATE
         FROM APP_DOC_T AD

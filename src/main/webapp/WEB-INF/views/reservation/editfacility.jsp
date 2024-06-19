@@ -286,8 +286,8 @@ $(document).ready(function() {
     $('#btn-remove').on('click', function(evt) {
         // Remove 버튼 클릭 시 동작
         if (confirm('물품을 삭제하시겠습니까?')) {
-            $('#frm-facility-remove').attr('action', '${contextPath}/reservation/removefacility.do');
-            $('#frm-facility-remove').submit();
+            $('#frm-facility-modify').attr('action', '${contextPath}/reservation/removefacility.do');
+            $('#frm-facility-modify').submit();
         }
     });
 });

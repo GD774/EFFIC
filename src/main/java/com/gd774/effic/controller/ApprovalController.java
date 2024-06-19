@@ -53,8 +53,8 @@ public class ApprovalController {
    
     @GetMapping("/myDocList")
     public String loadMyDocList(HttpServletRequest request, Model model) {
-    	model.addAttribute("myDocList", request);
     	approvalService.loadMyDocList(request, model);
+    	model.addAttribute("myDocList", request);
     	return "approval/myDocList";
     }
     
@@ -113,7 +113,7 @@ public class ApprovalController {
     							 , RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("inserted", approvalService.registerApproval(multipartRequest));
         
-        return "redirect:/approval/main"; // 성공 페이지로 리다이렉트
+        return "redirect:/approval/myDocList"; // 성공 페이지로 리다이렉트
     }
     
     

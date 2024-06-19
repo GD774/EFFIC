@@ -6,7 +6,7 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
 <jsp:include page="../layout/opener.jsp"/>
-<jsp:include page="../layout/sidebar-admin.jsp"/>
+<jsp:include page="../layout/sidebar.jsp"/>
 
 <!-- ===== Content Area Start ===== -->
 <div
@@ -169,7 +169,12 @@
 		  else
 			  delete tree[ind].parent;
 
-	  return tree;
+	  var realtree = [];
+	  for (var n of tree)
+		  if (n)
+			  realtree.push(n);
+
+	  return realtree;
   };
 
   const renderDepChart = () => {
@@ -246,9 +251,28 @@
 			  var el = evt.currentTarget;
 			  // $("#parentPosName").attr("value", el.children[0].children[0].textContent);
 			  // $("#parentPos").attr("code", el.getAttribute("code"));
-			  renderPosInfo(el.children[0].children[0].textContent, el.getAttribute("code"));
+			  var code = el.getAttribute("code");
+			  renderPosInfo(el.children[0].children[0].textContent, code);
 		  });
 	  }
+  };
+
+  const listenToDelete = (id, url) => {
+	  var el = document.getElementById(id);
+	  el.addEventListener("click", (evt) => {
+		  var code = $("#" + id).attr("code");
+		  console.log("code is ", code);
+		  $.ajax({
+			  url: url,
+			  method: "DELETE",
+			  data: "code=" + code,
+			  success: (resData) => {
+				  document.location.reload();
+			  },
+			  error: (jqXHR) => {
+			  }
+		  });
+	  });
   };
 
   const renderMainTable = (element, data, option=null) => {
@@ -266,7 +290,7 @@
 		  }
 		  if (!(option && option["input"])) {
 			  content += `<div class="col-auto"><p class="text-[#637381] dark:text-bodydark">`;
-			  content += d[1];
+			  content += d[1] ? d[1] : "불명";
 			  content += `</p></div></div>`;
 		  }
 		  else {
@@ -281,7 +305,7 @@
 		  content += `<div class="grid grid-cols-12">
 				      <div class="col-span-2">
             <button `
-		  + "id=\"" + option["button"]["id"] + "\"" +
+		  + option["button"]["attrs"] +
 			  ` class="rounded-md px-4 py-3 text-white font-medium ` + option["button"]["color"] + ` hover:text-white md:text-base lg:px-6"
 			  >`
 			  + option["button"]["text"] +
@@ -304,7 +328,9 @@
 						  ["코드", depCode],
 						  ["사원수", resData]];
 			  renderMainTable($("#depInfo"), data,
-							  {"button":{"id": "delPos", "text": "삭제", "color": "bg-red"}});
+							  {"button":{"attrs": " code=\"" + depCode + "\" id=delDep ",
+										 "text": " 삭제 ", "color": " bg-red "}});
+			  listenToDelete("delDep", "${contextPath}/admin/delDep");
 		  },
 		  error: (jqXHR) => {
 			  alert("renderDepInfo\n\n" + jqXHR.responseText);
@@ -322,7 +348,9 @@
 						  ["코드", posCode],
 						  ["사원수", resData]];
 			  renderMainTable($("#posInfo"), data,
-							  {"button": {"id": "delPos", "text": "삭제", "color": "bg-red"}});
+							  {"button": {"attrs": " code=\"" + posCode + "\" id=delPos ",
+										  "text": " 삭제 ", "color": " bg-red "}});
+			  listenToDelete("delPos", "${contextPath}/admin/delPos");
 		  },
 		  error: (jqXHR) => {
 			  alert("renderPosInfo\n\n" + jqXHR.responseText);

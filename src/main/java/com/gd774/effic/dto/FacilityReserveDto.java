@@ -11,9 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class FacilityReserveDto {
-  private int rentId, rentTerm;
+  private int rentId;
   private String startDt, endDt, rentUser;
-  private int facilityId;
   private UserDto user;
-  private FacilityManageDto facility;
+  private FacilityManageDto fac;
 }
